@@ -13,6 +13,7 @@ struct Fusor{
 };
 
 float q = 1.602e-19;
+float ngas = 2.35404e19;
 
 Fusor fusor;
 
@@ -26,6 +27,9 @@ struct data_struct{
     float Crosssec_CX[100000];
     float Crosssec_Ion[100000];
     float Crosssec_Tot[100000];
+    float f[250];
+    float A[250];
+    float g[250][250];
 } data;
 
 /**
@@ -54,11 +58,13 @@ float ParticleEnergy2(int, int);
 float CrosssecCX(int);
 float CrosssecIon(int);
 float CrosssecTot(int);
+float f(int);
 void print_data(void);
 
 int main()
 {
     // filling the potential array and particle energy
+    cout << " Start of program" << endl;
     for (int r=0; r <= 250; r++)
     {
         data.phi[r] = Potential_Phi(r);
@@ -66,6 +72,7 @@ int main()
     }
 
     // filling the SIIEE and crosssection data arrays
+    cout << " Start of crosssection calculation " << endl;
     for (int E=0; E < -fusor.V0; E++)
     {
         data.SIIEE[E] = SIIEE(E);
@@ -73,8 +80,16 @@ int main()
         data.Crosssec_Ion[E] = CrosssecIon(E);
         data.Crosssec_Tot[E] = CrosssecTot(E);
 
-        if ( E%100 == 0)
+        if ( E%1000 == 0)
             cout << ".";
+    }
+
+    // start of survival function calculation
+    cout << "\n Start of crosssection calculation \n" << endl;
+    for (int r=0; r <= 250; r++)
+    {
+        data.f[r] = f(r);
+        cout << "." << endl;
     }
 
     int tmp;
@@ -156,7 +171,11 @@ float CrosssecTot(int energy)
 */
 float f(int r)
 {
-    float tmp = -1;
+    float tmp = 0;
+    for ( int i=r; r = fusor.b; r++ )
+        tmp = tmp + ngas * data.Crosssec_CX[r];
+
+    tmp = exp(-tmp);
 
     return tmp;
 }
@@ -183,7 +202,7 @@ void print_data(void)
     FILE * output;
     output = fopen("DATA.txt","w");
     for (int r=0; r<250; r++)
-        fprintf (output, "%d,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r]);
+        fprintf (output, "%d,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],f[r]);
 
     fclose(output);
     return;
