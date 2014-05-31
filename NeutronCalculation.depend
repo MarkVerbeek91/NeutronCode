@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1401569771 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+	<iostream>
+	<math.h>
+	<stdio.h>
+

@@ -9,7 +9,7 @@ struct Fusor{
     int b = 250; // anode radius in mm
     int V0 = -55000; // voltage
     float wire_diameter = 0.5; // in mm
-
+    float Tc = 0.95;
 };
 
 float q = 1.602e-19;
@@ -23,6 +23,7 @@ Fusor fusor;
 struct data_struct{
     float phi[250];
     float ParticleEnergy[250];
+    float ParticleEnergy2[250][250];
     float SIIEE[100000];
     float Crosssec_CX[100000];
     float Crosssec_Ion[100000];
@@ -30,6 +31,7 @@ struct data_struct{
     float f[250];
     float A[250];
     float g[250][250];
+    float Kernel[250][250];
 } data;
 
 /**
@@ -59,20 +61,35 @@ float CrosssecCX(int);
 float CrosssecIon(int);
 float CrosssecTot(int);
 float f(int);
+float A(int);
+float g(int, int);
+float gamma(int);
 void print_data(void);
 
 int main()
 {
     // filling the potential array and particle energy
-    cout << " Start of program" << endl;
+    cout << "-- Start of program --" << endl;
+    cout << "Potential and particle energy calculation" << endl;
     for (int r=0; r <= 250; r++)
     {
         data.phi[r] = Potential_Phi(r);
         data.ParticleEnergy[r] = ParticleEnergy1(r);
+        if ( r%25 == 0)
+            cout << ".";
+    }
+    cout << endl;
+    for (int r1=0; r1 <= 250; r1++)
+    {
+        for (int r=0; r < r1; r++)
+            data.ParticleEnergy2[r][r1] = ParticleEnergy2(r,r1);
+        if ( r1%25 == 0)
+            cout << ".";
     }
 
+
     // filling the SIIEE and crosssection data arrays
-    cout << " Start of crosssection calculation " << endl;
+    cout << "\nCrosssection calculation" << endl;
     for (int E=0; E < -fusor.V0; E++)
     {
         data.SIIEE[E] = SIIEE(E);
@@ -85,21 +102,33 @@ int main()
     }
 
     // start of survival function calculation
-    cout << "\n Start of crosssection calculation \n" << endl;
+    cout << "\nSurvival function calculation" << endl;
     for (int r=0; r <= 250; r++)
     {
         data.f[r] = f(r);
-        cout << "." << endl;
+        data.A[r] = A(r);
+
+        for (int r1=r; r1<= 250; r1++)
+            data.g[r][r1] = g(0, r1);
+
+        if ( r%25 == 0)
+            cout << ".";
     }
+/*
+    // filling of the kernel
+    cout << "\nFilling of Kernel" << endl;
+    for (int r=0; r <= 250; r++)
+    {
+        for (int r1=r; r1<= 250; r1++)
+            data.Kernel[0][r] = g(0, r);
 
-    int tmp;
-    for (int r1=0; r1<250; r1++)
-        for (int r=0; r < r1; r++)
-            tmp = ParticleEnergy2(r,r1);
-
+        if ( r%25 == 0)
+            cout << ".";
+    }
+*/
     print_data();
 
-    cout << "Done" << endl;
+    cout << "\nDone" << endl;
     return 0;
 }
 
@@ -172,8 +201,11 @@ float CrosssecTot(int energy)
 float f(int r)
 {
     float tmp = 0;
-    for ( int i=r; r = fusor.b; r++ )
+    for (r; r < fusor.b; r++ )
+    {
         tmp = tmp + ngas * data.Crosssec_CX[r];
+        //cout << tmp << endl;
+    }
 
     tmp = exp(-tmp);
 
@@ -183,6 +215,8 @@ float f(int r)
 float A(int r)
 {
     float tmp = -1;
+    int energy = data.ParticleEnergy[r];
+    tmp = ngas * gamma(r) * data.Crosssec_Tot[energy];
 
     return tmp;
 }
@@ -190,8 +224,42 @@ float A(int r)
 float g(int r, int r1)
 {
     float tmp = -1;
+    int energy;
 
+    if ( r > r1)
+    {
+        cout << "error: r >= r1" << endl;
+        return -2;
+    }
+
+    for (int r2=r; r2<r1; r2++)
+    {
+        energy = data.ParticleEnergy2[r2][r];
+        tmp = tmp + data.Crosssec_CX[energy];
+    }
+
+    tmp = ngas * tmp;
+    tmp = exp(-tmp);
     return tmp;
+}
+
+float gamma(int r)
+{
+    float Gamma = -1;
+    Gamma = pow(fusor.b,2)/pow(r,2) * (data.f[r] + pow(fusor.Tc * data.f[0],2)/data.f[r]);
+    return Gamma;
+}
+
+float kernel(int r, int r1)
+{
+    if ( r < r1 )
+    {
+        float tmp, energy;
+        energy = data.ParticleEnergy2[r][r1];
+        tmp = ngas * data.Crosssec_Tot[r,r1] * pow(r1/r,2) * (data.g[r][r1] + pow(fusor.Tc,2)*data.g[0][r1]/data.g[r][r1])/(1-pow(fusor.Tc,2)*data.g[0][r1]);
+    }
+    else
+        return 0;
 }
 
 /**
@@ -200,9 +268,9 @@ float g(int r, int r1)
 void print_data(void)
 {
     FILE * output;
-    output = fopen("DATA.txt","w");
-    for (int r=0; r<250; r++)
-        fprintf (output, "%d,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],f[r]);
+    output = fopen("DATA.csv","w");
+    for (int r=1; r<250; r++)
+        fprintf (output, "%d,%E,%E,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]);
 
     fclose(output);
     return;
