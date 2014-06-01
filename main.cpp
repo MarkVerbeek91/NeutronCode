@@ -65,6 +65,7 @@ float A(int);
 float g(int, int);
 float gamma(int);
 void print_data(void);
+void print_cross_section(void);
 
 int main()
 {
@@ -106,6 +107,7 @@ int main()
     for (int r=0; r <= 250; r++)
     {
         data.f[r] = f(r);
+        cout << data.f[r] << endl;
         data.A[r] = A(r);
 
         for (int r1=r; r1<= 250; r1++)
@@ -127,6 +129,7 @@ int main()
     }
 */
     print_data();
+    print_cross_section();
 
     cout << "\nDone" << endl;
     return 0;
@@ -271,6 +274,17 @@ void print_data(void)
     output = fopen("DATA.csv","w");
     for (int r=1; r<250; r++)
         fprintf (output, "%d,%E,%E,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]);
+
+    fclose(output);
+    return;
+}
+
+void print_cross_section(void)
+{
+    FILE * output;
+    output = fopen("DATA_cross_sections.csv","w");
+    for (int r=1; r<250; r++)
+        fprintf (output, "%E,%E,%E,%E\n",data.ParticleEnergy[r],data.Crosssec_CX[r],data.Crosssec_Ion[r],data.Crosssec_Tot[r]);
 
     fclose(output);
     return;
