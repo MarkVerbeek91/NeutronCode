@@ -2,6 +2,8 @@
 str = 'DATA.csv';
 data = csvread(str);
 
+data_c = csvread('DATA_cross_sections.csv');
+
 % r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]
 figure %potential
 plot(data(:,1),data(:,2))
@@ -9,6 +11,10 @@ figure %particle energies
 plot(data(:,1),data(:,3))
 figure
 plot(data(:,3),data(:,4),data(:,3),data(:,5))
+figure
+plot(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
+
+
 % 
 % , ...
 %      data(:,3),data(:,4), ...
