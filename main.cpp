@@ -38,16 +38,32 @@ struct data_struct{
     Coefficients for the CX cross section of deuterium
 */
 struct CX_cross_sections{
-    float A_cx[6] = {3.245,235.88,0.03871,3.8068e-6,1.1832e-10,2.3713};
-} CX_cs;
+    float A1cx =   3.245     ;
+    float A2cx = 235.88      ;
+    float A3cx =   0.03871   ;
+    float A4cx =   3.8068e-6 ;
+    float A5cx =   1.1832e-10;
+    float A6cx =   2.3713    ;
+} CS_cx;
 
 struct Ion_impact_cross_sections{
-    float A_Ion[8] = {12.899,61.897,9.27e3,4.749e-4,3.989e-2,-1.59,3.1838,-3.7154};
-} Ion_cs;
+    float A1Ion = 12.899    ;
+    float A2Ion = 61.897    ;
+    float A3Ion =  9.27e3   ;
+    float A4Ion =  4.749e-4 ;
+    float A5Ion =  3.989e-2 ;
+    float A6Ion = -1.59     ;
+    float A7Ion =  3.1838   ;
+    float A8Ion = -3.7154   ;
+} CS_Ion;
 
 struct Fusion_cross_section{
-    float A_fusion[5] = {47.88,482,3.08e-4,1.177,0};
-} Fusion_cs;
+    float A1Fusion =  47.88     ;
+    float A2Fusion = 482        ;
+    float A3Fusion =   3.08e-4  ;
+    float A4Fusion =   1.177    ;
+    float A5Fusion =   0        ;
+} CS_Fusion;
 
 
 /**
@@ -94,9 +110,12 @@ int main()
     for (int E=0; E < -fusor.V0; E++)
     {
         data.SIIEE[E] = SIIEE(E);
-        data.Crosssec_CX[E] = CrosssecCX(E);
+        data.Crosssec_CX[E]  = CrosssecCX(E);
         data.Crosssec_Ion[E] = CrosssecIon(E);
         data.Crosssec_Tot[E] = CrosssecTot(E);
+
+        if ( E%100 == 0 )
+            cout << data.Crosssec_CX[E] << " " << data.Crosssec_Ion[E] << " " << data.Crosssec_Tot[E] << endl;
 
         if ( E%1000 == 0)
             cout << ".";
@@ -107,7 +126,7 @@ int main()
     for (int r=0; r <= 250; r++)
     {
         data.f[r] = f(r);
-        cout << data.f[r] << endl;
+   //     cout << data.f[r] << endl;
         data.A[r] = A(r);
 
         for (int r1=r; r1<= 250; r1++)
@@ -180,14 +199,14 @@ float ParticleEnergy2(int r, int r1)
 float CrosssecCX(int energy)
 {
     float crosssection;
-    crosssection = (1e-20 * CX_cs.A_cx[0] * log( CX_cs.A_cx[2]/energy + CX_cs.A_cx[6])) / (1 + CX_cs.A_cx[3] * energy + CX_cs.A_cx[4] * pow(energy,3.5) + CX_cs.A_cx[5] * pow(energy,5.4));
+    crosssection = (1e-20 * CS_cx.A1cx * log((CS_cx.A2cx/energy) + CS_cx.A6cx)) / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
     return crosssection;
 }
 
 float CrosssecIon(int energy)
 {
     float crosssection = 0;
-
+    crosssection = 1e-20 * CS_Ion.A1Ion * (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy) / energy + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion)+CS_Ion.A7Ion*exp(CS_Ion.A8Ion)));
     return crosssection;
 }
 
