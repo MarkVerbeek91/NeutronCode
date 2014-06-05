@@ -7,7 +7,7 @@ using namespace std;
 struct Fusor{
     int a =  50; // cathode radius in mm
     int b = 250; // anode radius in mm
-    int V0 = -55000; // voltage
+    int V0 = -100; // voltage
     float wire_diameter = 0.5; // in mm
     float Tc = 0.95;
 };
@@ -199,14 +199,26 @@ float ParticleEnergy2(int r, int r1)
 float CrosssecCX(int energy)
 {
     float crosssection;
-    crosssection = (1e-20 * CS_cx.A1cx * log((CS_cx.A2cx/energy) + CS_cx.A6cx)) / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
+    crosssection = 1e-20 * CS_cx.A1cx; // * log((CS_cx.A2cx/energy) + CS_cx.A6cx)) / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
+//    cout << crosssection << endl;
+    crosssection = crosssection * log((CS_cx.A2cx/energy) + CS_cx.A6cx);
+//    cout << crosssection << endl;
+    crosssection = crosssection / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
+    cout << "CX: " << crosssection << endl;
+
     return crosssection;
 }
 
 float CrosssecIon(int energy)
 {
     float crosssection = 0;
-    crosssection = 1e-20 * CS_Ion.A1Ion * (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy) / energy + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion)+CS_Ion.A7Ion*exp(CS_Ion.A8Ion)));
+ //   crosssection = 1e-20 * CS_Ion.A1Ion * (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy) / energy + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion)));
+    crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
+//    cout << crosssection << endl;
+    crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
+//    cout << crosssection << endl;
+    crosssection = crosssection * 1e-20 * CS_Ion.A1Ion;
+    cout << "Ion: " <<crosssection << endl;
     return crosssection;
 }
 
@@ -214,6 +226,7 @@ float CrosssecTot(int energy)
 {
     float crosssection = 0;
     crosssection = data.Crosssec_CX[energy] + data.Crosssec_Ion[energy];
+    cout << "Tot: " << crosssection << endl;
     return crosssection;
 }
 
