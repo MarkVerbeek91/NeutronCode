@@ -12,7 +12,7 @@ figure %particle energies
 energies = plot(data(:,1),data(:,3))
 legend(energies, 'E')
 figure
-surfival = plot(data(:,3),data(:,4),data(:,3),data(:,5))
+surfival = plot(data(:,1),data(:,4),data(:,1),data(:,5))
 legend(surfival, 'f(r)', 'g(r,r1)')
 figure
 cross = loglog(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))

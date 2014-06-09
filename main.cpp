@@ -90,7 +90,7 @@ int main()
     // filling the potential array and particle energy
     cout << "-- Start of program --" << endl;
     cout << "Potential and particle energy calculation" << endl;
-    for (int r=0; r <= 250; r++)
+    for (int r=0; r < 250; r++)
     {
         data.phi[r] = Potential_Phi(r);
         data.ParticleEnergy[r] = ParticleEnergy1(r);
@@ -98,13 +98,21 @@ int main()
             cout << ".";
     }
     cout << endl;
-    for (int r1=0; r1 <= 250; r1++)
+
+    FILE * abc;
+    abc = fopen("test.csv","w");
+    for (int r1=0; r1 < 250; r1++)
     {
-        for (int r=0; r < r1; r++)
+        for (int r=0; r < 250; r++)
+        {
             data.ParticleEnergy2[r][r1] = ParticleEnergy2(r,r1);
+            fprintf(abc,"%E",data.ParticleEnergy2[r][r1]);
+        }
+        fprintf(abc,"\n");
         if ( r1%25 == 0)
             cout << ".";
     }
+
 
 
     // filling the SIIEE and crosssection data arrays
@@ -116,10 +124,7 @@ int main()
         data.Crosssec_Ion[E] = CrosssecIon(E);
         data.Crosssec_Tot[E] = CrosssecTot(E);
 
-        if ( E%100 == 0 )
-            cout << data.Crosssec_CX[E] << " " << data.Crosssec_Ion[E] << " " << data.Crosssec_Tot[E] << endl;
-
-        if ( E%1000 == 0)
+        if ( E%(fusor.V0/50) == 0)
             cout << ".";
     }
 
@@ -140,19 +145,22 @@ int main()
 
     // filling of the kernel
     cout << "\nFilling of Kernel" << endl;
-    for (int r=0; r <= 250; r++)
+    for (int r=0; r < 250; r++)
     {
-        for (int r1=r; r1<= 250; r1++)
+        for (int r1=0; r1 < 250; r1++)
             data.Kernel[r][r1] = kernel(r,r1);
 
         if ( r%25 == 0)
             cout << ".";
     }
-    print_data();
-    print_cross_section();
-    print_kernel();
 
-    cout << "\nDone" << endl;
+    // printing output
+    cout << "\nPrinting output to files" << endl;
+    print_data();           cout << ".";
+    print_cross_section();  cout << ".";
+    print_kernel();         cout << ".";
+
+    cout << "\n-- Done --" << endl;
     return 0;
 }
 
@@ -206,7 +214,7 @@ float CrosssecCX(int energy)
     crosssection = crosssection * log((CS_cx.A2cx/energy) + CS_cx.A6cx);
 //    cout << crosssection << endl;
     crosssection = crosssection / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
-    cout << "CX: " << crosssection << endl;
+//    cout << "CX: " << crosssection << endl;
 
     return crosssection;
 }
@@ -220,7 +228,7 @@ float CrosssecIon(int energy)
     crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
 //    cout << crosssection << endl;
     crosssection = crosssection * 1e-20 * CS_Ion.A1Ion;
-    cout << "Ion: " <<crosssection << endl;
+//    cout << "Ion: " <<crosssection << endl;
     return crosssection;
 }
 
@@ -228,7 +236,7 @@ float CrosssecTot(int energy)
 {
     float crosssection = 0;
     crosssection = data.Crosssec_CX[energy] + data.Crosssec_Ion[energy];
-    cout << "Tot: " << crosssection << endl;
+//    cout << "Tot: " << crosssection << endl;
     return crosssection;
 }
 
@@ -290,14 +298,21 @@ float gamma(int r)
 float kernel(int r, int r1)
 {
     float tmp;
-    if ( r < r1 )
+     if ( r < r1 )
     {
-        float energy;
+        int energy;
         energy = data.ParticleEnergy2[r][r1];
-        tmp = ngas * data.Crosssec_Tot[r,r1] * pow(r1/r,2) * (data.g[r][r1] + pow(fusor.Tc,2)*data.g[0][r1]/data.g[r][r1])/(1-pow(fusor.Tc,2)*data.g[0][r1]);
+        cout << energy << endl;
+        tmp = pow(r1/r,2) * (data.g[r][r1] + pow(fusor.Tc,2)*data.g[0][r1]/data.g[r][r1])/(1-pow(fusor.Tc,2)*data.g[0][r1]);
+        cout << tmp << endl;
+        tmp = tmp * ngas * data.Crosssec_Tot[energy];
+        cout << tmp << endl;
     }
     else
         tmp = 0;
+
+
+
     return tmp;
 }
 
