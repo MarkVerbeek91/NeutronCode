@@ -7,7 +7,7 @@ using namespace std;
 struct Fusor{
     int a =  50; // cathode radius in mm
     int b = 250; // anode radius in mm
-    int V0 = -100; // voltage
+    int V0 = -1000; // voltage
     float wire_diameter = 0.5; // in mm
     float Tc = 0.95;
 };
@@ -25,9 +25,9 @@ struct data_struct{
     float ParticleEnergy[250];
     float ParticleEnergy2[250][250];
     float SIIEE[100000];
-    float Crosssec_CX[100000];
-    float Crosssec_Ion[100000];
-    float Crosssec_Tot[100000];
+    double Crosssec_CX[100000];
+    double Crosssec_Ion[100000];
+    double Crosssec_Tot[100000];
     float f[250];
     float A[250];
     float g[250][250];
@@ -80,8 +80,10 @@ float f(int);
 float A(int);
 float g(int, int);
 float gamma(int);
+float kernel(int, int);
 void print_data(void);
 void print_cross_section(void);
+void print_kernel(void);
 
 int main()
 {
@@ -135,20 +137,20 @@ int main()
         if ( r%25 == 0)
             cout << ".";
     }
-/*
+
     // filling of the kernel
     cout << "\nFilling of Kernel" << endl;
     for (int r=0; r <= 250; r++)
     {
         for (int r1=r; r1<= 250; r1++)
-            data.Kernel[0][r] = g(0, r);
+            data.Kernel[r][r1] = kernel(r,r1);
 
         if ( r%25 == 0)
             cout << ".";
     }
-*/
     print_data();
     print_cross_section();
+    print_kernel();
 
     cout << "\nDone" << endl;
     return 0;
@@ -258,7 +260,7 @@ float A(int r)
 
 float g(int r, int r1)
 {
-    float tmp = -1;
+    float tmp = -1.0;
     int energy;
 
     if ( r > r1)
@@ -287,14 +289,16 @@ float gamma(int r)
 
 float kernel(int r, int r1)
 {
+    float tmp;
     if ( r < r1 )
     {
-        float tmp, energy;
+        float energy;
         energy = data.ParticleEnergy2[r][r1];
         tmp = ngas * data.Crosssec_Tot[r,r1] * pow(r1/r,2) * (data.g[r][r1] + pow(fusor.Tc,2)*data.g[0][r1]/data.g[r][r1])/(1-pow(fusor.Tc,2)*data.g[0][r1]);
     }
     else
-        return 0;
+        tmp = 0;
+    return tmp;
 }
 
 /**
@@ -304,7 +308,7 @@ void print_data(void)
 {
     FILE * output;
     output = fopen("DATA.csv","w");
-    for (int r=1; r<250; r++)
+    for (int r=1; r<249; r++)
         fprintf (output, "%d,%E,%E,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]);
 
     fclose(output);
@@ -315,9 +319,23 @@ void print_cross_section(void)
 {
     FILE * output;
     output = fopen("DATA_cross_sections.csv","w");
-    for (int r=1; r<250; r++)
-        fprintf (output, "%E,%E,%E,%E\n",data.ParticleEnergy[r],data.Crosssec_CX[r],data.Crosssec_Ion[r],data.Crosssec_Tot[r]);
+    for (int E=1; E < -fusor.V0; E++)
+        fprintf (output, "%d,%E,%E,%E\n",E,data.Crosssec_CX[E],data.Crosssec_Ion[E],data.Crosssec_Tot[E]);
 
     fclose(output);
+    return;
+}
+
+void print_kernel(void)
+{
+    FILE * output;
+    output = fopen("Kernel.csv","w");
+    for (int r=0; r <= 250; r++)
+    {
+        for (int r1=r; r1<= 250; r1++)
+            fprintf(output,"%E,",data.Kernel[r][r1]);
+
+        fprintf(output,"\n");
+    }
     return;
 }

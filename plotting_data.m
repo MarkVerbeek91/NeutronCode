@@ -1,7 +1,7 @@
-% plotting data from the NeutronCode
-str = 'DATA.csv';
-data = csvread(str);
+clear all
 
+% plotting data from the NeutronCode
+data = csvread('DATA.csv');
 data_c = csvread('DATA_cross_sections.csv');
 
 % r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]
@@ -15,7 +15,7 @@ figure
 surfival = plot(data(:,3),data(:,4),data(:,3),data(:,5))
 legend(surfival, 'f(r)', 'g(r,r1)')
 figure
-cross = plot(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
+cross = loglog(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
 legend(cross, 'CX','Ion','Tot')
 
 % 
