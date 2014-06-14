@@ -7,15 +7,19 @@ using namespace std;
 struct Fusor{
     int a =  50; // cathode radius in mm
     int b = 250; // anode radius in mm
-    int V0 = -1000; // voltage
+    int V0 = -55000; // voltage
     float wire_diameter = 0.5; // in mm
-    float Tc = 0.95;
+    float Tc;
 };
 
-float q = 1.602e-19;
-float ngas = 2.35404e19;
-
 Fusor fusor;
+
+float q = 1.602e-19;
+float pressure = 0.5;  // Pa
+float Tgas = 300; // K
+float ngas = 6.022e23 * pressure / (8.314 * Tgas);   //2.35404e19;
+float E0 = 0.0001;          // reducing errors
+float Itot = 0.1;
 
 /**
     each millimeter has it's own data point.
@@ -25,9 +29,10 @@ struct data_struct{
     float ParticleEnergy[250];
     float ParticleEnergy2[250][250];
     float SIIEE[100000];
-    double Crosssec_CX[100000];
-    double Crosssec_Ion[100000];
-    double Crosssec_Tot[100000];
+    double Crosssec_CX[500000];
+    double Crosssec_Ion[500000];
+    double Crosssec_Tot[500000];
+    double Crosssec_Fus[500000];
     float f[250];
     float A[250];
     float g[250][250];
@@ -69,24 +74,28 @@ struct Fusion_cross_section{
 /**
     function declarations
 */
-float Potential_Phi(int);
+float Potential_Phi(float);
 float SIIEE(float);
 float ParticleEnergy1(int);
 float ParticleEnergy2(int, int);
 float CrosssecCX(int);
 float CrosssecIon(int);
 float CrosssecTot(int);
+float CrosssecFusion(int);
 float f(int);
 float A(int);
 float g(int, int);
 float gamma(int);
 float kernel(int, int);
 void print_data(void);
+void print_SIIEE(void);
 void print_cross_section(void);
 void print_kernel(void);
 
 int main()
 {
+    fusor.Tc = 1 - (2.5*fusor.wire_diameter *(fusor.a/pow(fusor.a,2)));
+
     // filling the potential array and particle energy
     cout << "-- Start of program --" << endl;
     cout << "Potential and particle energy calculation" << endl;
@@ -113,18 +122,26 @@ int main()
             cout << ".";
     }
 
-
-
-    // filling the SIIEE and crosssection data arrays
-    cout << "\nCrosssection calculation" << endl;
+    // filling the SIIEE data array
+    cout << "\nSIIEE calculation" << endl;
     for (int E=0; E < -fusor.V0; E++)
     {
         data.SIIEE[E] = SIIEE(E);
+
+        if ( E%(fusor.V0/50) == 0)
+            cout << ".";
+    }
+
+    // filling the crosssections data arrays
+    cout << "\nCrosssection calculation" << endl;
+    for (int E=0; E < 500000; E++)
+    {
         data.Crosssec_CX[E]  = CrosssecCX(E);
         data.Crosssec_Ion[E] = CrosssecIon(E);
         data.Crosssec_Tot[E] = CrosssecTot(E);
+        data.Crosssec_Fus[E] = CrosssecFusion(E);
 
-        if ( E%(fusor.V0/50) == 0)
+        if ( E%10000 == 0)
             cout << ".";
     }
 
@@ -134,7 +151,7 @@ int main()
     {
         data.f[r] = f(r);
    //     cout << data.f[r] << endl;
-        data.A[r] = A(r);
+        data.A[r] = -1; // A(r);
 
         for (int r1=r; r1<= 250; r1++)
             data.g[r][r1] = g(0, r1);
@@ -148,7 +165,7 @@ int main()
     for (int r=0; r < 250; r++)
     {
         for (int r1=0; r1 < 250; r1++)
-            data.Kernel[r][r1] = kernel(r,r1);
+          //  data.Kernel[r][r1] = kernel(r,r1);
 
         if ( r%25 == 0)
             cout << ".";
@@ -157,6 +174,7 @@ int main()
     // printing output
     cout << "\nPrinting output to files" << endl;
     print_data();           cout << ".";
+    print_SIIEE();          cout << ".";
     print_cross_section();  cout << ".";
     print_kernel();         cout << ".";
 
@@ -169,14 +187,14 @@ int main()
    This function returns the potential on position r. Input is a float r in
    meter and return is a float phi in volt.
 */
-float Potential_Phi(int r)
+float Potential_Phi(float r)
 {
     float phi;
 
     if ( r <= fusor.a)
-        phi = fusor.V0;
+        phi = fusor.V0/1000;
     else
-        phi = (fusor.a * (fusor.b - r) * -fusor.V0) / (r * (fusor.a - fusor.b));
+        phi = (fusor.a * (fusor.b - r) * -fusor.V0) / (r * (fusor.a - fusor.b) * 1000);
 
     return phi;
 }
@@ -184,7 +202,7 @@ float Potential_Phi(int r)
 float SIIEE(float energy)
 {
     float tmp;
-    tmp = 1.5*pow((1.15*(energy/97.861)),-0.667)*(1-exp(-1.8*pow(energy/97.891,1.2)));
+    tmp = 1.5*pow((1.15*(energy/97861)),-0.667)*(1-exp(-1.8*pow(energy/97891,1.2)));
     return tmp;
 }
 
@@ -206,9 +224,10 @@ float ParticleEnergy2(int r, int r1)
 /**
     The next three functions compute the cross section at given energy
 */
-float CrosssecCX(int energy)
+float CrosssecCX(int E)
 {
     float crosssection;
+    float energy = E/1000.;
     crosssection = 1e-20 * CS_cx.A1cx; // * log((CS_cx.A2cx/energy) + CS_cx.A6cx)) / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
 //    cout << crosssection << endl;
     crosssection = crosssection * log((CS_cx.A2cx/energy) + CS_cx.A6cx);
@@ -219,9 +238,10 @@ float CrosssecCX(int energy)
     return crosssection;
 }
 
-float CrosssecIon(int energy)
+float CrosssecIon(int E)
 {
     float crosssection = 0;
+    float energy = E/1000.;
  //   crosssection = 1e-20 * CS_Ion.A1Ion * (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy) / energy + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion)));
     crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
 //    cout << crosssection << endl;
@@ -237,6 +257,16 @@ float CrosssecTot(int energy)
     float crosssection = 0;
     crosssection = data.Crosssec_CX[energy] + data.Crosssec_Ion[energy];
 //    cout << "Tot: " << crosssection << endl;
+    return crosssection;
+}
+
+float CrosssecFusion(int E)
+{
+    float crosssection, energy = E/1000.;
+
+    crosssection = CS_Fusion.A5Fusion + CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1);
+    crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion/sqrt(energy))-1));
+    crosssection = 1e-28 * crosssection;
     return crosssection;
 }
 
@@ -263,7 +293,7 @@ float A(int r)
     int energy = data.ParticleEnergy[r];
     tmp = ngas * gamma(r) * data.Crosssec_Tot[energy];
 
-    return tmp;
+    return -1;
 }
 
 float g(int r, int r1)
@@ -330,12 +360,23 @@ void print_data(void)
     return;
 }
 
+void print_SIIEE(void)
+{
+    FILE * output;
+    output = fopen("DATA_SIIEE.csv","w");
+    for (int E=1; E < -fusor.V0; E++)
+        fprintf (output, "%d,%E\n",E,data.SIIEE[E]);
+
+    fclose(output);
+    return;
+}
+
 void print_cross_section(void)
 {
     FILE * output;
     output = fopen("DATA_cross_sections.csv","w");
-    for (int E=1; E < -fusor.V0; E++)
-        fprintf (output, "%d,%E,%E,%E\n",E,data.Crosssec_CX[E],data.Crosssec_Ion[E],data.Crosssec_Tot[E]);
+    for (int E=1; E < 500000; E++)
+        fprintf (output, "%d,%E,%E,%E,%E\n",E,data.Crosssec_CX[E],data.Crosssec_Ion[E],data.Crosssec_Tot[E],data.Crosssec_Fus[E]);
 
     fclose(output);
     return;
