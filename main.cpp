@@ -132,6 +132,9 @@ int main()
             cout << ".";
     }
 
+  //  for (int E=0; E< 500; E++)
+  //      data.Crosssec_Fus[E] = CrosssecFusion(E);
+
     // filling the crosssections data arrays
     cout << "\nCrosssection calculation" << endl;
     for (int E=0; E < 500000; E++)
@@ -139,7 +142,11 @@ int main()
         data.Crosssec_CX[E]  = CrosssecCX(E);
         data.Crosssec_Ion[E] = CrosssecIon(E);
         data.Crosssec_Tot[E] = CrosssecTot(E);
-        data.Crosssec_Fus[E] = CrosssecFusion(E);
+    //    data.Crosssec_Fus[E] = CrosssecFusion(E);
+        if (E < 50000)
+            data.Crosssec_Fus[E] = 0;
+        else
+            data.Crosssec_Fus[E] = CrosssecFusion(E);
 
         if ( E%10000 == 0)
             cout << ".";
@@ -262,11 +269,12 @@ float CrosssecTot(int energy)
 
 float CrosssecFusion(int E)
 {
-    float crosssection, energy = E/1000.;
+    double crosssection, energy = E/1000., tmp;
 
-    crosssection = CS_Fusion.A5Fusion + CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1);
-    crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion/sqrt(energy))-1));
-    crosssection = 1e-28 * crosssection;
+    crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
+ //   cout << "1: " << crosssection << endl;
+    crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion / sqrt(energy))-1));
+ //   cout << "2: " << crosssection << endl;
     return crosssection;
 }
 
