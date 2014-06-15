@@ -16,8 +16,8 @@ Fusor fusor;
 
 float q = 1.602e-19;
 float pressure = 0.5;  // Pa
-float Tgas = 300; // K
-float ngas = 6.022e23 * pressure / (8.314 * Tgas);   //2.35404e19;
+float Tgas = 400; // K
+float ngas = 2.35404e19; //6.022e23 * pressure / (8.314 * Tgas);
 float E0 = 0.0001;          // reducing errors
 float Itot = 0.1;
 
@@ -109,7 +109,7 @@ int main()
     cout << endl;
 
     FILE * abc;
-    abc = fopen("test.csv","w");
+    abc = fopen("ParticalEnergy2.csv","w");
     for (int r1=0; r1 < 250; r1++)
     {
         for (int r=0; r < 250; r++)
@@ -157,16 +157,16 @@ int main()
     for (int r=0; r <= 250; r++)
     {
         data.f[r] = f(r);
-   //     cout << data.f[r] << endl;
+        cout << "f(" << r << ") = " << data.f[r] << endl;
         data.A[r] = -1; // A(r);
 
         for (int r1=r; r1<= 250; r1++)
-            data.g[r][r1] = g(0, r1);
+            data.g[r][r1] = -1; // g(0, r1);
 
         if ( r%25 == 0)
             cout << ".";
     }
-
+/*
     // filling of the kernel
     cout << "\nFilling of Kernel" << endl;
     for (int r=0; r < 250; r++)
@@ -177,7 +177,7 @@ int main()
         if ( r%25 == 0)
             cout << ".";
     }
-
+*/
     // printing output
     cout << "\nPrinting output to files" << endl;
     print_data();           cout << ".";
@@ -189,11 +189,14 @@ int main()
     return 0;
 }
 
-
-/**
-   This function returns the potential on position r. Input is a float r in
-   meter and return is a float phi in volt.
-*/
+/** \brief This function returns the potential on position r. Input is a float r in
+   meter and return is a float phi in KiloVolt.
+ *
+ * \param r = radius
+ * \param
+ * \return potential in kV
+ *
+ */
 float Potential_Phi(float r)
 {
     float phi;
@@ -213,6 +216,12 @@ float SIIEE(float energy)
     return tmp;
 }
 
+/** \brief calculates the energy of particle at radius r coming from outer edge
+ *
+ * \param r = radius where particle is
+ * \return energie in KeV
+ *
+ */
 float ParticleEnergy1(int r)
 {
     float energy;
@@ -220,61 +229,81 @@ float ParticleEnergy1(int r)
     return energy;
 }
 
+/** \brief Calculates the energy of particle at radius r coming from born radius r1
+ *
+ * \param r = radius where particle is
+ * \param r1= radius where particle is born
+ * \return
+ *
+ */
 float ParticleEnergy2(int r, int r1)
 {
     float energy;
-//    energy = 0.5 * (Potential_Phi(r1) - Potential_Phi(r));
     energy = 0.5 * (data.phi[r1] - data.phi[r]);
     return energy;
 }
 
-/**
-    The next three functions compute the cross section at given energy
-*/
+/** \brief Calculates the CX crosssection for particle with energy E
+ *
+ * \param E = energy of particle
+ * \param
+ * \return crosssection in m2
+ *
+ */
 float CrosssecCX(int E)
 {
     float crosssection;
     float energy = E/1000.;
-    crosssection = 1e-20 * CS_cx.A1cx; // * log((CS_cx.A2cx/energy) + CS_cx.A6cx)) / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
-//    cout << crosssection << endl;
+    crosssection = 1e-20 * CS_cx.A1cx;
     crosssection = crosssection * log((CS_cx.A2cx/energy) + CS_cx.A6cx);
-//    cout << crosssection << endl;
     crosssection = crosssection / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
-//    cout << "CX: " << crosssection << endl;
 
     return crosssection;
 }
 
+/** \brief Calculates the Ion crosssection for particle with energy E
+ *
+ * \param E = energy of particle
+ * \param
+ * \return crosssection in m2
+ *
+ */
 float CrosssecIon(int E)
 {
     float crosssection = 0;
     float energy = E/1000.;
- //   crosssection = 1e-20 * CS_Ion.A1Ion * (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy) / energy + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion)));
     crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
-//    cout << crosssection << endl;
     crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
-//    cout << crosssection << endl;
     crosssection = crosssection * 1e-20 * CS_Ion.A1Ion;
-//    cout << "Ion: " <<crosssection << endl;
     return crosssection;
 }
 
+/** \brief Calculates the Tot crosssection for particle with energy E
+ *
+ * \param E = energy of particle
+ * \param
+ * \return crosssection in m2
+ *
+ */
 float CrosssecTot(int energy)
 {
     float crosssection = 0;
     crosssection = data.Crosssec_CX[energy] + data.Crosssec_Ion[energy];
-//    cout << "Tot: " << crosssection << endl;
     return crosssection;
 }
 
+/** \brief Calculates the fusion crosssection for particle with energy E
+ *
+ * \param E = energy of particle
+ * \param
+ * \return crosssection in m2
+ *
+ */
 float CrosssecFusion(int E)
 {
-    double crosssection, energy = E/1000., tmp;
-
+    float crosssection, energy = E/1000.;
     crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
- //   cout << "1: " << crosssection << endl;
     crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion / sqrt(energy))-1));
- //   cout << "2: " << crosssection << endl;
     return crosssection;
 }
 
@@ -284,13 +313,16 @@ float CrosssecFusion(int E)
 float f(int r)
 {
     float tmp = 0;
+    int energy;
+    // very simple intergration.
     for (r; r < fusor.b; r++ )
     {
-        tmp = tmp + ngas * data.Crosssec_CX[r];
-        //cout << tmp << endl;
+        energy = data.ParticleEnergy[r]*1000;
+        tmp = tmp + data.Crosssec_CX[energy]/1000;
+   //     cout << "r: " << r << " E:" << energy << " tmp: " << tmp << endl;
     }
 
-    tmp = exp(-tmp);
+    tmp = exp(-ngas * tmp);
 
     return tmp;
 }
@@ -355,13 +387,13 @@ float kernel(int r, int r1)
 }
 
 /**
-    This function writes the data to a file that's matlab readeble.
+    These functions write the data to files that are matlab readable.
 */
 void print_data(void)
 {
     FILE * output;
     output = fopen("DATA.csv","w");
-    for (int r=1; r<249; r++)
+    for (int r=1; r<250; r++)
         fprintf (output, "%d,%E,%E,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]);
 
     fclose(output);
