@@ -1,19 +1,22 @@
 clear all
 
 % plotting data from the NeutronCode
-data = csvread('DATA.csv');
-data_c = csvread('DATA_cross_sections.csv');
+data = csvread('C:/Users/Mark/Dropbox/Projecten/NeutronCode/DATA.csv');
+data_c = csvread('C:/Users/Mark/Dropbox/Projecten/NeutronCode/DATA_cross_sections.csv');
 
 % r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]
-figure %potential
-potential = plot(data(:,1),data(:,2))
-legend(potential, 'Phi')
-figure %particle energies
-energies = plot(data(:,1),data(:,3))
-legend(energies, 'E')
-figure
-surfival = plot(data(:,1),data(:,4),data(:,1),data(:,5))
-legend(surfival, 'f(r)', 'g(r,r1)')
+% figure %potential
+% potential = plot(data(:,1),data(:,2))
+% legend(potential, 'Phi')
+% figure %particle energies
+% energies = plot(data(:,1),data(:,3))
+% legend(energies, 'E')
+% figure
+% surfival = plot(data_c(:,1),data_c(:,2))
+% legend(surfival, 'SIIEE')
+% figure
+% surfival = plot(data(:,1),data(:,4),data(:,1),data(:,5))
+% legend(surfival, 'f(r)', 'g(r,r1)')
 figure
 cross = loglog(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
 legend(cross, 'CX','Ion','Tot')
