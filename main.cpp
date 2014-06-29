@@ -314,6 +314,7 @@ float f(int r)
 {
     float tmp = 0;
     int energy;
+
     // very simple intergration.
     for (r; r < fusor.b; r++ )
     {
