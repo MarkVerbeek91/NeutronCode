@@ -194,7 +194,7 @@ int main()
  *
  * \param r = radius
  * \param
- * \return potential in kV
+ * \return potential in V
  *
  */
 float Potential_Phi(float r)
@@ -202,9 +202,9 @@ float Potential_Phi(float r)
     float phi;
 
     if ( r <= fusor.a)
-        phi = fusor.V0/1000;
+        phi = fusor.V0;
     else
-        phi = (fusor.a * (fusor.b - r) * -fusor.V0) / (r * (fusor.a - fusor.b) * 1000);
+        phi = (fusor.a * (fusor.b - r) * -fusor.V0/1000.) / (r * (fusor.a - fusor.b));
 
     return phi;
 }
@@ -219,13 +219,13 @@ float SIIEE(float energy)
 /** \brief calculates the energy of particle at radius r coming from outer edge
  *
  * \param r = radius where particle is
- * \return energie in KeV
+ * \return energie in eV
  *
  */
 float ParticleEnergy1(int r)
 {
     float energy;
-    energy = -0.5 * data.phi[r];
+    energy = - data.phi[r];
     return energy;
 }
 
