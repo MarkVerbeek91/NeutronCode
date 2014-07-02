@@ -8,86 +8,86 @@ struct Fusor{
     int a =  50; // cathode radius in mm
     int b = 250; // anode radius in mm
     int V0 = -55000; // voltage
-    float wire_diameter = 0.5; // in mm
-    float Tc;
+    double wire_diameter = 0.5; // in mm
+    double Tc;
 };
 
 Fusor fusor;
 
-float q = 1.602e-19;
-float pressure = 0.5;  // Pa
-float Tgas = 400; // K
-float ngas = 2.35404e19; //6.022e23 * pressure / (8.314 * Tgas);
-float E0 = 0.0001;          // reducing errors
-float Itot = 0.1;
+double q = 1.602e-19;
+double pressure = 0.5;  // Pa
+double Tgas = 400; // K
+double ngas = 9.05401e19; //6.022e23 * pressure / (8.314 * Tgas);
+double E0 = 0.0001;          // reducing errors
+double Itot = 0.1;
 
 /**
     each millimeter has it's own data point.
 */
 struct data_struct{
-    float phi[250];
-    float ParticleEnergy[250];
-    float ParticleEnergy2[250][250];
-    float SIIEE[100000];
+    double phi[250];
+    double ParticleEnergy[250];
+    double ParticleEnergy2[250][250];
+    double SIIEE[100000];
     double Crosssec_CX[500000];
     double Crosssec_Ion[500000];
     double Crosssec_Tot[500000];
     double Crosssec_Fus[500000];
-    float f[250];
-    float A[250];
-    float g[250][250];
-    float Kernel[250][250];
+    double f[250];
+    double A[250];
+    double g[250][250];
+    double Kernel[250][250];
 } data;
 
 /**
     Coefficients for the CX cross section of deuterium
 */
 struct CX_cross_sections{
-    float A1cx =   3.245     ;
-    float A2cx = 235.88      ;
-    float A3cx =   0.03871   ;
-    float A4cx =   3.8068e-6 ;
-    float A5cx =   1.1832e-10;
-    float A6cx =   2.3713    ;
+    double A1cx =   3.245     ;
+    double A2cx = 235.88      ;
+    double A3cx =   0.03871   ;
+    double A4cx =   3.8068e-6 ;
+    double A5cx =   1.1832e-10;
+    double A6cx =   2.3713    ;
 } CS_cx;
 
 struct Ion_impact_cross_sections{
-    float A1Ion = 12.899    ;
-    float A2Ion = 61.897    ;
-    float A3Ion =  9.27e3   ;
-    float A4Ion =  4.749e-4 ;
-    float A5Ion =  3.989e-2 ;
-    float A6Ion = -1.59     ;
-    float A7Ion =  3.1838   ;
-    float A8Ion = -3.7154   ;
+    double A1Ion = 12.899    ;
+    double A2Ion = 61.897    ;
+    double A3Ion =  9.27e3   ;
+    double A4Ion =  4.749e-4 ;
+    double A5Ion =  3.989e-2 ;
+    double A6Ion = -1.59     ;
+    double A7Ion =  3.1838   ;
+    double A8Ion = -3.7154   ;
 } CS_Ion;
 
 struct Fusion_cross_section{
-    float A1Fusion =  47.88     ;
-    float A2Fusion = 482        ;
-    float A3Fusion =   3.08e-4  ;
-    float A4Fusion =   1.177    ;
-    float A5Fusion =   0        ;
+    double A1Fusion =  47.88     ;
+    double A2Fusion = 482        ;
+    double A3Fusion =   3.08e-4  ;
+    double A4Fusion =   1.177    ;
+    double A5Fusion =   0        ;
 } CS_Fusion;
 
 
 /**
     function declarations
 */
-float Potential_Phi(float);
-float SIIEE(float);
-float ParticleEnergy1(int);
-float ParticleEnergy2(int, int);
-float CrosssecCX(int);
-float CrosssecIon(int);
-float CrosssecTot(int);
-float CrosssecFusion(int);
-float f(int);
-float Intergrant(int);
-float A(int);
-float g(int, int);
-float gamma(int);
-float kernel(int, int);
+double Potential_Phi(double);
+double SIIEE(double);
+double ParticleEnergy1(int);
+double ParticleEnergy2(int, int);
+double CrosssecCX(int);
+double CrosssecIon(int);
+double CrosssecTot(int);
+double CrosssecFusion(int);
+double f(int);
+double Intergrant(int);
+double A(int);
+double g(int, int);
+double gamma(int);
+double kernel(int, int);
 void print_data(void);
 void print_SIIEE(void);
 void print_cross_section(void);
@@ -122,6 +122,8 @@ int main()
         if ( r1%25 == 0)
             cout << ".";
     }
+    fclose(abc);
+
 
     // filling the SIIEE data array
     cout << "\nSIIEE calculation" << endl;
@@ -153,14 +155,25 @@ int main()
             cout << ".";
     }
 
+    FILE * inte;
+    inte = fopen("integrant.csv","w");
+    for (int r=0; r <= 250; r++)
+    {
+        cout << Intergrant(r) << endl;
+        fprintf(inte,"%i,%E\n", r, Intergrant(r));
+    }
+
+    fclose(inte);
+
+
     // start of survival function calculation
     cout << "\nSurvival function calculation" << endl;
     for (int r=0; r <= 250; r++)
     {
-        cout << Intergrant(r) << endl;
+        Intergrant(r);
 
         data.f[r] = f(r);
-        cout << "f(" << r << ") = " << data.f[r] << endl;
+ //       cout << "f(" << r << ") = " << data.f[r] << endl;
         data.A[r] = -1; // A(r);
 
         for (int r1=r; r1<= 250; r1++)
@@ -192,17 +205,17 @@ int main()
     return 0;
 }
 
-/** \brief This function returns the potential on position r. Input is a float r in
-   meter and return is a float phi in KiloVolt.
+/** \brief This function returns the potential on position r. Input is a double r in
+   meter and return is a double phi in KiloVolt.
  *
  * \param r = radius
  * \param
  * \return potential in V
  *
  */
-float Potential_Phi(float r)
+double Potential_Phi(double r)
 {
-    float phi;
+    double phi;
 
     if ( r <= fusor.a)
         phi = fusor.V0;
@@ -215,9 +228,9 @@ float Potential_Phi(float r)
 /**
     In E in eV
 */
-float SIIEE(float energy)
+double SIIEE(double energy)
 {
-    float tmp;
+    double tmp;
     tmp = 1.5*pow((1.15*(energy/97861)),-0.667)*(1-exp(-1.8*pow(energy/97891,1.2)));
     return tmp;
 }
@@ -228,9 +241,9 @@ float SIIEE(float energy)
  * \return energie in eV
  *
  */
-float ParticleEnergy1(int r)
+double ParticleEnergy1(int r)
 {
-    float energy;
+    double energy;
     energy = - data.phi[r] + 1;
     return energy;
 }
@@ -242,9 +255,9 @@ float ParticleEnergy1(int r)
  * \return
  *
  */
-float ParticleEnergy2(int r, int r1)
+double ParticleEnergy2(int r, int r1)
 {
-    float energy;
+    double energy;
     energy = 0.5 * (data.phi[r1] - data.phi[r]) + 1;
     return energy;
 }
@@ -256,10 +269,10 @@ float ParticleEnergy2(int r, int r1)
  * \return crosssection in m2
  *
  */
-float CrosssecCX(int E)
+double CrosssecCX(int E)
 {
-    float crosssection;
-    float energy = E/1000.;
+    double crosssection;
+    double energy = E/1000.;
     crosssection = 1e-20 * CS_cx.A1cx;
     crosssection = crosssection * log((CS_cx.A2cx/energy) + CS_cx.A6cx);
     crosssection = crosssection / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
@@ -274,12 +287,12 @@ float CrosssecCX(int E)
  * \return crosssection in m2
  *
  */
-float CrosssecIon(int E)
+double CrosssecIon(int E)
 {
-    float crosssection = 0;
+    double crosssection = 0;
 
     // because the int E is in eV and the formula in keV, the factor 1/1000 is introduced.
-    float energy = E/1000.;
+    double energy = E/1000.;
     crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
     crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
     crosssection = crosssection * 1e-20 * CS_Ion.A1Ion;
@@ -293,9 +306,9 @@ float CrosssecIon(int E)
  * \return crosssection in m2
  *
  */
-float CrosssecTot(int energy)
+double CrosssecTot(int energy)
 {
-    float crosssection = 0;
+    double crosssection = 0;
     crosssection = data.Crosssec_CX[energy] + data.Crosssec_Ion[energy];
     return crosssection;
 }
@@ -307,9 +320,9 @@ float CrosssecTot(int energy)
  * \return crosssection in m2
  *
  */
-float CrosssecFusion(int E)
+double CrosssecFusion(int E)
 {
-    float crosssection, energy = E/1000.;
+    double crosssection, energy = E/1000.;
     crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
     crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion / sqrt(energy))-1));
     return crosssection;
@@ -318,50 +331,51 @@ float CrosssecFusion(int E)
 /**
     The next function compute the chance that a particle survise to that radius
 */
-float f(int r)
+double f(int r)
 {
-    float tmp = 0;
+    double tmp = 0;
     int energy;
 
     // very simple intergration.
     for (r; r < fusor.b; r++ )
     {
         energy = data.ParticleEnergy[r];
-        tmp = tmp + data.Crosssec_CX[energy];
+        tmp = tmp + ngas * data.Crosssec_CX[energy] ;
    //     cout << "r: " << r << " E:" << energy << " tmp: " << tmp << endl;
     }
 
-    tmp = exp(-ngas * tmp);
+    cout << -1 * tmp << endl;
+
+    tmp = exp(-1 * tmp);
 
     return tmp;
 }
 
-float Intergrant(int r)
+double Intergrant(int r)
 {
-    float tmp;
+    double tmp;
     int energy;
 
     energy = data.ParticleEnergy[r];
-    cout << "E: " << energy << " d.E: " << data.ParticleEnergy[r] ;
     tmp = ngas * data.Crosssec_CX[energy];
-    cout << "  Int: " << tmp << endl;
+    cout << "r = " << r << " E = " << energy << " Int: " << tmp << endl;
 
     return tmp;
 
 }
 
-float A(int r)
+double A(int r)
 {
-    float tmp = -1;
+    double tmp = -1;
     int energy = data.ParticleEnergy[r];
     tmp = ngas * gamma(r) * data.Crosssec_Tot[energy];
 
     return -1;
 }
 
-float g(int r, int r1)
+double g(int r, int r1)
 {
-    float tmp = -1.0;
+    double tmp = -1.0;
     int energy;
 
     if ( r > r1)
@@ -381,16 +395,16 @@ float g(int r, int r1)
     return tmp;
 }
 
-float gamma(int r)
+double gamma(int r)
 {
-    float Gamma = -1;
+    double Gamma = -1;
     Gamma = pow(fusor.b,2)/pow(r,2) * (data.f[r] + pow(fusor.Tc * data.f[0],2)/data.f[r]);
     return Gamma;
 }
 
-float kernel(int r, int r1)
+double kernel(int r, int r1)
 {
-    float tmp;
+    double tmp;
      if ( r < r1 )
     {
         int energy;
