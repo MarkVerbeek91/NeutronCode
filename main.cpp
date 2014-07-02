@@ -231,7 +231,7 @@ float SIIEE(float energy)
 float ParticleEnergy1(int r)
 {
     float energy;
-    energy = - data.phi[r];
+    energy = - data.phi[r] + 1;
     return energy;
 }
 
@@ -245,7 +245,7 @@ float ParticleEnergy1(int r)
 float ParticleEnergy2(int r, int r1)
 {
     float energy;
-    energy = 0.5 * (data.phi[r1] - data.phi[r]);
+    energy = 0.5 * (data.phi[r1] - data.phi[r]) + 1;
     return energy;
 }
 
