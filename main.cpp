@@ -83,6 +83,7 @@ float CrosssecIon(int);
 float CrosssecTot(int);
 float CrosssecFusion(int);
 float f(int);
+float Intergrant(int);
 float A(int);
 float g(int, int);
 float gamma(int);
@@ -156,6 +157,8 @@ int main()
     cout << "\nSurvival function calculation" << endl;
     for (int r=0; r <= 250; r++)
     {
+        cout << Intergrant(r) << endl;
+
         data.f[r] = f(r);
         cout << "f(" << r << ") = " << data.f[r] << endl;
         data.A[r] = -1; // A(r);
@@ -204,11 +207,14 @@ float Potential_Phi(float r)
     if ( r <= fusor.a)
         phi = fusor.V0;
     else
-        phi = (fusor.a * (fusor.b - r) * -fusor.V0/1000.) / (r * (fusor.a - fusor.b));
+        phi = 1000 * (fusor.a * (fusor.b - r) * -1 * fusor.V0/1000.) / (r * (fusor.a - fusor.b));
 
     return phi;
 }
 
+/**
+    In E in eV
+*/
 float SIIEE(float energy)
 {
     float tmp;
@@ -271,6 +277,8 @@ float CrosssecCX(int E)
 float CrosssecIon(int E)
 {
     float crosssection = 0;
+
+    // because the int E is in eV and the formula in keV, the factor 1/1000 is introduced.
     float energy = E/1000.;
     crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
     crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
@@ -318,14 +326,28 @@ float f(int r)
     // very simple intergration.
     for (r; r < fusor.b; r++ )
     {
-        energy = data.ParticleEnergy[r]*1000;
-        tmp = tmp + data.Crosssec_CX[energy]/1000;
+        energy = data.ParticleEnergy[r];
+        tmp = tmp + data.Crosssec_CX[energy];
    //     cout << "r: " << r << " E:" << energy << " tmp: " << tmp << endl;
     }
 
     tmp = exp(-ngas * tmp);
 
     return tmp;
+}
+
+float Intergrant(int r)
+{
+    float tmp;
+    int energy;
+
+    energy = data.ParticleEnergy[r];
+    cout << "E: " << energy << " d.E: " << data.ParticleEnergy[r] ;
+    tmp = ngas * data.Crosssec_CX[energy];
+    cout << "  Int: " << tmp << endl;
+
+    return tmp;
+
 }
 
 float A(int r)

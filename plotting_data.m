@@ -12,10 +12,14 @@ data_c = csvread('C:/Users/Mark/Documents/Development/NeutronCalculation/DATA_cr
 
 
 % r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]
-% figure %potential
-% potential = plot(data(:,1),data(:,2))
-% legend(potential, 'Phi')
-figure %particle energies
+
+%% %potential
+figure 
+potential = plot(data(:,1),data(:,2))
+legend(potential, 'Phi')
+
+%% 
+figure 
 energies = plot(data(:,1),data(:,3))
 legend(energies, 'E')
 % figure
@@ -25,9 +29,12 @@ figure
 surfival = plot(data(:,1),data(:,4),data(:,1),data(:,5))
 legend(surfival, 'f(r)', 'g(r,r1)')
 ylim([0, 1]);
+%%
 % figure
 % cross = loglog(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
 % legend(cross, 'CX','Ion','Tot')
+
+%%
 % figure
 % cross = semilogy(data_c(:,1),data_c(:,5))
 % axis([50000 500000 4.708856E-031 6.272065E-030])
