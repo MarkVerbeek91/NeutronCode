@@ -45,7 +45,7 @@ struct data_struct{
 struct CX_cross_sections{
     double A1cx =   3.245     ;
     double A2cx = 235.88      ;
-    double A3cx =   0.03871   ;
+    double A3cx =   0.038371  ;
     double A4cx =   3.8068e-6 ;
     double A5cx =   1.1832e-10;
     double A6cx =   2.3713    ;
@@ -55,10 +55,10 @@ struct Ion_impact_cross_sections{
     double A1Ion = 12.899    ;
     double A2Ion = 61.897    ;
     double A3Ion =  9.27e3   ;
-    double A4Ion =  4.749e-4 ;
+    double A4Ion =  4.9749e-4;
     double A5Ion =  3.989e-2 ;
     double A6Ion = -1.59     ;
-    double A7Ion =  3.1838   ;
+    double A7Ion =  3.1834   ;
     double A8Ion = -3.7154   ;
 } CS_Ion;
 
@@ -156,7 +156,7 @@ int main()
     }
 
     FILE * inte;
-    inte = fopen("integrant.csv","w");
+    inte = fopen("integrant1.csv","w");
     for (int r=0; r <= 250; r++)
     {
         cout << Intergrant(r) << endl;
