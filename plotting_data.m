@@ -9,32 +9,37 @@
 % data from laptop
 data = csvread('C:/Users/Mark/Documents/Development/NeutronCalculation/DATA.csv');
 data_c = csvread('C:/Users/Mark/Documents/Development/NeutronCalculation/DATA_cross_sections.csv');
-data_i = csvread('C:/Users/Mark/Documents/Development/NeutronCalculation/integrant.csv');
-
-plot(data_i(:,1),2*data_i(:,2));
 
 % r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]
 
-%% %potential
-figure 
-potential = plot(data(:,1),data(:,2))
-legend(potential, 'Phi')
+%% potential
+% figure 
+% potential = plot(data(:,1),data(:,2))
+% legend(potential, 'Phi')
 
-%% 
-figure 
-energies = plot(data(:,1),data(:,3))
-legend(energies, 'E')
+%% Energy
+% figure 
+% energies = plot(data(:,1),data(:,3))
+% legend(energies, 'E')
+
+%% SIIEE
 % figure
 % surfival = plot(data_c(:,1),data_c(:,2))
 % legend(surfival, 'SIIEE')
-figure
-surfival = plot(data(:,1),data(:,4),data(:,1),data(:,5))
-legend(surfival, 'f(r)', 'g(r,r1)')
-ylim([0, 1]);
-%%
-figure
-cross = loglog(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
-legend(cross, 'CX','Ion','Tot')
+
+%% The cross sections
+% figure
+% cross = loglog(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
+% legend(cross, 'CX','Ion','Tot')
+
+%% 
+
+
+%% The surfival functions
+% figure
+% surfival = plot(data(:,1),data(:,4),data(:,1),data(:,5))
+% legend(surfival, 'f(r)', 'g(r,r1)')
+% ylim([0, 1]);
 
 %%
 % figure

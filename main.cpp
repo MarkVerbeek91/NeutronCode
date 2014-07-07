@@ -5,14 +5,17 @@
 using namespace std;
 
 struct Fusor{
-    int a =  50; // cathode radius in mm
-    int b = 250; // anode radius in mm
+    int a =  500; // cathode radius in um
+    int b = 2500; // anode radius in um
     int V0 = -55000; // voltage
     double wire_diameter = 0.5; // in mm
     double Tc;
 };
 
 Fusor fusor;
+
+// the precision of the functions.
+#define N_pres 2500
 
 double q = 1.602e-19;
 double pressure = 0.5;  // Pa
@@ -25,18 +28,18 @@ double Itot = 0.1;
     each millimeter has it's own data point.
 */
 struct data_struct{
-    double phi[250];
-    double ParticleEnergy[250];
-    double ParticleEnergy2[250][250];
+    double phi[N_pres];
+    double ParticleEnergy[N_pres];
+    double ParticleEnergy2[N_pres][N_pres];
     double SIIEE[100000];
     double Crosssec_CX[500000];
     double Crosssec_Ion[500000];
     double Crosssec_Tot[500000];
     double Crosssec_Fus[500000];
-    double f[250];
-    double A[250];
-    double g[250][250];
-    double Kernel[250][250];
+    double f[N_pres];
+    double A[N_pres];
+    double g[N_pres][N_pres];
+    double Kernel[N_pres][N_pres];
 } data;
 
 /**
@@ -100,26 +103,26 @@ int main()
     // filling the potential array and particle energy
     cout << "-- Start of program --" << endl;
     cout << "Potential and particle energy calculation" << endl;
-    for (int r=0; r < 250; r++)
+    for (int r=0; r < N_pres; r++)
     {
         data.phi[r] = Potential_Phi(r);
         data.ParticleEnergy[r] = ParticleEnergy1(r);
-        if ( r%25 == 0)
+        if ( r%250 == 0)
             cout << ".";
     }
     cout << endl;
 
     FILE * abc;
     abc = fopen("ParticalEnergy2.csv","w");
-    for (int r1=0; r1 < 250; r1++)
+    for (int r1=0; r1 < N_pres; r1++)
     {
-        for (int r=0; r < 250; r++)
+        for (int r=0; r < N_pres; r++)
         {
             data.ParticleEnergy2[r][r1] = ParticleEnergy2(r,r1);
             fprintf(abc,"%E",data.ParticleEnergy2[r][r1]);
         }
         fprintf(abc,"\n");
-        if ( r1%25 == 0)
+        if ( r1%250 == 0)
             cout << ".";
     }
     fclose(abc);
@@ -157,9 +160,9 @@ int main()
 
     FILE * inte;
     inte = fopen("integrant1.csv","w");
-    for (int r=0; r <= 250; r++)
+    for (int r=0; r <= N_pres; r++)
     {
-        cout << Intergrant(r) << endl;
+        Intergrant(r);
         fprintf(inte,"%i,%E\n", r, Intergrant(r));
     }
 
@@ -168,18 +171,16 @@ int main()
 
     // start of survival function calculation
     cout << "\nSurvival function calculation" << endl;
-    for (int r=0; r <= 250; r++)
+    for (int r=0; r <= N_pres; r++)
     {
-        Intergrant(r);
-
         data.f[r] = f(r);
  //       cout << "f(" << r << ") = " << data.f[r] << endl;
         data.A[r] = -1; // A(r);
 
-        for (int r1=r; r1<= 250; r1++)
+        for (int r1=r; r1<= N_pres; r1++)
             data.g[r][r1] = -1; // g(0, r1);
 
-        if ( r%25 == 0)
+        if ( r%250 == 0)
             cout << ".";
     }
 /*
@@ -340,11 +341,11 @@ double f(int r)
     for (r; r < fusor.b; r++ )
     {
         energy = data.ParticleEnergy[r];
-        tmp = tmp + ngas * data.Crosssec_CX[energy] ;
+        tmp = tmp + ngas * data.Crosssec_CX[energy] * 0.0001 ;
    //     cout << "r: " << r << " E:" << energy << " tmp: " << tmp << endl;
     }
 
-    cout << -1 * tmp << endl;
+ //   cout << -1 * tmp << endl;
 
     tmp = exp(-1 * tmp);
 
@@ -358,7 +359,7 @@ double Intergrant(int r)
 
     energy = data.ParticleEnergy[r];
     tmp = ngas * data.Crosssec_CX[energy];
-    cout << "r = " << r << " E = " << energy << " Int: " << tmp << endl;
+ //   cout << "r = " << r << " E = " << energy << " Int: " << tmp << endl;
 
     return tmp;
 
@@ -430,7 +431,7 @@ void print_data(void)
 {
     FILE * output;
     output = fopen("DATA.csv","w");
-    for (int r=1; r<250; r++)
+    for (int r=1; r<N_pres; r++)
         fprintf (output, "%d,%E,%E,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]);
 
     fclose(output);
@@ -463,9 +464,9 @@ void print_kernel(void)
 {
     FILE * output;
     output = fopen("Kernel.csv","w");
-    for (int r=0; r <= 250; r++)
+    for (int r=0; r <= N_pres; r++)
     {
-        for (int r1=r; r1<= 250; r1++)
+        for (int r1=r; r1<= N_pres; r1++)
             fprintf(output,"%E,",data.Kernel[r][r1]);
 
         fprintf(output,"\n");
