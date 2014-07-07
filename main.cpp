@@ -177,13 +177,13 @@ int main()
     }
 
     int energy;
-/*
+
     FILE *out;
-    out = fopen("A_c.csv","w");
-    for (int r=fusor.a; r<fusor.b; r++)
+    out = fopen("g(400,r)_c.csv","w");
+    for (int r=0; r<fusor.b; r++)
     {
-        energy = data.ParticleEnergy[r];
-        fprintf(out,"%d,%E,%e\n",r,data.Crosssec_Tot[energy],gamma(r));
+        energy = data.ParticleEnergy2[r][0];
+        fprintf(out,"%d,%d,%E,%E\n",r,energy,data.Crosssec_CX[energy],g(0,r));
     }
     fclose(out);
 
@@ -263,7 +263,7 @@ double ParticleEnergy1(int r)
 double ParticleEnergy2(int r, int r1)
 {
     double energy;
-    energy = 0.5 * (data.phi[r1] - data.phi[r]) + 1;
+    energy = (data.phi[r1] - data.phi[r]) + 4;
     return energy;
 }
 
@@ -391,9 +391,9 @@ double g(int r, int r1)
         return -2;
     }
 
-    for (int r2=r; r2<r1; r2++)
+    for (int r2=r; r2<=r1; r2++)
     {
-        energy = data.ParticleEnergy2[r2][r];
+        energy = data.ParticleEnergy2[r2][r1];
         tmp = tmp + ngas * data.Crosssec_CX[energy] * 0.0001;
     }
 
