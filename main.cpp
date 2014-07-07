@@ -98,11 +98,11 @@ void print_kernel(void);
 
 int main()
 {
-    fusor.Tc = 1 - (2.5*fusor.wire_diameter *(fusor.a/pow(fusor.a,2)));
+    fusor.Tc = 0.95; // 1 - (2.5*fusor.wire_diameter *(fusor.a/pow(fusor.a,2)));
 
     // filling the potential array and particle energy
     cout << "-- Start of program --" << endl;
-    cout << "Potential and particle energy calculation" << endl;
+    cout << "Potential and Class I ions energy calculation" << endl;
     for (int r=0; r < N_pres; r++)
     {
         data.phi[r] = Potential_Phi(r);
@@ -112,24 +112,20 @@ int main()
     }
     cout << endl;
 
-    FILE * abc;
-    abc = fopen("ParticalEnergy2.csv","w");
+    cout << "Class II ions particle energy calculation" << endl;
     for (int r1=0; r1 < N_pres; r1++)
     {
         for (int r=0; r < N_pres; r++)
         {
             data.ParticleEnergy2[r][r1] = ParticleEnergy2(r,r1);
-            fprintf(abc,"%E",data.ParticleEnergy2[r][r1]);
         }
-        fprintf(abc,"\n");
         if ( r1%250 == 0)
             cout << ".";
     }
-    fclose(abc);
-
+    cout << endl;
 
     // filling the SIIEE data array
-    cout << "\nSIIEE calculation" << endl;
+    cout << "SIIEE calculation" << endl;
     for (int E=0; E < -fusor.V0; E++)
     {
         data.SIIEE[E] = SIIEE(E);
@@ -137,18 +133,16 @@ int main()
         if ( E%(fusor.V0/50) == 0)
             cout << ".";
     }
-
-  //  for (int E=0; E< 500; E++)
-  //      data.Crosssec_Fus[E] = CrosssecFusion(E);
+    cout << endl;
 
     // filling the crosssections data arrays
-    cout << "\nCrosssection calculation" << endl;
+    cout << "Cross section calculation" << endl;
     for (int E=0; E < 500000; E++)
     {
         data.Crosssec_CX[E]  = CrosssecCX(E);
         data.Crosssec_Ion[E] = CrosssecIon(E);
         data.Crosssec_Tot[E] = CrosssecTot(E);
-    //    data.Crosssec_Fus[E] = CrosssecFusion(E);
+
         if (E < 50000)
             data.Crosssec_Fus[E] = 0;
         else
@@ -157,34 +151,44 @@ int main()
         if ( E%10000 == 0)
             cout << ".";
     }
-
-    FILE * inte;
-    inte = fopen("integrant1.csv","w");
-    for (int r=0; r <= N_pres; r++)
-    {
-        Intergrant(r);
-        fprintf(inte,"%i,%E\n", r, Intergrant(r));
-    }
-
-    fclose(inte);
-
+    cout << endl;
 
     // start of survival function calculation
-    cout << "\nSurvival function calculation" << endl;
+    cout << "Survival function calculation" << endl;
     for (int r=0; r <= N_pres; r++)
     {
         data.f[r] = f(r);
- //       cout << "f(" << r << ") = " << data.f[r] << endl;
-        data.A[r] = -1; // A(r);
 
-        for (int r1=r; r1<= N_pres; r1++)
-            data.g[r][r1] = -1; // g(0, r1);
+       // for (int r1=r; r1<= N_pres; r1++)
+        data.g[0][r] = g(0, r);
 
         if ( r%250 == 0)
             cout << ".";
     }
+    cout << endl;
+
+    // start A
+    cout << "..";
+    for (int r=fusor.a; r<= fusor.b; r++)
+    {
+        data.A[r] = A(r);
+        if ( r%250 == 0)
+            cout << ".";
+    }
+
+    int energy;
 /*
-    // filling of the kernel
+    FILE *out;
+    out = fopen("A_c.csv","w");
+    for (int r=fusor.a; r<fusor.b; r++)
+    {
+        energy = data.ParticleEnergy[r];
+        fprintf(out,"%d,%E,%e\n",r,data.Crosssec_Tot[energy],gamma(r));
+    }
+    fclose(out);
+
+
+/*    // filling of the kernel
     cout << "\nFilling of Kernel" << endl;
     for (int r=0; r < 250; r++)
     {
@@ -198,9 +202,9 @@ int main()
     // printing output
     cout << "\nPrinting output to files" << endl;
     print_data();           cout << ".";
-    print_SIIEE();          cout << ".";
-    print_cross_section();  cout << ".";
-    print_kernel();         cout << ".";
+//    print_SIIEE();          cout << ".";
+//    print_cross_section();  cout << ".";
+//    print_kernel();         cout << ".";
 
     cout << "\n-- Done --" << endl;
     return 0;
@@ -342,10 +346,7 @@ double f(int r)
     {
         energy = data.ParticleEnergy[r];
         tmp = tmp + ngas * data.Crosssec_CX[energy] * 0.0001 ;
-   //     cout << "r: " << r << " E:" << energy << " tmp: " << tmp << endl;
     }
-
- //   cout << -1 * tmp << endl;
 
     tmp = exp(-1 * tmp);
 
@@ -359,7 +360,6 @@ double Intergrant(int r)
 
     energy = data.ParticleEnergy[r];
     tmp = ngas * data.Crosssec_CX[energy];
- //   cout << "r = " << r << " E = " << energy << " Int: " << tmp << endl;
 
     return tmp;
 
@@ -369,9 +369,15 @@ double A(int r)
 {
     double tmp = -1;
     int energy = data.ParticleEnergy[r];
-    tmp = ngas * gamma(r) * data.Crosssec_Tot[energy];
+    tmp = ngas * data.Crosssec_Tot[energy] * gamma(r);
+    return tmp;
+}
 
-    return -1;
+double gamma(int r)
+{
+    double Gamma = -1;
+    Gamma = pow(fusor.b/(float)r,2) * (data.f[r] + pow(fusor.Tc * data.f[0],2)/data.f[r]);
+    return Gamma;
 }
 
 double g(int r, int r1)
@@ -388,19 +394,11 @@ double g(int r, int r1)
     for (int r2=r; r2<r1; r2++)
     {
         energy = data.ParticleEnergy2[r2][r];
-        tmp = tmp + data.Crosssec_CX[energy];
+        tmp = tmp + ngas * data.Crosssec_CX[energy] * 0.0001;
     }
 
-    tmp = ngas * tmp;
     tmp = exp(-tmp);
     return tmp;
-}
-
-double gamma(int r)
-{
-    double Gamma = -1;
-    Gamma = pow(fusor.b,2)/pow(r,2) * (data.f[r] + pow(fusor.Tc * data.f[0],2)/data.f[r]);
-    return Gamma;
 }
 
 double kernel(int r, int r1)
@@ -418,8 +416,6 @@ double kernel(int r, int r1)
     }
     else
         tmp = 0;
-
-
 
     return tmp;
 }
