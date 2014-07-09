@@ -382,7 +382,7 @@ double gamma(int r)
 
 double g(int r, int r1)
 {
-    double tmp = -1.0;
+    double tmp = 0;
     int energy;
 
     if ( r > r1)
@@ -391,7 +391,7 @@ double g(int r, int r1)
         return -2;
     }
 
-    for (int r2=r; r2<=r1; r2++)
+    for (int r2=r; r2<r1; r2++)
     {
         energy = data.ParticleEnergy2[r2][r1];
         tmp = tmp + ngas * data.Crosssec_CX[energy] * 0.0001;
