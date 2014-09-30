@@ -13,97 +13,67 @@ Fusor fusor;
 int main()
 {
     // filling the potential array and particle energy
-    printf(""-- Start of program --"")
-    printf("Potential and Class I ions energy calculation")
+    printf("-- Start of program --\n");
+    printf("Potential and Class I ions energy calculation\n");
 
-    int (*Potential_PhiPtr)(float);
-    Potential_phiPtr = &Potential_Phi;
+    double (*Potential_PhiPtr)(double);
+    Potential_PhiPtr = &Potential_Phi;
 
-    print_data_ff(*Potential_PhiPtr, 0.0, 0.25, 0.01, "Potential")
+    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.01, "Potential.dat");
 
-    for (int r=0; r < N_pres; r++)
-    {
-        data.phi[r] = Potential_Phi(r);
-        data.ParticleEnergy[r] = ParticleEnergy1(r);
-        if ( r%250 == 0)
-            cout << ".";
-    }
-    cout << endl;
+    printf("Class II ions particle energy calculation\n");
 
-    cout << "Class II ions particle energy calculation" << endl;
-    for (int r1=0; r1 < N_pres; r1++)
-    {
-        for (int r=0; r < N_pres; r++)
-        {
-            data.ParticleEnergy2[r][r1] = ParticleEnergy2(r,r1);
-        }
-        if ( r1%250 == 0)
-            cout << ".";
-    }
-    cout << endl;
+    // not needed as for now, mostly because it's a large 2D array
+
 
     // filling the SIIEE data array
-    cout << "SIIEE calculation" << endl;
-    for (int E=0; E < -fusor.V0; E++)
-    {
-        data.SIIEE[E] = SIIEE(E);
+    printf("SIIEE calculation");
 
-        if ( E%(fusor.V0/50) == 0)
-            cout << ".";
-    }
-    cout << endl;
+    double (*SIIEEPtr)(double);
+    SIIEEPtr = &SIIEE;
+
+    print_data_dd(*SIIEEPtr, 0.0, fusor.V0, 1, "SIIEE.dat");
 
     // filling the crosssections data arrays
-    cout << "Cross section calculation" << endl;
-    for (int E=0; E < 500000; E++)
-    {
-        data.Crosssec_CX[E]  = CrosssecCX(E);
-        data.Crosssec_Ion[E] = CrosssecIon(E);
-        data.Crosssec_Tot[E] = CrosssecTot(E);
+    printf("Cross section calculation");
 
-        if (E < 50000)
-            data.Crosssec_Fus[E] = 0;
-        else
-            data.Crosssec_Fus[E] = CrosssecFusion(E);
+    double (*CrosssecCXPtr)(double);
+    CrosssecCXPtr = &CrosssecCX;
 
-        if ( E%10000 == 0)
-            cout << ".";
-    }
-    cout << endl;
+    print_data_dd(*CrosssecCXPtr, 0.0, 500000, 10, "CrosssecCX.dat");
+
+    double (*CrosssecIonPtr)(double);
+    CrosssecIonPtr = &CrosssecIon;
+
+    print_data_dd(*CrosssecIonPtr, 0.0, 500000, 10, "CrosssecIon.dat");
+
+    double (*CrosssecTotPtr)(double);
+    CrosssecTotPtr = &CrosssecTot;
+
+    print_data_dd(*CrosssecTotPtr, 0.0, 500000, 10, "CrosssecTot.dat");
+
 
     // start of survival function calculation
-    cout << "Survival function calculation" << endl;
-    for (int r=0; r <= N_pres; r++)
-    {
-        data.f[r] = f(r);
+    printf("Survival function calculation");
 
-       // for (int r1=r; r1<= N_pres; r1++)
-        data.g[0][r] = g(0, r);
+    double (*fPtr)(double);
+    fPtr = &f;
 
-        if ( r%250 == 0)
-            cout << ".";
-    }
-    cout << endl;
+    print_data_dd(*fPtr, 0.0, fusor.b, 0.1, "f.dat");
+
+    double (*gPtr)(double,double);
+    gPtr = &g;
+
+    print_data_ddd(*gPtr, 0.0, fusor.b, 0.1, 0, "f.dat");
+
 
     // start A
-    cout << "..";
-    for (int r=fusor.a; r<= fusor.b; r++)
-    {
-        data.A[r] = A(r);
-        if ( r%250 == 0)
-            cout << ".";
-    }
+    printf("doing some thing with A");
 
-    int energy;
+    double (*APtr)(double);
+    APtr = &A;
 
-    FILE *out;
-    out = fopen("g(400,r)_c.csv","w");
-    for (int r=0; r<fusor.b; r++)
-    {
-        energy = data.ParticleEnergy2[r][0];
-        fprintf(out,"%d,%d,%E,%E\n",r,energy,data.Crosssec_CX[energy],g(0,r));
-    }
-    fclose(out);
+    print_data_dd(*APtr, 0.0, fusor.b, 0.1, "A.dat");
 
 
 /*    // filling of the kernel
@@ -117,14 +87,8 @@ int main()
             cout << ".";
     }
 */
-    // printing output
-    cout << "\nPrinting output to files" << endl;
-    print_data();           cout << ".";
-//    print_SIIEE();          cout << ".";
-//    print_cross_section();  cout << ".";
-//    print_kernel();         cout << ".";
 
-    cout << "\n-- Done --" << endl;
+    printf("\n-- Done --");
     return 0;
 }
 
@@ -167,7 +131,7 @@ double SIIEE(double energy)
 double ParticleEnergy1(int r)
 {
     double energy;
-    energy = - data.phi[r] + 1;
+    energy = - Potential_Phi(r) + 0.001;
     return energy;
 }
 
@@ -181,7 +145,7 @@ double ParticleEnergy1(int r)
 double ParticleEnergy2(int r, int r1)
 {
     double energy;
-    energy = (data.phi[r1] - data.phi[r]) + 4;
+    energy = (Potential_Phi(r) - Potential_Phi(r)) + 4;
     return energy;
 }
 
@@ -232,7 +196,7 @@ double CrosssecIon(int E)
 double CrosssecTot(int energy)
 {
     double crosssection = 0;
-    crosssection = data.Crosssec_CX[energy] + data.Crosssec_Ion[energy];
+    crosssection = CrosssecCX(energy) + CrosssecIon(energy);
     return crosssection;
 }
 
@@ -262,8 +226,8 @@ double f(int r)
     // very simple intergration.
     for (r; r < fusor.b; r++ )
     {
-        energy = data.ParticleEnergy[r];
-        tmp = tmp + ngas * data.Crosssec_CX[energy] * 0.0001 ;
+        energy = ParticleEnergy1(r);
+        tmp = tmp + ngas * CrosssecCX(energy) * 0.0001 ;
     }
 
     tmp = exp(-1 * tmp);
@@ -276,8 +240,8 @@ double Intergrant(int r)
     double tmp;
     int energy;
 
-    energy = data.ParticleEnergy[r];
-    tmp = ngas * data.Crosssec_CX[energy];
+    energy = ParticleEnergy1(r);
+    tmp = ngas * CrosssecCX(energy);
 
     return tmp;
 
@@ -286,15 +250,15 @@ double Intergrant(int r)
 double A(int r)
 {
     double tmp = -1;
-    int energy = data.ParticleEnergy[r];
-    tmp = ngas * data.Crosssec_Tot[energy] * gamma(r);
+    int energy = ParticleEnergy1(r);
+    tmp = ngas * CrosssecTot(energy) * gamma(r);
     return tmp;
 }
 
 double gamma(int r)
 {
     double Gamma = -1;
-    Gamma = pow(fusor.b/(float)r,2) * (data.f[r] + pow(fusor.Tc * data.f[0],2)/data.f[r]);
+    Gamma = pow(fusor.b/(float)r,2) * (f(r) + pow(fusor.Tc * f(0),2)/f(r));
     return Gamma;
 }
 
@@ -311,8 +275,8 @@ double g(int r, int r1)
 
     for (int r2=r; r2<r1; r2++)
     {
-        energy = data.ParticleEnergy2[r2][r1];
-        tmp = tmp + ngas * data.Crosssec_CX[energy] * 0.0001;
+        energy = ParticleEnergy2(r2,r1);
+        tmp = tmp + ngas * CrosssecCX(energy) * 0.0001;
     }
 
     tmp = exp(-tmp);
@@ -325,11 +289,11 @@ double kernel(int r, int r1)
      if ( r < r1 )
     {
         int energy;
-        energy = data.ParticleEnergy2[r][r1];
+        energy = ParticleEnergy2(r,r1);
         cout << energy << endl;
-        tmp = pow(r1/r,2) * (data.g[r][r1] + pow(fusor.Tc,2)*data.g[0][r1]/data.g[r][r1])/(1-pow(fusor.Tc,2)*data.g[0][r1]);
+        tmp = pow(r1/r,2) * (g(r,r1) + pow(fusor.Tc,2)*g(0,r1)/g(r,r1)/(1-pow(fusor.Tc,2)*g(0,r1)));
         cout << tmp << endl;
-        tmp = tmp * ngas * data.Crosssec_Tot[energy];
+        tmp = tmp * ngas * CrosssecTot(energy);
         cout << tmp << endl;
     }
     else
@@ -339,18 +303,17 @@ double kernel(int r, int r1)
 }
 
 /**
-    These functions write the data to files that are matlab readable.
+    This function writes a given function to a file.
 */
-void print_data_ff(float (*funcPtr)(float), float Start, float End, float step, char name[])
+void print_data_dd(double (*funcPtr)(double), double Start, double End, double step, char name[])
 {
     FILE * output;
     output = fopen("DATA.csv","w");
-    for (float r = Start; r<End; r+=step)
+    for (double r = Start; r<End; r+=step)
     {
         fprintf (output, "%E,%E\n",r, (*funcPtr)(step));
 
-        if ( r%((Start-End)/10) == 0)
-            printf(".");
+
     }
 
     printf("  writing done\n");
@@ -359,38 +322,22 @@ void print_data_ff(float (*funcPtr)(float), float Start, float End, float step, 
     return;
 }
 
-void print_SIIEE(void)
+/**
+    This function writes a given function to a file.
+*/
+void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, double step, double sec, char name[])
 {
     FILE * output;
-    output = fopen("DATA_SIIEE.csv","w");
-    for (int E=1; E < -fusor.V0; E++)
-        fprintf (output, "%d,%E\n",E,data.SIIEE[E]);
-
-    fclose(output);
-    return;
-}
-
-void print_cross_section(void)
-{
-    FILE * output;
-    output = fopen("DATA_cross_sections.csv","w");
-    for (int E=1; E < 500000; E++)
-        fprintf (output, "%d,%E,%E,%E,%E\n",E,data.Crosssec_CX[E],data.Crosssec_Ion[E],data.Crosssec_Tot[E],data.Crosssec_Fus[E]);
-
-    fclose(output);
-    return;
-}
-
-void print_kernel(void)
-{
-    FILE * output;
-    output = fopen("Kernel.csv","w");
-    for (int r=0; r <= N_pres; r++)
+    output = fopen(name,"w");
+    for (double r = Start; r<End; r+=step)
     {
-        for (int r1=r; r1<= N_pres; r1++)
-            fprintf(output,"%E,",data.Kernel[r][r1]);
+        fprintf (output, "%E,%E\n",r, (*funcPtr)(sec, step));
 
-        fprintf(output,"\n");
+
     }
+
+    printf("  writing done\n");
+
+    fclose(output);
     return;
 }
