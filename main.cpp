@@ -2,107 +2,25 @@
 #include <math.h>
 #include <stdio.h>
 
-using namespace std;
+#include "functions.h"
+#include "constants.h"
 
-struct Fusor{
-    int a =  500; // cathode radius in um
-    int b = 2500; // anode radius in um
-    int V0 = -55000; // voltage
-    double wire_diameter = 0.5; // in mm
-    double Tc;
-};
+using namespace std;
 
 Fusor fusor;
 
-// the precision of the functions.
-#define N_pres 2500
-
-double q = 1.602e-19;
-double pressure = 0.5;  // Pa
-double Tgas = 400; // K
-double ngas = 9.05401e19; //6.022e23 * pressure / (8.314 * Tgas);
-double E0 = 0.0001;          // reducing errors
-double Itot = 0.1;
-
-/**
-    each millimeter has it's own data point.
-*/
-struct data_struct{
-    double phi[N_pres];
-    double ParticleEnergy[N_pres];
-    double ParticleEnergy2[N_pres][N_pres];
-    double SIIEE[100000];
-    double Crosssec_CX[500000];
-    double Crosssec_Ion[500000];
-    double Crosssec_Tot[500000];
-    double Crosssec_Fus[500000];
-    double f[N_pres];
-    double A[N_pres];
-    double g[N_pres][N_pres];
-    double Kernel[N_pres][N_pres];
-} data;
-
-/**
-    Coefficients for the CX cross section of deuterium
-*/
-struct CX_cross_sections{
-    double A1cx =   3.245     ;
-    double A2cx = 235.88      ;
-    double A3cx =   0.038371  ;
-    double A4cx =   3.8068e-6 ;
-    double A5cx =   1.1832e-10;
-    double A6cx =   2.3713    ;
-} CS_cx;
-
-struct Ion_impact_cross_sections{
-    double A1Ion = 12.899    ;
-    double A2Ion = 61.897    ;
-    double A3Ion =  9.27e3   ;
-    double A4Ion =  4.9749e-4;
-    double A5Ion =  3.989e-2 ;
-    double A6Ion = -1.59     ;
-    double A7Ion =  3.1834   ;
-    double A8Ion = -3.7154   ;
-} CS_Ion;
-
-struct Fusion_cross_section{
-    double A1Fusion =  47.88     ;
-    double A2Fusion = 482        ;
-    double A3Fusion =   3.08e-4  ;
-    double A4Fusion =   1.177    ;
-    double A5Fusion =   0        ;
-} CS_Fusion;
-
-
-/**
-    function declarations
-*/
-double Potential_Phi(double);
-double SIIEE(double);
-double ParticleEnergy1(int);
-double ParticleEnergy2(int, int);
-double CrosssecCX(int);
-double CrosssecIon(int);
-double CrosssecTot(int);
-double CrosssecFusion(int);
-double f(int);
-double Intergrant(int);
-double A(int);
-double g(int, int);
-double gamma(int);
-double kernel(int, int);
-void print_data(void);
-void print_SIIEE(void);
-void print_cross_section(void);
-void print_kernel(void);
 
 int main()
 {
-    fusor.Tc = 0.95; // 1 - (2.5*fusor.wire_diameter *(fusor.a/pow(fusor.a,2)));
-
     // filling the potential array and particle energy
-    cout << "-- Start of program --" << endl;
-    cout << "Potential and Class I ions energy calculation" << endl;
+    printf(""-- Start of program --"")
+    printf("Potential and Class I ions energy calculation")
+
+    int (*Potential_PhiPtr)(float);
+    Potential_phiPtr = &Potential_Phi;
+
+    print_data_ff(*Potential_PhiPtr, 0.0, 0.25, 0.01, "Potential")
+
     for (int r=0; r < N_pres; r++)
     {
         data.phi[r] = Potential_Phi(r);
@@ -423,12 +341,19 @@ double kernel(int r, int r1)
 /**
     These functions write the data to files that are matlab readable.
 */
-void print_data(void)
+void print_data_ff(float (*funcPtr)(float), float Start, float End, float step, char name[])
 {
     FILE * output;
     output = fopen("DATA.csv","w");
-    for (int r=1; r<N_pres; r++)
-        fprintf (output, "%d,%E,%E,%E,%E,%E\n",r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]);
+    for (float r = Start; r<End; r+=step)
+    {
+        fprintf (output, "%E,%E\n",r, (*funcPtr)(step));
+
+        if ( r%((Start-End)/10) == 0)
+            printf(".");
+    }
+
+    printf("  writing done\n");
 
     fclose(output);
     return;
