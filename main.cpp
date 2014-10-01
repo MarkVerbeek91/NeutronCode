@@ -2,8 +2,8 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "functions.h"
-#include "constants.h"
+#include "functions.hpp"
+#include "constants.hpp"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ int main()
     double (*Potential_PhiPtr)(double);
     Potential_PhiPtr = &Potential_Phi;
 
-    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.01, "Potential.dat");
+    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.01, "Potential.csv");
 
     printf("Class II ions particle energy calculation\n");
 
@@ -32,7 +32,7 @@ int main()
     double (*SIIEEPtr)(double);
     SIIEEPtr = &SIIEE;
 
-    print_data_dd(*SIIEEPtr, 0.0, fusor.V0, 1, "SIIEE.dat");
+    print_data_dd(*SIIEEPtr, 0.0, fusor.V0, 1, "SIIEE.csv");
 
     // filling the crosssections data arrays
     printf("Cross section calculation");
@@ -40,17 +40,17 @@ int main()
     double (*CrosssecCXPtr)(double);
     CrosssecCXPtr = &CrosssecCX;
 
-    print_data_dd(*CrosssecCXPtr, 0.0, 500000, 10, "CrosssecCX.dat");
+    print_data_dd(*CrosssecCXPtr, 0.0, 500000, 10, "CrosssecCX.csv");
 
     double (*CrosssecIonPtr)(double);
     CrosssecIonPtr = &CrosssecIon;
 
-    print_data_dd(*CrosssecIonPtr, 0.0, 500000, 10, "CrosssecIon.dat");
+    print_data_dd(*CrosssecIonPtr, 0.0, 500000, 10, "CrosssecIon.csv");
 
     double (*CrosssecTotPtr)(double);
     CrosssecTotPtr = &CrosssecTot;
 
-    print_data_dd(*CrosssecTotPtr, 0.0, 500000, 10, "CrosssecTot.dat");
+    print_data_dd(*CrosssecTotPtr, 0.0, 500000, 10, "CrosssecTot.csv");
 
 
     // start of survival function calculation
@@ -59,12 +59,12 @@ int main()
     double (*fPtr)(double);
     fPtr = &f;
 
-    print_data_dd(*fPtr, 0.0, fusor.b, 0.1, "f.dat");
+    print_data_dd(*fPtr, 0.0, fusor.b, 0.1, "f.csv");
 
     double (*gPtr)(double,double);
     gPtr = &g;
 
-    print_data_ddd(*gPtr, 0.0, fusor.b, 0.1, 0, "f.dat");
+    print_data_ddd(*gPtr, 0.0, fusor.b, 0.1, 0, "g.csv");
 
 
     // start A
@@ -73,7 +73,7 @@ int main()
     double (*APtr)(double);
     APtr = &A;
 
-    print_data_dd(*APtr, 0.0, fusor.b, 0.1, "A.dat");
+    print_data_dd(*APtr, 0.0, fusor.b, 0.1, "A.csv");
 
 
 /*    // filling of the kernel
@@ -128,7 +128,7 @@ double SIIEE(double energy)
  * \return energie in eV
  *
  */
-double ParticleEnergy1(int r)
+double ParticleEnergy1(double r)
 {
     double energy;
     energy = - Potential_Phi(r) + 0.001;
@@ -142,7 +142,7 @@ double ParticleEnergy1(int r)
  * \return
  *
  */
-double ParticleEnergy2(int r, int r1)
+double ParticleEnergy2(double r, double r1)
 {
     double energy;
     energy = (Potential_Phi(r) - Potential_Phi(r)) + 4;
@@ -156,7 +156,7 @@ double ParticleEnergy2(int r, int r1)
  * \return crosssection in m2
  *
  */
-double CrosssecCX(int E)
+double CrosssecCX(double E)
 {
     double crosssection;
     double energy = E/1000.;
@@ -174,7 +174,7 @@ double CrosssecCX(int E)
  * \return crosssection in m2
  *
  */
-double CrosssecIon(int E)
+double CrosssecIon(double E)
 {
     double crosssection = 0;
 
@@ -193,7 +193,7 @@ double CrosssecIon(int E)
  * \return crosssection in m2
  *
  */
-double CrosssecTot(int energy)
+double CrosssecTot(double energy)
 {
     double crosssection = 0;
     crosssection = CrosssecCX(energy) + CrosssecIon(energy);
@@ -207,7 +207,7 @@ double CrosssecTot(int energy)
  * \return crosssection in m2
  *
  */
-double CrosssecFusion(int E)
+double CrosssecFusion(double E)
 {
     double crosssection, energy = E/1000.;
     crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
@@ -218,10 +218,10 @@ double CrosssecFusion(int E)
 /**
     The next function compute the chance that a particle survise to that radius
 */
-double f(int r)
+double f(double r)
 {
     double tmp = 0;
-    int energy;
+    double energy;
 
     // very simple intergration.
     for (r; r < fusor.b; r++ )
@@ -235,7 +235,7 @@ double f(int r)
     return tmp;
 }
 
-double Intergrant(int r)
+double Intergrant(double r)
 {
     double tmp;
     int energy;
@@ -247,22 +247,22 @@ double Intergrant(int r)
 
 }
 
-double A(int r)
+double A(double r)
 {
     double tmp = -1;
-    int energy = ParticleEnergy1(r);
+    double energy = ParticleEnergy1(r);
     tmp = ngas * CrosssecTot(energy) * gamma(r);
     return tmp;
 }
 
-double gamma(int r)
+double gamma(double r)
 {
     double Gamma = -1;
     Gamma = pow(fusor.b/(float)r,2) * (f(r) + pow(fusor.Tc * f(0),2)/f(r));
     return Gamma;
 }
 
-double g(int r, int r1)
+double g(double r, double r1)
 {
     double tmp = 0;
     int energy;
@@ -275,20 +275,20 @@ double g(int r, int r1)
 
     for (int r2=r; r2<r1; r2++)
     {
-        energy = ParticleEnergy2(r2,r1);
-        tmp = tmp + ngas * CrosssecCX(energy) * 0.0001;
+  //      energy = ParticleEnergy2(r2,r1);
+  //      tmp = tmp + ngas * CrosssecCX(energy) * 0.0001;
     }
 
     tmp = exp(-tmp);
     return tmp;
 }
 
-double kernel(int r, int r1)
+double kernel(double r, double r1)
 {
     double tmp;
-     if ( r < r1 )
+    if ( r < r1 )
     {
-        int energy;
+        double energy;
         energy = ParticleEnergy2(r,r1);
         cout << energy << endl;
         tmp = pow(r1/r,2) * (g(r,r1) + pow(fusor.Tc,2)*g(0,r1)/g(r,r1)/(1-pow(fusor.Tc,2)*g(0,r1)));
@@ -308,11 +308,10 @@ double kernel(int r, int r1)
 void print_data_dd(double (*funcPtr)(double), double Start, double End, double step, char name[])
 {
     FILE * output;
-    output = fopen("DATA.csv","w");
+    output = fopen(name,"w");
     for (double r = Start; r<End; r+=step)
     {
         fprintf (output, "%E,%E\n",r, (*funcPtr)(step));
-
 
     }
 
