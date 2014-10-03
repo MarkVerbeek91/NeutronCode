@@ -9,52 +9,49 @@ using namespace std;
 
 Fusor fusor;
 
-
 int main()
 {
     // filling the potential array and particle energy
-    printf("-- Start of program --\n");
-    printf("Potential and Class I ions energy calculation\n");
+    printf("-- Start of program -- \n");
+
+    // writing the potential to a file for plotting
+    printf("Potential calculation\n");
 
     double (*Potential_PhiPtr)(double);
     Potential_PhiPtr = &Potential_Phi;
 
-    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.01, "Potential.csv");
+    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
 
-    printf("Class II ions particle energy calculation\n");
-
-    // not needed as for now, mostly because it's a large 2D array
-
-
-    // filling the SIIEE data array
-    printf("SIIEE calculation");
+    // writing the SIIEE to a file for plotting
+    printf("SIIEE calculation\n");
 
     double (*SIIEEPtr)(double);
     SIIEEPtr = &SIIEE;
 
-    print_data_dd(*SIIEEPtr, 0.0, fusor.V0, 1, "SIIEE.csv");
+    print_data_dd(*SIIEEPtr, 1.0, -fusor.V0, 1, "SIIEE.csv");
 
-    // filling the crosssections data arrays
-    printf("Cross section calculation");
+    // writing the Cross sections for Charge Exchange, Iononisation and the sum
+    // of those to files to a file for plotting
+    printf("Cross section calculation\n");
 
     double (*CrosssecCXPtr)(double);
     CrosssecCXPtr = &CrosssecCX;
 
-    print_data_dd(*CrosssecCXPtr, 0.0, 500000, 10, "CrosssecCX.csv");
+    print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv");
 
     double (*CrosssecIonPtr)(double);
     CrosssecIonPtr = &CrosssecIon;
 
-    print_data_dd(*CrosssecIonPtr, 0.0, 500000, 10, "CrosssecIon.csv");
+    print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv");
 
     double (*CrosssecTotPtr)(double);
     CrosssecTotPtr = &CrosssecTot;
 
-    print_data_dd(*CrosssecTotPtr, 0.0, 500000, 10, "CrosssecTot.csv");
+    print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv");
 
 
-    // start of survival function calculation
-    printf("Survival function calculation");
+    // Writing the survival functions to a file for plotting.
+    printf("Survival function calculation\n");
 
     double (*fPtr)(double);
     fPtr = &f;
@@ -67,8 +64,8 @@ int main()
     print_data_ddd(*gPtr, 0.0, fusor.b, 0.1, 0, "g.csv");
 
 
-    // start A
-    printf("doing some thing with A");
+    // writing A to a file for plotting
+    printf("doing some thing with A\n");
 
     double (*APtr)(double);
     APtr = &A;
@@ -76,18 +73,7 @@ int main()
     print_data_dd(*APtr, 0.0, fusor.b, 0.1, "A.csv");
 
 
-/*    // filling of the kernel
-    cout << "\nFilling of Kernel" << endl;
-    for (int r=0; r < 250; r++)
-    {
-        for (int r1=0; r1 < 250; r1++)
-          //  data.Kernel[r][r1] = kernel(r,r1);
-
-        if ( r%25 == 0)
-            cout << ".";
-    }
-*/
-
+    // program is done
     printf("\n-- Done --");
     return 0;
 }
@@ -107,7 +93,7 @@ double Potential_Phi(double r)
     if ( r <= fusor.a)
         phi = fusor.V0;
     else
-        phi = 1000 * (fusor.a * (fusor.b - r) * -1 * fusor.V0/1000.) / (r * (fusor.a - fusor.b));
+        phi = (fusor.a * (fusor.b - r) * -1 * fusor.V0) / (r * (fusor.a - fusor.b));
 
     return phi;
 }
@@ -311,8 +297,7 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
     output = fopen(name,"w");
     for (double r = Start; r<End; r+=step)
     {
-        fprintf (output, "%E,%E\n",r, (*funcPtr)(step));
-
+        fprintf (output, "%E,%E\n",r, (*funcPtr)(r));
     }
 
     printf("  writing done\n");

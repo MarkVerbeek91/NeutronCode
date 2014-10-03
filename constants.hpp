@@ -1,9 +1,9 @@
 
 struct Fusor{
-    int a =  500; // cathode radius in um
-    int b = 2500; // anode radius in um
-    int V0 = -55000; // voltage
-    double wire_diameter = 0.5; // in mm
+    double a = 0.05;
+    double b = 0.25;
+    double V0 = -55000; // voltage
+    double wire_diameter = 0.005;
     double Tc = 0.95;
 };
 
