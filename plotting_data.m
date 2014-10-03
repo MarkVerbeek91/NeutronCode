@@ -1,67 +1,67 @@
 %clear all
 
-% plotting data from the NeutronCode
-%data   = csvread('C:/Users/Mark/Dropbox/Projecten/NeutronCode/DATA.csv');
+loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 
-% r,phi[r],ParticleEnergy[r],f[r],g[0][r],A[r]
-%data_c = csvread('C:/Users/Mark/Dropbox/Projecten/NeutronCode/DATA_cross_sections.csv');
-
-% data from laptop
-data = csvread('C:/Users/Mark/Documents/Development/NeutronCalculation/DATA.csv');
-data_c = csvread('C:/Users/Mark/Documents/Development/NeutronCalculation/DATA_cross_sections.csv');
-
-% r,data.phi[r],data.ParticleEnergy[r],data.f[r],data.g[0][r],data.A[r]
-
-%% potential
+%% plotting Potential
+% filename = strcat(loc, 'Potential.csv');
+% data_Potential = csvread(filename);
 % figure 
-% potential = plot(data(:,1),data(:,2))
-% legend(potential, 'Phi')
+% Phi = plot(data_Potential(:,1),data_Potential(:,2));
+% legend(Phi, 'Phi')
 
-%% Energy
+%% plotting SIIEE
+% filename = strcat(loc, 'SIIEE.csv');
+% data_SIIEE = csvread(filename);
 % figure 
-% energies = plot(data(:,1),data(:,3))
-% legend(energies, 'E')
+% SIIEE = plot(data_SIIEE(:,1),data_SIIEE(:,2));
+% legend(SIIEE, 'SIIEE')
 
-%% SIIEE
-% figure
-% surfival = plot(data_c(:,1),data_c(:,2))
-% legend(surfival, 'SIIEE')
-
-%% The cross sections
-% figure
-% cross = loglog(data_c(:,1),data_c(:,2),data_c(:,1),data_c(:,3),data_c(:,1),data_c(:,4))
-% legend(cross, 'CX','Ion','Tot')
-
-%% 
-
-
-%% The surfival functions
-% figure
-% surfival = plot(data(:,1),data(:,4),data(:,1),data(:,5))
-% legend(surfival, 'f(r)', 'g(r,r1)')
-% ylim([0, 1]);
-
-%%
-% figure
-% cross = semilogy(data_c(:,1),data_c(:,5))
-% axis([50000 500000 4.708856E-031 6.272065E-030])
-% legend(cross, 'Fusion')
-
-
-
+%% plotting Cross section of Charge Exchange
+% filename = strcat(loc, 'CrosssecCX.csv');
+% data_CrosssecCX = csvread(filename);
+% % figure 
+% % CrosssecCX = loglog(data_CrosssecCX(:,1),data_CrosssecCX(:,2));
+% % legend(CrosssecCX, 'CrosssecCX')
 % 
-% , ...
-%      data(:,3),data(:,4), ...
-%      data(:,5),data(:,6), ...
-%      data(:,7),data(:,8), ...
-%      data(:,9),data(:,10), ...
-%      data(:,11),data(:,12), ...
-%      data(:,13),data(:,14), ...
-%      data(:,15),data(:,16), ...
-%      data(:,17),data(:,18), ...
-%      data(:,19),data(:,20), ...
-%      data(:,21),data(:,22), ...
-%      data(:,23),data(:,24), ...
-%      data(:,25),data(:,26), ...
-%      data(:,27),data(:,28), ...
-%      data(:,29),data(:,30))
+% %% plotting Cross section of Iononisation
+% filename = strcat(loc, 'CrosssecIon.csv');
+% data_CrosssecIon = csvread(filename);
+% % figure 
+% % CrosssecIon = loglog(data_CrosssecIon(:,1),data_CrosssecIon(:,2));
+% % legend(CrosssecIon, 'CrosssecIon')
+% 
+% %% plotting Cross section of Iononisation
+% filename = strcat(loc, 'CrosssecTot.csv');
+% data_CrosssecTot = csvread(filename);
+% % figure 
+% % CrosssecTot = loglog(data_CrosssecTot(:,1),data_CrosssecTot(:,2));
+% % legend(CrosssecTot, 'CrosssecTot')
+% 
+% %% plotting all Cross section in one. 
+% Crosssecs = loglog(data_CrosssecCX(:,1),data_CrosssecCX(:,2), data_CrosssecIon(:,1),data_CrosssecIon(:,2),data_CrosssecTot(:,1),data_CrosssecTot(:,2));
+% legend(Crosssecs, 'Cross section CX','Cross section Ion','Cross section Tot')
+
+%% plotting the survival funtion f
+% filename = strcat(loc, 'f.csv');
+% data_f = csvread(filename);
+% figure 
+% f = plot(data_f(:,1),data_f(:,2));
+% legend(f, 'f')
+
+%% plotting the survival function g(0,r)
+% filename = strcat(loc, 'g.csv');
+% data_g = csvread(filename);
+% figure 
+% g = plot(data_g(:,1),data_g(:,2));
+% legend(g, 'g(0,r)')
+
+%% plotting A
+filename = strcat(loc, 'A.csv');
+data_A = csvread(filename);
+figure 
+A = plot(data_A(:,1),data_A(:,2));
+legend(A, 'A')
+
+
+
+
