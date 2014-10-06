@@ -56,12 +56,12 @@ int main()
     double (*fPtr)(double);
     fPtr = &f;
 
-    print_data_dd(*fPtr, 0.0, fusor.b, 0.1, "f.csv");
+    print_data_dd(*fPtr, 0.01, fusor.b+0.01, 0.01, "f.csv");
 
     double (*gPtr)(double,double);
     gPtr = &g;
 
-    print_data_ddd(*gPtr, 0.0, fusor.b, 0.1, 0, "g.csv");
+    print_data_ddd(*gPtr, 0.01, fusor.b+0.01, 0.1, 0, "g.csv");
 
 
     // writing A to a file for plotting
@@ -70,7 +70,7 @@ int main()
     double (*APtr)(double);
     APtr = &A;
 
-    print_data_dd(*APtr, 0.0, fusor.b, 0.1, "A.csv");
+    print_data_dd(*APtr, 0.05, fusor.b+0.01, 0.001, "A.csv");
 
 
     // program is done
@@ -207,13 +207,12 @@ double CrosssecFusion(double E)
 double f(double r)
 {
     double tmp = 0;
-    double energy;
+    double step = 0.001;
 
     // very simple intergration.
-    for (r; r < fusor.b; r++ )
+    for (r; r < fusor.b; r+=step )
     {
-        energy = ParticleEnergy1(r);
-        tmp = tmp + ngas * CrosssecCX(energy) * 0.0001 ;
+        tmp = tmp + ngas * CrosssecCX(ParticleEnergy1(r)) * step ;
     }
 
     tmp = exp(-1 * tmp);
@@ -224,10 +223,8 @@ double f(double r)
 double Intergrant(double r)
 {
     double tmp;
-    int energy;
 
-    energy = ParticleEnergy1(r);
-    tmp = ngas * CrosssecCX(energy);
+    tmp = ngas * CrosssecCX(ParticleEnergy1(r));
 
     return tmp;
 
@@ -236,33 +233,37 @@ double Intergrant(double r)
 double A(double r)
 {
     double tmp = -1;
-    double energy = ParticleEnergy1(r);
-    tmp = ngas * CrosssecTot(energy) * gamma(r);
+    tmp = ngas * CrosssecTot(ParticleEnergy1(r)) * gamma(r);
+
+    if (isnan(tmp))
+    {
+        printf("went to the end\n");
+        tmp = 0;
+    }
     return tmp;
 }
 
 double gamma(double r)
 {
     double Gamma = -1;
-    Gamma = pow(fusor.b/(float)r,2) * (f(r) + pow(fusor.Tc * f(0),2)/f(r));
+    Gamma = pow(fusor.b/r,2) * (f(r) + pow(fusor.Tc * f(0),2)/f(r));
     return Gamma;
 }
 
 double g(double r, double r1)
 {
-    double tmp = 0;
-    int energy;
+    double tmp = 0, step = 0.001;
 
     if ( r > r1)
     {
-        cout << "error: r >= r1" << endl;
+        printf("error: r >= r1");
         return -2;
     }
 
-    for (int r2=r; r2<r1; r2++)
+    for (double r2=r; r2<r1; r2+= step)
     {
-  //      energy = ParticleEnergy2(r2,r1);
-  //      tmp = tmp + ngas * CrosssecCX(energy) * 0.0001;
+        tmp = tmp + ngas * CrosssecCX(ParticleEnergy2(r2,r1)) * step;
+        printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
     }
 
     tmp = exp(-tmp);
@@ -313,6 +314,9 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
 {
     FILE * output;
     output = fopen(name,"w");
+
+    double counter = 0;
+
     for (double r = Start; r<End; r+=step)
     {
         fprintf (output, "%E,%E\n",r, (*funcPtr)(sec, step));
