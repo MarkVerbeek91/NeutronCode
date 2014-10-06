@@ -56,12 +56,12 @@ int main()
     double (*fPtr)(double);
     fPtr = &f;
 
-    print_data_dd(*fPtr, 0.01, fusor.b+0.01, 0.01, "f.csv");
+    print_data_dd(*fPtr, 0.0, fusor.b+0.01, 0.001, "f.csv");
 
     double (*gPtr)(double,double);
     gPtr = &g;
 
-    print_data_ddd(*gPtr, 0.01, fusor.b+0.01, 0.1, 0, "g.csv");
+    print_data_ddd(*gPtr, 0.0, fusor.b+0.01, 0.001, 0, "g.csv");
 
 
     // writing A to a file for plotting
@@ -131,7 +131,7 @@ double ParticleEnergy1(double r)
 double ParticleEnergy2(double r, double r1)
 {
     double energy;
-    energy = (Potential_Phi(r) - Potential_Phi(r)) + 4;
+    energy = (Potential_Phi(r1) - Potential_Phi(r)) + 4;
     return energy;
 }
 
@@ -207,7 +207,7 @@ double CrosssecFusion(double E)
 double f(double r)
 {
     double tmp = 0;
-    double step = 0.001;
+    double step = (fusor.b - r)/N_pres;
 
     // very simple intergration.
     for (r; r < fusor.b; r+=step )
@@ -252,19 +252,22 @@ double gamma(double r)
 
 double g(double r, double r1)
 {
-    double tmp = 0, step = 0.001;
-
     if ( r > r1)
     {
         printf("error: r >= r1");
         return -2;
     }
 
+    double tmp = 0, step = (r1 - r)/N_pres;
+
+
     for (double r2=r; r2<r1; r2+= step)
     {
         tmp = tmp + ngas * CrosssecCX(ParticleEnergy2(r2,r1)) * step;
-        printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
+ //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
     }
+
+ //   printf("integration done\n");
 
     tmp = exp(-tmp);
     return tmp;
@@ -319,7 +322,7 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
 
     for (double r = Start; r<End; r+=step)
     {
-        fprintf (output, "%E,%E\n",r, (*funcPtr)(sec, step));
+        fprintf (output, "%E,%E\n",r, (*funcPtr)(sec, r));
 
 
     }

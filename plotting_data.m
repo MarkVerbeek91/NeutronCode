@@ -47,6 +47,9 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 % figure 
 % f = plot(data_f(:,1),data_f(:,2));
 % legend(f, 'f')
+% xlim([0 0.25]);
+% ylim([0 1]);
+
 
 %% plotting the survival function g(0,r)
 % filename = strcat(loc, 'g.csv');
@@ -54,14 +57,17 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 % figure 
 % g = plot(data_g(:,1),data_g(:,2));
 % legend(g, 'g(0,r)')
+% xlim([0 0.25]);
+% ylim([0 1]);
 
 %% plotting A
-filename = strcat(loc, 'A.csv');
-data_A = csvread(filename);
-figure 
-A = plot(data_A(:,1),data_A(:,2));
-legend(A, 'A')
+% filename = strcat(loc, 'A.csv');
+% data_A = csvread(filename);
+% figure 
+% A = plot(data_A(:,1),data_A(:,2));
+% legend(A, 'A')
+% xlim([0.05 0.25]);
 
-
+%%
 
 
