@@ -4,8 +4,22 @@
 	<math.h>
 	<stdio.h>
 
-1402839743 source:d:\documenten\programmeren\neutroncode\main.cpp
+1412195301 source:d:\documenten\programmeren\neutroncode\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
+	"functions.hpp"
+	"constants.hpp"
+
+1412194308 source:d:\documenten\programmeren\neutroncode\constants.h
+
+1412194292 source:d:\documenten\programmeren\neutroncode\functions.h
+
+1412194292 d:\documenten\programmeren\neutroncode\functions.h
+
+1412194308 d:\documenten\programmeren\neutroncode\constants.h
+
+1412195356 d:\documenten\programmeren\neutroncode\functions.hpp
+
+1412194308 d:\documenten\programmeren\neutroncode\constants.hpp
 
