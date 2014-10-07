@@ -52,13 +52,13 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 
 
 %% plotting the survival function g(0,r)
-% filename = strcat(loc, 'g.csv');
-% data_g = csvread(filename);
-% figure 
-% g = plot(data_g(:,1),data_g(:,2));
-% legend(g, 'g(0,r)')
-% xlim([0 0.25]);
-% ylim([0 1]);
+filename = strcat(loc, 'g.csv');
+data_g = csvread(filename);
+figure 
+g = plot(data_g(:,1),data_g(:,2));
+legend(g, 'g(0,r)')
+xlim([0 0.25]);
+ylim([0 1]);
 
 %% plotting A
 % filename = strcat(loc, 'A.csv');
@@ -68,6 +68,12 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 % legend(A, 'A')
 % xlim([0.05 0.25]);
 
-%%
+%% verivacation of the Kernel
+% filename = strcat(loc, 'K.csv');
+% data_K = csvread(filename);
+% figure 
+% K = plot(data_K(:,1),data_K(:,2));
+% legend(K, 'Kernel')
+
 
 
