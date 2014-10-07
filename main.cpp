@@ -72,6 +72,12 @@ int main()
 
     print_data_dd(*APtr, 0.05, fusor.b+0.01, 0.001, "A.csv");
 
+    // building the "Kernel"
+    printf("Kernel\n");
+    double (*KPtr)(double,double);
+    KPtr = &kernel;
+
+    print_data_ddd(*KPtr, 0.0, fusor.b+0.01, 0.0001, 0.0001, "K.csv");
 
     // program is done
     printf("\n-- Done --");
@@ -278,13 +284,8 @@ double kernel(double r, double r1)
     double tmp;
     if ( r < r1 )
     {
-        double energy;
-        energy = ParticleEnergy2(r,r1);
-        cout << energy << endl;
-        tmp = pow(r1/r,2) * (g(r,r1) + pow(fusor.Tc,2)*g(0,r1)/g(r,r1)/(1-pow(fusor.Tc,2)*g(0,r1)));
-        cout << tmp << endl;
-        tmp = tmp * ngas * CrosssecTot(energy);
-        cout << tmp << endl;
+        tmp = pow(r1/r,2) * (g(r,r1) + pow(fusor.Tc*g(0,r1),2)/g(r,r1)/(1-pow(fusor.Tc*g(0,r1),2)));
+        tmp = tmp * ngas * CrosssecTot(ParticleEnergy2(r,r1));
     }
     else
         tmp = 0;
