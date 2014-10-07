@@ -20,7 +20,7 @@ int main()
     double (*Potential_PhiPtr)(double);
     Potential_PhiPtr = &Potential_Phi;
 
-    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
+//    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
 
     // writing the SIIEE to a file for plotting
     printf("SIIEE calculation\n");
@@ -28,7 +28,7 @@ int main()
     double (*SIIEEPtr)(double);
     SIIEEPtr = &SIIEE;
 
-    print_data_dd(*SIIEEPtr, 1.0, -fusor.V0, 1, "SIIEE.csv");
+//    print_data_dd(*SIIEEPtr, 1.0, -fusor.V0, 1, "SIIEE.csv");
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
@@ -37,17 +37,17 @@ int main()
     double (*CrosssecCXPtr)(double);
     CrosssecCXPtr = &CrosssecCX;
 
-    print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv");
+//    print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv");
 
     double (*CrosssecIonPtr)(double);
     CrosssecIonPtr = &CrosssecIon;
 
-    print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv");
+//    print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv");
 
     double (*CrosssecTotPtr)(double);
     CrosssecTotPtr = &CrosssecTot;
 
-    print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv");
+//    print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv");
 
 
     // Writing the survival functions to a file for plotting.
@@ -70,14 +70,14 @@ int main()
     double (*APtr)(double);
     APtr = &A;
 
-    print_data_dd(*APtr, 0.05, fusor.b+0.01, 0.001, "A.csv");
+//    print_data_dd(*APtr, 0.05, fusor.b+0.01, 0.001, "A.csv");
 
     // building the "Kernel"
     printf("Kernel\n");
     double (*KPtr)(double,double);
     KPtr = &kernel;
 
-    print_data_ddd(*KPtr, 0.0, fusor.b+0.01, 0.0001, 0.0001, "K.csv");
+    print_data_ddd(*KPtr, 0.0, fusor.b+0.01, 0.01, 0.0001, "K.csv");
 
     // program is done
     printf("\n-- Done --");

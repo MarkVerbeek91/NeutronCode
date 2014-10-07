@@ -19,9 +19,9 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 %% plotting Cross section of Charge Exchange
 % filename = strcat(loc, 'CrosssecCX.csv');
 % data_CrosssecCX = csvread(filename);
-% % figure 
-% % CrosssecCX = loglog(data_CrosssecCX(:,1),data_CrosssecCX(:,2));
-% % legend(CrosssecCX, 'CrosssecCX')
+% figure 
+% CrosssecCX = loglog(data_CrosssecCX(:,1),data_CrosssecCX(:,2));
+% legend(CrosssecCX, 'CrosssecCX')
 % 
 % %% plotting Cross section of Iononisation
 % filename = strcat(loc, 'CrosssecIon.csv');
@@ -52,13 +52,18 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 
 
 %% plotting the survival function g(0,r)
-filename = strcat(loc, 'g.csv');
-data_g = csvread(filename);
-figure 
-g = plot(data_g(:,1),data_g(:,2));
-legend(g, 'g(0,r)')
-xlim([0 0.25]);
-ylim([0 1]);
+% filename = strcat(loc, 'g.csv');
+% data_g = csvread(filename);
+% filename = strcat(loc, 'g1.csv');
+% data_g1 = csvread(filename);
+% 
+% data_g(:,2) = data_g(:,2) - data_g1(:,2);
+% 
+% figure 
+% g = plot(data_g(:,1),data_g(:,2));
+% legend(g, 'G code - G mathematica')
+% xlim([0 0.25]);
+% ylim([0 1]);
 
 %% plotting A
 % filename = strcat(loc, 'A.csv');
@@ -69,11 +74,16 @@ ylim([0 1]);
 % xlim([0.05 0.25]);
 
 %% verivacation of the Kernel
-% filename = strcat(loc, 'K.csv');
-% data_K = csvread(filename);
-% figure 
-% K = plot(data_K(:,1),data_K(:,2));
-% legend(K, 'Kernel')
+filename = strcat(loc, 'k.csv');
+data_K = csvread(filename);
+filename = strcat(loc, 'k1.csv');
+data_K1 = csvread(filename);
+
+data_K(:,2) = data_K(:,2)-data_K1(:,2);
+
+figure 
+K = plot(data_K(:,1),data_K(:,2));
+legend(K, 'Kernel')
 
 
 
