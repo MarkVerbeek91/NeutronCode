@@ -212,18 +212,22 @@ double CrosssecFusion(double E)
 */
 double f(double r)
 {
-    double tmp = 0;
+    double sum = CrosssecCX(ParticleEnergy1(0)) + CrosssecCX(ParticleEnergy1(r));
     double step = (fusor.b - r)/N_pres;
 
     // very simple intergration.
     for (r; r < fusor.b; r+=step )
     {
-        tmp = tmp + ngas * CrosssecCX(ParticleEnergy1(r)) * step ;
+        sum += 2.0*CrosssecCX(ParticleEnergy1(r));
     }
 
-    tmp = exp(-1 * tmp);
+    sum = sum * step / 2.0;
 
-    return tmp;
+    sum *= ngas;
+
+    sum = exp(-1 * sum);
+
+    return sum;
 }
 
 double Intergrant(double r)
@@ -264,19 +268,19 @@ double g(double r, double r1)
         return -2;
     }
 
-    double tmp = 0, step = (r1 - r)/N_pres;
+    double sum = 0, step = (r1 - r)/N_pres;
 
 
     for (double r2=r; r2<r1; r2+= step)
     {
-        tmp = tmp + ngas * CrosssecCX(ParticleEnergy2(r2,r1)) * step;
+        sum += ngas * CrosssecCX(ParticleEnergy2(r2,r1)) * step;
  //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
     }
 
  //   printf("integration done\n");
 
-    tmp = exp(-tmp);
-    return tmp;
+    sum = exp(-sum);
+    return sum;
 }
 
 double kernel(double r, double r1)
