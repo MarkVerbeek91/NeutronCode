@@ -22,6 +22,12 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 % figure 
 % CrosssecCX = loglog(data_CrosssecCX(:,1),data_CrosssecCX(:,2));
 % legend(CrosssecCX, 'CrosssecCX')
+
+% filename1 = strcat(loc, 'CrosssecCX1.csv');
+% data_CrosssecCX1 = csvread(filename1);
+% CrosssecCX = loglog(data_CrosssecCX1(:,1),data_CrosssecCX(:,2)-data_CrosssecCX1(:,2));
+% legend(CrosssecCX, 'CrosssecCX')
+
 % 
 % %% plotting Cross section of Iononisation
 % filename = strcat(loc, 'CrosssecIon.csv');
@@ -57,10 +63,10 @@ data_g = csvread(filename);
 filename = strcat(loc, 'g1.csv');
 data_g1 = csvread(filename);
 
-data_g(:,2) = data_g(:,2) - data_g1(:,2);
+data_g3 = data_g(:,2) - data_g1(:,2);
 
 figure 
-g = plot(data_g(:,1),data_g(:,2));
+g = plot(data_g(:,1),data_g(:,2),data_g1(:,1),data_g1(:,2),data_g(:,1),data_g3);
 legend(g, 'G code - G mathematica')
 xlim([0 0.25]);
 ylim([0 1]);

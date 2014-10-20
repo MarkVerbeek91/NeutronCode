@@ -85,6 +85,11 @@ int main()
 
     print_data_ddd(*KPtr, 0.0, fusor.b+0.001, 0.01, 0.0001, "K.csv");
 
+    // source rate for first generation of Class II ions.
+
+
+
+
     // program is done
     printf("\n-- Done --");
     return 0;
@@ -304,6 +309,38 @@ double kernel(double r, double r1)
 
     return tmp;
 }
+
+double S_1(double r)
+{
+    double sum = 0;
+
+    // integral over Kernel times A from zero to fusor.b
+
+
+    return sum;
+}
+
+double S_2(double r)
+{
+    double sum = 0;
+
+    // integral over Kernel times S_1 from zero to fusor.b
+
+
+    return sum;
+}
+
+double S_3(double r)
+{
+    double sum = 0;
+
+    // integral over Kernel times S_2 from zero to fusor.b
+
+
+    return sum;
+}
+
+
 
 /**
     This function writes a given function to a file.
