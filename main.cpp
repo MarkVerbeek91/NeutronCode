@@ -56,12 +56,12 @@ int main()
     double (*fPtr)(double);
     fPtr = &f;
 
-    print_data_dd(*fPtr, 0.0, fusor.b+0.01, 0.001, "f.csv");
+    print_data_dd(*fPtr, 0.0, fusor.b+0.001, 0.001, "f.csv");
 
     double (*gPtr)(double,double);
     gPtr = &g;
 
-    print_data_ddd(*gPtr, 0.0, fusor.b+0.01, 0.001, 0, "g.csv");
+    print_data_ddd(*gPtr, 0.0, fusor.b+0.001, 0.001, 0, "g.csv");
 
 
     // writing A to a file for plotting
@@ -77,7 +77,7 @@ int main()
     double (*KPtr)(double,double);
     KPtr = &kernel;
 
-    print_data_ddd(*KPtr, 0.0, fusor.b+0.01, 0.01, 0.0001, "K.csv");
+    print_data_ddd(*KPtr, 0.0, fusor.b+0.001, 0.01, 0.0001, "K.csv");
 
     // program is done
     printf("\n-- Done --");
@@ -268,14 +268,16 @@ double g(double r, double r1)
         return -2;
     }
 
-    double sum = 0, step = (r1 - r)/N_pres;
-
+    double sum = CrosssecCX(ParticleEnergy2(r,r1))+CrosssecCX(ParticleEnergy2(r1,r1)), step = (r1 - r)/N_pres;
 
     for (double r2=r; r2<r1; r2+= step)
     {
-        sum += ngas * CrosssecCX(ParticleEnergy2(r2,r1)) * step;
+        sum += 2.0 * CrosssecCX(ParticleEnergy2(r2,r1));
  //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
     }
+
+    sum *= ngas;
+    sum = sum * step / 2.0;
 
  //   printf("integration done\n");
 
