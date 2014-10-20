@@ -52,18 +52,18 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 
 
 %% plotting the survival function g(0,r)
-% filename = strcat(loc, 'g.csv');
-% data_g = csvread(filename);
-% filename = strcat(loc, 'g1.csv');
-% data_g1 = csvread(filename);
-% 
-% data_g(:,2) = data_g(:,2) - data_g1(:,2);
-% 
-% figure 
-% g = plot(data_g(:,1),data_g(:,2));
-% legend(g, 'G code - G mathematica')
-% xlim([0 0.25]);
-% ylim([0 1]);
+filename = strcat(loc, 'g.csv');
+data_g = csvread(filename);
+filename = strcat(loc, 'g1.csv');
+data_g1 = csvread(filename);
+
+data_g(:,2) = data_g(:,2) - data_g1(:,2);
+
+figure 
+g = plot(data_g(:,1),data_g(:,2));
+legend(g, 'G code - G mathematica')
+xlim([0 0.25]);
+ylim([0 1]);
 
 %% plotting A
 % filename = strcat(loc, 'A.csv');
