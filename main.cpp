@@ -20,6 +20,12 @@ int main()
     double (*Potential_PhiPtr)(double);
     Potential_PhiPtr = &Potential_Phi;
 
+    double (*ParticleEnergy2Ptr)(double,double);
+    ParticleEnergy2Ptr = &ParticleEnergy2;
+
+    print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
+
+
 //    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
 
     // writing the SIIEE to a file for plotting
@@ -131,7 +137,7 @@ double ParticleEnergy1(double r)
  *
  * \param r = radius where particle is
  * \param r1= radius where particle is born
- * \return
+ * \return energy in eV.
  *
  */
 double ParticleEnergy2(double r, double r1)
