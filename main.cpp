@@ -2,8 +2,9 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "functions.hpp"
 #include "constants.hpp"
+#include "functions.hpp"
+
 
 using namespace std;
 
@@ -23,7 +24,7 @@ int main()
     double (*ParticleEnergy2Ptr)(double,double);
     ParticleEnergy2Ptr = &ParticleEnergy2;
 
-    print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
+//    print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
 
 
 //    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
@@ -87,8 +88,18 @@ int main()
 
     // source rate for first generation of Class II ions.
 
+    kernel_to_table();
 
 
+    // print the S tables to screen
+
+    printf("printing table to screen\n");
+
+    print_table(&Table.A, "Atable.csv");
+//    print_table(&Table.K, "Ktable.csv");
+    print_table(&Table.S_1, "S1.csv");
+    print_table(&Table.S_2, "S2.csv");
+    print_table(&Table.S_3, "S3.csv");
 
     // program is done
     printf("\n-- Done --");
@@ -301,7 +312,7 @@ double kernel(double r, double r1)
     double tmp;
     if ( r < r1 )
     {
-        tmp = pow(r1/r,2) * (g(r,r1) + pow(fusor.Tc*g(0,r1),2)/g(r,r1)/(1-pow(fusor.Tc*g(0,r1),2)));
+        tmp = pow(r1/r,2) * ((g(r,r1) + (pow(fusor.Tc*g(0,r1),2)/g(r,r1)))/(1.0-pow(fusor.Tc*g(0,r1),2)));
         tmp = tmp * ngas * CrosssecTot(ParticleEnergy2(r,r1));
     }
     else
@@ -310,34 +321,64 @@ double kernel(double r, double r1)
     return tmp;
 }
 
-double S_1(double r)
+void kernel_to_table(void)
 {
-    double sum = 0;
 
-    // integral over Kernel times A from zero to fusor.b
+    for ( int i = 0; i < N_TABLE; i++)
+    {
+        for ( int j = 0; j < N_TABLE; j++)
+        {
+            Table.K[i][j] = kernel(i*fusor.b/(N_TABLE),j*fusor.b/(N_TABLE));
+        }
 
+        Table.A[i] = A(i*fusor.b/N_TABLE);
 
-    return sum;
+        if ((N_TABLE / (i+1)) % 5 == 0)
+            printf(".");
+    }
+
+    printf("\n");
+
+    return;
 }
 
-double S_2(double r)
+void S_1(int r)
+{
+    // integral over Kernel times A from zero to fusor.b
+
+    double sum = Table.K[r][0] + Table.K[r][N_TABLE-1];
+    double step = (fusor.b)/N_pres;
+
+    for (int i = 0; i<N_TABLE; i++)
+    {
+        sum += 2.0 * Table.K[r][i] * Table.A[i];
+ //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
+    }
+
+    Table.S_1[r] = sum * fusor.b / (2.0 * N_TABLE);
+
+    return;
+}
+
+void S_2(double r)
 {
     double sum = 0;
+
 
     // integral over Kernel times S_1 from zero to fusor.b
 
 
-    return sum;
+    return;
 }
 
-double S_3(double r)
+void S_3(double r)
 {
     double sum = 0;
 
     // integral over Kernel times S_2 from zero to fusor.b
 
 
-    return sum;
+    return;
 }
 
 
@@ -380,5 +421,18 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
     printf("  writing done\n");
 
     fclose(output);
+    return;
+}
+
+void print_table(double (*table)[N_TABLE], char name[])
+{
+    FILE * output;
+    output = fopen(name,"w");
+
+    for ( int i = 0; i < N_TABLE; i++)
+    {
+        fprintf(output,"%d, %E\n",i,table[i]);
+    }
+
     return;
 }

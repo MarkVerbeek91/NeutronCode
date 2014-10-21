@@ -4,7 +4,7 @@ struct Fusor{
     double b = 0.25;
     double V0 = -40000; // voltage
     double wire_diameter = 0.005;
-    double Tc = 0.83;
+    double Tc = 0.95;
 };
 
 // the precision of the functions.
@@ -51,9 +51,13 @@ struct Fusion_cross_section{
 
 // some data storage is now needed because other wise the calculation becomes hugh
 
-struct S_table{
-    double S_1[100];
-    double S_2[100];
-    double S_3[100];
-    double S_4[100];
-} S_table;
+#define N_TABLE 100
+
+struct Tables{
+    double A[N_TABLE];
+    double K[N_TABLE][N_TABLE];
+    double S_1[N_TABLE];
+    double S_2[N_TABLE];
+    double S_3[N_TABLE];
+    double S_4[N_TABLE];
+} Table;

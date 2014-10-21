@@ -16,13 +16,15 @@ double A(double);
 double g(double, double);
 double gamma(double);
 double kernel(double, double);
-double S_1(double);
-double S_2(double);
-double S_3(double);
+void kernel_to_table(void);
+void S_1(int);
+void S_2(int);
+void S_3(int);
 void print_data_dd(double (*funcPtr)(double), double, double, double, char*);
 void print_data_ddd(double (*funcPtr)(double,double), double, double, double, double, char*);
 void print_SIIEE(void);
 void print_cross_section(void);
 void print_kernel(void);
+void print_table(double (*Table)[N_TABLE], char*    );
 
 
