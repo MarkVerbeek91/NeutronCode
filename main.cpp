@@ -331,6 +331,7 @@ void kernel_to_table(void)
             Table.K[i][j] = kernel(i*fusor.b/(N_TABLE),j*fusor.b/(N_TABLE));
         }
 
+
         Table.A[i] = A(i*fusor.b/N_TABLE);
 
         if ((N_TABLE / (i+1)) % 5 == 0)
@@ -338,6 +339,11 @@ void kernel_to_table(void)
     }
 
     printf("\n");
+
+    for ( int i = 0; i < N_TABLE; i++)
+        printf("A: %E, K: %E\n", Table.A[i],Table.K[0][i]);
+
+
 
     return;
 }
