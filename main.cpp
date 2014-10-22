@@ -16,6 +16,9 @@ int main()
     printf("-- Start of program -- \n");
 
     // writing the potential to a file for plotting
+
+    if ( false )
+    {
     printf("Potential calculation\n");
 
     double (*Potential_PhiPtr)(double);
@@ -24,67 +27,84 @@ int main()
     double (*ParticleEnergy2Ptr)(double,double);
     ParticleEnergy2Ptr = &ParticleEnergy2;
 
-//    print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
+    print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
+
+    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
 
 
-//    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
+    }
 
     // writing the SIIEE to a file for plotting
-    printf("SIIEE calculation\n");
+    if ( false )
+    {
+        printf("SIIEE calculation\n");
 
-    double (*SIIEEPtr)(double);
-    SIIEEPtr = &SIIEE;
+        double (*SIIEEPtr)(double);
+        SIIEEPtr = &SIIEE;
 
-//    print_data_dd(*SIIEEPtr, 1.0, -fusor.V0, 1, "SIIEE.csv");
+        print_data_dd(*SIIEEPtr, 1.0, -fusor.V0, 1, "SIIEE.csv");
+    }
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
-    printf("Cross section calculation\n");
+    if ( false )
+    {
+        printf("Cross section calculation\n");
 
-    double (*CrosssecCXPtr)(double);
-    CrosssecCXPtr = &CrosssecCX;
+        double (*CrosssecCXPtr)(double);
+        CrosssecCXPtr = &CrosssecCX;
 
-//    print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv");
+        print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv");
 
-    double (*CrosssecIonPtr)(double);
-    CrosssecIonPtr = &CrosssecIon;
+        double (*CrosssecIonPtr)(double);
+        CrosssecIonPtr = &CrosssecIon;
 
-//    print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv");
+        print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv");
 
-    double (*CrosssecTotPtr)(double);
-    CrosssecTotPtr = &CrosssecTot;
+        double (*CrosssecTotPtr)(double);
+        CrosssecTotPtr = &CrosssecTot;
 
-//    print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv");
+        print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv");
+    }
 
 
     // Writing the survival functions to a file for plotting.
-    printf("Survival function calculation\n");
+    if ( false )
+    {
+        printf("Survival function calculation\n");
 
-    double (*fPtr)(double);
-    fPtr = &f;
+        double (*fPtr)(double);
+        fPtr = &f;
 
-    print_data_dd(*fPtr, 0.0, fusor.b+0.001, 0.001, "f.csv");
+        print_data_dd(*fPtr, 0.0, fusor.b+0.001, 0.001, "f.csv");
 
-    double (*gPtr)(double,double);
-    gPtr = &g;
+        double (*gPtr)(double,double);
+        gPtr = &g;
 
-    print_data_ddd(*gPtr, 0.0, fusor.b+0.001, 0.001, 0, "g.csv");
+        print_data_ddd(*gPtr, 0.0, fusor.b+0.001, 0.001, 0, "g.csv");
+    }
 
 
     // writing A to a file for plotting
-    printf("doing some thing with A\n");
+    if ( false )
+    {
+        printf("doing some thing with A\n");
 
-    double (*APtr)(double);
-    APtr = &A;
+        double (*APtr)(double);
+        APtr = &A;
 
-//    print_data_dd(*APtr, 0.05, fusor.b+0.01, 0.001, "A.csv");
+        print_data_dd(*APtr, 0.05, fusor.b+0.01, 0.001, "A.csv");
+    }
 
     // building the "Kernel"
-    printf("Kernel\n");
-    double (*KPtr)(double,double);
-    KPtr = &kernel;
+    if ( false )
+    {
+        printf("Kernel\n");
+        double (*KPtr)(double,double);
+        KPtr = &kernel;
 
-    print_data_ddd(*KPtr, 0.0, fusor.b+0.001, 0.01, 0.0001, "K.csv");
+        print_data_ddd(*KPtr, 0.0, fusor.b+0.001, 0.01, 0.0001, "K.csv");
+    }
 
     // source rate for first generation of Class II ions.
 
@@ -92,14 +112,17 @@ int main()
 
 
     // print the S tables to screen
+    if ( true )
+    {
+        printf("printing table to screen\n");
 
-    printf("printing table to screen\n");
+        print_table(1, "Atable.csv");
+//      print_table(&Table.K, "Ktable.csv");
+        print_table(3, "S1.csv");
+        print_table(4, "S2.csv");
+        print_table(5, "S3.csv");
 
-    print_table(1, "Atable.csv");
-//    print_table(&Table.K, "Ktable.csv");
-    print_table(3, "S1.csv");
-    print_table(4, "S2.csv");
-    print_table(5, "S3.csv");
+    }
 
     // program is done
     printf("\n-- Done --");
@@ -340,15 +363,12 @@ void kernel_to_table(void)
     }
 
     printf("\n");
-
+/*
     for ( int i = 0; i < N_TABLE; i++)
     {
         printf("r: %f, A: %E, K: %E\n",i*step+fusor.a, Table.A[i],Table.K[0][i]);
     }
-
-
-
-
+*/
     return;
 }
 
@@ -405,7 +425,7 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
         fprintf (output, "%E,%E\n",r, (*funcPtr)(r));
     }
 
-    printf("  writing done\n");
+    printf("%s: writing done\n",name);
 
     fclose(output);
     return;
@@ -428,7 +448,7 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
 
     }
 
-    printf("  writing done\n");
+    printf("%s: writing done\n",name);
 
     fclose(output);
     return;
