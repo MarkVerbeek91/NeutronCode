@@ -51,7 +51,7 @@ struct Fusion_cross_section{
 
 // some data storage is now needed because other wise the calculation becomes hugh
 
-#define N_TABLE 101
+#define N_TABLE 100
 
 struct Tables{
     double A[N_TABLE];
@@ -60,4 +60,5 @@ struct Tables{
     double S_2[N_TABLE];
     double S_3[N_TABLE];
     double S_4[N_TABLE];
+    double S_5[N_TABLE];
 } Table;

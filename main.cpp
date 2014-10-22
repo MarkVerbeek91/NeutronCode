@@ -93,7 +93,7 @@ int main()
         double (*APtr)(double);
         APtr = &A;
 
-        print_data_dd(*APtr, 0.05, fusor.b+0.01, 0.001, "A.csv");
+        print_data_dd(*APtr, fusor.a, fusor.b+0.01, 0.001, "A.csv");
     }
 
     // building the "Kernel"
@@ -117,10 +117,12 @@ int main()
         printf("printing table to screen\n");
 
         print_table(1, "Atable.csv");
-//      print_table(&Table.K, "Ktable.csv");
+        print_table(2, "Ktable.csv");
         print_table(3, "S1.csv");
         print_table(4, "S2.csv");
         print_table(5, "S3.csv");
+        print_table(6, "S4.csv");
+        print_table(7, "S5.csv");
 
     }
 
@@ -374,67 +376,115 @@ void kernel_to_table(void)
 
 void S_1(int r)
 {
-    // integral over Kernel times A from zero to fusor.b
-
-    double step = (fusor.b-fusor.a)/N_pres;
+    double step = (fusor.b-fusor.a)/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
     {
-
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * Table.A[i] * Table.K[r][i];
+            dot += Table.A[i] * Table.K[r][i];
 
-        Table.S_1[r] = dot;
+        Table.S_1[r] = step * dot;
     }
     else
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * Table.A[i] * Table.K[r][i];
+            dot += Table.A[i] * Table.K[r][i];
 
-        double sum = 0;
-
-        for ( int i = r; i < N_TABLE; i++)
-        {
-            sum += Table.S_1[i];
-
-            printf(".");
-        }
-
-
-        Table.S_1[r] = sum;
-
+        Table.S_1[r] = step * dot + Table.S_1[r+1];
     }
-
+//    printf("S_1[%d]: %f \n",r,S_1[r]);
     return;
 }
 
 void S_2(int r)
 {
-    double sum = Table.K[r][0] + Table.K[r][N_TABLE-1];
-    double step = (fusor.b-fusor.a)/N_pres;
+    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double dot = 0;
 
-    for (int i = 0; i<N_TABLE; i++)
+    if ( r == N_TABLE-1)
     {
-        sum += 2.0 * Table.K[r][i] * Table.S_1[i];
-    }
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_1[i]) * Table.K[r][i];
 
-    Table.S_2[r] = sum * (fusor.b-fusor.a) / (2.0 * N_TABLE);
+        Table.S_2[r] = dot;
+    }
+    else
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_1[i]) * Table.K[r][i];
+
+        Table.S_2[r] = dot + Table.S_2[r+1];
+    }
 
     return;
 }
 
 void S_3(int r)
 {
-    double sum = Table.K[r][0] + Table.K[r][N_TABLE-1];
-    double step = (fusor.b-fusor.a)/N_pres;
+    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double dot = 0;
 
-    for (int i = 0; i<N_TABLE; i++)
+    if ( r == N_TABLE-1)
     {
-        sum += 2.0 * Table.K[r][i] * Table.A[i];
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_2[i]) * Table.K[r][i];
+
+        Table.S_3[r] = dot;
+    }
+    else
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_2[i]) * Table.K[r][i];
+
+        Table.S_3[r] = dot + Table.S_3[r+1];
     }
 
-    Table.S_1[r] = sum * (fusor.b-fusor.a) / (2.0 * N_TABLE);
+    return;
+}
+
+void S_4(int r)
+{
+    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double dot = 0;
+
+    if ( r == N_TABLE-1)
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_3[i]) * Table.K[r][i];
+
+        Table.S_4[r] = dot;
+    }
+    else
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_3[i]) * Table.K[r][i];
+
+        Table.S_4[r] = dot + Table.S_4[r+1];
+    }
+
+    return;
+}
+
+void S_5(int r)
+{
+    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double dot = 0;
+
+    if ( r == N_TABLE-1)
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_4[i]) * Table.K[r][i];
+
+        Table.S_5[r] = dot;
+    }
+    else
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * (Table.A[i] + Table.S_4[i]) * Table.K[r][i];
+
+        Table.S_5[r] = dot + Table.S_5[r+1];
+    }
 
     return;
 }
@@ -450,6 +500,12 @@ void S(void)
 
     for ( int i = N_TABLE-1; i > -1; i--)
         S_3(i);
+
+    for ( int i = N_TABLE-1; i > -1; i--)
+        S_4(i);
+
+    for ( int i = N_TABLE-1; i > -1; i--)
+        S_5(i);
 
     return;
 }
@@ -512,7 +568,7 @@ void print_table(int choice, char name[])
         case 2:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%d, %E\n",i,Table.K[0][i]);
+            fprintf(output,"%d, %E\n",i,Table.K[N_TABLE-2][i]);
         }
         break;
         case 3:
@@ -532,7 +588,18 @@ void print_table(int choice, char name[])
         {
             fprintf(output,"%d, %E\n",i,Table.S_3[i]);
         }
-
+        break;
+        case 6:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.S_4[i]);
+        }
+        break;
+        case 7:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.S_5[i]);
+        }
         break;
 
 
