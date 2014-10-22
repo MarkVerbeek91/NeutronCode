@@ -20,6 +20,7 @@ void kernel_to_table(void);
 void S_1(int);
 void S_2(int);
 void S_3(int);
+void S(void);
 void print_data_dd(double (*funcPtr)(double), double, double, double, char*);
 void print_data_ddd(double (*funcPtr)(double,double), double, double, double, double, char*);
 void print_SIIEE(void);

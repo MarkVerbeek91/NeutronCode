@@ -109,7 +109,7 @@ int main()
     // source rate for first generation of Class II ions.
 
     kernel_to_table();
-
+    S();
 
     // print the S tables to screen
     if ( true )
@@ -382,7 +382,6 @@ void S_1(int r)
     for (int i = 0; i<N_TABLE; i++)
     {
         sum += 2.0 * Table.K[r][i] * Table.A[i];
- //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
     }
 
     Table.S_1[r] = sum * (fusor.b-fusor.a) / (2.0 * N_TABLE);
@@ -390,27 +389,50 @@ void S_1(int r)
     return;
 }
 
-void S_2(double r)
+void S_2(int r)
 {
-    double sum = 0;
+    double sum = Table.K[r][0] + Table.K[r][N_TABLE-1];
+    double step = (fusor.b-fusor.a)/N_pres;
 
+    for (int i = 0; i<N_TABLE; i++)
+    {
+        sum += 2.0 * Table.K[r][i] * Table.S_1[i];
+    }
 
-    // integral over Kernel times S_1 from zero to fusor.b
-
+    Table.S_2[r] = sum * (fusor.b-fusor.a) / (2.0 * N_TABLE);
 
     return;
 }
 
-void S_3(double r)
+void S_3(int r)
 {
-    double sum = 0;
+    double sum = Table.K[r][0] + Table.K[r][N_TABLE-1];
+    double step = (fusor.b-fusor.a)/N_pres;
 
-    // integral over Kernel times S_2 from zero to fusor.b
+    for (int i = 0; i<N_TABLE; i++)
+    {
+        sum += 2.0 * Table.K[r][i] * Table.A[i];
+    }
 
+    Table.S_1[r] = sum * (fusor.b-fusor.a) / (2.0 * N_TABLE);
 
     return;
 }
 
+
+void S(void)
+{
+    for ( int i = 0; i < N_TABLE; i++)
+        S_1(i);
+
+    for ( int i = 0; i < N_TABLE; i++)
+        S_2(i);
+
+    for ( int i = 0; i < N_TABLE; i++)
+        S_3(i);
+
+    return;
+}
 
 
 /**
