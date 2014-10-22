@@ -95,11 +95,11 @@ int main()
 
     printf("printing table to screen\n");
 
-    print_table(&Table.A, "Atable.csv");
+    print_table(1, "Atable.csv");
 //    print_table(&Table.K, "Ktable.csv");
-    print_table(&Table.S_1, "S1.csv");
-    print_table(&Table.S_2, "S2.csv");
-    print_table(&Table.S_3, "S3.csv");
+    print_table(3, "S1.csv");
+    print_table(4, "S2.csv");
+    print_table(5, "S3.csv");
 
     // program is done
     printf("\n-- Done --");
@@ -323,16 +323,17 @@ double kernel(double r, double r1)
 
 void kernel_to_table(void)
 {
+    double step = (fusor.b - fusor.a)/(N_TABLE-1);
 
     for ( int i = 0; i < N_TABLE; i++)
     {
         for ( int j = 0; j < N_TABLE; j++)
         {
-            Table.K[i][j] = kernel(i*fusor.b/(N_TABLE),j*fusor.b/(N_TABLE));
+            Table.K[i][j] = kernel(i*step+fusor.a,j*step+fusor.a);
         }
 
 
-        Table.A[i] = A(i*fusor.b/N_TABLE);
+        Table.A[i] = A(i*step+fusor.a);
 
         if ((N_TABLE / (i+1)) % 5 == 0)
             printf(".");
@@ -341,7 +342,10 @@ void kernel_to_table(void)
     printf("\n");
 
     for ( int i = 0; i < N_TABLE; i++)
-        printf("A: %E, K: %E\n", Table.A[i],Table.K[0][i]);
+    {
+        printf("r: %f, A: %E, K: %E\n",i*step+fusor.a, Table.A[i],Table.K[0][i]);
+    }
+
 
 
 
@@ -353,7 +357,7 @@ void S_1(int r)
     // integral over Kernel times A from zero to fusor.b
 
     double sum = Table.K[r][0] + Table.K[r][N_TABLE-1];
-    double step = (fusor.b)/N_pres;
+    double step = (fusor.b-fusor.a)/N_pres;
 
     for (int i = 0; i<N_TABLE; i++)
     {
@@ -361,7 +365,7 @@ void S_1(int r)
  //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
     }
 
-    Table.S_1[r] = sum * fusor.b / (2.0 * N_TABLE);
+    Table.S_1[r] = sum * (fusor.b-fusor.a) / (2.0 * N_TABLE);
 
     return;
 }
@@ -430,15 +434,49 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
     return;
 }
 
-void print_table(double (*table)[N_TABLE], char name[])
+void print_table(int choice, char name[])
 {
     FILE * output;
     output = fopen(name,"w");
 
-    for ( int i = 0; i < N_TABLE; i++)
+    switch (choice)
     {
-        fprintf(output,"%d, %E\n",i,table[i]);
+        case 1:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.A[i]);
+        }
+        break;
+        case 2:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.K[0][i]);
+        }
+        break;
+        case 3:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.S_1[i]);
+        }
+        break;
+        case 4:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.S_2[i]);
+        }
+        break;
+        case 5:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.S_3[i]);
+        }
+
+        break;
+
+
     }
+
+    fclose(output);
 
     return;
 }

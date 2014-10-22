@@ -25,6 +25,6 @@ void print_data_ddd(double (*funcPtr)(double,double), double, double, double, do
 void print_SIIEE(void);
 void print_cross_section(void);
 void print_kernel(void);
-void print_table(double (*Table)[N_TABLE], char*    );
+void print_table(int, char*);
 
 
