@@ -376,15 +376,35 @@ void S_1(int r)
 {
     // integral over Kernel times A from zero to fusor.b
 
-    double sum = Table.K[r][0] + Table.K[r][N_TABLE-1];
     double step = (fusor.b-fusor.a)/N_pres;
+    double dot = 0;
 
-    for (int i = 0; i<N_TABLE; i++)
+    if ( r == N_TABLE-1)
     {
-        sum += 2.0 * Table.K[r][i] * Table.A[i];
-    }
 
-    Table.S_1[r] = sum * (fusor.b-fusor.a) / (2.0 * N_TABLE);
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * Table.A[i] * Table.K[r][i];
+
+        Table.S_1[r] = dot;
+    }
+    else
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += step * Table.A[i] * Table.K[r][i];
+
+        double sum = 0;
+
+        for ( int i = r; i < N_TABLE; i++)
+        {
+            sum += Table.S_1[i];
+
+            printf(".");
+        }
+
+
+        Table.S_1[r] = sum;
+
+    }
 
     return;
 }
@@ -422,13 +442,13 @@ void S_3(int r)
 
 void S(void)
 {
-    for ( int i = 0; i < N_TABLE; i++)
+    for ( int i = N_TABLE-1; i > -1; i--)
         S_1(i);
 
-    for ( int i = 0; i < N_TABLE; i++)
+    for ( int i = N_TABLE-1; i > -1; i--)
         S_2(i);
 
-    for ( int i = 0; i < N_TABLE; i++)
+    for ( int i = N_TABLE-1; i > -1; i--)
         S_3(i);
 
     return;
