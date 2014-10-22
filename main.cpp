@@ -108,21 +108,24 @@ int main()
 
     // source rate for first generation of Class II ions.
 
+    printf("filling tables:\n");
     kernel_to_table();
     S();
+    printf("done\n");
 
     // print the S tables to screen
     if ( true )
     {
-        printf("printing table to screen\n");
+        printf("Writing tables to files:\n");
 
         print_table(1, "Atable.csv");
         print_table(2, "Ktable.csv");
-        print_table(3, "S1.csv");
-        print_table(4, "S2.csv");
-        print_table(5, "S3.csv");
-        print_table(6, "S4.csv");
-        print_table(7, "S5.csv");
+        print_table(10, "S0.csv");
+        print_table(11, "S1.csv");
+        print_table(12, "S2.csv");
+        print_table(13, "S3.csv");
+        print_table(14, "S4.csv");
+        print_table(15, "S5.csv");
 
     }
 
@@ -364,6 +367,8 @@ void kernel_to_table(void)
             printf(".");
     }
 
+    Table.A[N_TABLE-1] = 43.9944;
+
     printf("\n");
 /*
     for ( int i = 0; i < N_TABLE; i++)
@@ -374,7 +379,7 @@ void kernel_to_table(void)
     return;
 }
 
-void S_1(int r)
+void S_0(int r)
 {
     double step = (fusor.b-fusor.a)/(N_TABLE-1);
     double dot = 0;
@@ -384,16 +389,44 @@ void S_1(int r)
         for ( int i = 0; i < N_TABLE; i++)
             dot += Table.A[i] * Table.K[r][i];
 
-        Table.S_1[r] = step * dot;
+        Table.S_0[r] = step * dot;
     }
     else
     {
         for ( int i = 0; i < N_TABLE; i++)
             dot += Table.A[i] * Table.K[r][i];
 
+        Table.S_0[r] = step * dot + Table.S_0[r+1];
+    }
+
+    Table.S_0[r] += Table.A[r];
+
+    return;
+}
+
+
+void S_1(int r)
+{
+    double step = (fusor.b-fusor.a)/(N_TABLE-1);
+    double dot = 0;
+
+    if ( r == N_TABLE-1)
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += Table.S_0[i] * Table.K[r][i];
+
+        Table.S_1[r] = step * dot;
+    }
+    else
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+            dot += Table.S_0[i] * Table.K[r][i];
+
         Table.S_1[r] = step * dot + Table.S_1[r+1];
     }
-//    printf("S_1[%d]: %f \n",r,S_1[r]);
+
+    Table.S_1[r] += Table.A[r];
+
     return;
 }
 
@@ -405,17 +438,19 @@ void S_2(int r)
     if ( r == N_TABLE-1)
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_1[i]) * Table.K[r][i];
+            dot += Table.S_1[i] * Table.K[r][i];
 
-        Table.S_2[r] = dot;
+        Table.S_2[r] = step * dot;
     }
     else
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_1[i]) * Table.K[r][i];
+            dot += Table.S_1[i] * Table.K[r][i];
 
-        Table.S_2[r] = dot + Table.S_2[r+1];
+        Table.S_2[r] = step * dot + Table.S_2[r+1];
     }
+
+    Table.S_2[r] += Table.A[r];
 
     return;
 }
@@ -428,18 +463,19 @@ void S_3(int r)
     if ( r == N_TABLE-1)
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_2[i]) * Table.K[r][i];
+            dot += Table.S_2[i] * Table.K[r][i];
 
-        Table.S_3[r] = dot;
+        Table.S_3[r] = step * dot;
     }
     else
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_2[i]) * Table.K[r][i];
+            dot += Table.S_2[i] * Table.K[r][i];
 
-        Table.S_3[r] = dot + Table.S_3[r+1];
+        Table.S_3[r] = step * dot + Table.S_3[r+1];
     }
 
+    Table.S_3[r] += Table.A[r];
     return;
 }
 
@@ -451,18 +487,19 @@ void S_4(int r)
     if ( r == N_TABLE-1)
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_3[i]) * Table.K[r][i];
+            dot += Table.S_3[i] * Table.K[r][i];
 
-        Table.S_4[r] = dot;
+        Table.S_4[r] = step * dot;
     }
     else
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_3[i]) * Table.K[r][i];
+            dot += Table.S_3[i] * Table.K[r][i];
 
-        Table.S_4[r] = dot + Table.S_4[r+1];
+        Table.S_4[r] = step * dot + Table.S_4[r+1];
     }
 
+    Table.S_4[r] += Table.A[r];
     return;
 }
 
@@ -474,17 +511,19 @@ void S_5(int r)
     if ( r == N_TABLE-1)
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_4[i]) * Table.K[r][i];
+            dot += Table.S_4[i] * Table.K[r][i];
 
-        Table.S_5[r] = dot;
+        Table.S_5[r] = step *  dot;
     }
     else
     {
         for ( int i = 0; i < N_TABLE; i++)
-            dot += step * (Table.A[i] + Table.S_4[i]) * Table.K[r][i];
+            dot += Table.S_4[i] * Table.K[r][i];
 
-        Table.S_5[r] = dot + Table.S_5[r+1];
+        Table.S_5[r] = step * dot + Table.S_5[r+1];
     }
+
+    Table.S_5[r] += Table.A[r];
 
     return;
 }
@@ -492,6 +531,9 @@ void S_5(int r)
 
 void S(void)
 {
+    for ( int i = N_TABLE-1; i > -1; i--)
+        S_0(i);
+
     for ( int i = N_TABLE-1; i > -1; i--)
         S_1(i);
 
@@ -571,31 +613,37 @@ void print_table(int choice, char name[])
             fprintf(output,"%d, %E\n",i,Table.K[N_TABLE-2][i]);
         }
         break;
-        case 3:
+        case 10:
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            fprintf(output,"%d, %E\n",i,Table.S_0[i]);
+        }
+        break;
+        case 11:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_1[i]);
         }
         break;
-        case 4:
+        case 12:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_2[i]);
         }
         break;
-        case 5:
+        case 13:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_3[i]);
         }
         break;
-        case 6:
+        case 14:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_4[i]);
         }
         break;
-        case 7:
+        case 15:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_5[i]);

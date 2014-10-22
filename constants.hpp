@@ -56,6 +56,7 @@ struct Fusion_cross_section{
 struct Tables{
     double A[N_TABLE];
     double K[N_TABLE][N_TABLE];
+    double S_0[N_TABLE];
     double S_1[N_TABLE];
     double S_2[N_TABLE];
     double S_3[N_TABLE];
