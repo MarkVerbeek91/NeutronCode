@@ -403,7 +403,6 @@ void S_0(int r)
     return;
 }
 
-
 void S_1(int r)
 {
     double step = (fusor.b-fusor.a)/(N_TABLE-1);
@@ -429,7 +428,7 @@ void S_1(int r)
 
 void S_2(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double step = (fusor.b-fusor.a)/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -452,7 +451,7 @@ void S_2(int r)
 
 void S_3(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double step = (fusor.b-fusor.a)/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -475,7 +474,7 @@ void S_3(int r)
 
 void S_4(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double step = (fusor.b-fusor.a)/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -498,7 +497,7 @@ void S_4(int r)
 
 void S_5(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_pres-1);
+    double step = (fusor.b-fusor.a)/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -518,7 +517,6 @@ void S_5(int r)
 
     return;
 }
-
 
 void S(void)
 {
@@ -562,6 +560,39 @@ void S(void)
     return;
 }
 
+/** the next section will calculate currents and such:
+
+*/
+double I_c1(void)
+{
+    double current;
+
+    current = 4 * 3.141529 * pow(fusor.b,2) * q * (1.0 - fusor.Tc) * (f(fusor.a) + (fusor.Tc * pow(f(0.0),2))/f(fusor.a))*(1 + SIIEE(fusor.V0));
+
+    return current;
+}
+
+double I_c2(void)
+{
+    // very difficuled stuff
+    double current = 0;
+
+    return current;
+}
+
+double I_c3(void)
+{
+    double current = 0;
+
+    return current;
+}
+
+double I_c4(void)
+{
+    double current = 0;
+
+    return current;
+}
 
 /**
     This function writes a given function to a file.
@@ -633,35 +664,35 @@ void print_table(int choice, char name[])
         case 11:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%d, %E\n",i,Table.S_1[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S_1[i]);
         }
         printf("Printed S1Table\n");
         break;
         case 12:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%d, %E\n",i,Table.S_2[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S_2[i]);
         }
         printf("Printed S2Table\n");
         break;
         case 13:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%d, %E\n",i,Table.S_3[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S_3[i]);
         }
         printf("Printed S3Table\n");
         break;
         case 14:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%d, %E\n",i,Table.S_4[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S_4[i]);
         }
         printf("Printed S4Table\n");
         break;
         case 15:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%d, %E\n",i,Table.S_5[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S_5[i]);
         }
         printf("Printed S5Table\n");
         break;
