@@ -360,11 +360,12 @@ void kernel_to_table(void)
             Table.K[i][j] = kernel(i*step+fusor.a,j*step+fusor.a);
         }
 
+        if ((N_TABLE / (i+1)) % 5 == 0)
+            printf(".");
 
         Table.A[i] = A(i*step+fusor.a);
 
-        if ((N_TABLE / (i+1)) % 5 == 0)
-            printf(".");
+        Table.R[i] = i*step+fusor.a;
     }
 
     Table.A[N_TABLE-1] = 43.9944;
@@ -584,8 +585,6 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
     for (double r = Start; r<End; r+=step)
     {
         fprintf (output, "%E,%E\n",r, (*funcPtr)(sec, r));
-
-
     }
 
     printf("%s: writing done\n",name);
@@ -606,51 +605,57 @@ void print_table(int choice, char name[])
         {
             fprintf(output,"%d, %E\n",i,Table.A[i]);
         }
+        printf("Printed ATable\n");
         break;
         case 2:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.K[N_TABLE-2][i]);
         }
+        printf("Printed KTable\n");
         break;
         case 10:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%d, %E\n",i,Table.S_0[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S_0[i]);
         }
+        printf("Printed STable\n");
         break;
         case 11:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_1[i]);
         }
+        printf("Printed S1Table\n");
         break;
         case 12:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_2[i]);
         }
+        printf("Printed S2Table\n");
         break;
         case 13:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_3[i]);
         }
+        printf("Printed S3Table\n");
         break;
         case 14:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_4[i]);
         }
+        printf("Printed S4Table\n");
         break;
         case 15:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.S_5[i]);
         }
+        printf("Printed S5Table\n");
         break;
-
-
     }
 
     fclose(output);
