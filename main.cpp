@@ -111,7 +111,7 @@ int main()
     printf("done\n");
 
     // print the S tables to screen
-    if ( true )
+    if ( false )
     {
         printf("Writing tables to files:\n");
 
@@ -125,6 +125,24 @@ int main()
         print_table(15, "S5.csv");
 
     }
+
+    double TotalCurrent, dummie;
+
+
+    dummie = I_c1();
+    printf("total current: %E\n",dummie);
+    TotalCurrent += dummie;
+    dummie = I_c2();
+    printf("total current: %E\n",dummie);
+    TotalCurrent += dummie;
+    dummie = I_c3();
+    printf("total current: %E\n",dummie);
+    TotalCurrent += dummie;
+    dummie = I_c4();
+    printf("total current: %E\n",dummie);
+    TotalCurrent += dummie;
+
+    printf("total current: %E\n",TotalCurrent);
 
     // program is done
     printf("\n-- Done --");
@@ -579,7 +597,6 @@ double I_c2(void)
 
     for (double dr = fusor.a; dr < fusor.b; dr += step)
     {
-        fac = 4 * 3.141529 * q * (1 - fusor.Tc);
         fac = interpolation(dr) / ( 1 - pow(fusor.Tc,2)*g(0,dr));
         fac *= (g(fusor.a,dr) + fusor.Tc * g(0,dr)/g(fusor.a,dr));
         fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
@@ -587,7 +604,7 @@ double I_c2(void)
         sum += fac * step;
     }
 
-    current = sum;
+    current = 4 * 3.141529 * q * (1 - fusor.Tc) * sum;
   /*
     double sum = CrosssecCX(ParticleEnergy2(r,r1))+CrosssecCX(ParticleEnergy2(r1,r1)), step = (r1 - r)/N_pres;
 
@@ -607,7 +624,7 @@ double I_c2(void)
 
 double I_c3(void)
 {
-    double current = 0;
+    double current;
 
     current  = 4 * 3.141529 * pow(fusor.b,2) * q * (CrosssecTot(fusor.V0)/CrosssecCX(fusor.V0));
     current *= fusor.Tc * f(fusor.a) * ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(fusor.V0)));
@@ -618,6 +635,21 @@ double I_c3(void)
 double I_c4(void)
 {
     double current = 0;
+    double sum = 0;
+    double fac = 0;
+    double step = (fusor.b - fusor.a) / N_pres;
+
+    for (double dr = fusor.a; dr < fusor.b; dr += step)
+    {
+        fac  = pow(dr,2);
+        fac *= CrosssecTot(ParticleEnergy2(fusor.a,dr))/CrosssecCX(ParticleEnergy2(fusor.a,dr));
+        fac *= (interpolation(dr) * g(fusor.a,dr))/( 1 - pow(fusor.Tc,2) * g(0,dr));
+        fac *= ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(ParticleEnergy2(fusor.a,dr))));
+
+        sum += fac * step;
+    }
+
+    current = 4 * 3.141529 * pow(fusor.b,2) * q * sum;
 
     return current;
 }
