@@ -27,6 +27,7 @@ double I_c1(void);
 double I_c2(void);
 double I_c3(void);
 double I_c4(void);
+double interpolation(double);
 void print_data_dd(double (*funcPtr)(double), double, double, double, char*);
 void print_data_ddd(double (*funcPtr)(double,double), double, double, double, double, char*);
 void print_SIIEE(void);
