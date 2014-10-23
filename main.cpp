@@ -16,19 +16,17 @@ int main()
 
     if ( false )
     {
-    printf("Potential calculation\n");
+        printf("Potential calculation\n");
 
-    double (*Potential_PhiPtr)(double);
-    Potential_PhiPtr = &Potential_Phi;
+        double (*Potential_PhiPtr)(double);
+        Potential_PhiPtr = &Potential_Phi;
 
-    double (*ParticleEnergy2Ptr)(double,double);
-    ParticleEnergy2Ptr = &ParticleEnergy2;
+        double (*ParticleEnergy2Ptr)(double,double);
+        ParticleEnergy2Ptr = &ParticleEnergy2;
 
-    print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
+        print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
 
-    print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
-
-
+        print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
     }
 
     // writing the SIIEE to a file for plotting
@@ -107,6 +105,8 @@ int main()
 
     printf("filling tables:\n");
     kernel_to_table();
+
+    printf("Calculating S\n");
     S();
     printf("done\n");
 
@@ -573,7 +573,33 @@ double I_c2(void)
 {
     // very difficuled stuff
     double current = 0;
+    double sum = 0;
+    double fac = 0;
+    double step = (fusor.b - fusor.a) / N_pres;
 
+    for (double dr = fusor.a; dr < fusor.b; dr += step)
+    {
+        fac = 4 * 3.141529 * q * (1 - fusor.Tc);
+        fac = interpolation(dr) / ( 1 - pow(fusor.Tc,2)*g(0,dr));
+        fac *= (g(fusor.a,dr) + fusor.Tc * g(0,dr)/g(fusor.a,dr));
+        fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
+
+        sum += fac * step;
+    }
+
+    current = sum;
+  /*
+    double sum = CrosssecCX(ParticleEnergy2(r,r1))+CrosssecCX(ParticleEnergy2(r1,r1)), step = (r1 - r)/N_pres;
+
+    for (double r2=r; r2<r1; r2+= step)
+    {
+        sum += 2.0 * CrosssecCX(ParticleEnergy2(r2,r1));
+ //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
+    }
+
+    sum *= ngas;
+    sum = sum * step / 2.0;
+*/
 
 
     return current;
@@ -582,6 +608,9 @@ double I_c2(void)
 double I_c3(void)
 {
     double current = 0;
+
+    current  = 4 * 3.141529 * pow(fusor.b,2) * q * (CrosssecTot(fusor.V0)/CrosssecCX(fusor.V0));
+    current *= fusor.Tc * f(fusor.a) * ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(fusor.V0)));
 
     return current;
 }
