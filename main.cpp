@@ -582,7 +582,7 @@ double I_c1(void)
 {
     double current;
 
-    current = 4 * 3.141529 * pow(fusor.b,2) * q * (1.0 - fusor.Tc) * (f(fusor.a) + (fusor.Tc * pow(f(0.0),2))/f(fusor.a))*(1 + SIIEE(fusor.V0));
+    current = 4 * 3.141529 * pow(fusor.b,2) * q * (1.0 - fusor.Tc) * (f(fusor.a) + (fusor.Tc * pow(f(0.0),2))/f(fusor.a))*(1 + SIIEE(-fusor.V0));
 
     return current;
 }
@@ -605,19 +605,6 @@ double I_c2(void)
     }
 
     current = 4 * 3.141529 * q * (1 - fusor.Tc) * sum;
-  /*
-    double sum = CrosssecCX(ParticleEnergy2(r,r1))+CrosssecCX(ParticleEnergy2(r1,r1)), step = (r1 - r)/N_pres;
-
-    for (double r2=r; r2<r1; r2+= step)
-    {
-        sum += 2.0 * CrosssecCX(ParticleEnergy2(r2,r1));
- //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
-    }
-
-    sum *= ngas;
-    sum = sum * step / 2.0;
-*/
-
 
     return current;
 }
@@ -626,8 +613,8 @@ double I_c3(void)
 {
     double current;
 
-    current  = 4 * 3.141529 * pow(fusor.b,2) * q * (CrosssecTot(fusor.V0)/CrosssecCX(fusor.V0));
-    current *= fusor.Tc * f(fusor.a) * ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(fusor.V0)));
+    current  = 4 * 3.141529 * pow(fusor.b,2) * q * (CrosssecTot(-fusor.V0)/CrosssecCX(-fusor.V0));
+    current *= fusor.Tc * f(fusor.a) * ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(-fusor.V0)));
 
     return current;
 }
