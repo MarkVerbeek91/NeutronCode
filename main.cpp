@@ -5,9 +5,6 @@
 #include "constants.hpp"
 #include "functions.hpp"
 
-
-using namespace std;
-
 Fusor fusor;
 
 int main()
@@ -577,6 +574,8 @@ double I_c2(void)
     // very difficuled stuff
     double current = 0;
 
+
+
     return current;
 }
 
@@ -592,6 +591,27 @@ double I_c4(void)
     double current = 0;
 
     return current;
+}
+
+double interpolation(double r)
+{
+    double value = -1;
+    int low, upper;
+
+    for ( int i = 0; i < N_TABLE; i++)
+    {
+        if ( r < Table.R[i])
+        {
+            low = i - 1;
+            upper = i;
+        }
+    }
+
+    double slope = ( Table.S_4[upper] - Table.S_4[low])/(Table.R[upper] - Table.R[low]);
+
+    value = slope*r + Table.S_4[low] - Table.R[low] * slope;
+
+    return value;
 }
 
 /**

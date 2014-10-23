@@ -58,18 +58,18 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 
 
 %% plotting the survival function g(0,r)
-filename = strcat(loc, 'g.csv');
-data_g = csvread(filename);
-filename = strcat(loc, 'g1.csv');
-data_g1 = csvread(filename);
-
-data_g3 = data_g(:,2) - data_g1(:,2);
-
-figure 
-g = plot(data_g(:,1),data_g(:,2),data_g1(:,1),data_g1(:,2),data_g(:,1),data_g3);
-legend(g, 'G code - G mathematica')
-xlim([0 0.25]);
-ylim([0 1]);
+% filename = strcat(loc, 'g.csv');
+% data_g = csvread(filename);
+% filename = strcat(loc, 'g1.csv');
+% data_g1 = csvread(filename);
+% 
+% data_g3 = data_g(:,2) - data_g1(:,2);
+% 
+% figure 
+% g = plot(data_g(:,1),data_g(:,2),data_g1(:,1),data_g1(:,2),data_g(:,1),data_g3);
+% legend(g, 'G code - G mathematica')
+% xlim([0 0.25]);
+% ylim([0 1]);
 
 %% plotting A
 % filename = strcat(loc, 'A.csv');
@@ -80,16 +80,24 @@ ylim([0 1]);
 % xlim([0.05 0.25]);
 
 %% verivacation of the Kernel
-filename = strcat(loc, 'k.csv');
-data_K = csvread(filename);
-filename = strcat(loc, 'k1.csv');
-data_K1 = csvread(filename);
+% filename = strcat(loc, 'k.csv');
+% data_K = csvread(filename);
+% filename = strcat(loc, 'k1.csv');
+% data_K1 = csvread(filename);
+% 
+% data_K(:,2) = data_K(:,2)-data_K1(:,2);
+% 
+% figure 
+% K = plot(data_K(:,1),data_K(:,2));
+% legend(K, 'Kernel')
+% 
 
-data_K(:,2) = data_K(:,2)-data_K1(:,2);
+%% plotting the Source function
+filename = strcat(loc,'S4.csv');
+data = csvread(filename);
+plot(data(:,1) , data(:,2),'.')
 
-figure 
-K = plot(data_K(:,1),data_K(:,2));
-legend(K, 'Kernel')
+
 
 
 
