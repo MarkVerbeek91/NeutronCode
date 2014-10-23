@@ -144,6 +144,11 @@ int main()
 
     printf("total current: %E\n",TotalCurrent);
 
+    FILE* output;
+    output = fopen("interpolation.csv","w");
+
+ //   for (  i = 0; )
+
     // program is done
     printf("\n-- Done --");
     return 0;
