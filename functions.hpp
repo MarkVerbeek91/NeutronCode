@@ -29,6 +29,8 @@ double I_c1(void);
 double I_c2(void);
 double I_c3(void);
 double I_c4(void);
+// math
+double NIntegration(double (*funcPtr)(double), double, double);
 double interpolation(double);
 // functions to calculate the neutron production rate per shell
 double Sfi_InMin(double r);

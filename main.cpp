@@ -64,7 +64,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( false )
+    if ( true )
     {
         printf("Survival function calculation\n");
 
@@ -320,18 +320,17 @@ double CrosssecFusion(double E)
 /**
     The next function compute the chance that a particle survise to that radius
 */
+double f_inte(double r)
+{
+    return CrosssecCX(ParticleEnergy1(r));
+}
+
 double f(double r)
 {
-    double sum = CrosssecCX(ParticleEnergy1(0)) + CrosssecCX(ParticleEnergy1(r));
-    double step = (fusor.b - r)/N_pres;
+    double (*f_intePtr)(double);
+    f_intePtr = &f_inte;
 
-    // very simple intergration.
-    for (r; r < fusor.b; r+=step )
-    {
-        sum += 2.0*CrosssecCX(ParticleEnergy1(r));
-    }
-
-    sum = sum * step / 2.0;
+    double sum = NIntegration(*f_intePtr, r, fusor.b);
 
     sum *= ngas;
 
@@ -709,11 +708,11 @@ double interpolation(double r)
 
 double NIntegration( double (*funcPtr)(double), double Start, double End)
 {
-    double sum = (*funcPtr)(Start) + (*funcPtr)(End), step = (r1 - r)/N_pres;
+    double sum = (*funcPtr)(Start) + (*funcPtr)(End), step = (End - Start)/N_pres;
 
-    for (double r2=r; r2<r1; r2+= step)
+    for (double r=Start; r<End; r += step)
     {
-        sum += 2.0 * (*funcPtr)(step);
+        sum += 2.0 * (*funcPtr)(r);
     }
 
     sum = sum * step / 2.0;
