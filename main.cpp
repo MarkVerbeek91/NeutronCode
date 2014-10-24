@@ -147,8 +147,11 @@ int main()
     FILE* output;
     output = fopen("interpolation.csv","w");
 
- //   for (  i = 0; )
+    for ( double i = fusor.a; i < fusor.b; i += 0.0023)
+        fprintf(output, "%E, %E\n",i,interpolation(i));
 
+
+    fclose(output);
     // program is done
     printf("\n-- Done --");
     return 0;
@@ -663,6 +666,9 @@ double interpolation(double r)
     double slope = ( Table.S_4[upper] - Table.S_4[low])/(Table.R[upper] - Table.R[low]);
 
     value = slope*r + Table.S_4[low] - Table.R[low] * slope;
+
+    if (value < 0)
+        value *= -1;
 
     return value;
 }
