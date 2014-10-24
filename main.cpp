@@ -377,6 +377,8 @@ double g(double r, double r1)
         return -2;
     }
 
+
+
     double sum = CrosssecCX(ParticleEnergy2(r,r1))+CrosssecCX(ParticleEnergy2(r1,r1)), step = (r1 - r)/N_pres;
 
     for (double r2=r; r2<r1; r2+= step)
@@ -628,15 +630,29 @@ double I_c1(void)
     return current;
 }
 
+double I_c2inte(double dr)
+{
+    double  fac  = interpolation(dr) / ( 1 - pow(fusor.Tc,2)*g(0,dr));
+            fac *= (g(fusor.a,dr) + fusor.Tc * g(0,dr)/g(fusor.a,dr));
+            fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
+
+    return fac;
+}
+
 double I_c2(void)
 {
     // very difficuled stuff
     double current = 0;
     double sum = 0;
-    double fac = 0;
-    double step = (fusor.b - fusor.a) / N_pres;
+//    double fac = 0;
+//    double step = (fusor.b - fusor.a) / N_pres;
 
-    for (double dr = fusor.a; dr < fusor.b; dr += step)
+    double (*I_c2intePtr)(double);
+    I_c2intePtr = &I_c2inte;
+
+    sum = NIntegration(*I_c2intePtr, fusor.a, fusor.b);
+
+/*    for (double dr = fusor.a; dr < fusor.b; dr += step)
     {
         fac = interpolation(dr) / ( 1 - pow(fusor.Tc,2)*g(0,dr));
         fac *= (g(fusor.a,dr) + fusor.Tc * g(0,dr)/g(fusor.a,dr));
@@ -644,6 +660,7 @@ double I_c2(void)
 
         sum += fac * step;
     }
+*/
 
     current = 4 * 3.141529 * q * (1 - fusor.Tc) * sum;
 
@@ -685,7 +702,7 @@ double I_c4(void)
 double interpolation(double r)
 {
     double value = -1;
-    int low, upper;
+    int low = N_TABLE - 2, upper = N_TABLE - 1;
 
     for ( int i = 0; i < N_TABLE; i++)
     {
