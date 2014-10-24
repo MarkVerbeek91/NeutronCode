@@ -383,15 +383,12 @@ double g(double r, double r1)
     for (double r2=r; r2<r1; r2+= step)
     {
         sum += 2.0 * CrosssecCX(ParticleEnergy2(r2,r1));
- //       printf("r: %E, r1: %E, r2: %E tmp: %E\n",r,r1,r2,tmp);
     }
 
     sum *= ngas;
     sum = sum * step / 2.0;
-
- //   printf("integration done\n");
-
     sum = exp(-sum);
+
     return sum;
 }
 
@@ -709,6 +706,21 @@ double interpolation(double r)
 
     return value;
 }
+
+double NIntegration( double (*funcPtr)(double), double Start, double End)
+{
+    double sum = (*funcPtr)(Start) + (*funcPtr)(End), step = (r1 - r)/N_pres;
+
+    for (double r2=r; r2<r1; r2+= step)
+    {
+        sum += 2.0 * (*funcPtr)(step);
+    }
+
+    sum = sum * step / 2.0;
+
+    return sum;
+}
+
 
 /**
     Four function are needed to calculate the neutron production at given radius.
