@@ -142,8 +142,41 @@ int main()
     printf("total current: %E\n",dummie);
     TotalCurrent += dummie;
 
-    printf("total current: %E\n",TotalCurrent);
+    EdgeIonFlux = Itot / TotalCurrent;
 
+    printf("total current: %E, \t EdgeIonFlux: %E\n",TotalCurrent, EdgeIonFlux);
+
+    if ( true )
+    {
+        printf("printing neutron source rate to file:");
+
+        // outside the cathode
+        double (*Sfi_OutMinPtr)(double);
+        Sfi_OutMinPtr = &Sfi_OutMin;
+
+        print_data_dd(*Sfi_OutMinPtr, fusor.a, fusor.b, 0.001, "Sfi_OutMin.csv");
+
+        double (*Sfi_OutPlusPtr)(double);
+        Sfi_OutPlusPtr = &Sfi_InMin;
+
+        print_data_dd(*Sfi_OutPlusPtr, fusor.a, fusor.b, 0.001, "Sfi_OutPlus.csv");
+
+        // inside the cathode
+        double (*Sfi_InMinPtr)(double);
+        Sfi_InMinPtr = &Sfi_InMin;
+
+        print_data_dd(*Sfi_InMinPtr, 0, fusor.a, 0.001, "Sfi_InMin.csv");
+
+        double (*Sfi_InPlusPtr)(double);
+        Sfi_InPlusPtr = &Sfi_InPlus;
+
+        print_data_dd(*Sfi_InPlusPtr, 0, fusor.a, 0.001, "Sfi_InPlus.csv");
+
+
+
+    }
+
+/*
     FILE* output;
     output = fopen("interpolation.csv","w");
 
@@ -152,7 +185,11 @@ int main()
 
 
     fclose(output);
+  */
+
     // program is done
+
+
     printf("\n-- Done --");
     return 0;
 }
@@ -682,19 +719,22 @@ double interpolation(double r)
     a function for outgoing ions outside the cathode
 */
 
-void Sfi_InMin(double r)
+double Sfi_OutMin(double r)
 {
     double S;
     double term1 = 0, term2;
     double step = fusor.a / N_pres;
     double fac;
 
-    for ( double dr = 0, dr < fusor.a; dr += step)
+    printf("Starting integration: \n");
+
+    for ( double dr = 0; dr < fusor.a; dr += step)
     {
         fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
         fac *= g(r,dr)/( 1 - pow(fusor.Tc*g(0,dr),2) );
 
         term1 += fac;
+        printf(".");
     }
     term1 *= ngas * EdgeIonFlux;
 
@@ -702,26 +742,78 @@ void Sfi_InMin(double r)
 
     S = term1 + term2;
 
+    return S;
+}
+
+double Sfi_OutPlus(double r)
+{
+    double S;
+    double term1 = 0, term2;
+    double step = fusor.a / N_pres;
+    double fac;
+
+    for ( double dr = 0; dr < fusor.a; dr += step)
+    {
+        fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
+        fac *= pow(fusor.Tc * g(r,dr),2)/( 1 - pow(fusor.Tc*g(0,dr),2) ) * 1 / g(r,dr);
+
+        term1 += fac;
+    }
+    term1 *= ngas * EdgeIonFlux;
+
+    term2 = ngas * pow(fusor.b/r,2) * EdgeIonFlux * (pow(f(0),2) / f(r)) * CrosssecFusion(ParticleEnergy1(r));
+
+    S = term1 + term2;
+
     return r;
 }
 
-void Sfi_InPlus(double r)
+double Sfi_InMin(double r)
 {
+    double S;
+    double term1 = 0, term2;
+    double step = fusor.a / N_pres;
+    double fac;
 
+    for ( double dr = fusor.a; dr < fusor.b; dr += step)
+    {
+        fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
+        fac *= fusor.Tc * g(r,dr) / ( 1 - pow(fusor.Tc*g(0,dr),2) ) ;
+        fac *= exp(ngas * CrosssecCX(ParticleEnergy2(fusor.b,dr)) * ( r - fusor.a));
 
-    return r;
+        term1 += fac;
+    }
+    term1 *= ngas * EdgeIonFlux;
+
+    term2  = ngas * pow(fusor.b/r,2) * EdgeIonFlux * f(fusor.a) * CrosssecFusion(ParticleEnergy1(r));
+    term2 *= exp(ngas * CrosssecCX(fusor.V0) * ( r - fusor.a));
+
+    S = term1 + term2;
+
+    return S;
 }
 
-void Sfi_OutMin(double r)
+double Sfi_InPlus(double r)
 {
+    double S;
+    double term1 = 0, term2;
+    double step = fusor.a / N_pres;
+    double fac;
 
+    for ( double dr = fusor.a; dr < fusor.b; dr += step)
+    {
+        fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
+        fac *= pow(fusor.Tc * g(r,dr),2) / ( 1 - pow(fusor.Tc*g(0,dr),2) ) * 1 / g(r,dr) ;
+        fac *= exp( -1 * ngas * CrosssecCX(ParticleEnergy2(fusor.b,dr)) * ( r - fusor.a));
 
-    return r;
-}
+        term1 += fac;
+    }
+    term1 *= ngas * EdgeIonFlux;
 
-void Sfi_OutPlus(double r)
-{
+    term2  = ngas * pow(fusor.b/r,2) * EdgeIonFlux * pow(f(fusor.a),2) * CrosssecFusion(ParticleEnergy1(r)) / f(fusor.a);
+    term2 *= exp( -1 * ngas * CrosssecCX(fusor.V0) * ( r - fusor.a));
 
+    S = term1 + term2;
 
     return r;
 }
