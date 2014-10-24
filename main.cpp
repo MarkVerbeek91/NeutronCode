@@ -684,6 +684,23 @@ double interpolation(double r)
 
 void Sfi_InMin(double r)
 {
+    double S;
+    double term1 = 0, term2;
+    double step = fusor.a / N_pres;
+    double fac;
+
+    for ( double dr = 0, dr < fusor.a; dr += step)
+    {
+        fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
+        fac *= g(r,dr)/( 1 - pow(fusor.Tc*g(0,dr),2) );
+
+        term1 += fac;
+    }
+    term1 *= ngas * EdgeIonFlux;
+
+    term2 = ngas * pow(fusor.b/r,2) * EdgeIonFlux * f(r) * CrosssecFusion(ParticleEnergy1(r));
+
+    S = term1 + term2;
 
     return r;
 }
@@ -691,17 +708,20 @@ void Sfi_InMin(double r)
 void Sfi_InPlus(double r)
 {
 
+
     return r;
 }
 
 void Sfi_OutMin(double r)
 {
 
+
     return r;
 }
 
 void Sfi_OutPlus(double r)
 {
+
 
     return r;
 }
