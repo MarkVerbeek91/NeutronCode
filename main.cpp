@@ -154,23 +154,23 @@ int main()
         double (*Sfi_OutMinPtr)(double);
         Sfi_OutMinPtr = &Sfi_OutMin;
 
-        print_data_dd(*Sfi_OutMinPtr, fusor.a, fusor.b, 0.001, "Sfi_OutMin.csv");
+ //       print_data_dd(*Sfi_OutMinPtr, fusor.a, fusor.b, 0.001, "Sfi_OutMin.csv");
 
         double (*Sfi_OutPlusPtr)(double);
         Sfi_OutPlusPtr = &Sfi_InMin;
 
-        print_data_dd(*Sfi_OutPlusPtr, fusor.a, fusor.b, 0.001, "Sfi_OutPlus.csv");
+ //       print_data_dd(*Sfi_OutPlusPtr, fusor.a, fusor.b, 0.001, "Sfi_OutPlus.csv");
 
         // inside the cathode
         double (*Sfi_InMinPtr)(double);
         Sfi_InMinPtr = &Sfi_InMin;
 
-        print_data_dd(*Sfi_InMinPtr, 0, fusor.a, 0.001, "Sfi_InMin.csv");
+ //       print_data_dd(*Sfi_InMinPtr, 0, fusor.a, 0.001, "Sfi_InMin.csv");
 
         double (*Sfi_InPlusPtr)(double);
         Sfi_InPlusPtr = &Sfi_InPlus;
 
-        print_data_dd(*Sfi_InPlusPtr, 0, fusor.a, 0.001, "Sfi_InPlus.csv");
+ //       print_data_dd(*Sfi_InPlusPtr, 0, fusor.a, 0.001, "Sfi_InPlus.csv");
 
 
 
@@ -677,13 +677,31 @@ double I_c3(void)
     return current;
 }
 
+double I_c4inte(double dr)
+{
+    double fac;
+
+    fac  = pow(dr,2);
+    fac *= CrosssecTot(ParticleEnergy2(fusor.a,dr))/CrosssecCX(ParticleEnergy2(fusor.a,dr));
+    fac *= (interpolation(dr) * g(fusor.a,dr))/( 1 - pow(fusor.Tc,2) * g(0,dr));
+    fac *= ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(ParticleEnergy2(fusor.a,dr))));
+
+    return fac;
+}
+
 double I_c4(void)
 {
     double current = 0;
     double sum = 0;
-    double fac = 0;
-    double step = (fusor.b - fusor.a) / N_pres;
+//    double fac = 0;
+//    double step = (fusor.b - fusor.a) / N_pres;
 
+    double (*I_c4intePtr)(double);
+    I_c4intePtr = &I_c4inte;
+
+    sum = NIntegration(*I_c4intePtr, fusor.a, fusor.b);
+
+/*
     for (double dr = fusor.a; dr < fusor.b; dr += step)
     {
         fac  = pow(dr,2);
@@ -693,7 +711,7 @@ double I_c4(void)
 
         sum += fac * step;
     }
-
+*/
     current = 4 * 3.141529 * pow(fusor.b,2) * q * sum;
 
     return current;
