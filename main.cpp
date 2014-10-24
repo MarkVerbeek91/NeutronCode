@@ -674,6 +674,48 @@ double interpolation(double r)
 }
 
 /**
+    Four function are needed to calculate the neutron production at given radius.
+
+    a function for ingoing ions in the cathode
+    a function for outgoing ions in the cathode
+    a function for ingoing ions outside the cathode
+    a function for outgoing ions outside the cathode
+*/
+
+void Sfi_InMin(double r)
+{
+
+    return r;
+}
+
+void Sfi_InPlus(double r)
+{
+
+    return r;
+}
+
+void Sfi_OutMin(double r)
+{
+
+    return r;
+}
+
+void Sfi_OutPlus(double r)
+{
+
+    return r;
+}
+
+
+
+/**
+    To get the total Neutron production, the neutron production needs to be integrated
+    over the volume.
+*/
+
+
+
+/**
     This function writes a given function to a file.
 */
 void print_data_dd(double (*funcPtr)(double), double Start, double End, double step, char name[])

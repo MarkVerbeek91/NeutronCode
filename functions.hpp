@@ -17,17 +17,24 @@ double g(double, double);
 double gamma(double);
 double kernel(double, double);
 void kernel_to_table(void);
+// functions to calculate the Volterra equation
 void S_1(int);
 void S_2(int);
 void S_3(int);
 void S_4(int);
 void S_5(int);
 void S(void);
+// functions to calculate currents of cathode
 double I_c1(void);
 double I_c2(void);
 double I_c3(void);
 double I_c4(void);
 double interpolation(double);
+// functions to calculate the neutron production rate per shell
+void Sfi_InMin(double r);
+void Sfi_InPlus(double r);
+void Sfi_OutMin(double r);
+void Sfi_OutPlus(double r);
 void print_data_dd(double (*funcPtr)(double), double, double, double, char*);
 void print_data_ddd(double (*funcPtr)(double,double), double, double, double, double, char*);
 void print_SIIEE(void);
