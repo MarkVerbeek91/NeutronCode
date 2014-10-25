@@ -4,6 +4,7 @@
 
 #include "constants.hpp"
 #include "functions.hpp"
+#include "math_functions.cpp"
 
 Fusor fusor;
 
@@ -719,43 +720,6 @@ double I_c4(void)
     return current;
 }
 
-double interpolation(double r)
-{
-    double value = -1;
-    int low = N_TABLE - 2, upper = N_TABLE - 1;
-
-    for ( int i = 0; i < N_TABLE; i++)
-    {
-        if ( r < Table.R[i])
-        {
-            low = i - 1;
-            upper = i;
-        }
-    }
-
-    double slope = ( Table.S_4[upper] - Table.S_4[low])/(Table.R[upper] - Table.R[low]);
-
-    value = slope*r + Table.S_4[low] - Table.R[low] * slope;
-
-    if (value < 0)
-        value *= -1;
-
-    return value;
-}
-
-double NIntegration( double (*funcPtr)(double), double Start, double End)
-{
-    double sum = (*funcPtr)(Start) + (*funcPtr)(End), step = (End - Start)/N_pres;
-
-    for (double r=Start; r<End; r += step)
-    {
-        sum += 2.0 * (*funcPtr)(r);
-    }
-
-    sum = sum * step / 2.0;
-
-    return sum;
-}
 
 
 /**
@@ -767,6 +731,14 @@ double NIntegration( double (*funcPtr)(double), double Start, double End)
     a function for outgoing ions outside the cathode
 */
 
+double Sfi_OutMinInte(double r, double dr)
+{
+    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
+           fac *= g(r,dr)/( 1 - pow(fusor.Tc*g(0,dr),2) );
+
+    return fac;
+}
+
 double Sfi_OutMin(double r)
 {
     double S;
@@ -774,16 +746,12 @@ double Sfi_OutMin(double r)
     double step = fusor.b / N_pres;
     double fac;
 
-    printf("\nStarting integration: \n");
+//    printf("\nStarting integration: \n");
 
-    for ( double dr = r; dr < fusor.b; dr += step)
-    {
-        fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
-        fac *= g(r,dr)/( 1 - pow(fusor.Tc*g(0,dr),2) );
+    double (*Sfi_OutMinIntePtr)(double, double);
+    Sfi_OutMinIntePtr = &Sfi_OutMinInte;
 
-        term1 += fac;
-//        printf(".");
-    }
+    term1 = NIntegration_2(*Sfi_OutMinIntePtr,r,r,fusor.b);
     term1 *= ngas * EdgeIonFlux;
 
     term2 = ngas * pow(fusor.b/r,2) * EdgeIonFlux * f(r) * CrosssecFusion(ParticleEnergy1(r));
