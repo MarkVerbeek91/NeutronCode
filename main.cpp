@@ -147,7 +147,7 @@ int main()
 
     printf("total current: %E, \t EdgeIonFlux: %E\n",TotalCurrent, EdgeIonFlux);
 
-    if ( true )
+    if ( false )
     {
         printf("printing neutron source rate to file:\n");
 
@@ -177,10 +177,10 @@ int main()
         printf("In cathode, outwards\n");
         print_data_dd(*Sfi_InPlusPtr, 0, fusor.a, 0.001, "Sfi_InPlus.csv");
 
-
-
     }
 
+
+    printf("NPR: %E \n", Nps());
 /*
     FILE* output;
     output = fopen("interpolation.csv","w");
@@ -845,6 +845,27 @@ double Sfi_InPlus(double r)
     To get the total Neutron production, the neutron production needs to be integrated
     over the volume.
 */
+double Nps(void)
+{
+    double NPS;
+
+    double (*Sfi_InMinPtr)(double);
+    Sfi_InMinPtr = &Sfi_InMin;
+    double (*Sfi_InPlusPtr)(double);
+    Sfi_InPlusPtr = &Sfi_InPlus;
+    double (*Sfi_OutMinPtr)(double);
+    Sfi_OutMinPtr = &Sfi_OutMin;
+    double (*Sfi_OutPlusPtr)(double);
+    Sfi_OutPlusPtr = &Sfi_OutPlus;
+
+    NPS  = NIntegration(*Sfi_InMinPtr, 0.0001, fusor.a);
+    NPS += NIntegration(*Sfi_InPlusPtr, 0.0001, fusor.a);
+    NPS += NIntegration(*Sfi_OutMinPtr, fusor.a, fusor.b);
+    NPS += NIntegration(*Sfi_OutPlusPtr, fusor.a, fusor.b);
+
+    return NPS;
+}
+
 
 
 

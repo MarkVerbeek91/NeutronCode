@@ -37,6 +37,7 @@ double Sfi_InMin(double r);
 double Sfi_InPlus(double r);
 double Sfi_OutMin(double r);
 double Sfi_OutPlus(double r);
+double Nps(void);
 void print_data_dd(double (*funcPtr)(double), double, double, double, char*);
 void print_data_ddd(double (*funcPtr)(double,double), double, double, double, double, char*);
 void print_SIIEE(void);
