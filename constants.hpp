@@ -8,8 +8,8 @@ struct Fusor{
 };
 
 // the precision of the functions.
-#define N_pres 100
-#define N_TABLE 100
+#define N_pres 500
+#define N_TABLE 500
 
 double q = 1.602e-19;
 double pressure = 0.5;  // Pa

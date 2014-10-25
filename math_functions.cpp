@@ -29,7 +29,6 @@ double interpolation(double r)
 double NIntegration( double (*funcPtr)(double), double Start, double End)
 {
     double sum = (*funcPtr)(Start) + (*funcPtr)(End), step = (End - Start)/N_pres;
-    int i = 0;
 
     for (double r=Start; r<End; r += step)
     {

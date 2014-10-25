@@ -65,7 +65,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( true )
+    if ( false )
     {
         printf("Survival function calculation\n");
 
@@ -107,9 +107,9 @@ int main()
     printf("filling tables:\n");
     kernel_to_table();
 
-    printf("Calculating S\n");
+    printf("Calculating S:\n");
     S();
-    printf("done\n");
+    printf(" - Done\n");
 
     // print the S tables to screen
     if ( false )
@@ -129,7 +129,7 @@ int main()
 
     double TotalCurrent = 0, dummie;
 
-
+    printf("Calculating Currents:\n")
     dummie = I_c1();
     printf("total current: %E\n",dummie);
     TotalCurrent += dummie;
@@ -145,11 +145,12 @@ int main()
 
     EdgeIonFlux = Itot / TotalCurrent;
 
-    printf("total current: %E, \n\n EdgeIonFlux: %E\n",TotalCurrent, EdgeIonFlux);
+    printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
+
 
     if ( false )
     {
-        printf("printing neutron source rate to file:\n");
+        printf("Printing neutron source rate to file:\n");
 
         // outside the cathode
         double (*Sfi_OutMinPtr)(double);
@@ -181,14 +182,15 @@ int main()
 
     if ( true )
     {
-        printf("Calculating NPR form fast Ions:");
+        printf("Calculating NPR form fast Ions:\n");
         double NPR = Nps();
-        printf("NPR: %E \n", NPR);
+        printf("NPR: %E \n - Done\n", NPR);
+
     }
 
     if ( false )
     {
-        printf("Calculation NPR from fast neutrals:");
+        printf("Calculation NPR from fast neutrals:\n");
 
 
     }
@@ -835,10 +837,14 @@ double Nps(void)
     double (*Sfi_OutPlusPtr)(double);
     Sfi_OutPlusPtr = &Sfi_OutPlus;
 
+    printf(" - Ions inwards inside cathode\n");
     NPS  = NIntegration(*Sfi_InMinPtr, 0.01, fusor.a - 0.000001);
+    printf(" - Ions outwards inside cathode\n");
     NPS += NIntegration(*Sfi_InPlusPtr, 0.01, fusor.a - 0.000001);
-    NPS += NIntegration(*Sfi_OutMinPtr, fusor.a, fusor.b);
-    NPS += NIntegration(*Sfi_OutPlusPtr, fusor.a, fusor.b);
+    printf(" - Ions inward outside cathode\n");
+    NPS += NIntegration(*Sfi_OutMinPtr, fusor.a, fusor.b - 0.000001);
+    printf(" - Ions outwards outside cathode\n");
+    NPS += NIntegration(*Sfi_OutPlusPtr, fusor.a, fusor.b - 0.000001);
 
     return NPS;
 }
