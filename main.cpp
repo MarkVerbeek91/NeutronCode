@@ -65,7 +65,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( true )
+    if ( false )
     {
         printf("Survival function calculation\n");
 
@@ -159,7 +159,7 @@ int main()
         print_data_dd(*Sfi_OutMinPtr, fusor.a, fusor.b, 0.001, "Sfi_OutMin.csv");
 
         double (*Sfi_OutPlusPtr)(double);
-        Sfi_OutPlusPtr = &Sfi_InMin;
+        Sfi_OutPlusPtr = &Sfi_OutPlus;
 
         printf("Outside cathode, outwards\n");
         print_data_dd(*Sfi_OutPlusPtr, fusor.a, fusor.b, 0.001, "Sfi_OutPlus.csv");
@@ -733,12 +733,13 @@ double I_c4(void)
 
 double Sfi_OutMinInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
+    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
            fac *= g(r,dr)/( 1 - pow(fusor.Tc*g(0,dr),2) );
 
     return fac;
 }
 
+// outside cathode inward.
 double Sfi_OutMin(double r)
 {
     double S;
@@ -747,7 +748,7 @@ double Sfi_OutMin(double r)
     double (*Sfi_OutMinIntePtr)(double, double);
     Sfi_OutMinIntePtr = &Sfi_OutMinInte;
 
-    term1 = NIntegration_2(*Sfi_OutMinIntePtr,r,r,fusor.b);
+    term1 = NIntegration_2(*Sfi_OutMinIntePtr, r, r, fusor.b);
     term1 *= ngas * EdgeIonFlux;
 
     term2 = ngas * pow(fusor.b/r,2) * EdgeIonFlux * f(r) * CrosssecFusion(ParticleEnergy1(r));
@@ -757,10 +758,11 @@ double Sfi_OutMin(double r)
     return S;
 }
 
+// outside cathode outward.
 double Sfi_OutPlusInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
-           fac *= pow(fusor.Tc * g(r,dr),2)/( 1 - pow(fusor.Tc*g(0,dr),2) ) * 1 / g(r,dr);
+    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
+           fac *= (pow(fusor.Tc * g(0,dr),2)/( 1 - pow(fusor.Tc*g(0,dr),2) )) * 1 / g(r,dr);
 
     return fac;
 }
@@ -780,14 +782,14 @@ double Sfi_OutPlus(double r)
 
     S = term1 + term2;
 
-    return r;
+    return S;
 }
 
 double Sfi_InMinInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
+    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
            fac *= fusor.Tc * g(r,dr) / ( 1 - pow(fusor.Tc*g(0,dr),2) ) ;
-           fac *= exp(ngas * CrosssecCX(ParticleEnergy2(fusor.b,dr)) * ( r - fusor.a));
+           fac *= exp(ngas * CrosssecCX(ParticleEnergy2(fusor.a,dr)) * ( r - fusor.a));
 
     return fac;
 }
@@ -800,11 +802,11 @@ double Sfi_InMin(double r)
     double (*Sfi_InMinIntePtr)(double, double);
     Sfi_InMinIntePtr = &Sfi_InMinInte;
 
-    term1 = NIntegration_2(*Sfi_InMinIntePtr, r, 0, fusor.a);
+    term1 = NIntegration_2(*Sfi_InMinIntePtr, r, fusor.a, fusor.b);
     term1 *= ngas * EdgeIonFlux;
 
     term2  = ngas * pow(fusor.b/r,2) * EdgeIonFlux * f(fusor.a) * CrosssecFusion(ParticleEnergy1(r));
-    term2 *= exp(ngas * CrosssecCX(fusor.V0) * ( r - fusor.a));
+    term2 *= exp(ngas * CrosssecCX(-fusor.V0) * ( r - fusor.a));
 
     S = term1 + term2;
 
@@ -813,9 +815,9 @@ double Sfi_InMin(double r)
 
 double Sfi_InPlusInte(double r, double dr)
 {
-    double fac = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
-           fac *= pow(fusor.Tc * g(r,dr),2) / ( 1 - pow(fusor.Tc*g(0,dr),2) ) * 1 / g(r,dr) ;
-           fac *= exp( -1 * ngas * CrosssecCX(ParticleEnergy2(fusor.b,dr)) * ( r - fusor.a));
+    double fac = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
+           fac *= pow(fusor.Tc * g(0,dr),2) / ( 1 - pow(fusor.Tc*g(0,dr),2) ) * 1 / g(fusor.a,dr) ;
+           fac *= exp( -1 * ngas * CrosssecCX(ParticleEnergy2(fusor.a,dr)) * ( r - fusor.a));
 
     return fac;
 }
@@ -828,15 +830,15 @@ double Sfi_InPlus(double r)
     double (*Sfi_InPlusPtr)(double, double);
     Sfi_InPlusPtr = &Sfi_InPlusInte;
 
-    term1 = NIntegration_2(*Sfi_InPlusPtr, r, 0, fusor.a);
+    term1 = NIntegration_2(*Sfi_InPlusPtr, r, fusor.a, fusor.b);
     term1 *= ngas * EdgeIonFlux;
 
     term2  = ngas * pow(fusor.b/r,2) * EdgeIonFlux * pow(f(fusor.a),2) * CrosssecFusion(ParticleEnergy1(r)) / f(fusor.a);
-    term2 *= exp( -1 * ngas * CrosssecCX(fusor.V0) * ( r - fusor.a));
+    term2 *= exp( -1 * ngas * CrosssecCX(-fusor.V0) * ( r - fusor.a));
 
     S = term1 + term2;
 
-    return r;
+    return S;
 }
 
 /**
@@ -871,8 +873,6 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
 {
     FILE * output;
     output = fopen(name,"w");
-
-    double counter = 0;
 
     for (double r = Start; r<End; r+=step)
     {
