@@ -65,7 +65,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( false )
+    if ( true )
     {
         printf("Survival function calculation\n");
 
@@ -145,7 +145,7 @@ int main()
 
     EdgeIonFlux = Itot / TotalCurrent;
 
-    printf("total current: %E, \t EdgeIonFlux: %E\n",TotalCurrent, EdgeIonFlux);
+    printf("total current: %E, \n\n EdgeIonFlux: %E\n",TotalCurrent, EdgeIonFlux);
 
     if ( false )
     {
@@ -179,18 +179,19 @@ int main()
 
     }
 
+    if ( true )
+    {
+        printf("Calculating NPR form fast Ions:");
+        double NPR = Nps();
+        printf("NPR: %E \n", NPR);
+    }
 
-    printf("NPR: %E \n", Nps());
-/*
-    FILE* output;
-    output = fopen("interpolation.csv","w");
-
-    for ( double i = fusor.a; i < fusor.b; i += 0.0023)
-        fprintf(output, "%E, %E\n",i,interpolation(i));
+    if ( false )
+    {
+        printf("Calculation NPR from fast neutrals:");
 
 
-    fclose(output);
-  */
+    }
 
     // program is done
 
@@ -374,6 +375,11 @@ double gamma(double r)
     return Gamma;
 }
 
+double g_inte(double r, double dr)
+{
+    return CrosssecCX(ParticleEnergy2(r,dr));
+}
+
 double g(double r, double r1)
 {
     if ( r > r1)
@@ -382,15 +388,12 @@ double g(double r, double r1)
         return -2;
     }
 
-    double sum = CrosssecCX(ParticleEnergy2(r,r1))+CrosssecCX(ParticleEnergy2(r1,r1)), step = (r1 - r)/N_pres;
+    double (*g_intePtr)(double, double);
+    g_intePtr = &g_inte;
 
-    for (double r2=r; r2<r1; r2+= step)
-    {
-        sum += 2.0 * CrosssecCX(ParticleEnergy2(r2,r1));
-    }
+    double sum = NIntegration_2(*g_intePtr, r, r, r1);
 
     sum *= ngas;
-    sum = sum * step / 2.0;
     sum = exp(-sum);
 
     return sum;
@@ -644,26 +647,13 @@ double I_c2inte(double dr)
 
 double I_c2(void)
 {
-    // very difficuled stuff
     double current = 0;
     double sum = 0;
-//    double fac = 0;
-//    double step = (fusor.b - fusor.a) / N_pres;
 
     double (*I_c2intePtr)(double);
     I_c2intePtr = &I_c2inte;
 
     sum = NIntegration(*I_c2intePtr, fusor.a, fusor.b);
-
-/*    for (double dr = fusor.a; dr < fusor.b; dr += step)
-    {
-        fac = interpolation(dr) / ( 1 - pow(fusor.Tc,2)*g(0,dr));
-        fac *= (g(fusor.a,dr) + fusor.Tc * g(0,dr)/g(fusor.a,dr));
-        fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
-
-        sum += fac * step;
-    }
-*/
 
     current = 4 * 3.141529 * q * (1 - fusor.Tc) * sum;
 
@@ -696,25 +686,12 @@ double I_c4(void)
 {
     double current = 0;
     double sum = 0;
-//    double fac = 0;
-//    double step = (fusor.b - fusor.a) / N_pres;
 
     double (*I_c4intePtr)(double);
     I_c4intePtr = &I_c4inte;
 
     sum = NIntegration(*I_c4intePtr, fusor.a, fusor.b);
 
-/*
-    for (double dr = fusor.a; dr < fusor.b; dr += step)
-    {
-        fac  = pow(dr,2);
-        fac *= CrosssecTot(ParticleEnergy2(fusor.a,dr))/CrosssecCX(ParticleEnergy2(fusor.a,dr));
-        fac *= (interpolation(dr) * g(fusor.a,dr))/( 1 - pow(fusor.Tc,2) * g(0,dr));
-        fac *= ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(ParticleEnergy2(fusor.a,dr))));
-
-        sum += fac * step;
-    }
-*/
     current = 4 * 3.141529 * pow(fusor.b,2) * q * sum;
 
     return current;
@@ -858,8 +835,8 @@ double Nps(void)
     double (*Sfi_OutPlusPtr)(double);
     Sfi_OutPlusPtr = &Sfi_OutPlus;
 
-    NPS  = NIntegration(*Sfi_InMinPtr, 0.0001, fusor.a);
-    NPS += NIntegration(*Sfi_InPlusPtr, 0.0001, fusor.a);
+    NPS  = NIntegration(*Sfi_InMinPtr, 0.01, fusor.a - 0.000001);
+    NPS += NIntegration(*Sfi_InPlusPtr, 0.01, fusor.a - 0.000001);
     NPS += NIntegration(*Sfi_OutMinPtr, fusor.a, fusor.b);
     NPS += NIntegration(*Sfi_OutPlusPtr, fusor.a, fusor.b);
 

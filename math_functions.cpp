@@ -35,13 +35,6 @@ double NIntegration( double (*funcPtr)(double), double Start, double End)
     for (double r=Start; r<End; r += step)
     {
         sum += 2.0 * (*funcPtr)(r);
-
- /*       if ( ( i * (N_pres / 10)) % 10 == 0 )
-            printf(".");
-
-        i++;
-    }
-    printf("\n");*/
     }
 
     sum = sum * step / 2.0;
