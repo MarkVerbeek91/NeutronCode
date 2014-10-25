@@ -8,7 +8,10 @@ struct Fusor{
 };
 
 // the precision of the functions.
-#define N_pres 1000
+#define N_pres 100
+#define N_TABLE 100
+
+
 
 double q = 1.602e-19;
 double pressure = 0.5;  // Pa
@@ -50,8 +53,6 @@ struct Fusion_cross_section{
 } CS_Fusion;
 
 // some data storage is now needed because other wise the calculation becomes hugh
-
-#define N_TABLE 100
 
 struct Tables{
     double R[N_TABLE];

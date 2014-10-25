@@ -126,7 +126,7 @@ int main()
 
     }
 
-    double TotalCurrent, dummie;
+    double TotalCurrent = 0, dummie;
 
 
     dummie = I_c1();
@@ -148,28 +148,32 @@ int main()
 
     if ( true )
     {
-        printf("printing neutron source rate to file:");
+        printf("printing neutron source rate to file:\n");
 
         // outside the cathode
         double (*Sfi_OutMinPtr)(double);
         Sfi_OutMinPtr = &Sfi_OutMin;
 
- //       print_data_dd(*Sfi_OutMinPtr, fusor.a, fusor.b, 0.001, "Sfi_OutMin.csv");
+        printf("Outside cathode, inwards\n");
+        print_data_dd(*Sfi_OutMinPtr, fusor.a, fusor.b, 0.001, "Sfi_OutMin.csv");
 
         double (*Sfi_OutPlusPtr)(double);
         Sfi_OutPlusPtr = &Sfi_InMin;
 
+        printf("Outside cathode, outwards\n");
  //       print_data_dd(*Sfi_OutPlusPtr, fusor.a, fusor.b, 0.001, "Sfi_OutPlus.csv");
 
         // inside the cathode
         double (*Sfi_InMinPtr)(double);
         Sfi_InMinPtr = &Sfi_InMin;
 
+        printf("In cathode, inwards\n");
  //       print_data_dd(*Sfi_InMinPtr, 0, fusor.a, 0.001, "Sfi_InMin.csv");
 
         double (*Sfi_InPlusPtr)(double);
         Sfi_InPlusPtr = &Sfi_InPlus;
 
+        printf("In cathode, outwards\n");
  //       print_data_dd(*Sfi_InPlusPtr, 0, fusor.a, 0.001, "Sfi_InPlus.csv");
 
 
@@ -373,11 +377,9 @@ double g(double r, double r1)
 {
     if ( r > r1)
     {
-        printf("error: r >= r1");
+        printf("error: r >= r1 \n");
         return -2;
     }
-
-
 
     double sum = CrosssecCX(ParticleEnergy2(r,r1))+CrosssecCX(ParticleEnergy2(r1,r1)), step = (r1 - r)/N_pres;
 
@@ -769,18 +771,18 @@ double Sfi_OutMin(double r)
 {
     double S;
     double term1 = 0, term2;
-    double step = fusor.a / N_pres;
+    double step = fusor.b / N_pres;
     double fac;
 
-    printf("Starting integration: \n");
+    printf("\nStarting integration: \n");
 
-    for ( double dr = 0; dr < fusor.a; dr += step)
+    for ( double dr = r; dr < fusor.b; dr += step)
     {
         fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
         fac *= g(r,dr)/( 1 - pow(fusor.Tc*g(0,dr),2) );
 
         term1 += fac;
-        printf(".");
+//        printf(".");
     }
     term1 *= ngas * EdgeIonFlux;
 
@@ -795,10 +797,10 @@ double Sfi_OutPlus(double r)
 {
     double S;
     double term1 = 0, term2;
-    double step = fusor.a / N_pres;
+    double step = (fusor.b + 0.0001 - r) / N_pres;
     double fac;
 
-    for ( double dr = 0; dr < fusor.a; dr += step)
+    for ( double dr = r; dr < fusor.b; dr += step)
     {
         fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
         fac *= pow(fusor.Tc * g(r,dr),2)/( 1 - pow(fusor.Tc*g(0,dr),2) ) * 1 / g(r,dr);
@@ -821,7 +823,7 @@ double Sfi_InMin(double r)
     double step = fusor.a / N_pres;
     double fac;
 
-    for ( double dr = fusor.a; dr < fusor.b; dr += step)
+    for ( double dr = 0; dr < fusor.a; dr += step)
     {
         fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
         fac *= fusor.Tc * g(r,dr) / ( 1 - pow(fusor.Tc*g(0,dr),2) ) ;
@@ -846,7 +848,7 @@ double Sfi_InPlus(double r)
     double step = fusor.a / N_pres;
     double fac;
 
-    for ( double dr = fusor.a; dr < fusor.b; dr += step)
+    for ( double dr = 0; dr < fusor.a; dr += step)
     {
         fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * interpolation(r);
         fac *= pow(fusor.Tc * g(r,dr),2) / ( 1 - pow(fusor.Tc*g(0,dr),2) ) * 1 / g(r,dr) ;
