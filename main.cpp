@@ -17,6 +17,8 @@
 #include "constants.hpp"
 #include "functions.hpp"
 #include "math_functions.cpp"
+#include "CrossSections.cpp"
+#include "CathodeCurrents.cpp"
 
 Fusor fusor;
 
@@ -141,7 +143,7 @@ int main()
 
     double TotalCurrent = 0, dummie;
 
-    printf("Calculating Currents:\n")
+    printf("Calculating Currents:\n");
     dummie = I_c1();
     printf("total current: %E\n",dummie);
     TotalCurrent += dummie;
@@ -269,72 +271,6 @@ double ParticleEnergy2(double r, double r1)
     return energy;
 }
 
-/** \brief Calculates the CX crosssection for particle with energy E
- *
- * \param E = energy of particle
- * \param
- * \return crosssection in m2
- *
- */
-double CrosssecCX(double E)
-{
-    double crosssection;
-    double energy = E/1000.;
-    crosssection = 1e-20 * CS_cx.A1cx;
-    crosssection = crosssection * log((CS_cx.A2cx/energy) + CS_cx.A6cx);
-    crosssection = crosssection / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
-
-    return crosssection;
-}
-
-/** \brief Calculates the Ion crosssection for particle with energy E
- *
- * \param E = energy of particle
- * \param
- * \return crosssection in m2
- *
- */
-double CrosssecIon(double E)
-{
-    double crosssection = 0;
-
-    // because the int E is in eV and the formula in keV, the factor 1/1000 is introduced.
-    double energy = E/1000.;
-    crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
-    crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
-    crosssection = crosssection * 1e-20 * CS_Ion.A1Ion;
-    return crosssection;
-}
-
-/** \brief Calculates the Tot crosssection for particle with energy E
- *
- * \param E = energy of particle
- * \param
- * \return crosssection in m2
- *
- */
-double CrosssecTot(double energy)
-{
-    double crosssection = 0;
-    crosssection = CrosssecCX(energy) + CrosssecIon(energy);
-    return crosssection;
-}
-
-/** \brief Calculates the fusion crosssection for particle with energy E
- *
- * \param E = energy of particle
- * \param
- * \return crosssection in m2
- *
- */
-double CrosssecFusion(double E)
-{
-    double crosssection, energy = E/1000.;
-    crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
-    crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion / sqrt(energy))-1));
-    return crosssection;
-}
-
 /**
     The next function compute the chance that a particle survise to that radius
 */
@@ -436,7 +372,7 @@ void kernel_to_table(void)
             Table.K[i][j] = kernel(i*step+fusor.a,j*step+fusor.a);
         }
 
-        if ((N_TABLE / (i+1)) % 5 == 0)
+        if ( i *(N_TABLE / 50) % 20 == 0)
             printf(".");
 
         Table.A[i] = A(i*step+fusor.a);
@@ -447,268 +383,9 @@ void kernel_to_table(void)
     Table.A[N_TABLE-1] = 43.9944;
 
     printf("\n");
-/*
-    for ( int i = 0; i < N_TABLE; i++)
-    {
-        printf("r: %f, A: %E, K: %E\n",i*step+fusor.a, Table.A[i],Table.K[0][i]);
-    }
-*/
-    return;
-}
-
-void S_0(int r)
-{
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.A[i] * Table.K[r][i];
-
-        Table.S_0[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.A[i] * Table.K[r][i];
-
-        Table.S_0[r] = step * dot + Table.S_0[r+1];
-    }
 
     return;
 }
-
-void S_1(int r)
-{
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_0[i] * Table.K[r][i];
-
-        Table.S_1[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_0[i] * Table.K[r][i];
-
-        Table.S_1[r] = step * dot + Table.S_1[r+1];
-    }
-
-    return;
-}
-
-void S_2(int r)
-{
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_1[i] * Table.K[r][i];
-
-        Table.S_2[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_1[i] * Table.K[r][i];
-
-        Table.S_2[r] = step * dot + Table.S_2[r+1];
-    }
-
-    return;
-}
-
-void S_3(int r)
-{
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_2[i] * Table.K[r][i];
-
-        Table.S_3[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_2[i] * Table.K[r][i];
-
-        Table.S_3[r] = step * dot + Table.S_3[r+1];
-    }
-
-    return;
-}
-
-void S_4(int r)
-{
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_3[i] * Table.K[r][i];
-
-        Table.S_4[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_3[i] * Table.K[r][i];
-
-        Table.S_4[r] = step * dot + Table.S_4[r+1];
-    }
-
-    return;
-}
-
-void S_5(int r)
-{
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_4[i] * Table.K[r][i];
-
-        Table.S_5[r] = step *  dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_4[i] * Table.K[r][i];
-
-        Table.S_5[r] = step * dot + Table.S_5[r+1];
-    }
-
-    return;
-}
-
-void S(void)
-{
-    int i;
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_0(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_0[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_1(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_1[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_2(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_2[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_3(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_3[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_4(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_4[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_5(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_5[i] += Table.A[i];
-
-    return;
-}
-
-/** the next section will calculate currents and such:
-
-*/
-double I_c1(void)
-{
-    double current;
-
-    current = 4 * 3.141529 * pow(fusor.b,2) * q * (1.0 - fusor.Tc) * (f(fusor.a) + (fusor.Tc * pow(f(0.0),2))/f(fusor.a))*(1 + SIIEE(-fusor.V0));
-
-    return current;
-}
-
-double I_c2inte(double dr)
-{
-    double  fac  = interpolation(dr) / ( 1 - pow(fusor.Tc,2)*g(0,dr));
-            fac *= (g(fusor.a,dr) + fusor.Tc * g(0,dr)/g(fusor.a,dr));
-            fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
-
-    return fac;
-}
-
-double I_c2(void)
-{
-    double current = 0;
-    double sum = 0;
-
-    double (*I_c2intePtr)(double);
-    I_c2intePtr = &I_c2inte;
-
-    sum = NIntegration(*I_c2intePtr, fusor.a, fusor.b);
-
-    current = 4 * 3.141529 * q * (1 - fusor.Tc) * sum;
-
-    return current;
-}
-
-double I_c3(void)
-{
-    double current;
-
-    current  = 4 * 3.141529 * pow(fusor.b,2) * q * (CrosssecTot(-fusor.V0)/CrosssecCX(-fusor.V0));
-    current *= fusor.Tc * f(fusor.a) * ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(-fusor.V0)));
-
-    return current;
-}
-
-double I_c4inte(double dr)
-{
-    double fac;
-
-    fac  = pow(dr,2);
-    fac *= CrosssecTot(ParticleEnergy2(fusor.a,dr))/CrosssecCX(ParticleEnergy2(fusor.a,dr));
-    fac *= (interpolation(dr) * g(fusor.a,dr))/( 1 - pow(fusor.Tc,2) * g(0,dr));
-    fac *= ( 1 - exp( -2 * ngas * fusor.a * CrosssecCX(ParticleEnergy2(fusor.a,dr))));
-
-    return fac;
-}
-
-double I_c4(void)
-{
-    double current = 0;
-    double sum = 0;
-
-    double (*I_c4intePtr)(double);
-    I_c4intePtr = &I_c4inte;
-
-    sum = NIntegration(*I_c4intePtr, fusor.a, fusor.b);
-
-    current = 4 * 3.141529 * pow(fusor.b,2) * q * sum;
-
-    return current;
-}
-
 
 
 /**
