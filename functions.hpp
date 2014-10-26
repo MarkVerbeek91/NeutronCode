@@ -1,6 +1,7 @@
-
 /**
-    function declarations
+ * function declarations
+
+
 */
 double Potential_Phi(double);
 double SIIEE(double);

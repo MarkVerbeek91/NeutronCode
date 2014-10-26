@@ -1,3 +1,8 @@
+/**
+ * This file contains a few pure mathematical functions like interpolation and
+ * numerical integration. These numerical integration is in several forms
+ * because in this code several different integrations are done.
+ */
 
 // yeay, i know, this is most likely not the correct way to split up code but for now I'm lazy to read the correct way
 // i will regret that

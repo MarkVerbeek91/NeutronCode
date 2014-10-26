@@ -1,3 +1,15 @@
+/**
+ *  NeutronCode written by Mark Verbeek, mark.verbeek91(at)gmail(dot)com.
+ *
+ *  This code calculated the neutron production rate, NPR, of a fusor devise by
+ *  using analitical descriptions of the physics in the fusor.
+ *
+ *  This analithical description is made by Gilbert A. Emmert and
+ *  John F. Santarius in the article:
+ *      - Atomic and molecular effects on spherically convergent ion flow. I.
+ *        Single atomic species, AIP (2010)
+ */
+
 #include <iostream>
 #include <math.h>
 #include <stdio.h>
@@ -203,12 +215,10 @@ int main()
 }
 
 /** \brief This function returns the potential on position r. Input is a double r in
-   meter and return is a double phi in KiloVolt.
+ *  meter and return is a double phi in KiloVolt.
  *
  * \param r = radius
- * \param
  * \return potential in V
- *
  */
 double Potential_Phi(double r)
 {

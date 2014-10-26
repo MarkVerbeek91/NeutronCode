@@ -1,3 +1,11 @@
+/**
+ * Declaration of constants and tables. Here the properties of a fusor are
+ * descripted. Some phicical constants defined like charge of a proton and
+ * all parameters needed for the cross section calculation.
+ *
+ * The tables will contain the values that take a long time to calculate.
+ *
+ */
 
 struct Fusor{
     double a = 0.05;
