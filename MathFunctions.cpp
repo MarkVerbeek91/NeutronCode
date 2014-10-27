@@ -4,9 +4,6 @@
  * because in this code several different integrations are done.
  */
 
-// yeay, i know, this is most likely not the correct way to split up code but for now I'm lazy to read the correct way
-// i will regret that
-
 double interpolation(double r)
 {
     double value = -1;
@@ -33,7 +30,7 @@ double interpolation(double r)
 
 double NIntegration( double (*funcPtr)(double), double Start, double End)
 {
-    double sum = (*funcPtr)(Start) + (*funcPtr)(End), step = (End - Start)/N_pres;
+    double sum = (*funcPtr)(Start) + (*funcPtr)(End), step = (End - Start)/N_PRECISION;
 
     for (double r=Start; r<End; r += step)
     {
@@ -47,7 +44,7 @@ double NIntegration( double (*funcPtr)(double), double Start, double End)
 
 double NIntegration_2( double (*funcPtr)(double, double), double Bar, double Start, double End)
 {
-    double sum = (*funcPtr)(Bar,Start) + (*funcPtr)(Bar,End), step = (End - Start)/N_pres;
+    double sum = (*funcPtr)(Bar,Start) + (*funcPtr)(Bar,End), step = (End - Start)/N_PRECISION;
 
     for (double r=Start; r<End; r += step)
     {
@@ -62,7 +59,7 @@ double NIntegration_2( double (*funcPtr)(double, double), double Bar, double Sta
 // special integrator for the Class II ions.
 double NIntegration_3( double (*funcPtr)(double, double), double Start, double End)
 {
-    double sum = (*funcPtr)(Start,End) + (*funcPtr)(End,End), step = (End - Start)/N_pres;
+    double sum = (*funcPtr)(Start,End) + (*funcPtr)(End,End), step = (End - Start)/N_PRECISION;
 
     for (double r=Start; r<End; r += step)
     {

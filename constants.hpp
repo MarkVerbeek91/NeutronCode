@@ -13,11 +13,11 @@ struct Fusor{
     double V0 = -40000; // voltage
     double wire_diameter = 0.005;
     double Tc = 0.95;
-};
+} fusor;
 
 // the precision of the functions.
-#define N_pres 250
-#define N_TABLE 250
+#define N_PRECISION 250
+#define N_TABLE     250
 
 double q = 1.602e-19;
 double pressure = 0.5;  // Pa
@@ -27,10 +27,7 @@ double E0 = 0.0001;          // reducing errors
 double Itot = 0.1;
 double EdgeIonFlux;
 
-
-
 // some data storage is now needed because other wise the calculation becomes hugh
-
 struct Tables{
     double R[N_TABLE];
     double A[N_TABLE];

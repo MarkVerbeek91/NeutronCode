@@ -3,6 +3,15 @@
     class II ions.
 */
 
+#include "constants.hpp"
+
+void S_0(int);
+void S_1(int);
+void S_2(int);
+void S_3(int);
+void S_4(int);
+void S_5(int);
+
 void S(void)
 {
     int i;

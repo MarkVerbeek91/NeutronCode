@@ -2,7 +2,21 @@
 
 */
 
+#include <math.h>
 
+#include "constants.hpp"
+#include "SurvivalFunctions.cpp"
+
+
+/**
+    In E in eV
+*/
+double SIIEE(double energy)
+{
+    double tmp;
+    tmp = 1.5*pow((1.15*(energy/97861)),-0.667)*(1-exp(-1.8*pow(energy/97891,1.2)));
+    return tmp;
+}
 
 
 double I_c1(void)
