@@ -8,7 +8,11 @@
  *  John F. Santarius in the article:
  *      - Atomic and molecular effects on spherically convergent ion flow. I.
  *        Single atomic species, AIP (2010)
+ *
+ *  \author Mark Verbeek
+ *
  */
+
 
 #include <iostream>
 #include <math.h>
@@ -16,9 +20,16 @@
 
 #include "constants.hpp"
 #include "functions.hpp"
-#include "math_functions.cpp"
+
+#include "MathFunctions.cpp"
+#include "PotentialFunctions.cpp"
 #include "CrossSections.cpp"
+#include "SurvivalFunctions.cpp"
 #include "CathodeCurrents.cpp"
+#include "ClassIISourceFunction.cpp"
+#include "ParticleFlux.cpp"
+#include "NeutronProductionRate.cpp"
+#include "Auxiliary.cpp"
 
 int main()
 {

@@ -7,7 +7,7 @@
 #include "CrossSections.hpp"
 
 #include "PotentialFunctions.cpp"
-#include "math_functions.cpp"
+#include "MathFunctions.cpp"
 
 double f_inte(double r)
 {

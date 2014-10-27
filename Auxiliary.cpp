@@ -1,4 +1,7 @@
 
+#include <stdio.h>
+#include "constants.hpp"
+
 /**
     This function writes a given function to a file.
 */

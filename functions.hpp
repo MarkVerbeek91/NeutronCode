@@ -14,6 +14,9 @@ double g(double, double);
 double gamma(double);
 double kernel(double, double);
 void kernel_to_table(void);
+
+
+
 // functions to calculate the Volterra equation
 void S_1(int);
 void S_2(int);
