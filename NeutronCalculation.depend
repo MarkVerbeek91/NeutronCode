@@ -1,10 +1,13 @@
 # depslib dependency file v1.0
-1414060015 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1414423058 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
 	"constants.hpp"
 	"functions.hpp"
+	"math_functions.cpp"
+	"CrossSections.cpp"
+	"CathodeCurrents.cpp"
 
 1414011213 source:d:\documenten\programmeren\neutroncode\main.cpp
 	<iostream>
@@ -25,7 +28,45 @@
 
 1414010732 d:\documenten\programmeren\neutroncode\constants.hpp
 
-1414060015 c:\users\mark\documents\development\neutroncalculation\functions.hpp
+1414411243 c:\users\mark\documents\development\neutroncalculation\functions.hpp
 
-1414060015 c:\users\mark\documents\development\neutroncalculation\constants.hpp
+1414423997 c:\users\mark\documents\development\neutroncalculation\constants.hpp
+
+1414316533 c:\users\mark\documents\development\neutroncalculation\math_functions.cpp
+
+1414411243 c:\users\mark\documents\development\neutroncalculation\crosssections.cpp
+	<math.h>
+	"CrossSections.hpp"
+
+1414664640 c:\users\mark\documents\development\neutroncalculation\crosssections.hpp
+
+1414423196 c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
+	<math.h>
+	"constants.hpp"
+
+1414423459 source:c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
+	<math.h>
+	"constants.hpp"
+	"SurvivalFunctions.cpp"
+
+1414664640 c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
+	<stdio.h>
+	"CrossSections.hpp"
+	"PotentialFunctions.cpp"
+	"MathFunctions.cpp"
+
+1414423435 c:\users\mark\documents\development\neutroncalculation\potentialfunctions.cpp
+
+1414424050 c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
+
+1414423668 source:c:\users\mark\documents\development\neutroncalculation\classiisourcefunction.cpp
+	"constants.hpp"
+
+1414411243 source:c:\users\mark\documents\development\neutroncalculation\crosssections.cpp
+	<math.h>
+	"CrossSections.hpp"
+
+1414664640 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+	<stdio.h>
+	"constants.hpp"
 

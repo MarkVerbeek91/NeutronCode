@@ -1,8 +1,7 @@
 /**
  * function declarations
+ */
 
-
-*/
 double Potential_Phi(double);
 double SIIEE(double);
 double ParticleEnergy1(double);
@@ -14,8 +13,6 @@ double g(double, double);
 double gamma(double);
 double kernel(double, double);
 void kernel_to_table(void);
-
-
 
 // functions to calculate the Volterra equation
 void S_1(int);

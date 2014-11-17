@@ -32,6 +32,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Auxiliary.cpp" />
+		<Unit filename="CathodeCurrents.cpp" />
+		<Unit filename="ClassIISourceFunction.cpp" />
+		<Unit filename="CrossSections.cpp" />
+		<Unit filename="CrossSections.hpp" />
+		<Unit filename="MathFunctions.cpp" />
+		<Unit filename="NeutronProductionRate.cpp" />
+		<Unit filename="ParticleFlux.cpp" />
+		<Unit filename="PotentialFunctions.cpp" />
+		<Unit filename="SurvivalFunctions.cpp" />
 		<Unit filename="constants.hpp" />
 		<Unit filename="functions.hpp">
 			<Option weight="51" />

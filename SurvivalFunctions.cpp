@@ -2,13 +2,6 @@
     The next function compute the chance that a particle survise to that radius
 */
 
-#include <stdio.h>
-
-#include "CrossSections.hpp"
-
-#include "PotentialFunctions.cpp"
-#include "MathFunctions.cpp"
-
 double f_inte(double r)
 {
     return CrosssecCX(ParticleEnergy1(r));
