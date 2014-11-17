@@ -16,7 +16,8 @@
 
 #include <iostream>
 #include <math>
-#include <stdio>
+#include <stdio.h>
+
 
 #include "constants.hpp"
 #include "functions.hpp"
@@ -28,7 +29,6 @@
 #include "SurvivalFunctions.cpp"
 #include "ClassIISourceFunction.cpp"
 #include "CathodeCurrents.cpp"
-
 #include "ParticleFlux.cpp"
 #include "NeutronProductionRate.cpp"
 #include "Auxiliary.cpp"

@@ -26,7 +26,7 @@
 
 1414010511 d:\documenten\programmeren\neutroncode\functions.hpp
 
-1414010732 d:\documenten\programmeren\neutroncode\constants.hpp
+1414430659 d:\documenten\programmeren\neutroncode\constants.hpp
 
 1414411243 c:\users\mark\documents\development\neutroncalculation\functions.hpp
 
@@ -69,4 +69,14 @@
 1414664640 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	"constants.hpp"
+
+1414440218 source:d:\documenten\programmeren\neutroncode\auxiliary.cpp
+	<stdio.h>
+	"constants.hpp"
+
+1414354486 source:d:\documenten\programmeren\neutroncode\crosssections.cpp
+	<math.h>
+	"CrossSections.hpp"
+
+1414440278 d:\documenten\programmeren\neutroncode\crosssections.hpp
 
