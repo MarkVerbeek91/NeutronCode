@@ -34,18 +34,55 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Auxiliary.cpp" />
+		<Unit filename="Auxiliary.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="CathodeCurrents.cpp" />
+		<Unit filename="CathodeCurrents.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="ClassIISourceFunction.cpp" />
+		<Unit filename="ClassIISourceFunction.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="CrossSections.cpp" />
-		<Unit filename="CrossSections.hpp" />
+		<Unit filename="CrossSections.hpp">
+			<Option link="1" />
+		</Unit>
+		<Unit filename="CrossSectionsCont.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="MathFunctions.cpp" />
+		<Unit filename="MathFunctions.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="NeutronProductionRate.cpp" />
+		<Unit filename="NeutronProductionRate.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="ParticleFlux.cpp" />
+		<Unit filename="ParticleFlux.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="PotentialFunctions.cpp" />
+		<Unit filename="PotentialFunctions.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="SurvivalFunctions.cpp" />
-		<Unit filename="constants.hpp" />
-		<Unit filename="functions.hpp">
-			<Option weight="51" />
+		<Unit filename="SurvivalFunctions.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="constants.hpp">
+			<Option link="1" />
+		</Unit>
+		<Unit filename="includes.h">
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
 		<Extensions>

@@ -3,7 +3,7 @@
  * numerical integration. These numerical integration is in several forms
  * because in this code several different integrations are done.
  */
-#include <stdio.h>
+
 #include <math.h>
 
 #include "constants.hpp"

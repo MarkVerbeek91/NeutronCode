@@ -13,6 +13,15 @@
  *
  */
 
+// standaard libs
+#include <iostream>
+#include <math.h>
+#include <stdio.h>
+
+#include "constants.hpp"
+
+#include "CrossSections.hpp"
+
 #include "includes.h"
 
 int main()

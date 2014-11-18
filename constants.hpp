@@ -7,8 +7,8 @@
  *
  */
 
- #ifndef CONSTANTS_H
- #define CONSTANTS_H
+ #ifndef CONSTANTS_HPP
+ #define CONSTANTS_HPP
 
 struct Fusor{
     double a = 0.05;
@@ -16,8 +16,9 @@ struct Fusor{
     double V0 = -40000; // voltage
     double wire_diameter = 0.005;
     double Tc = 0.95;
-} fusor;
+};
 
+Fusor fusor;
 // the precision of the functions.
 #define N_PRECISION 250
 #define N_TABLE     250
