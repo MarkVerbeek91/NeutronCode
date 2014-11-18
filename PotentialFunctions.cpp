@@ -5,6 +5,11 @@
  * \param r = radius
  * \return potential in V
  */
+#include <stdio.h>
+#include "constants.hpp"
+
+#include "PotentialFunctions.h"
+
 double Potential_Phi(double r)
 {
     double phi;
@@ -16,7 +21,6 @@ double Potential_Phi(double r)
 
     return phi;
 }
-
 
 /** \brief calculates the energy of particle at radius r coming from outer edge
  *

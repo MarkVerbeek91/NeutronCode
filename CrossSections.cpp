@@ -3,6 +3,12 @@
 
 */
 
+#include <stdio.h>
+#include <math.h>
+
+#include "CrossSectionsCont.hpp"
+#include "CrossSections.hpp"
+
 /** \brief Calculates the CX crosssection for particle with energy E
  *
  * \param E = energy of particle

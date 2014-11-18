@@ -7,6 +7,9 @@
  *
  */
 
+ #ifndef CONSTANTS_H
+ #define CONSTANTS_H
+
 struct Fusor{
     double a = 0.05;
     double b = 0.25;
@@ -39,3 +42,5 @@ struct Tables{
     double S_4[N_TABLE];
     double S_5[N_TABLE];
 } Table;
+
+#endif // CONSTANTS_H

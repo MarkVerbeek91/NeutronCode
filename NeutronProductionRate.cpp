@@ -3,6 +3,15 @@
     To get the total Neutron production, the neutron production needs to be integrated
     over the volume.
 */
+
+#include <stdio.h>
+
+#include "constants.hpp"
+#include "MathFunctions.h"
+#include "ParticleFlux.h"
+#include "NeutronProductionRate.h"
+
+
 double Nps(void)
 {
     double NPS;

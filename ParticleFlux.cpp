@@ -8,7 +8,15 @@
     a function for outgoing ions outside the cathode
 */
 
+#include <stdio.h>
+#include <math.h>
+#include "CrossSections.hpp"
+#include "PotentialFunctions.h"
+#include "constants.hpp"
+#include "MathFunctions.h"
+#include "SurvivalFunctions.h"
 
+#include "ParticleFlux.h"
 
 double Sfi_OutMinInte(double r, double dr)
 {

@@ -1,5 +1,6 @@
-
 #include <stdio.h>
+#include "constants.hpp"
+#include "Auxiliary.h"
 
 /**
     This function writes a given function to a file.

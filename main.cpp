@@ -13,25 +13,7 @@
  *
  */
 
-
-#include <iostream>
-#include <math>
-#include <stdio.h>
-
-
-#include "constants.hpp"
-#include "functions.hpp"
-#include "CrossSections.hpp"
-
-#include "MathFunctions.cpp"
-#include "PotentialFunctions.cpp"
-#include "CrossSections.cpp"
-#include "SurvivalFunctions.cpp"
-#include "ClassIISourceFunction.cpp"
-#include "CathodeCurrents.cpp"
-#include "ParticleFlux.cpp"
-#include "NeutronProductionRate.cpp"
-#include "Auxiliary.cpp"
+#include "includes.h"
 
 int main()
 {

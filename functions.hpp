@@ -2,10 +2,8 @@
  * function declarations
  */
 
-double Potential_Phi(double);
+
 double SIIEE(double);
-double ParticleEnergy1(double);
-double ParticleEnergy2(double, double);
 double f(double);
 double Intergrant(double);
 double A(double);
@@ -27,8 +25,6 @@ double I_c2(void);
 double I_c3(void);
 double I_c4(void);
 // math
-double NIntegration(double (*funcPtr)(double), double, double);
-double interpolation(double);
 // functions to calculate the neutron production rate per shell
 double Sfi_InMin(double r);
 double Sfi_InPlus(double r);
