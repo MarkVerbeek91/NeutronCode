@@ -44,4 +44,4 @@ struct Tables{
     double S_5[N_TABLE];
 } Table;
 
-#endif // CONSTANTS_H
+#endif // CONSTANTS_H_INCLUDED

@@ -48,10 +48,9 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="CrossSections.cpp" />
-		<Unit filename="CrossSections.hpp">
-			<Option link="1" />
-		</Unit>
-		<Unit filename="CrossSectionsCont.hpp">
+		<Unit filename="CrossSections.h" />
+		<Unit filename="CrossSectionsCont.h" />
+		<Unit filename="Fusor.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="MathFunctions.cpp" />
@@ -78,9 +77,7 @@
 			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="constants.hpp">
-			<Option link="1" />
-		</Unit>
+		<Unit filename="constants.h" />
 		<Unit filename="includes.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
