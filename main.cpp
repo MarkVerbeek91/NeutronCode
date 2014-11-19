@@ -18,9 +18,10 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "constants.hpp"
+#include "constants.h"
 
-#include "CrossSections.hpp"
+//Fusor fusor;
+//#include "CrossSections.h"
 
 #include "includes.h"
 

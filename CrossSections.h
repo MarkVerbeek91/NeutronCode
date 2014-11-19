@@ -1,5 +1,5 @@
-#ifndef CROSSSECTIONS_HPP_INCLUDED
-#define CROSSSECTIONS_HPP_INCLUDED
+#ifndef CROSSSECTIONS_H_INCLUDED
+#define CROSSSECTIONS_H_INCLUDED
 
 double CrosssecCX(double E);
 double CrosssecIon(double E);

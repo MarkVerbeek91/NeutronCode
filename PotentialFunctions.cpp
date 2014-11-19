@@ -5,8 +5,8 @@
  * \param r = radius
  * \return potential in V
  */
-#include <stdio.h>
-#include "constants.hpp"
+
+#include "constants.h"
 
 #include "PotentialFunctions.h"
 

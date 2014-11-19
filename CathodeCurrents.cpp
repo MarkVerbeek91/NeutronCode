@@ -5,11 +5,12 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "constants.h"
 #include "SurvivalFunctions.h"
-#include "CrossSections.hpp"
+#include "CrossSections.h"
 #include "PotentialFunctions.h"
 #include "MathFunctions.h"
-#include "constants.hpp"
+
 #include "CathodeCurrents.h"
 
 /**

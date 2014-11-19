@@ -5,8 +5,8 @@
 
 #include <math.h>
 
-#include "CrossSectionsCont.hpp"
-#include "CrossSections.hpp"
+#include "CrossSectionsCont.h"
+#include "CrossSections.h"
 
 /** \brief Calculates the CX crosssection for particle with energy E
  *

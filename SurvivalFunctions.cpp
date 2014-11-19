@@ -4,10 +4,12 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "constants.hpp"
+
+#include "constants.h"
 #include "MathFunctions.h"
-#include "CrossSections.hpp"
+#include "CrossSections.h"
 #include "PotentialFunctions.h"
+
 #include "SurvivalFunctions.h"
 
 double f_inte(double r)

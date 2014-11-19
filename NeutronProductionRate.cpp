@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 
-#include "constants.hpp"
+#include "constants.h"
 #include "MathFunctions.h"
 #include "ParticleFlux.h"
 #include "NeutronProductionRate.h"

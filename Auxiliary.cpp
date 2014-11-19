@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "constants.hpp"
+
+#include "constants.h"
 #include "Auxiliary.h"
 
 /**

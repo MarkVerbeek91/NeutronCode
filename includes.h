@@ -8,7 +8,7 @@
 #include "ClassIISourceFunction.h"
 #include "ParticleFlux.h"
 #include "NeutronProductionRate.h"
-#include "CrossSections.hpp"
+#include "CrossSections.h"
 #include "MathFunctions.h"
 
 #endif // INCLUDES_H_INCLUDED

@@ -8,11 +8,11 @@
     a function for outgoing ions outside the cathode
 */
 
-#include <stdio.h>
 #include <math.h>
-#include "CrossSections.hpp"
+
+#include "CrossSections.h"
 #include "PotentialFunctions.h"
-#include "constants.hpp"
+#include "constants.h"
 #include "MathFunctions.h"
 #include "SurvivalFunctions.h"
 

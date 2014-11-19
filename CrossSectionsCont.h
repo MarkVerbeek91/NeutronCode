@@ -4,8 +4,8 @@
 
 */
 
-#ifndef CROSSSECTIONSCONT_HPP_INCLUDED
-#define CROSSSECTIONSCONT_HPP_INCLUDED
+#ifndef CROSSSECTIONSCONT_H_INCLUDED
+#define CROSSSECTIONSCONT_H_INCLUDED
 
 /**
     Coefficients for the CX cross section of deuterium
