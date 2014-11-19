@@ -1,9 +1,8 @@
 # depslib dependency file v1.0
-1416385857 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1416413232 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
-	"constants.h"
 	"includes.h"
 
 1416344156 source:d:\documenten\programmeren\neutroncode\main.cpp
@@ -42,7 +41,7 @@
 	<math.h>
 	"constants.hpp"
 
-1416385857 source:c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
+1416413163 source:c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -173,7 +172,8 @@
 
 1416338605 source:d:\documenten\programmeren\neutroncode\functions.hpp
 
-1416383297 c:\users\mark\documents\development\neutroncalculation\includes.h
+1416413226 c:\users\mark\documents\development\neutroncalculation\includes.h
+	"constants.h"
 	"PotentialFunctions.h"
 	"Auxiliary.h"
 	"CathodeCurrents.h"
@@ -200,7 +200,7 @@
 
 1416383018 c:\users\mark\documents\development\neutroncalculation\mathfunctions.h
 
-1416412372 c:\users\mark\documents\development\neutroncalculation\constants.h
+1416415461 c:\users\mark\documents\development\neutroncalculation\constants.h
 
 1416383413 c:\users\mark\documents\development\neutroncalculation\crosssections.h
 

@@ -1,6 +1,7 @@
 #ifndef INCLUDES_H_INCLUDED
 #define INCLUDES_H_INCLUDED
 
+#include "constants.h"
 #include "PotentialFunctions.h"
 #include "Auxiliary.h"
 #include "CathodeCurrents.h"

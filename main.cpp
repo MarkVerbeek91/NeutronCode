@@ -18,11 +18,6 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "constants.h"
-
-//Fusor fusor;
-//#include "CrossSections.h"
-
 #include "includes.h"
 
 int main()

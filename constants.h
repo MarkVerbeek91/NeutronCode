@@ -14,8 +14,11 @@ double giveCathodeRadius(void);
 double giveAnodeRadius(void);
 double giveVoltage(void);
 double giveTransparency(void);
-void initializeConstands(void);
-
+double giveq(void);
+double giveTgas(void);
+double giveNgas(void);
+double giveItot(void);
+double giveEdgeIonFlux(void);
 
 extern struct Fusor{
     double a;
@@ -29,6 +32,7 @@ extern struct Fusor{
 #define N_PRECISION 250
 #define N_TABLE     250
 
+// declaration of some variables
 extern double q;
 extern double pressure;  // Pa
 extern double Tgas; // K
