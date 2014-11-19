@@ -10,25 +10,31 @@
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
+double giveCathodeRadius(void);
+double giveAnodeRadius(void);
+double giveVoltage(void);
+double giveTransparency(void);
+void initializeConstands(void);
+
+
 extern struct Fusor{
-    double a = 0.05;
-    double b = 0.25;
-    double V0 = -40000; // voltage
-    double wire_diameter = 0.005;
-    double Tc = 0.95;
+    double a;
+    double b;
+    double V0; // voltage
+    double wire_diameter;
+    double Tc;
 } fusor;
 
-//Fusor fusor;
 // the precision of the functions.
 #define N_PRECISION 250
 #define N_TABLE     250
 
-extern double q = 1.602e-19;
-extern double pressure = 0.5;  // Pa
-extern double Tgas = 400; // K
-extern double ngas = 9.05401e19; //6.022e23 * pressure / (8.314 * Tgas);
-extern double E0 = 0.0001;          // reducing errors
-extern double Itot = 0.1;
+extern double q;
+extern double pressure;  // Pa
+extern double Tgas; // K
+extern double ngas; //6.022e23 * pressure / (8.314 * Tgas);
+extern double E0;          // reducing errors
+extern double Itot;
 extern double EdgeIonFlux;
 
 // some data storage is now needed because other wise the calculation becomes hugh
