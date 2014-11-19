@@ -26,13 +26,13 @@ double Nps(void)
     Sfi_OutPlusPtr = &Sfi_OutPlus;
 
     printf(" - Ions inwards inside cathode\n");
-    NPS  = NIntegration(*Sfi_InMinPtr, 0.01, fusor.a - 0.000001);
+    NPS  = NIntegration(*Sfi_InMinPtr, 0.01, giveCathodeRadius() - 0.000001);
     printf(" - Ions outwards inside cathode\n");
-    NPS += NIntegration(*Sfi_InPlusPtr, 0.01, fusor.a - 0.000001);
+    NPS += NIntegration(*Sfi_InPlusPtr, 0.01, giveCathodeRadius() - 0.000001);
     printf(" - Ions inward outside cathode\n");
-    NPS += NIntegration(*Sfi_OutMinPtr, fusor.a, fusor.b - 0.000001);
+    NPS += NIntegration(*Sfi_OutMinPtr, giveCathodeRadius(), giveAnodeRadius() - 0.000001);
     printf(" - Ions outwards outside cathode\n");
-    NPS += NIntegration(*Sfi_OutPlusPtr, fusor.a, fusor.b - 0.000001);
+    NPS += NIntegration(*Sfi_OutPlusPtr, giveCathodeRadius(), giveAnodeRadius() - 0.000001);
 
     return NPS;
 }

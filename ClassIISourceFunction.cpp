@@ -51,7 +51,7 @@ void S(void)
 
 void S_0(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
+    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -74,7 +74,7 @@ void S_0(int r)
 
 void S_1(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
+    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -97,7 +97,7 @@ void S_1(int r)
 
 void S_2(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
+    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -120,7 +120,7 @@ void S_2(int r)
 
 void S_3(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
+    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -143,7 +143,7 @@ void S_3(int r)
 
 void S_4(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
+    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)
@@ -166,7 +166,7 @@ void S_4(int r)
 
 void S_5(int r)
 {
-    double step = (fusor.b-fusor.a)/(N_TABLE-1);
+    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
     double dot = 0;
 
     if ( r == N_TABLE-1)

@@ -37,7 +37,7 @@ int main()
         double (*ParticleEnergy2Ptr)(double,double);
         ParticleEnergy2Ptr = &ParticleEnergy2;
 
-        print_data_ddd(*ParticleEnergy2Ptr, 0.0, fusor.b+0.001, 0.01, 0.0, "Particle2.csv");
+        print_data_ddd(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0, "Particle2.csv");
 
         print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
     }
@@ -50,7 +50,7 @@ int main()
         double (*SIIEEPtr)(double);
         SIIEEPtr = &SIIEE;
 
-        print_data_dd(*SIIEEPtr, 1.0, -fusor.V0, 1, "SIIEE.csv");
+        print_data_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv");
     }
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
@@ -84,12 +84,12 @@ int main()
         double (*fPtr)(double);
         fPtr = &f;
 
-        print_data_dd(*fPtr, 0.0, fusor.b+0.001, 0.001, "f.csv");
+        print_data_dd(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv");
 
         double (*gPtr)(double,double);
         gPtr = &g;
 
-        print_data_ddd(*gPtr, 0.0, fusor.b+0.001, 0.001, 0, "g.csv");
+        print_data_ddd(*gPtr, 0.0, giveAnodeRadius()+0.001, 0.001, 0, "g.csv");
     }
 
 
@@ -101,7 +101,7 @@ int main()
         double (*APtr)(double);
         APtr = &A;
 
-        print_data_dd(*APtr, fusor.a, fusor.b+0.01, 0.001, "A.csv");
+        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius()+0.01, 0.001, "A.csv");
     }
 
     // building the "Kernel"
@@ -111,7 +111,7 @@ int main()
         double (*KPtr)(double,double);
         KPtr = &kernel;
 
-        print_data_ddd(*KPtr, 0.0, fusor.b+0.001, 0.01, 0.0001, "K.csv");
+        print_data_ddd(*KPtr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0001, "K.csv");
     }
 
     // source rate for first generation of Class II ions.
@@ -169,26 +169,26 @@ int main()
         Sfi_OutMinPtr = &Sfi_OutMin;
 
         printf("Outside cathode, inwards\n");
-        print_data_dd(*Sfi_OutMinPtr, fusor.a, fusor.b, 0.001, "Sfi_OutMin.csv");
+        print_data_dd(*Sfi_OutMinPtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "Sfi_OutMin.csv");
 
         double (*Sfi_OutPlusPtr)(double);
         Sfi_OutPlusPtr = &Sfi_OutPlus;
 
         printf("Outside cathode, outwards\n");
-        print_data_dd(*Sfi_OutPlusPtr, fusor.a, fusor.b, 0.001, "Sfi_OutPlus.csv");
+        print_data_dd(*Sfi_OutPlusPtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "Sfi_OutPlus.csv");
 
         // inside the cathode
         double (*Sfi_InMinPtr)(double);
         Sfi_InMinPtr = &Sfi_InMin;
 
         printf("In cathode, inwards\n");
-        print_data_dd(*Sfi_InMinPtr, 0, fusor.a, 0.001, "Sfi_InMin.csv");
+        print_data_dd(*Sfi_InMinPtr, 0, giveCathodeRadius(), 0.001, "Sfi_InMin.csv");
 
         double (*Sfi_InPlusPtr)(double);
         Sfi_InPlusPtr = &Sfi_InPlus;
 
         printf("In cathode, outwards\n");
-        print_data_dd(*Sfi_InPlusPtr, 0, fusor.a, 0.001, "Sfi_InPlus.csv");
+        print_data_dd(*Sfi_InPlusPtr, 0, giveCathodeRadius(), 0.001, "Sfi_InPlus.csv");
 
     }
 

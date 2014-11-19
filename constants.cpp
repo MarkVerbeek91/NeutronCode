@@ -10,13 +10,22 @@
  *
  */
 
-struct Fusor fusor;
+struct Fusor {
+    double a;
+    double b;
+    double V0; // voltage
+    double wire_diameter;
+    double Tc;
+}fusor;
 
-fusor.a = 0.05;
-fusor.b = 0.25;
-fusor.V0 = -40000;
-fusor.wire_diameter = 0.005;
-fusor.Tc = 0.95;
+void init(void)
+{
+    fusor.a = 0.05;
+    fusor.b = 0.25;
+    fusor.V0 = -40000;
+    fusor.wire_diameter = 0.005;
+    fusor.Tc = 0.95;
+}
 
 // defining of some variables
 double pressure = 0.5;  // Pa
@@ -27,7 +36,17 @@ double Itot = 0.1;
 
 double EdgeIonFlux;
 
-Tables Table;
+struct Table{
+    double R[N_TABLE];
+    double A[N_TABLE];
+    double K[N_TABLE][N_TABLE];
+    double S_0[N_TABLE];
+    double S_1[N_TABLE];
+    double S_2[N_TABLE];
+    double S_3[N_TABLE];
+    double S_4[N_TABLE];
+    double S_5[N_TABLE];
+} table;
 
 double giveCathodeRadius(void)
 {

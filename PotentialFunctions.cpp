@@ -14,10 +14,10 @@ double Potential_Phi(double r)
 {
     double phi;
 
-    if ( r <= fusor.a)
-        phi = fusor.V0;
+    if ( r <= giveCathodeRadius())
+        phi = giveVoltage();
     else
-        phi = (fusor.a * (fusor.b - r) * -1 * fusor.V0) / (r * (fusor.a - fusor.b));
+        phi = (giveCathodeRadius() * (giveAnodeRadius() - r) * -1 * giveVoltage()) / (r * (giveCathodeRadius() - giveAnodeRadius()));
 
     return phi;
 }

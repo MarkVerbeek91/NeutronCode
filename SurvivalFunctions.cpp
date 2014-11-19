@@ -22,7 +22,7 @@ double f(double r)
     double (*f_intePtr)(double);
     f_intePtr = &f_inte;
 
-    double sum = NIntegration(*f_intePtr, r, fusor.b);
+    double sum = NIntegration(*f_intePtr, r, giveAnodeRadius());
 
     sum *= ngas;
 
@@ -44,7 +44,7 @@ double Intergrant(double r)
 double gamma(double r)
 {
     double Gamma = -1;
-    Gamma = pow(fusor.b/r,2) * (f(r) + pow(fusor.Tc * f(0),2)/f(r));
+    Gamma = pow(giveAnodeRadius()/r,2) * (f(r) + pow(giveTransparency() * f(0),2)/f(r));
     return Gamma;
 }
 
@@ -90,7 +90,7 @@ double kernel(double r, double r1)
     double tmp;
     if ( r < r1 )
     {
-        tmp = pow(r1/r,2) * ((g(r,r1) + (pow(fusor.Tc*g(0,r1),2)/g(r,r1)))/(1.0-pow(fusor.Tc*g(0,r1),2)));
+        tmp = pow(r1/r,2) * ((g(r,r1) + (pow(giveTransparency()*g(0,r1),2)/g(r,r1)))/(1.0-pow(giveTransparency()*g(0,r1),2)));
         tmp = tmp * ngas * CrosssecTot(ParticleEnergy2(r,r1));
     }
     else
@@ -101,21 +101,21 @@ double kernel(double r, double r1)
 
 void kernel_to_table(void)
 {
-    double step = (fusor.b - fusor.a)/(N_TABLE-1);
+    double step = (giveAnodeRadius() - giveCathodeRadius())/(N_TABLE-1);
 
     for ( int i = 0; i < N_TABLE; i++)
     {
         for ( int j = 0; j < N_TABLE; j++)
         {
-            Table.K[i][j] = kernel(i*step+fusor.a,j*step+fusor.a);
+            Table.K[i][j] = kernel(i*step+giveCathodeRadius(),j*step+giveCathodeRadius());
         }
 
         if ( i *(N_TABLE / 50) % 20 == 0)
             printf(".");
 
-        Table.A[i] = A(i*step+fusor.a);
+        Table.A[i] = A(i*step+giveCathodeRadius());
 
-        Table.R[i] = i*step+fusor.a;
+        Table.R[i] = i*step+giveCathodeRadius();
     }
 
     // to do, change this.
