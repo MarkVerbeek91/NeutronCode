@@ -10,13 +10,13 @@
  *
  */
 
+struct Fusor fusor;
+
 fusor.a = 0.05;
 fusor.b = 0.25;
 fusor.V0 = -40000;
 fusor.wire_diameter = 0.005;
 fusor.Tc = 0.95;
-
-struct Fusor fusor;
 
 // defining of some variables
 double pressure = 0.5;  // Pa

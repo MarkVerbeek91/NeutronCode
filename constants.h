@@ -20,13 +20,13 @@ double giveNgas(void);
 double giveItot(void);
 double giveEdgeIonFlux(void);
 
-extern struct Fusor{
+extern struct {
     double a;
     double b;
     double V0; // voltage
     double wire_diameter;
     double Tc;
-} fusor;
+} Fusor;
 
 // the precision of the functions.
 #define N_PRECISION 250
@@ -42,7 +42,7 @@ extern double Itot;
 extern double EdgeIonFlux;
 
 // some data storage is now needed because other wise the calculation becomes hugh
-extern struct Tables{
+extern struct{
     double R[N_TABLE];
     double A[N_TABLE];
     double K[N_TABLE][N_TABLE];

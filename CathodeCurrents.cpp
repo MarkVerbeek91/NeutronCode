@@ -27,7 +27,7 @@ double I_c1(void)
 {
     double current;
 
-    current = 4 * 3.141529 * pow(giveAnodeRadius(),2) * giveq() * (1.0 - fusor.Tc) * (f(fusor.a) + (fusor.Tc * pow(f(0.0),2))/f(fusor.a))*(1 + SIIEE(-fusor.V0));
+    current = 4 * 3.141529 * pow(giveAnodeRadius(),2) * giveq() * (1.0 - giveTransparency()) * (f(giveCathodeRadius()) + (giveTransparency() * pow(f(0.0),2))/f(giveCathodeRadius()))*(1 + SIIEE(-giveVoltage()));
 
     return current;
 }
