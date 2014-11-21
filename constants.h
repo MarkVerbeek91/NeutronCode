@@ -10,6 +10,7 @@
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
+void init(void);
 double giveCathodeRadius(void);
 double giveAnodeRadius(void);
 double giveVoltage(void);

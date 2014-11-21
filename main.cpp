@@ -24,6 +24,7 @@ int main()
 {
     // filling the potential array and particle energy
     printf("-- Start of program -- \n");
+    init();
 
     // writing the potential to a file for plotting
 

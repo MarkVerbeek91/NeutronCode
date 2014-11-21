@@ -56,7 +56,7 @@ double giveAnodeRadius(void)
 
 double giveVoltage(void)
 {
-    return fusor.b;
+    return fusor.V0;
 }
 
 double giveTransparency(void)
