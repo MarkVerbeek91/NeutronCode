@@ -10,14 +10,6 @@
  *
  */
 
-struct Fusor {
-    double a;
-    double b;
-    double V0; // voltage
-    double wire_diameter;
-    double Tc;
-}fusor;
-
 void init(void)
 {
     fusor.a = 0.05;
@@ -27,7 +19,11 @@ void init(void)
     fusor.Tc = 0.95;
 }
 
+Fusor fusor;
+Tables Table;
+
 // defining of some variables
+double q = 1.602e-19;
 double pressure = 0.5;  // Pa
 double Tgas = 400; // K
 double ngas = 9.05401e19; //6.022e23 * pressure / (8.314 * Tgas);
