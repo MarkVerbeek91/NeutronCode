@@ -27,7 +27,7 @@ int main()
 
     // writing the potential to a file for plotting
 
-    if ( false )
+    if ( true )
     {
         printf("Potential calculation\n");
 
@@ -43,7 +43,7 @@ int main()
     }
 
     // writing the SIIEE to a file for plotting
-    if ( false )
+    if ( true )
     {
         printf("SIIEE calculation\n");
 
@@ -55,7 +55,7 @@ int main()
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
-    if ( false )
+    if ( true )
     {
         printf("Cross section calculation\n");
 
@@ -77,7 +77,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( false )
+    if ( true )
     {
         printf("Survival function calculation\n");
 
@@ -94,7 +94,7 @@ int main()
 
 
     // writing A to a file for plotting
-    if ( false )
+    if ( true )
     {
         printf("doing some thing with A\n");
 
@@ -105,7 +105,7 @@ int main()
     }
 
     // building the "Kernel"
-    if ( false )
+    if ( true )
     {
         printf("Kernel\n");
         double (*KPtr)(double,double);
@@ -124,7 +124,7 @@ int main()
     printf(" - Done\n");
 
     // print the S tables to screen
-    if ( false )
+    if ( true )
     {
         printf("Writing tables to files:\n");
 
@@ -160,7 +160,7 @@ int main()
     printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
 
 
-    if ( false )
+    if ( true )
     {
         printf("Printing neutron source rate to file:\n");
 
