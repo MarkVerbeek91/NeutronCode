@@ -24,11 +24,12 @@ int main()
 {
     // filling the potential array and particle energy
     printf("-- Start of program -- \n");
+    // initialise the fusor parameters
     init();
 
     // writing the potential to a file for plotting
 
-    if ( true )
+    if ( false )
     {
         printf("Potential calculation\n");
 
@@ -44,7 +45,7 @@ int main()
     }
 
     // writing the SIIEE to a file for plotting
-    if ( true )
+    if ( false )
     {
         printf("SIIEE calculation\n");
 
@@ -56,7 +57,7 @@ int main()
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
-    if ( true )
+    if ( false )
     {
         printf("Cross section calculation\n");
 
@@ -78,7 +79,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( true )
+    if ( false )
     {
         printf("Survival function calculation\n");
 
@@ -95,7 +96,7 @@ int main()
 
 
     // writing A to a file for plotting
-    if ( true )
+    if ( false )
     {
         printf("doing some thing with A\n");
 
@@ -106,7 +107,7 @@ int main()
     }
 
     // building the "Kernel"
-    if ( true )
+    if ( false )
     {
         printf("Kernel\n");
         double (*KPtr)(double,double);
@@ -123,6 +124,9 @@ int main()
     printf("Calculating S:\n");
     S();
     printf(" - Done\n");
+
+    // calculating the energy spectrum of ions
+
 
     // print the S tables to screen
     if ( true )
@@ -161,7 +165,7 @@ int main()
     printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
 
 
-    if ( true )
+    if ( false )
     {
         printf("Printing neutron source rate to file:\n");
 

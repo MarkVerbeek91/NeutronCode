@@ -50,6 +50,12 @@
 		<Unit filename="CrossSections.cpp" />
 		<Unit filename="CrossSections.h" />
 		<Unit filename="CrossSectionsCont.h" />
+		<Unit filename="EnergySpectrumIons.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="EnergySpectrumIons.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Fusor.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
