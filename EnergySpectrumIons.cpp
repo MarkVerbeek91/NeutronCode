@@ -2,7 +2,7 @@
 
 #include "constants.h"
 #include "SurvivalFunctions.h"
-
+-
 
 
 // inward ions.
@@ -17,5 +17,12 @@ double f_min(double r, double E)
     return result;
 }
 
+double r_shell(double r, double E)
+{
+    double radius;
 
+    radius =  pow(giveVoltage(),2) * giveq() * giveAnodeRadius() * giveCathodeRadius() * r;
+    radius /= E * giveCathodeRadius() * r - E * giveAnodeRadius() * r + giveq() * giveAnodeRadius() * giveCathodeRadius() * pow(giveVoltage(),2);
 
+    return radius;
+}
