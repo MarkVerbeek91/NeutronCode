@@ -129,7 +129,7 @@ int main()
 
 
     // print the S tables to screen
-    if ( true )
+    if ( false )
     {
         printf("Writing tables to files:\n");
 
@@ -164,6 +164,17 @@ int main()
 
     printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
 
+    if ( true )
+    {
+        printf("Printing Energy spectrum to files");
+
+        printf("Energy spectrum of ions going inwards");
+
+        for ( int i = 0; i < 100; i++)
+        {
+            printf("%d, %E\n",i, f_min(0.1,i));
+        }
+    }
 
     if ( false )
     {

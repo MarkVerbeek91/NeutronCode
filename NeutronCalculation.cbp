@@ -35,12 +35,10 @@
 		</Compiler>
 		<Unit filename="Auxiliary.cpp" />
 		<Unit filename="Auxiliary.h">
-			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="CathodeCurrents.cpp" />
 		<Unit filename="CathodeCurrents.h">
-			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="ClassIISourceFunction.cpp" />
@@ -50,9 +48,7 @@
 		<Unit filename="CrossSections.cpp" />
 		<Unit filename="CrossSections.h" />
 		<Unit filename="CrossSectionsCont.h" />
-		<Unit filename="EnergySpectrumIons.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="EnergySpectrumIons.cpp" />
 		<Unit filename="EnergySpectrumIons.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>

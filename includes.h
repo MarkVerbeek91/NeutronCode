@@ -8,6 +8,7 @@
 #include "SurvivalFunctions.h"
 #include "ClassIISourceFunction.h"
 #include "ParticleFlux.h"
+#include "EnergySpectrumIons.h"
 #include "NeutronProductionRate.h"
 #include "CrossSections.h"
 #include "MathFunctions.h"

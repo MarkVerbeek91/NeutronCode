@@ -1,9 +1,10 @@
 
+#include <math.h>
 
 #include "constants.h"
 #include "SurvivalFunctions.h"
--
-
+#include "MathFunctions.h"
+#include "EnergySpectrumIons.h"
 
 // inward ions.
 
@@ -11,9 +12,13 @@ double f_min(double r, double E)
 {
     double result;
 
-    result = (1/giveq()) * pow(r,2) * interpolation(r) * dPhi_dr(r) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) )
+    if ( r > r_shell(r, E))
+        return -1;
 
+    result = (1/giveq()) * pow(r_shell(r,E)/r,2) * interpolation(r_shell()) * dPhi_dr(r) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,r_shell()),2) )
+    result *= 1/g(r,r_shell());
 
+    // a delta term should be included here
     return result;
 }
 
@@ -25,4 +30,13 @@ double r_shell(double r, double E)
     radius /= E * giveCathodeRadius() * r - E * giveAnodeRadius() * r + giveq() * giveAnodeRadius() * giveCathodeRadius() * pow(giveVoltage(),2);
 
     return radius;
+}
+
+double dPhi_dr(double r)
+{
+    double phi;
+
+    phi =
+
+    return phi;
 }
