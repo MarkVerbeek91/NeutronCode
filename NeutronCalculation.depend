@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1417263739 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1417295543 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -205,7 +205,7 @@
 
 1416383422 c:\users\mark\documents\development\neutroncalculation\crosssectionscont.h
 
-1417264842 source:c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
+1417291917 source:c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
 	<math.h>
 	"constants.h"
 	"MathFunctions.h"
@@ -252,4 +252,12 @@
 1417037457 d:\documenten\programmeren\neutroncode\energyspectrumions.h
 
 1417263739 c:\users\mark\documents\development\neutroncalculation\energyspectrumions.h
+
+1417296271 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
+	<math.h>
+	"constants.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"MathFunctions.h"
+	"EnergySpectrumIons.h"
 

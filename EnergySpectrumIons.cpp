@@ -1,5 +1,5 @@
 
-#include <stdio.h>
+//#include <stdio.h>
 #include <math.h>
 
 #include "constants.h"
@@ -15,7 +15,7 @@ double f_min(double r, double E)
     double result;
     double dr = r_shell(r, E);
 
-    printf("\t dr = %E\n", dr);
+//    printf("\t E = %E, r = %E, dr = %E\n", E, r, dr);
 
     if ( r > dr)
         return -1;
@@ -36,8 +36,9 @@ double r_shell(double r, double E)
 {
     double radius;
 
-    radius =  pow(giveVoltage(),2) * giveq() * giveAnodeRadius() * giveCathodeRadius() * r;
-    radius /= E * giveCathodeRadius() * r - E * giveAnodeRadius() * r + giveq() * giveAnodeRadius() * giveCathodeRadius() * pow(giveVoltage(),2);
+    radius =  -giveVoltage() * giveAnodeRadius() * giveCathodeRadius() * r;
+    double teller = (giveAnodeRadius() * giveCathodeRadius() * -giveVoltage() + (giveCathodeRadius() - giveAnodeRadius()) * E * r );
+    radius /= teller;
 
     return radius;
 }

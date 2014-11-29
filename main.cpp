@@ -170,10 +170,16 @@ int main()
 
         printf("Energy spectrum of ions going inwards\n");
 
-        for ( int i = 0; i < 100; i++)
+        double (*f_minPtr)(double, double);
+        f_minPtr = &f_min;
+
+        print_data_ddd(*f_minPtr, 0, -giveVoltage(),100,0.06,"spectrum.csv");
+/*
+        for ( int i = 0; i < 10000; i=i+100)
         {
-            printf("%d, %E\n",i, f_min(0.1,i));
+            printf("%d, %E\n",i, f_min(0.06,i));
         }
+  */
     }
 
     if ( false )

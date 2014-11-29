@@ -81,7 +81,7 @@ double NIntegration_3( double (*funcPtr)(double, double), double Start, double E
 double differentiat( double (*funcPtr)(double), double point)
 {
     double value;
-    double step = 1 / N_PRECISION;
+    double step = 1.0 / N_PRECISION;
 
     value = ((*funcPtr)(point + step) + (*funcPtr)(point)) / step;
 

@@ -98,7 +98,11 @@ ylim([0 1]);
 % data = csvread(filename);
 % plot(data(:,1) , data(:,2),'.')
 
+%% plotting spectrums of the ions
 
-
+filename = strcat(loc,'spectrum.csv');
+data = csvread(filename);
+semilogy(data(:,1),abs(data(:,2)))
+%plot(data(:,1),data(:,2))
 
 
