@@ -7,6 +7,7 @@ double NIntegration_3( double (*funcPtr)(double, double), double Start, double E
 
 double interpolation(double r);
 
+double differentiat( double (*funcPtr)(double), double point);
 
 
 #endif // MATHFUNCTIONS_H_INCLUDED

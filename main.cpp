@@ -166,9 +166,9 @@ int main()
 
     if ( true )
     {
-        printf("Printing Energy spectrum to files");
+        printf("Printing Energy spectrum to files\n");
 
-        printf("Energy spectrum of ions going inwards");
+        printf("Energy spectrum of ions going inwards\n");
 
         for ( int i = 0; i < 100; i++)
         {

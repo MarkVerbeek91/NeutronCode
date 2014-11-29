@@ -77,3 +77,13 @@ double NIntegration_3( double (*funcPtr)(double, double), double Start, double E
     return sum;
 }
 
+// this function gives of the slope of the function at point.
+double differentiat( double (*funcPtr)(double), double point)
+{
+    double value;
+    double step = 1 / N_PRECISION;
+
+    value = ((*funcPtr)(point + step) + (*funcPtr)(point)) / step;
+
+    return value;
+}

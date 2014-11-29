@@ -1,7 +1,9 @@
 
+#include <stdio.h>
 #include <math.h>
 
 #include "constants.h"
+#include "PotentialFunctions.h"
 #include "SurvivalFunctions.h"
 #include "MathFunctions.h"
 #include "EnergySpectrumIons.h"
@@ -11,12 +13,20 @@
 double f_min(double r, double E)
 {
     double result;
+    double dr = r_shell(r, E);
 
-    if ( r > r_shell(r, E))
+    printf("\t dr = %E\n", dr);
+
+    if ( r > dr)
         return -1;
 
-    result = (1/giveq()) * pow(r_shell(r,E)/r,2) * interpolation(r_shell()) * dPhi_dr(r) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,r_shell()),2) )
-    result *= 1/g(r,r_shell());
+    double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
+
+    double dPhi_dr = differentiat(*PhiPtr, dr);
+
+    result = (1/giveq()) * pow(dr/r,2) * interpolation(dr) * dPhi_dr * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
+    result *= 1/g(r,dr);
 
     // a delta term should be included here
     return result;
@@ -30,13 +40,4 @@ double r_shell(double r, double E)
     radius /= E * giveCathodeRadius() * r - E * giveAnodeRadius() * r + giveq() * giveAnodeRadius() * giveCathodeRadius() * pow(giveVoltage(),2);
 
     return radius;
-}
-
-double dPhi_dr(double r)
-{
-    double phi;
-
-    phi =
-
-    return phi;
 }
