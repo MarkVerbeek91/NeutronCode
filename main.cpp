@@ -173,7 +173,7 @@ int main()
         double (*f_minPtr)(double, double);
         f_minPtr = &f_min;
 
-        print_data_ddd(*f_minPtr, 0, -giveVoltage(),100,0.06,"spectrum.csv");
+        print_data_ddd(*f_minPtr, 0, -giveVoltage(),10,0.06,"spectrum.csv");
 /*
         for ( int i = 0; i < 10000; i=i+100)
         {
