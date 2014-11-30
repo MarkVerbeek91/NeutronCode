@@ -106,4 +106,14 @@ data1 = csvread(filename);
 semilogy(data(:,1),abs(data(:,2)),data(:,1),data1(:,2))
 %plot(data(:,1),data(:,2))
 
+%% plotting spectrum surface
+data1 = zeros(4000,24)
 
+for i=1:24
+    filename = strcat(loc,'f_min_',int2str(i),'.csv')
+    data = csvread(filename);
+    data1(:,i) = data(:,2);    
+end
+
+surf(data1)
+set(gca, 'ZScale', 'log')

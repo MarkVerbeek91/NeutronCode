@@ -28,7 +28,12 @@ double f_min(double r, double E)
 
 //    printf("\t S = %E, dPhi/dr = %E\n", dr, dPhi_dr);
 
-    result = pow(dr/r,2) * interpolation(dr) * abs(dPhi_dr) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
+    result = pow(dr/r,2) * (interpolation(dr) / abs(dPhi_dr)) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
+
+    if ( r < giveCathodeRadius())
+    {
+        result *= giveTransparency();
+    }
 
     // a delta term should be included here
     return result;
@@ -49,10 +54,21 @@ double f_plus(double r, double E)
 
     double dPhi_dr = differentiat(*PhiPtr, dr);
 
-//    printf("\t S = %E, dPhi/dr = %E\n", dr, dPhi_dr);
+    if ( abs(dPhi_dr) < 0.0001 )
+        return -2;
 
-    result = pow(dr/r,2) * interpolation(dr) * abs(dPhi_dr) * pow(giveTransparency() * g(r,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) );
+
+    result = pow(dr/r,2) * (interpolation(dr) / abs(dPhi_dr)) * pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) );
     result *= 1/g(r,dr);
+
+    // a delta term should be included here
+
+    if ( r < giveCathodeRadius())
+    {
+        result *= giveTransparency();
+    }
+
+//    printf("\t S = %E, dPhi/dr = %E\n", dr, dPhi_dr);
 
     // a delta term should be included here
     return result;

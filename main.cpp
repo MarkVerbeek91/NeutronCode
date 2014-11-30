@@ -173,7 +173,25 @@ int main()
         double (*f_minPtr)(double, double);
         f_minPtr = &f_min;
 
-        print_data_ddd(*f_minPtr, 0, -giveVoltage(),10,0.06,"spectrum.csv");
+        double (*f_plusPtr)(double, double);
+        f_plusPtr = &f_plus;
+
+        int j = 1;
+
+        for ( double i = 0.06; i < 0.25; i=i+0.01, j++)
+        {
+            char filename1[100];
+            sprintf( filename1, "f_min_%d.csv", j);
+
+            char filename2[100];
+            sprintf( filename2, "f_plus_%d.csv", j);
+
+            print_data_ddd( *f_minPtr, 0, -giveVoltage(),10,i,filename1);
+            print_data_ddd(*f_plusPtr, 0, -giveVoltage(),10,i,filename2);
+
+        }
+
+
 /*
         for ( int i = 0; i < 10000; i=i+100)
         {
