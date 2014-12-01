@@ -5,7 +5,7 @@
 	<stdio.h>
 	"includes.h"
 
-1417127913 source:d:\documenten\programmeren\neutroncode\main.cpp
+1417468421 source:d:\documenten\programmeren\neutroncode\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -105,7 +105,7 @@
 
 1416339820 d:\documenten\programmeren\neutroncode\potentialfunctions.h
 
-1416339706 d:\documenten\programmeren\neutroncode\mathfunctions.h
+1417467044 d:\documenten\programmeren\neutroncode\mathfunctions.h
 
 1416426035 source:d:\documenten\programmeren\neutroncode\classiisourcefunction.cpp
 	"constants.h"
@@ -134,7 +134,7 @@
 
 1416341080 d:\documenten\programmeren\neutroncode\particleflux.h
 
-1416424322 source:d:\documenten\programmeren\neutroncode\mathfunctions.cpp
+1417467044 source:d:\documenten\programmeren\neutroncode\mathfunctions.cpp
 	<math.h>
 	"constants.h"
 	"MathFunctions.h"
@@ -249,12 +249,21 @@
 1416613205 source:d:\documenten\programmeren\neutroncode\constants.cpp
 	"constants.h"
 
-1417037457 d:\documenten\programmeren\neutroncode\energyspectrumions.h
+1417467044 d:\documenten\programmeren\neutroncode\energyspectrumions.h
 
 1417360287 c:\users\mark\documents\development\neutroncalculation\energyspectrumions.h
 
 1417362854 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
 	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"MathFunctions.h"
+	"EnergySpectrumIons.h"
+
+1417470728 source:d:\documenten\programmeren\neutroncode\energyspectrumions.cpp
 	<math.h>
 	<stdlib.h>
 	"constants.h"

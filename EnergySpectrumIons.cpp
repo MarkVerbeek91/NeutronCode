@@ -1,5 +1,4 @@
 
-#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -16,8 +15,6 @@ double f_min(double r, double E)
     double result;
     double dr = r_shell(r, E);
 
-//    printf("E = %E, r = %E, dr = %E\n", E, r, dr);
-
     if ( r > dr || dr > giveAnodeRadius())
         return -1;
 
@@ -26,16 +23,18 @@ double f_min(double r, double E)
 
     double dPhi_dr = differentiat(*PhiPtr, dr);
 
-//    printf("\t S = %E, dPhi/dr = %E\n", dr, dPhi_dr);
-
     result = pow(dr/r,2) * (interpolation(dr) / abs(dPhi_dr)) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
 
-    if ( r < giveCathodeRadius())
-    {
-        result *= giveTransparency();
-    }
-
     // a delta term should be included here
+    double delta = 0;
+    if ( E - Potential_Phi(r) < 0.001 )
+        delta = 1;
+
+    result += pow(giveAnodeRadius()/r,2) * EdgeIonFlux * f(r) * delta;
+
+    if ( r < giveCathodeRadius())
+        result *= giveTransparency();
+
     return result;
 }
 
@@ -57,20 +56,18 @@ double f_plus(double r, double E)
     if ( abs(dPhi_dr) < 0.0001 )
         return -2;
 
-
     result = pow(dr/r,2) * (interpolation(dr) / abs(dPhi_dr)) * pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) );
     result *= 1/g(r,dr);
 
-    // a delta term should be included here
+    double delta = 0;
+    if ( E - abs(Potential_Phi(r)) < 0.001 )
+        delta = 1;
+
+    result += pow(giveAnodeRadius() * giveTransparency() * f(0) / r,2) * EdgeIonFlux * delta / f(r);
 
     if ( r < giveCathodeRadius())
-    {
         result *= giveTransparency();
-    }
 
-//    printf("\t S = %E, dPhi/dr = %E\n", dr, dPhi_dr);
-
-    // a delta term should be included here
     return result;
 }
 
