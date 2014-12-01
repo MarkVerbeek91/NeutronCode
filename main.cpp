@@ -186,8 +186,8 @@ int main()
             char filename2[100];
             sprintf( filename2, "f_plus_%d.csv", j);
 
-            print_data_ddd( *f_minPtr, 0, -giveVoltage(),10,i,filename1);
-            print_data_ddd(*f_plusPtr, 0, -giveVoltage(),10,i,filename2);
+            print_data_ddd( *f_minPtr, 10, -giveVoltage(),10,i,filename1);
+            print_data_ddd(*f_plusPtr, 10, -giveVoltage(),10,i,filename2);
 
         }
 
