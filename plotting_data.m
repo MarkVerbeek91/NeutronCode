@@ -99,11 +99,21 @@ loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
 % plot(data(:,1) , data(:,2),'.')
 
 %% plotting spectrums of the ions
-filename = strcat(loc,'spectrum1.csv');
-data = csvread(filename);
-filename = strcat(loc,'spectrum2.csv');
-data1 = csvread(filename);
-semilogy(data(:,1),abs(data(:,2)),data(:,1),data1(:,2))
+% filename = strcat(loc,'spectrum1.csv');
+% data = csvread(filename);
+% filename = strcat(loc,'spectrum2.csv');
+% data1 = csvread(filename);
+% semilogy(data(:,1),abs(data(:,2)),data(:,1),data1(:,2))
 %plot(data(:,1),data(:,2))
 
+%% plotting spectrum surface
+data1 = zeros(3999,24);
 
+for i=1:19
+    filename = strcat(loc,'f_min_',int2str(i),'.csv')
+    data = csvread(filename);
+    data1(:,i) = data(:,2);    
+end
+
+surf(data1)
+set(gca, 'ZScale', 'log')

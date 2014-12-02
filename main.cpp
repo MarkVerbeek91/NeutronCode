@@ -176,7 +176,7 @@ int main()
         double (*f_plusPtr)(double, double);
         f_plusPtr = &f_plus;
 
-        int j = 1;
+        int j = 6;
 
         for ( double i = 0.06; i < 0.25; i=i+0.01, j++)
         {
