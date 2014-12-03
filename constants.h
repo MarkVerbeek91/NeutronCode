@@ -47,12 +47,7 @@ struct Tables{
     double R[N_TABLE];
     double A[N_TABLE];
     double K[N_TABLE][N_TABLE];
-    double S_0[N_TABLE];
-    double S_1[N_TABLE];
-    double S_2[N_TABLE];
-    double S_3[N_TABLE];
-    double S_4[N_TABLE];
-    double S_5[N_TABLE];
+    double S[N_TABLE];
 };
 
 extern Fusor fusor;

@@ -129,12 +129,13 @@ int main()
 
 
     // print the S tables to screen
-    if ( false )
+    if ( true )
     {
         printf("Writing tables to files:\n");
 
         print_table(1, "Atable.csv");
         print_table(2, "Ktable.csv");
+        print_table(9, "S.csv");
         print_table(10, "S0.csv");
         print_table(11, "S1.csv");
         print_table(12, "S2.csv");
@@ -164,7 +165,7 @@ int main()
 
     printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
 
-    if ( true )
+    if ( false )
     {
         printf("Printing Energy spectrum to files\n");
 

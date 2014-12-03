@@ -61,47 +61,15 @@ void print_table(int choice, char name[])
         }
         printf("Printed KTable\n");
         break;
-        case 10:
+        case 9:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_0[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S[i]);
         }
         printf("Printed STable\n");
         break;
-        case 11:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_1[i]);
-        }
-        printf("Printed S1Table\n");
-        break;
-        case 12:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_2[i]);
-        }
-        printf("Printed S2Table\n");
-        break;
-        case 13:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_3[i]);
-        }
-        printf("Printed S3Table\n");
-        break;
-        case 14:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_4[i]);
-        }
-        printf("Printed S4Table\n");
-        break;
-        case 15:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_5[i]);
-        }
-        printf("Printed S5Table\n");
+        default:
+            printf("nothing to do\n");
         break;
     }
 

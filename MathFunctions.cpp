@@ -24,9 +24,9 @@ double interpolation(double r)
         }
     }
 
-    double slope = ( Table.S_4[upper] - Table.S_4[low])/(Table.R[upper] - Table.R[low]);
+    double slope = ( Table.S[upper] - Table.S[low])/(Table.R[upper] - Table.R[low]);
 
-    value = slope*r + Table.S_4[low] - Table.R[low] * slope;
+    value = slope*r + Table.S[low] - Table.R[low] * slope;
 
     if (value < 0)
         value *= -1;
