@@ -31,6 +31,8 @@ struct Fusor{
 
 // the precision of the functions.
 #define N_PRECISION 100
+#define PRECISION 1000000
+#define MAX_RECURSION_DEPTH 10
 #define N_TABLE     100
 
 // declaration of some variables
