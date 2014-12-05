@@ -79,7 +79,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( false )
+    if ( true )
     {
         printf("Survival function calculation\n");
 
@@ -201,7 +201,7 @@ int main()
   */
     }
 
-    if ( false )
+    if ( true )
     {
         printf("Printing neutron source rate to file:\n");
 
