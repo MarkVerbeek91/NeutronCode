@@ -1,7 +1,8 @@
-cathode 5
-anode 25
+#fusor-dimentions
+cathode 0.05
+anode   0.25
 
-# fusor dimentions
+
 
 # fusor parameters
 voltage  = -40000;

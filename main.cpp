@@ -34,12 +34,7 @@ int main()
     {
         printf("Reading input file:\n\n");
 
-  //      readfile(input);
-
-        double bar;
-        int foo = fscanf(input,"%lf",&bar);
-        printf("%.15f \n",fusor.a);
-
+        readfile(input);
     }
 
     fclose(input);

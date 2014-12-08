@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "constants.h"
 #include "Auxiliary.h"
@@ -80,17 +81,26 @@ void print_table(int choice, char name[])
 
 void readfile(FILE * input)
 {
-//    char str [80];
-//    fscanf (*input, "%s", str);
-//    printf("%s \n",str);
-    // cathode
-    double bar;
-    int foo = fscanf(input,"%lf",&bar);
-    printf("%.15f \n",fusor.a);
+    char str [80];
+
+    fscanf (input, "%s", str); // read word '#fusor-dimentions'
 
     // cathode
-    fscanf(input,"%0.4lf",fusor.b);
-    printf("%.15f \n",fusor.b);
-    return;
+    fscanf (input, "%s", str); // read word 'cathode'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read word '0.05'
+    printf("%s \n",str);
+
+    fusor.a = strtof(str,NULL);
+
+    // anode
+    fscanf (input, "%s", str); // read word 'anode'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read word '0.25'
+    printf("%s \n",str);
+
+    fusor.b = strtof(str,NULL);
 }
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1418076648 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1418077398 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -68,8 +68,9 @@
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1418076807 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1418077563 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
+	<stdlib.h>
 	"constants.h"
 	"Auxiliary.h"
 
