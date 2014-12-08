@@ -78,3 +78,15 @@ void print_table(int choice, char name[])
     return;
 }
 
+void readfile(FILE ** input)
+{
+    // cathode
+    fscanf(*input,"%Lf",&fusor.a);
+    printf("%f \n",fusor.a);
+
+    // cathode
+    fscanf(*input,"%Lf",&fusor.b);
+    printf("%f \n",fusor.b);
+    return;
+}
+

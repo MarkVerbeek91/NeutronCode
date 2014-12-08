@@ -22,6 +22,22 @@
 
 int main()
 {
+    FILE * input;
+    fopen("input.txt","r");
+
+    if ( input == NULL)
+    {
+        printf("missing input file, using standard parameters\n\n");
+        init();
+    }
+    else
+    {
+        printf("Reading input file:\n\n");
+
+        readfile(&input);
+    }
+
+
     // filling the potential array and particle energy
     printf("-- Start of program -- \n");
     // initialise the fusor parameters
@@ -103,7 +119,7 @@ int main()
         double (*APtr)(double);
         APtr = &A;
 
-        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius()+0.01, 0.001, "A.csv");
+        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv");
     }
 
     // building the "Kernel"
