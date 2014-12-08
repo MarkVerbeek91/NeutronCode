@@ -23,7 +23,7 @@
 int main()
 {
     FILE * input;
-    fopen("input.txt","r");
+    input = fopen("input.txt","r");
 
     if ( input == NULL)
     {
@@ -34,9 +34,15 @@ int main()
     {
         printf("Reading input file:\n\n");
 
-        readfile(&input);
+  //      readfile(input);
+
+        double bar;
+        int foo = fscanf(input,"%lf",&bar);
+        printf("%.15f \n",fusor.a);
+
     }
 
+    fclose(input);
 
     // filling the potential array and particle energy
     printf("-- Start of program -- \n");

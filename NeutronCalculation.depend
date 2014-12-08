@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1418069504 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1418076648 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -68,7 +68,7 @@
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1418070409 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1418076807 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	"constants.h"
 	"Auxiliary.h"
@@ -185,7 +185,7 @@
 
 1416383018 c:\users\mark\documents\development\neutroncalculation\potentialfunctions.h
 
-1418070432 c:\users\mark\documents\development\neutroncalculation\auxiliary.h
+1418076482 c:\users\mark\documents\development\neutroncalculation\auxiliary.h
 
 1416385035 c:\users\mark\documents\development\neutroncalculation\cathodecurrents.h
 
