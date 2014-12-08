@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1417363915 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1417713559 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -59,7 +59,7 @@
 
 1414424050 c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
 
-1416612131 source:c:\users\mark\documents\development\neutroncalculation\classiisourcefunction.cpp
+1417713444 source:c:\users\mark\documents\development\neutroncalculation\classiisourcefunction.cpp
 	"constants.h"
 	"ClassIISourceFunction.h"
 
@@ -68,7 +68,7 @@
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1416385853 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1417713444 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	"constants.h"
 	"Auxiliary.h"
@@ -191,7 +191,7 @@
 
 1416383018 c:\users\mark\documents\development\neutroncalculation\survivalfunctions.h
 
-1416383018 c:\users\mark\documents\development\neutroncalculation\classiisourcefunction.h
+1417713444 c:\users\mark\documents\development\neutroncalculation\classiisourcefunction.h
 
 1416383018 c:\users\mark\documents\development\neutroncalculation\particleflux.h
 
@@ -199,13 +199,13 @@
 
 1417264858 c:\users\mark\documents\development\neutroncalculation\mathfunctions.h
 
-1417713444 c:\users\mark\documents\development\neutroncalculation\constants.h
+1418055902 c:\users\mark\documents\development\neutroncalculation\constants.h
 
 1416383413 c:\users\mark\documents\development\neutroncalculation\crosssections.h
 
 1416383422 c:\users\mark\documents\development\neutroncalculation\crosssectionscont.h
 
-1417291917 source:c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
+1418055529 source:c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
 	<math.h>
 	"constants.h"
 	"MathFunctions.h"
@@ -230,7 +230,7 @@
 	"constants.h"
 	"PotentialFunctions.h"
 
-1416612132 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
+1418056038 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -253,8 +253,7 @@
 
 1417360287 c:\users\mark\documents\development\neutroncalculation\energyspectrumions.h
 
-1417362854 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
-	<stdio.h>
+1417516401 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
 	<math.h>
 	<stdlib.h>
 	"constants.h"

@@ -77,7 +77,7 @@ double g(double r, double r1)
     double (*g_intePtr)(double, double);
     g_intePtr = &g_inte;
 
-    double sum = NIntegration_2(*g_intePtr, r, r1);
+    double sum = NIntegration_3(*g_intePtr, r, r1);
 
     sum *= ngas;
     sum = exp(-sum);
@@ -119,7 +119,7 @@ void kernel_to_table(void)
     }
 
     // to do, change this.
-    Table.A[N_TABLE-1] = 43.9944;
+//    Table.A[N_TABLE-1] = 43.9944;
 
     printf("\n");
 
