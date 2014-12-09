@@ -11,6 +11,7 @@
 #define CONSTANTS_H_INCLUDED
 
 void init(void);
+void initBool(void);
 double giveCathodeRadius(void);
 double giveAnodeRadius(void);
 double giveVoltage(void);
@@ -52,7 +53,21 @@ struct Tables{
     double S[N_TABLE];
 };
 
+struct PrintBool{
+    bool potential;
+    bool SIIEE;
+    bool Cross_section;
+    bool Survival;
+    bool Atable;
+    bool KernelTable;
+    bool Stable;
+    bool Spectrum;
+    bool NSR;
+    bool NPR;
+};
+
 extern Fusor fusor;
 extern Tables Table;
+extern PrintBool printbool;
 
 #endif // CONSTANTS_H_INCLUDED

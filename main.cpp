@@ -43,10 +43,11 @@ int main()
     printf("-- Start of program -- \n");
     // initialise the fusor parameters
     init();
+    initBool();
 
     // writing the potential to a file for plotting
 
-    if ( false )
+    if ( printbool.potential )
     {
         printf("Potential calculation\n");
 
@@ -62,7 +63,7 @@ int main()
     }
 
     // writing the SIIEE to a file for plotting
-    if ( false )
+    if ( printbool.SIIEE )
     {
         printf("SIIEE calculation\n");
 
@@ -74,7 +75,7 @@ int main()
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
-    if ( false )
+    if ( printbool.Cross_section )
     {
         printf("Cross section calculation\n");
 
@@ -96,7 +97,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( true )
+    if ( printbool.Survival )
     {
         printf("Survival function calculation\n");
 
@@ -113,7 +114,7 @@ int main()
 
 
     // writing A to a file for plotting
-    if ( false )
+    if ( printbool.Atable )
     {
         printf("doing some thing with A\n");
 
@@ -124,7 +125,7 @@ int main()
     }
 
     // building the "Kernel"
-    if ( false )
+    if ( printbool.KernelTable )
     {
         printf("Kernel\n");
         double (*KPtr)(double,double);
@@ -146,7 +147,7 @@ int main()
 
 
     // print the S tables to screen
-    if ( true )
+    if ( printbool.Stable )
     {
         printf("Writing tables to files:\n");
 
@@ -182,7 +183,7 @@ int main()
 
     printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
 
-    if ( false )
+    if ( printbool.Spectrum )
     {
         printf("Printing Energy spectrum to files\n");
 
@@ -218,7 +219,7 @@ int main()
   */
     }
 
-    if ( true )
+    if ( printbool.NSR )
     {
         printf("Printing neutron source rate to file:\n");
 
@@ -250,7 +251,7 @@ int main()
 
     }
 
-    if ( true )
+    if ( printbool.NPR )
     {
         printf("Calculating NPR form fast Ions:\n");
         double NPR = Nps();

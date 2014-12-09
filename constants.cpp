@@ -19,8 +19,23 @@ void init(void)
     fusor.Tc = 0.95;
 }
 
+void initBool(void)
+{
+    printbool.potential     = false;
+    printbool.SIIEE         = false;
+    printbool.Cross_section = false;
+    printbool.Survival      = false;
+    printbool.Atable        = false;
+    printbool.KernelTable   = false;
+    printbool.Stable        = false;
+    printbool.Spectrum      = false;
+    printbool.NSR           = false;
+    printbool.NPR           = true;
+}
+
 Fusor fusor;
 Tables Table;
+PrintBool printbool;
 
 // defining of some variables
 double q = 1.602e-19;
@@ -31,18 +46,6 @@ double E0 = 0.0001;          // reducing errors
 double Itot = 0.1;
 
 double EdgeIonFlux;
-
-struct Table{
-    double R[N_TABLE];
-    double A[N_TABLE];
-    double K[N_TABLE][N_TABLE];
-    double S_0[N_TABLE];
-    double S_1[N_TABLE];
-    double S_2[N_TABLE];
-    double S_3[N_TABLE];
-    double S_4[N_TABLE];
-    double S_5[N_TABLE];
-} table;
 
 double giveCathodeRadius(void)
 {
