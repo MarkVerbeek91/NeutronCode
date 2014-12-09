@@ -22,14 +22,32 @@
 
 int main()
 {
+    FILE * input;
+    input = fopen("input.txt","r");
+
+    if ( input == NULL)
+    {
+        printf("missing input file, using standard parameters\n\n");
+        init();
+    }
+    else
+    {
+        printf("Reading input file:\n\n");
+
+        readfile(input);
+    }
+
+    fclose(input);
+
     // filling the potential array and particle energy
     printf("-- Start of program -- \n");
     // initialise the fusor parameters
     init();
+    initBool();
 
     // writing the potential to a file for plotting
 
-    if ( false )
+    if ( printbool.potential )
     {
         printf("Potential calculation\n");
 
@@ -45,7 +63,7 @@ int main()
     }
 
     // writing the SIIEE to a file for plotting
-    if ( false )
+    if ( printbool.SIIEE )
     {
         printf("SIIEE calculation\n");
 
@@ -57,7 +75,7 @@ int main()
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
-    if ( false )
+    if ( printbool.Cross_section )
     {
         printf("Cross section calculation\n");
 
@@ -79,7 +97,7 @@ int main()
 
 
     // Writing the survival functions to a file for plotting.
-    if ( false )
+    if ( printbool.Survival )
     {
         printf("Survival function calculation\n");
 
@@ -96,18 +114,18 @@ int main()
 
 
     // writing A to a file for plotting
-    if ( false )
+    if ( printbool.Atable )
     {
         printf("doing some thing with A\n");
 
         double (*APtr)(double);
         APtr = &A;
 
-        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius()+0.01, 0.001, "A.csv");
+        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv");
     }
 
     // building the "Kernel"
-    if ( false )
+    if ( printbool.KernelTable )
     {
         printf("Kernel\n");
         double (*KPtr)(double,double);
@@ -129,12 +147,13 @@ int main()
 
 
     // print the S tables to screen
-    if ( false )
+    if ( printbool.Stable )
     {
         printf("Writing tables to files:\n");
 
         print_table(1, "Atable.csv");
         print_table(2, "Ktable.csv");
+        print_table(9, "S.csv");
         print_table(10, "S0.csv");
         print_table(11, "S1.csv");
         print_table(12, "S2.csv");
@@ -164,7 +183,7 @@ int main()
 
     printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
 
-    if ( true )
+    if ( printbool.Spectrum )
     {
         printf("Printing Energy spectrum to files\n");
 
@@ -200,7 +219,7 @@ int main()
   */
     }
 
-    if ( false )
+    if ( printbool.NSR )
     {
         printf("Printing neutron source rate to file:\n");
 
@@ -232,7 +251,7 @@ int main()
 
     }
 
-    if ( true )
+    if ( printbool.NPR )
     {
         printf("Calculating NPR form fast Ions:\n");
         double NPR = Nps();

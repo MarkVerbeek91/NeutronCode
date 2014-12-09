@@ -9,179 +9,26 @@
 
 void S(void)
 {
-    int i;
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_0(i);
+    // a volterra solver
+    int i, j;
+    double h, sum;
 
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_0[i] += Table.A[i];
+    // case i = 0
+    Table.S[0] = Table.A[0];
 
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_1(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_1[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_2(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_2[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_3(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_3[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_4(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_4[i] += Table.A[i];
-
-    for ( i = N_TABLE-1; i > -1; i--)
-        S_5(i);
-
-    for ( i = 0; i < N_TABLE; i++)
-        Table.S_5[i] += Table.A[i];
-
-    return;
-}
-
-void S_0(int r)
-{
-    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
+    for ( i = 1; i < N_TABLE; i++)
     {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.A[i] * Table.K[r][i];
+        h = giveAnodeRadius() / N_TABLE;
+        sum = 0;
 
-        Table.S_0[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.A[i] * Table.K[r][i];
+        Table.S[i]  = h / ( 1 - (h/2) * Table.K[i][i] );
 
-        Table.S_0[r] = step * dot + Table.S_0[r+1];
-    }
+        for ( j = 1; j < i - 1; j++)
+            sum += Table.K[i][j] * Table.S[j];
 
-    return;
-}
+        Table.S[i] *= ( 0.5 * Table.K[i][0] * Table.S[0] + sum);
+        Table.S[i] += Table.A[i];
 
-void S_1(int r)
-{
-    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_0[i] * Table.K[r][i];
-
-        Table.S_1[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_0[i] * Table.K[r][i];
-
-        Table.S_1[r] = step * dot + Table.S_1[r+1];
-    }
-
-    return;
-}
-
-void S_2(int r)
-{
-    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_1[i] * Table.K[r][i];
-
-        Table.S_2[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_1[i] * Table.K[r][i];
-
-        Table.S_2[r] = step * dot + Table.S_2[r+1];
-    }
-
-    return;
-}
-
-void S_3(int r)
-{
-    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_2[i] * Table.K[r][i];
-
-        Table.S_3[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_2[i] * Table.K[r][i];
-
-        Table.S_3[r] = step * dot + Table.S_3[r+1];
-    }
-
-    return;
-}
-
-void S_4(int r)
-{
-    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_3[i] * Table.K[r][i];
-
-        Table.S_4[r] = step * dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_3[i] * Table.K[r][i];
-
-        Table.S_4[r] = step * dot + Table.S_4[r+1];
-    }
-
-    return;
-}
-
-void S_5(int r)
-{
-    double step = (giveAnodeRadius()-giveCathodeRadius())/(N_TABLE-1);
-    double dot = 0;
-
-    if ( r == N_TABLE-1)
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_4[i] * Table.K[r][i];
-
-        Table.S_5[r] = step *  dot;
-    }
-    else
-    {
-        for ( int i = 0; i < N_TABLE; i++)
-            dot += Table.S_4[i] * Table.K[r][i];
-
-        Table.S_5[r] = step * dot + Table.S_5[r+1];
     }
 
     return;

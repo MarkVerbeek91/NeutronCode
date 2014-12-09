@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "constants.h"
 #include "Auxiliary.h"
@@ -61,52 +62,76 @@ void print_table(int choice, char name[])
         }
         printf("Printed KTable\n");
         break;
-        case 10:
+        case 9:
         for ( int i = 0; i < N_TABLE; i++)
         {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_0[i]);
+            fprintf(output,"%E, %E\n",Table.R[i],Table.S[i]);
         }
         printf("Printed STable\n");
         break;
-        case 11:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_1[i]);
-        }
-        printf("Printed S1Table\n");
-        break;
-        case 12:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_2[i]);
-        }
-        printf("Printed S2Table\n");
-        break;
-        case 13:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_3[i]);
-        }
-        printf("Printed S3Table\n");
-        break;
-        case 14:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_4[i]);
-        }
-        printf("Printed S4Table\n");
-        break;
-        case 15:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S_5[i]);
-        }
-        printf("Printed S5Table\n");
+        default:
+            printf("nothing to do\n");
         break;
     }
 
     fclose(output);
 
     return;
+}
+
+void readfile(FILE * input)
+{
+    char str [80];
+
+    fscanf (input, "%s", str); // read word '#fusor-dimentions'
+
+    // cathode
+    fscanf (input, "%s", str); // read word 'cathode'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read word '0.05'
+    printf("%s \n",str);
+
+    fusor.a = strtof(str,NULL);
+
+    // anode
+    fscanf (input, "%s", str); // read word 'anode'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read word '0.25'
+
+    fusor.b = strtof(str,NULL);
+    printf("\t%f \n",fusor.b);
+
+    // read comment in input file
+    fscanf (input, "%s", str); // read word '#fusor-dimentions'
+
+    // Voltage
+    fscanf (input, "%s", str); // read word 'voltage'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read number
+
+    fusor.V0 = strtof(str,NULL);
+    printf("\t%f \n",fusor.V0);
+
+    // Pressure
+    fscanf (input, "%s", str); // read word 'pressure'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read number
+
+    pressure = strtof(str,NULL);
+    printf("\t%f \n",pressure);
+
+    // Current
+    fscanf (input, "%s", str); // read word 'Current'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read number
+
+    Itot = strtof(str,NULL);
+    printf("\t%f \n",Itot);
+
 }
 

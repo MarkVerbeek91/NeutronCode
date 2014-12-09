@@ -119,7 +119,7 @@ void kernel_to_table(void)
     }
 
     // to do, change this.
-    Table.A[N_TABLE-1] = 43.9944;
+//    Table.A[N_TABLE-1] = 43.9944;
 
     printf("\n");
 

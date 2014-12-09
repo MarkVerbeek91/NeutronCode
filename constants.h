@@ -11,6 +11,7 @@
 #define CONSTANTS_H_INCLUDED
 
 void init(void);
+void initBool(void);
 double giveCathodeRadius(void);
 double giveAnodeRadius(void);
 double giveVoltage(void);
@@ -31,6 +32,8 @@ struct Fusor{
 
 // the precision of the functions.
 #define N_PRECISION 100
+#define PRECISION 1000000
+#define MAX_RECURSION_DEPTH 25
 #define N_TABLE     100
 
 // declaration of some variables
@@ -47,15 +50,24 @@ struct Tables{
     double R[N_TABLE];
     double A[N_TABLE];
     double K[N_TABLE][N_TABLE];
-    double S_0[N_TABLE];
-    double S_1[N_TABLE];
-    double S_2[N_TABLE];
-    double S_3[N_TABLE];
-    double S_4[N_TABLE];
-    double S_5[N_TABLE];
+    double S[N_TABLE];
+};
+
+struct PrintBool{
+    bool potential;
+    bool SIIEE;
+    bool Cross_section;
+    bool Survival;
+    bool Atable;
+    bool KernelTable;
+    bool Stable;
+    bool Spectrum;
+    bool NSR;
+    bool NPR;
 };
 
 extern Fusor fusor;
 extern Tables Table;
+extern PrintBool printbool;
 
 #endif // CONSTANTS_H_INCLUDED
