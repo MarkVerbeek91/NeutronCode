@@ -99,8 +99,39 @@ void readfile(FILE * input)
     printf("%s ",str);
 
     fscanf (input, "%s", str); // read word '0.25'
-    printf("%s \n",str);
 
     fusor.b = strtof(str,NULL);
+    printf("\t%f \n",fusor.b);
+
+    // read comment in input file
+    fscanf (input, "%s", str); // read word '#fusor-dimentions'
+
+    // Voltage
+    fscanf (input, "%s", str); // read word 'voltage'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read number
+
+    fusor.V0 = strtof(str,NULL);
+    printf("\t%f \n",fusor.V0);
+
+    // Pressure
+    fscanf (input, "%s", str); // read word 'pressure'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read number
+
+    pressure = strtof(str,NULL);
+    printf("\t%f \n",pressure);
+
+    // Current
+    fscanf (input, "%s", str); // read word 'Current'
+    printf("%s ",str);
+
+    fscanf (input, "%s", str); // read number
+
+    Itot = strtof(str,NULL);
+    printf("\t%f \n",Itot);
+
 }
 
