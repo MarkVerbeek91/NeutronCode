@@ -60,6 +60,10 @@
 			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="NeutralParticleFlux.cpp" />
+		<Unit filename="NeutralParticleFlux.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="NeutronProductionRate.cpp" />
 		<Unit filename="NeutronProductionRate.h">
 			<Option target="&lt;{~None~}&gt;" />
