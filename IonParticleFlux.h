@@ -1,5 +1,5 @@
-#ifndef PARTICLEFLUX_H_INCLUDED
-#define PARTICLEFLUX_H_INCLUDED
+#ifndef IONPARTICLEFLUX_H_INCLUDED
+#define IONPARTICLEFLUX_H_INCLUDED
 
 double Sfi_OutMinInte(double r, double dr);
 double Sfi_OutMin(double r);
@@ -10,4 +10,4 @@ double Sfi_InMin(double r);
 double Sfi_InPlusInte(double r, double dr);
 double Sfi_InPlus(double r);
 
-#endif // PARTICLEFLUX_H_INCLUDED
+#endif // IONPARTICLEFLUX_H_INCLUDED

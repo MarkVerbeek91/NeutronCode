@@ -16,7 +16,7 @@
 #include "MathFunctions.h"
 #include "SurvivalFunctions.h"
 
-#include "ParticleFlux.h"
+#include "IonParticleFlux.h"
 
 double Sfi_OutMinInte(double r, double dr)
 {
