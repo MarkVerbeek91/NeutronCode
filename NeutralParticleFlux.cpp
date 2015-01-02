@@ -123,17 +123,20 @@ double Sfn1_OutPlus(double r)
 
 
 
-
+// neutral particle flux from II class ions, outside the cathode, outwards.
+double Sfn2_InMinInte(double r, double dr );
+double Sfn2_InMin( double r );
 
 // neutral particle flux from II class ions, outside the cathode, inwards.
-
-
-// neutral particle flux from II class ions, outside the cathode, outwards.
-
-
-// neutral particle flux from II class ions, inside the cathode, inwards.
-
+double Sfn2_OutMinInte(double r, double dr );
+double Sfn2_OutMin( double r );
 
 // neutral particle flux from II class ions, inside the cathode, outwards.
+double Sfn2_InPlusInte(double r, double dr);
+double Sfn2_InPlus(double r);
+
+// neutral particle flux from II class ions, inside the cathode, inwards.
+double Sfn2_OutPlusInte(double r, double dr);
+double Sfn2_OutPlus(double r);
 
 
