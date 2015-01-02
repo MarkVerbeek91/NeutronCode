@@ -38,7 +38,7 @@ Tables Table;
 PrintBool printbool;
 
 // defining of some variables
-double q = 1.602e-19;
+double q = 1;
 double pressure = 0.5;  // Pa
 double Tgas = 400; // K
 double ngas = 9.05401e19; //6.022e23 * pressure / (8.314 * Tgas);
