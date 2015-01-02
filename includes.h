@@ -7,7 +7,7 @@
 #include "CathodeCurrents.h"
 #include "SurvivalFunctions.h"
 #include "ClassIISourceFunction.h"
-#include "ParticleFlux.h"
+#include "IonParticleFlux.h"
 #include "EnergySpectrumIons.h"
 #include "NeutronProductionRate.h"
 #include "CrossSections.h"
