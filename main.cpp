@@ -253,7 +253,7 @@ int main()
 
     if ( printbool.NPR )
     {
-        printf("Calculating NPR form fast Ions:\n");
+        printf("Calculating NPR:\n");
         double NPR = Nps();
         printf("NPR: %E \n - Done\n", NPR);
 
