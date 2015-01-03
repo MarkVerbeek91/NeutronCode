@@ -18,15 +18,12 @@
 
 #include "IonParticleFlux.h"
 
-double Sfi_OutMinInte(double r, double dr)
-{
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
-           fac *= g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
-
-    return fac;
-}
-
-// outside cathode inward.
+/** \brief The ion particle flux, OUTSIDE the cathode for ions moving INWARDS
+ *
+ * \param r is the radius to calculate the flux at
+ *
+ * \return flux
+ */
 double Sfi_OutMin(double r)
 {
     double S;
@@ -45,15 +42,26 @@ double Sfi_OutMin(double r)
     return S;
 }
 
-// outside cathode outward.
-double Sfi_OutPlusInte(double r, double dr)
+/** \brief The integrand of the function above.
+ *
+ * \param r:  the radius where in the flux in wanted to be known
+ * \param dr: variable of integration
+ * \return the flux of ions at r from dr.
+ */
+double Sfi_OutMinInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
-           fac *= (pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) )) * 1 / g(r,dr);
+    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
+           fac *= g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
 
     return fac;
 }
 
+/** \brief The ion particle flux, OUTSIDE the cathode for ions moving OUTWARTS
+ *
+ * \param r is the radius to calculate the flux at
+ *
+ * \return flux
+ */
 double Sfi_OutPlus(double r)
 {
     double S;
@@ -72,15 +80,26 @@ double Sfi_OutPlus(double r)
     return S;
 }
 
-double Sfi_InMinInte(double r, double dr)
+/** \brief The integrand of the function above.
+ *
+ * \param r:  the radius where in the flux in wanted to be known
+ * \param dr: variable of integration
+ * \return the flux of ions at r from dr.
+ */
+double Sfi_OutPlusInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
-           fac *= giveTransparency() * g(r,dr) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) ;
-           fac *= exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
+    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
+           fac *= (pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) )) * 1 / g(r,dr);
 
     return fac;
 }
 
+/** \brief The ion particle flux, INSIDE the cathode for ions moving INWARTS
+ *
+ * \param r is the radius to calculate the flux at
+ *
+ * \return flux
+ */
 double Sfi_InMin(double r)
 {
     double S;
@@ -100,15 +119,27 @@ double Sfi_InMin(double r)
     return S;
 }
 
-double Sfi_InPlusInte(double r, double dr)
+/** \brief The integrand of the function above.
+ *
+ * \param r:  the radius where in the flux in wanted to be known
+ * \param dr: variable of integration
+ * \return the flux of ions at r from dr.
+ */
+double Sfi_InMinInte(double r, double dr)
 {
-    double fac = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr,2) * interpolation(r);
-           fac *= pow(giveTransparency() * g(0,dr),2) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) * 1 / g(giveCathodeRadius(),dr) ;
-           fac *= exp( -1 * ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
+    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
+           fac *= giveTransparency() * g(r,dr) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) ;
+           fac *= exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 
     return fac;
 }
 
+/** \brief The ion particle flux, INSIDE the cathode for ions moving OUTWARTS
+ *
+ * \param r is the radius to calculate the flux at
+ *
+ * \return flux
+ */
 double Sfi_InPlus(double r)
 {
     double S;
@@ -128,3 +159,17 @@ double Sfi_InPlus(double r)
     return S;
 }
 
+/** \brief The integrand of the function above.
+ *
+ * \param r:  the radius where in the flux in wanted to be known
+ * \param dr: variable of integration
+ * \return the flux of ions at r from dr.
+ */
+double Sfi_InPlusInte(double r, double dr)
+{
+    double fac = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
+           fac *= pow(giveTransparency() * g(0,dr),2) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) * 1 / g(giveCathodeRadius(),dr) ;
+           fac *= exp( -1 * ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
+
+    return fac;
+}
