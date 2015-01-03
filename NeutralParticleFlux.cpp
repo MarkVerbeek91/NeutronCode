@@ -11,10 +11,6 @@
 /**
   * Equation 40 integrated
 */
-double Sfn1_InMinInte(double r, double dr )
-{
-    return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
-}
 
 double Sfn1_InMin( double r )
 {
@@ -30,14 +26,16 @@ double Sfn1_InMin( double r )
     return S;
 }
 
+double Sfn1_InMinInte(double r, double dr )
+{
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
+}
+
+
 // neutral particle flux from I class ions, inside the cathode, inwards.
 /**
   * Equation 41 integrated
   */
-double Sfn1_OutMinInte(double r, double dr )
-{
-    return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
-}
 
 double Sfn1_OutMin( double r )
 {
@@ -52,16 +50,17 @@ double Sfn1_OutMin( double r )
 
     return S;
 }
+double Sfn1_OutMinInte(double r, double dr )
+{
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
+}
+
 
 // neutral particle flux from I class ions, inside the cathode, outwards.
 /**
     Equation 47 integrated
 */
 
-double Sfn1_InPlusInte(double r, double dr)
-{
-    return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
-}
 
 // outside cathode inward.
 double Sfn1_InPlus(double r)
@@ -82,6 +81,10 @@ double Sfn1_InPlus(double r)
 
     return S;
 }
+double Sfn1_InPlusInte(double r, double dr)
+{
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
+}
 
 
 // neutral particle flux from I class ions, outside the cathode, outwards.
@@ -93,13 +96,6 @@ double Sfn1_InPlus(double r)
  *
  */
 
-double Sfn1_OutPlusInte(double r, double dr)
-{
-    if ( r < dr )
-        return CrosssecFusion(ParticleEnergy2(r,dr)) * (f(dr) + pow(f(0),2) / f(dr));
-    else
-        return CrosssecFusion(ParticleEnergy2(r,dr)) *  f(dr);
-}
 
 // outside cathode inward.
 double Sfn1_OutPlus(double r)
@@ -121,22 +117,30 @@ double Sfn1_OutPlus(double r)
     return S;
 }
 
+double Sfn1_OutPlusInte(double r, double dr)
+{
+    if ( r < dr )
+        return CrosssecFusion(ParticleEnergy2(r,dr)) * (f(dr) + pow(f(0),2) / f(dr));
+    else
+        return CrosssecFusion(ParticleEnergy2(r,dr)) *  f(dr);
+}
+
 
 
 // neutral particle flux from II class ions, outside the cathode, outwards.
-double Sfn2_InMinInte(double r, double dr );
 double Sfn2_InMin( double r );
+double Sfn2_InMinInte(double r, double dr );
 
 // neutral particle flux from II class ions, outside the cathode, inwards.
-double Sfn2_OutMinInte(double r, double dr );
 double Sfn2_OutMin( double r );
+double Sfn2_OutMinInte(double r, double dr );
 
 // neutral particle flux from II class ions, inside the cathode, outwards.
-double Sfn2_InPlusInte(double r, double dr);
 double Sfn2_InPlus(double r);
+double Sfn2_InPlusInte(double r, double dr);
 
 // neutral particle flux from II class ions, inside the cathode, inwards.
-double Sfn2_OutPlusInte(double r, double dr);
 double Sfn2_OutPlus(double r);
+double Sfn2_OutPlusInte(double r, double dr);
 
 
