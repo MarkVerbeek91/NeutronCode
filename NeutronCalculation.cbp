@@ -55,6 +55,11 @@
 		<Unit filename="Fusor.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="IonParticleFlux.cpp" />
+		<Unit filename="IonParticleFlux.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="MathFunctions.cpp" />
 		<Unit filename="MathFunctions.h">
 			<Option link="1" />
@@ -66,11 +71,6 @@
 		</Unit>
 		<Unit filename="NeutronProductionRate.cpp" />
 		<Unit filename="NeutronProductionRate.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="ParticleFlux.cpp" />
-		<Unit filename="ParticleFlux.h">
-			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="PotentialFunctions.cpp" />
@@ -94,6 +94,15 @@
 			<envvars />
 			<debugger />
 			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

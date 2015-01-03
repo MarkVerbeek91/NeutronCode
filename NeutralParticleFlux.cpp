@@ -6,12 +6,20 @@
 #include "SurvivalFunctions.h"
 #include "PotentialFunctions.h"
 #include "MathFunctions.h"
+#include "NeutralParticleFlux.h"
 
-// neutral particle flux from I class ions, outside the cathode, inwards.
-/**
-  * Equation 40 integrated
-*/
+/*****************************************************************************
+`*                     Neutrals from Class I ions                            *
+ *****************************************************************************/
 
+/** \brief Flux INSIDE the cathode, INWARDS. From Class I ions.
+ * This function integrate equation 40 to get the neutral particle flux at
+ * wanted radii r.
+ *
+ * \param r: the position where the flux in wanted
+ * \return S flux.
+ *
+ */
 double Sfn1_InMin( double r )
 {
     double S;
@@ -31,12 +39,14 @@ double Sfn1_InMinInte(double r, double dr )
     return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
 }
 
-
-// neutral particle flux from I class ions, inside the cathode, inwards.
-/**
-  * Equation 41 integrated
-  */
-
+/** \brief Flux OUTSIDE the cathode, INWARDS. From Class I ions.
+ * This function integrate equation 41 to get the neutral particle flux at
+ * wanted radii r.
+ *
+ * \param r: the position where the flux in wanted
+ * \return S flux.
+ *
+ */
 double Sfn1_OutMin( double r )
 {
     double S;
@@ -50,19 +60,20 @@ double Sfn1_OutMin( double r )
 
     return S;
 }
+
 double Sfn1_OutMinInte(double r, double dr )
 {
     return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
 }
 
-
-// neutral particle flux from I class ions, inside the cathode, outwards.
-/**
-    Equation 47 integrated
-*/
-
-
-// outside cathode inward.
+/** \brief Flux INSIDE the cathode, OUTWARDS. From Class I ions.
+ * This function integrate equation 47 to get the neutral particle flux at
+ * wanted radii r.
+ *
+ * \param r: the position where the flux in wanted
+ * \return S flux.
+ *
+ */
 double Sfn1_InPlus(double r)
 {
     double S;
@@ -81,23 +92,20 @@ double Sfn1_InPlus(double r)
 
     return S;
 }
+
 double Sfn1_InPlusInte(double r, double dr)
 {
     return CrosssecFusion(ParticleEnergy2(r,dr)) * f(dr);
 }
 
-
-// neutral particle flux from I class ions, outside the cathode, outwards.
-/** \brief equation 51 integrated
+/** \brief Flux OUTSIDE the cathode, OUTWARDS. From Class I ions.
+ * This function integrate equation 51 to get the neutral particle flux at
+ * wanted radii r.
  *
- * \param
- * \param
- * \return
+ * \param r: the position where the flux in wanted
+ * \return S flux.
  *
  */
-
-
-// outside cathode inward.
 double Sfn1_OutPlus(double r)
 {
     double S;
@@ -125,11 +133,19 @@ double Sfn1_OutPlusInte(double r, double dr)
         return CrosssecFusion(ParticleEnergy2(r,dr)) *  f(dr);
 }
 
-
+/*****************************************************************************
+`*                      Neutrals from Class II ions                          *
+ *****************************************************************************/
 
 // neutral particle flux from II class ions, outside the cathode, outwards.
 double Sfn2_InMin( double r );
+{
+    return
+}
 double Sfn2_InMinInte(double r, double dr );
+{
+
+}
 
 // neutral particle flux from II class ions, outside the cathode, inwards.
 double Sfn2_OutMin( double r );

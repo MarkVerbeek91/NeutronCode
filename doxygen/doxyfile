@@ -96,10 +96,34 @@ WARN_LOGFILE            = "C:\Users\Mark\Documents\Development\NeutronCalculatio
 # configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                  = \
-	"..\constants.hpp" \
+	"..\CrossSections.h" \
+	"..\CathodeCurrents.h" \
+	"..\EnergySpectrumIons.cpp" \
+	"..\IonParticleFlux.cpp" \
+	"..\CathodeCurrents.cpp" \
+	"..\ClassIISourceFunction.h" \
+	"..\MathFunctions.h" \
+	"..\EnergySpectrumIons.h" \
+	"..\NeutralParticleFlux.cpp" \
+	"..\constants.cpp" \
+	"..\NeutralParticleFlux.h" \
+	"..\constants.h" \
+	"..\NeutronProductionRate.h" \
+	"..\MathFunctions.cpp" \
+	"..\CrossSections.cpp" \
+	"..\IonParticleFlux.h" \
 	"..\main.cpp" \
-	"..\functions.hpp" \
-	"..\math_functions.cpp" 
+	"..\ClassIISourceFunction.cpp" \
+	"..\Fusor.h" \
+	"..\PotentialFunctions.h" \
+	"..\SurvivalFunctions.cpp" \
+	"..\SurvivalFunctions.h" \
+	"..\includes.h" \
+	"..\Auxiliary.h" \
+	"..\CrossSectionsCont.h" \
+	"..\NeutronProductionRate.cpp" \
+	"..\PotentialFunctions.cpp" \
+	"..\Auxiliary.cpp" 
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =
 RECURSIVE              = NO
