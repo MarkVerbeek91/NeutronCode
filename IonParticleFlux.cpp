@@ -50,10 +50,8 @@ double Sfi_OutMin(double r)
  */
 double Sfi_OutMinInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
-           fac *= g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
-
-    return fac;
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+            * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
 }
 
 /** \brief The ion particle flux, OUTSIDE the cathode for ions moving OUTWARTS
@@ -88,10 +86,8 @@ double Sfi_OutPlus(double r)
  */
 double Sfi_OutPlusInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
-           fac *= (pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) )) * 1 / g(r,dr);
-
-    return fac;
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+           * (pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) )) * 1 / g(r,dr);
 }
 
 /** \brief The ion particle flux, INSIDE the cathode for ions moving INWARTS
@@ -127,11 +123,9 @@ double Sfi_InMin(double r)
  */
 double Sfi_InMinInte(double r, double dr)
 {
-    double fac  = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
-           fac *= giveTransparency() * g(r,dr) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) ;
-           fac *= exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
-
-    return fac;
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+           * giveTransparency() * g(r,dr) / ( 1 - pow(giveTransparency()*g(0,dr),2) )
+           * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 }
 
 /** \brief The ion particle flux, INSIDE the cathode for ions moving OUTWARTS
@@ -167,9 +161,7 @@ double Sfi_InPlus(double r)
  */
 double Sfi_InPlusInte(double r, double dr)
 {
-    double fac = CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr);
-           fac *= pow(giveTransparency() * g(0,dr),2) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) * 1 / g(giveCathodeRadius(),dr) ;
-           fac *= exp( -1 * ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
-
-    return fac;
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+           * pow(giveTransparency() * g(0,dr),2) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) * 1 / g(giveCathodeRadius(),dr)
+           * exp( -1 * ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 }

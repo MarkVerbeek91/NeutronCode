@@ -54,9 +54,9 @@ double Sfn1_OutMin( double r )
     double (*Sfn1_OutMinIntePtr)(double, double);
     Sfn1_OutMinIntePtr = &Sfn1_OutMinInte;
 
-    S = NIntegration_2(*Sfn1_OutMinIntePtr, r, r, giveAnodeRadius());
+    S = NIntegration_2(*Sfn1_OutMinIntePtr, r, giveCathodeRadius(), giveAnodeRadius());
 
-    S *= pow(ngas *giveAnodeRadius()/r,2) * EdgeIonFlux;
+    S *= pow(ngas * giveAnodeRadius()/r,2) * EdgeIonFlux;
 
     return S;
 }
@@ -82,7 +82,7 @@ double Sfn1_InPlus(double r)
     double (*Sfn1_InPlusIntePtr)(double, double);
     Sfn1_InPlusIntePtr = &Sfn1_InPlusInte;
 
-    term1 = NIntegration_2(*Sfn1_InPlusIntePtr, r, 0, giveCathodeRadius());
+    term1 = NIntegration_2(*Sfn1_InPlusIntePtr, r, r, giveCathodeRadius());
     term1 *= pow( ngas * giveAnodeRadius()/r,2) * EdgeIonFlux * giveTransparency();
 
     term2 = ngas * pow(giveAnodeRadius()/r,2) * EdgeIonFlux * giveTransparency() * f(giveAnodeRadius());
@@ -114,7 +114,7 @@ double Sfn1_OutPlus(double r)
     double (*Sfn1_OutPlusIntePtr)(double, double);
     Sfn1_OutPlusIntePtr = &Sfn1_OutPlusInte;
 
-    term1 = NIntegration_2(*Sfn1_OutPlusIntePtr, r, 0, giveCathodeRadius());
+    term1 = NIntegration_2(*Sfn1_OutPlusIntePtr, r, r, giveCathodeRadius());
     term1 *= pow( ngas * giveAnodeRadius() * giveTransparency() / r,2) * EdgeIonFlux ;
 
     term2 = ngas * pow(giveAnodeRadius() * giveTransparency()/r,2) * EdgeIonFlux * f(giveCathodeRadius());
@@ -138,13 +138,13 @@ double Sfn1_OutPlusInte(double r, double dr)
  *****************************************************************************/
 
 // neutral particle flux from II class ions, outside the cathode, outwards.
-double Sfn2_InMin( double r );
+double Sfn2_InMin( double r )
 {
-    return
+    return 1;
 }
-double Sfn2_InMinInte(double r, double dr );
+double Sfn2_InMinInte(double r, double dr )
 {
-
+    return 1;
 }
 
 // neutral particle flux from II class ions, outside the cathode, inwards.

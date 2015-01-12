@@ -53,17 +53,17 @@ double Nps(void)
     double (*Sfn1_OutPlusPtr)(double);
     Sfn1_OutPlusPtr = &Sfn1_OutPlus;
 
-    printf(" - Neutrals inwards inside cathode from Class I\n");
-    tempNPS = NIntegration(*Sfn1_InMinPtr, 0.01, giveCathodeRadius() - 0.000001);
+    printf(        " - Neutrals inwards inside cathode from Class I\n");
+    tempNPS = NIntegration(*Sfn1_InMinPtr, 0.01, giveCathodeRadius() - 0.0001);
     NPS  += tempNPS;
     printf("\t %E \n - Neutrals outwards inside cathode from Class I\n", tempNPS);
-    tempNPS = NIntegration(*Sfn1_OutMinPtr, 0.01, giveCathodeRadius() - 0.000001);
+    tempNPS = NIntegration(*Sfn1_InPlusPtr, 0.01, giveCathodeRadius() - 0.0001);
     NPS += tempNPS;
     printf("\t %E \n - Neutrals inward outside cathode from Class I\n", tempNPS);
-    tempNPS = NIntegration(*Sfn1_InPlusPtr, giveCathodeRadius(), giveAnodeRadius() - 0.000001);
+    tempNPS = NIntegration(*Sfn1_OutMinPtr, giveCathodeRadius(), giveAnodeRadius() - 0.0001);
     NPS += tempNPS;
     printf("\t %E \n - Neutrals outwards outside cathode from Class I\n", tempNPS);
-    tempNPS = NIntegration(*Sfn1_OutPlusPtr, giveCathodeRadius(), giveAnodeRadius() - 0.000001);
+    tempNPS = NIntegration(*Sfn1_OutPlusPtr, giveCathodeRadius(), giveAnodeRadius() - 0.0001);
     NPS += tempNPS;
     printf("\t %E \n", tempNPS);
 

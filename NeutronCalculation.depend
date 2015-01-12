@@ -68,7 +68,7 @@
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1418161708 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1420715294 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	<stdlib.h>
 	"constants.h"
@@ -200,7 +200,7 @@
 
 1417264858 c:\users\mark\documents\development\neutroncalculation\mathfunctions.h
 
-1418161708 c:\users\mark\documents\development\neutroncalculation\constants.h
+1420718049 c:\users\mark\documents\development\neutroncalculation\constants.h
 
 1416383413 c:\users\mark\documents\development\neutroncalculation\crosssections.h
 
@@ -211,7 +211,7 @@
 	"constants.h"
 	"MathFunctions.h"
 
-1420303842 source:c:\users\mark\documents\development\neutroncalculation\neutronproductionrate.cpp
+1420717401 source:c:\users\mark\documents\development\neutroncalculation\neutronproductionrate.cpp
 	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
@@ -275,7 +275,7 @@
 
 1420305446 c:\users\mark\documents\development\neutroncalculation\ionparticleflux.h
 
-1420305387 source:c:\users\mark\documents\development\neutroncalculation\ionparticleflux.cpp
+1420716081 source:c:\users\mark\documents\development\neutroncalculation\ionparticleflux.cpp
 	<math.h>
 	"CrossSections.h"
 	"PotentialFunctions.h"
@@ -284,13 +284,14 @@
 	"SurvivalFunctions.h"
 	"IonParticleFlux.h"
 
-1420194178 source:c:\users\mark\documents\development\neutroncalculation\neutralparticleflux.cpp
+1420717515 source:c:\users\mark\documents\development\neutroncalculation\neutralparticleflux.cpp
 	"math.h"
 	"constants.h"
 	"CrossSections.h"
 	"SurvivalFunctions.h"
 	"PotentialFunctions.h"
 	"MathFunctions.h"
+	"NeutralParticleFlux.h"
 
 1420305866 c:\users\mark\documents\development\neutroncalculation\neutralparticleflux.h
 
