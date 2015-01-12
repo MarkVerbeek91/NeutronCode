@@ -133,3 +133,11 @@ double differentiat( double (*funcPtr)(double), double point)
 
     return value;
 }
+
+bool DELTA(double d)
+{
+    if ( d < 0.0000001 )
+        return 1;
+
+    return 0;
+}

@@ -49,4 +49,15 @@ double ParticleEnergy2(double r, double r1)
     return energy;
 }
 
+double r_shell(double r, double E)
+{
+    double radius;
+
+    radius =  -giveVoltage() * giveAnodeRadius() * giveCathodeRadius() * r;
+    double teller = (giveAnodeRadius() * giveCathodeRadius() * -giveVoltage() + (giveCathodeRadius() - giveAnodeRadius()) * E * r );
+    radius /= teller;
+
+    return radius;
+}
+
 

@@ -48,6 +48,18 @@
 		<Unit filename="CrossSections.cpp" />
 		<Unit filename="CrossSections.h" />
 		<Unit filename="CrossSectionsCont.h" />
+		<Unit filename="EnergySpectra/IonSpectrum.cpp" />
+		<Unit filename="EnergySpectra/IonSpectrum.h" />
+		<Unit filename="EnergySpectra/NeutralsClassIISpectrum.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="EnergySpectra/NeutralsClassIISpectrum.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="EnergySpectra/NeutralsClassISpectrum.cpp" />
+		<Unit filename="EnergySpectra/NeutralsClassISpectrum.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="EnergySpectrumIons.cpp" />
 		<Unit filename="EnergySpectrumIons.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -84,7 +96,9 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="constants.cpp" />
-		<Unit filename="constants.h" />
+		<Unit filename="constants.h">
+			<Option link="1" />
+		</Unit>
 		<Unit filename="includes.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>

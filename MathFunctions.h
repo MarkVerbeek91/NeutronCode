@@ -9,5 +9,6 @@ double interpolation(double r);
 
 double differentiat( double (*funcPtr)(double), double point);
 
+bool DELTA(double d);
 
 #endif // MATHFUNCTIONS_H_INCLUDED
