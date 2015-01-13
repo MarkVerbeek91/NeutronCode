@@ -7,10 +7,10 @@ showSIIEE       = false;
 showCrossSections   = false;
 showSurvial_f   = false;
 showSurvial_g   = false;
-showA           = true;
+showA           = false;
 showK           = false;
 showSourceFunc  = false;
-showSpectrum    = false;
+showSpectrum    = true;
 
 
 %loc = 'C:/Users/Mark/Documents/Development/NeutronCalculation/';
@@ -163,18 +163,22 @@ if showSpectrum
 end
 
 %% plotting spectrum surface
-if false
+if showSpectrum
 
     data1 = zeros(3999,24);
 
-    for i=1:19
-        filename = strcat(loc,'f_min_',int2str(i),'.csv')
+    figure
+    hold on
+    for i=1:24
+        filename = strcat(loc,'IonSpectrumInwards',int2str(i),'.csv')
         data = csvread(filename);
-        data1(:,i) = data(:,2);    
+        semilogy(data(:,1),data(:,2))
+        %data1(:,i) = data(:,2);    
     end
 
+    hold off
     %%
-    semilogy(data1)
+    %semilogy(data(:,1),data1)
 
     %surf(data1)
     %set(gca, 'ZScale', 'log')
