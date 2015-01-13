@@ -41,7 +41,7 @@ double f_min(double r, double E)
 double f_plus(double r, double E)
 {
     double result;
-    double dr = r_shell(r, E);
+    double dr = r_shell2(r, E);
 
 //    printf("E = %E, r = %E, dr = %E\n", E, r, dr);
 
@@ -71,7 +71,7 @@ double f_plus(double r, double E)
     return result;
 }
 
-double r_shell(double r, double E)
+double r_shell2(double r, double E)
 {
     double radius;
 
