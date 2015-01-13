@@ -13,4 +13,8 @@
 #include "CrossSections.h"
 #include "MathFunctions.h"
 
+#include "IonSpectrum.h"
+#include "NeutralsClassISpectrum.h"
+#include "NeutralsClassIISpectrum.h"
+
 #endif // INCLUDES_H_INCLUDED
