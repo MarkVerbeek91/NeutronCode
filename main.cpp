@@ -189,34 +189,42 @@ int main()
 
         printf("Energy spectrum of ions going inwards\n");
 
-        double (*f_minPtr)(double, double);
-        f_minPtr = &f_min;
+        double (*IonSpectrumInwardsPtr)(double, double);
+        IonSpectrumInwardsPtr = &IonSpectrumInwards;
 
-        double (*f_plusPtr)(double, double);
-        f_plusPtr = &f_plus;
+        double (*IonSpectrumOutwardsPtr)(double, double);
+        IonSpectrumOutwardsPtr = &IonSpectrumOutwards;
 
-        int j = 6;
+//        double r = 0.06;
 
-        for ( double i = 0.06; i < 0.25; i=i+0.01, j++)
+//        print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,"IonSpectrumInwards.csv");
+//        print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,"IonSpectrumOutwards.csv");
+
+//        int j = 6;
+
+        int j = 1;
+        for ( double r = 0.01;  r < 0.25; r=r+0.01)
         {
             char filename1[100];
-            sprintf( filename1, "f_min_%d.csv", j);
+            sprintf( filename1, "IonSpectrumInwards%d.csv", j);
 
             char filename2[100];
-            sprintf( filename2, "f_plus_%d.csv", j);
+            sprintf( filename2, "IonSpectrumOutwards%d.csv", j);
 
-            print_data_ddd( *f_minPtr, 10, -giveVoltage(),10,i,filename1);
-            print_data_ddd(*f_plusPtr, 10, -giveVoltage(),10,i,filename2);
+            print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1);
+            print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2);
 
+            j++;
         }
-
-
 /*
         for ( int i = 0; i < 10000; i=i+100)
         {
             printf("%d, %E\n",i, f_min(0.06,i));
         }
   */
+
+
+
     }
 
     if ( printbool.NSR )

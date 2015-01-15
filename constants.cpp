@@ -28,7 +28,7 @@ void initBool(void)
     printbool.Atable        = false;
     printbool.KernelTable   = false;
     printbool.Stable        = false;
-    printbool.Spectrum      = false;
+    printbool.Spectrum      = true;
     printbool.NSR           = false;
     printbool.NPR           = true;
 }

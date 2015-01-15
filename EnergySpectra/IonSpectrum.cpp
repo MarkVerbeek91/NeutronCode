@@ -1,5 +1,6 @@
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "constants.h"
 #include "MathFunctions.h"
@@ -15,7 +16,7 @@ double IonSpectrumInwards(double r, double E)
     double flux, term2 = 0;
     double dr = r_shell(r, E);
 
-    if ( dr > giveCathodeRadius() | dr < giveAnodeRadius())
+    if ( dr < giveCathodeRadius() | dr > giveAnodeRadius())
         return -1;
 
     double (*PhiPtr)(double);
@@ -23,11 +24,10 @@ double IonSpectrumInwards(double r, double E)
 
     flux  = 1/giveq();
     flux *= pow(dr/r,2);
-    flux *= interpolation(dr) / differentiat(*PhiPtr, dr);
+    flux *= interpolation(dr) / abs(differentiat(*PhiPtr, dr));
     flux *= 1 / ( 1 - pow(giveTransparency() * g(0,dr),2) );
 
     bool delta = DELTA(E - ParticleEnergy1(r));
-
 
     if ( r < giveCathodeRadius() )
     {
@@ -56,15 +56,18 @@ double IonSpectrumInwards(double r, double E)
 // equations 29 and 31
 double IonSpectrumOutwards(double r, double E)
 {
-    double flux, term2;
+    double flux, term2 = 0;
     double dr = r_shell(r, E);
+
+    if ( dr < giveCathodeRadius() | dr > giveAnodeRadius())
+        return -1;
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
     flux  = 1/giveq();
     flux *= pow(dr/r,2);
-    flux *= interpolation(dr) / differentiat(*PhiPtr, dr);
+    flux *= interpolation(dr) / abs(differentiat(*PhiPtr, dr));
 
 
     flux *= giveTransparency();
