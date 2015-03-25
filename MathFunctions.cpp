@@ -10,6 +10,7 @@
 
 #include "MathFunctions.h"
 
+// TODO: variable input for which points should be inerpolated
 double interpolation(double r)
 {
     double value = -1;
@@ -54,6 +55,7 @@ double adaptiveSimpsonsAux(double (*f)(double), double a, double b, double epsil
            adaptiveSimpsonsAux(f, c, b, epsilon/2, Sright, fc, fb, fe, bottom-1);
 }
 
+// TODO: make more rebust. no infinte loops posible en such.
 double NIntegration( double (*funcPtr)(double), double Start, double End)
 {
     double epsilon = 1.0 / PRECISION;
@@ -82,6 +84,7 @@ double adaptiveSimpsonsAux2(double (*f)(double, double), double a, double b, dou
 }
 
 // special integrator for the Class II ions.
+// TODO: make more robust
 double NIntegration_2( double (*funcPtr)(double, double), double bar, double Start, double End)
 {
     double epsilon = 1.0 / PRECISION;
@@ -110,6 +113,7 @@ double adaptiveSimpsonsAux3(double (*f)(double, double), double a, double b, dou
 }
 
 // integrator for the Class II ions surfival function
+// TODO: make more robust
 double NIntegration_3( double (*funcPtr)(double, double), double a, double b)
 {
 //    double sum = (*funcPtr)(Start,End) + (*funcPtr)(End,End), step = (End - Start)/N_PRECISION;
@@ -124,6 +128,7 @@ double NIntegration_3( double (*funcPtr)(double, double), double a, double b)
 }
 
 // this function gives of the slope of the function at point.
+// TODO: make more robust
 double differentiat( double (*funcPtr)(double), double point)
 {
     double value;

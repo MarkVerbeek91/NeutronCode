@@ -336,3 +336,156 @@
 
 1421092329 d:\documenten\programmeren\neutroncode\neutralparticleflux.h
 
+1420615327 source:d:\documenten\development\neutroncode\auxiliary.cpp
+	<stdio.h>
+	<stdlib.h>
+	"constants.h"
+	"Auxiliary.h"
+
+1420615327 d:\documenten\development\neutroncode\constants.h
+
+1420615327 d:\documenten\development\neutroncode\auxiliary.h
+
+1416426075 source:d:\documenten\development\neutroncode\cathodecurrents.cpp
+	<stdio.h>
+	<math.h>
+	"constants.h"
+	"SurvivalFunctions.h"
+	"CrossSections.h"
+	"PotentialFunctions.h"
+	"MathFunctions.h"
+	"CathodeCurrents.h"
+
+1416340122 d:\documenten\development\neutroncode\survivalfunctions.h
+
+1416424322 d:\documenten\development\neutroncode\crosssections.h
+
+1421169854 d:\documenten\development\neutroncode\potentialfunctions.h
+
+1421095429 d:\documenten\development\neutroncode\mathfunctions.h
+
+1416340790 d:\documenten\development\neutroncode\cathodecurrents.h
+
+1420615327 source:d:\documenten\development\neutroncode\classiisourcefunction.cpp
+	"constants.h"
+	"ClassIISourceFunction.h"
+
+1420615327 d:\documenten\development\neutroncode\classiisourcefunction.h
+
+1421175210 source:d:\documenten\development\neutroncode\constants.cpp
+	"constants.h"
+
+1416424322 source:d:\documenten\development\neutroncode\crosssections.cpp
+	<math.h>
+	"CrossSectionsCont.h"
+	"CrossSections.h"
+
+1416424322 d:\documenten\development\neutroncode\crosssectionscont.h
+
+1421353611 source:d:\documenten\development\neutroncode\energyspectra\neutralsclassispectrum.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"MathFunctions.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"Crosssections.h"
+	"NeutralsClassISpectrum.h"
+
+1421355050 d:\documenten\development\neutroncode\energyspectra\neutralsclassispectrum.h
+
+1421093831 source:d:\documenten\development\neutroncode\energyspectrumions.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"MathFunctions.h"
+	"EnergySpectrumIons.h"
+
+1421093836 d:\documenten\development\neutroncode\energyspectrumions.h
+
+1421092329 source:d:\documenten\development\neutroncode\ionparticleflux.cpp
+	<math.h>
+	"CrossSections.h"
+	"PotentialFunctions.h"
+	"constants.h"
+	"MathFunctions.h"
+	"SurvivalFunctions.h"
+	"IonParticleFlux.h"
+
+1421092329 d:\documenten\development\neutroncode\ionparticleflux.h
+
+1421092329 source:d:\documenten\development\neutroncode\neutralparticleflux.cpp
+	"math.h"
+	"constants.h"
+	"CrossSections.h"
+	"SurvivalFunctions.h"
+	"PotentialFunctions.h"
+	"MathFunctions.h"
+	"NeutralParticleFlux.h"
+
+1421092329 d:\documenten\development\neutroncode\neutralparticleflux.h
+
+1421092329 source:d:\documenten\development\neutroncode\neutronproductionrate.cpp
+	<stdio.h>
+	"constants.h"
+	"MathFunctions.h"
+	"IonParticleFlux.h"
+	"NeutralParticleFlux.h"
+	"NeutronProductionRate.h"
+
+1416341342 d:\documenten\development\neutroncode\neutronproductionrate.h
+
+1421093816 source:d:\documenten\development\neutroncode\potentialfunctions.cpp
+	"constants.h"
+	"PotentialFunctions.h"
+
+1420615327 source:d:\documenten\development\neutroncode\survivalfunctions.cpp
+	<stdio.h>
+	<math.h>
+	"constants.h"
+	"MathFunctions.h"
+	"CrossSections.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+
+1427308909 source:d:\documenten\development\neutroncode\main.cpp
+	<iostream>
+	<math.h>
+	<stdio.h>
+	"includes.h"
+
+1421171855 d:\documenten\development\neutroncode\includes.h
+	"constants.h"
+	"PotentialFunctions.h"
+	"Auxiliary.h"
+	"CathodeCurrents.h"
+	"SurvivalFunctions.h"
+	"ClassIISourceFunction.h"
+	"IonParticleFlux.h"
+	"EnergySpectrumIons.h"
+	"NeutronProductionRate.h"
+	"CrossSections.h"
+	"MathFunctions.h"
+	"IonSpectrum.h"
+	"NeutralsClassISpectrum.h"
+	"NeutralsClassIISpectrum.h"
+
+1427306316 source:d:\documenten\development\neutroncode\mathfunctions.cpp
+	<math.h>
+	"constants.h"
+	"MathFunctions.h"
+
+1427315587 source:d:\documenten\development\neutroncode\energyspectra\ionspectrum.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"MathFunctions.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"Crosssections.h"
+	"IonSpectrum.h"
+
+1421093034 d:\documenten\development\neutroncode\energyspectra\ionspectrum.h
+

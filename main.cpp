@@ -33,7 +33,6 @@ int main()
     else
     {
         printf("Reading input file:\n\n");
-
         readfile(input);
     }
 
@@ -95,7 +94,6 @@ int main()
         print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv");
     }
 
-
     // Writing the survival functions to a file for plotting.
     if ( printbool.Survival )
     {
@@ -154,13 +152,6 @@ int main()
         print_table(1, "Atable.csv");
         print_table(2, "Ktable.csv");
         print_table(9, "S.csv");
-        print_table(10, "S0.csv");
-        print_table(11, "S1.csv");
-        print_table(12, "S2.csv");
-        print_table(13, "S3.csv");
-        print_table(14, "S4.csv");
-        print_table(15, "S5.csv");
-
     }
 
     double TotalCurrent = 0, dummie;

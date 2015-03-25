@@ -16,12 +16,12 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="PotentialFunctions.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="PotentialFunctions.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="547" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="PotentialFunctions.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="PotentialFunctions.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="229" topLine="0" />
 		</Cursor>
@@ -31,7 +31,7 @@
 			<Cursor1 position="1864" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="constants.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="constants.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="729" topLine="21" />
 		</Cursor>
@@ -41,9 +41,9 @@
 			<Cursor1 position="101" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="constants.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="constants.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="479" topLine="0" />
+			<Cursor1 position="807" topLine="13" />
 		</Cursor>
 	</File>
 	<File name="CrossSectionsCont.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -53,7 +53,7 @@
 	</File>
 	<File name="MathFunctions.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5037" topLine="114" />
+			<Cursor1 position="4830" topLine="108" />
 		</Cursor>
 	</File>
 	<File name="CrossSections.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -76,9 +76,9 @@
 			<Cursor1 position="2456" topLine="121" />
 		</Cursor>
 	</File>
-	<File name="EnergySpectra\NeutralsClassISpectrum.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="EnergySpectra\NeutralsClassISpectrum.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2121" topLine="0" />
+			<Cursor1 position="2386" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="EnergySpectra\NeutralsClassISpectrum.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -96,9 +96,9 @@
 			<Cursor1 position="232" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="EnergySpectra\IonSpectrum.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="EnergySpectra\IonSpectrum.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="927" topLine="0" />
+			<Cursor1 position="215" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="CrossSections.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -126,14 +126,14 @@
 			<Cursor1 position="674" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4935" topLine="182" />
+			<Cursor1 position="6033" topLine="54" />
 		</Cursor>
 	</File>
-	<File name="Auxiliary.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Auxiliary.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1477" topLine="45" />
+			<Cursor1 position="3076" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="IonParticleFlux.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -146,12 +146,12 @@
 			<Cursor1 position="2257" topLine="88" />
 		</Cursor>
 	</File>
-	<File name="EnergySpectra\NeutralsClassIISpectrum.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="EnergySpectra\NeutralsClassIISpectrum.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="554" topLine="0" />
+			<Cursor1 position="286" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="MathFunctions.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="MathFunctions.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="454" topLine="0" />
 		</Cursor>

@@ -14,9 +14,6 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     double term1;
     double dr = r_shell(r, E);
 
-    if ( dr < giveCathodeRadius() | dr > giveAnodeRadius() | dr < r)
-        return -1;
-
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
@@ -42,6 +39,11 @@ double NeutralsClassIISpectrumInwards (double r, double E)
 
         return term1 + term2;
     }
+
+    // make sure that
+    if ( giveCathodeRadius() || < r )
+        return NAN;
+
 }
 
 double NeutralsClassIISpectrumOutwards (double r, double E)
