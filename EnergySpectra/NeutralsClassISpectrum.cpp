@@ -14,7 +14,7 @@ double NeutralsClassISpectrumInwards (double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
-    double dr = r_shell(r, E);
+    double dr = Potential_Phi_Inv(E);
 
     // make sure that only physical numbers are calculated
     if ( giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius())
@@ -36,7 +36,6 @@ double NeutralsClassISpectrumInwards (double r, double E)
     }
     else
     {
-
         if ( DELTA(E + giveVoltage()) )
         {
             term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux;
@@ -54,9 +53,9 @@ double NeutralsClassISpectrumOutwards (double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
-    double dr = r_shell(r, E);
+    double dr = Potential_Phi_Inv(E);
 
-    if (  giveCathodeRadius() < dr | r < dr )
+    if (  giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius() )
         return NAN;
 
     double (*PhiPtr)(double);
@@ -88,7 +87,7 @@ double NeutralsClassISpectrumOutwards (double r, double E)
         {
             term2  = pow(giveAnodeRadius()/r,2);
             term2 *= giveTransparency();
-            term2 *= f(giveCathodeRadius())* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * (r - giveCathodeRadius())));
+            term2 *= f(giveCathodeRadius())* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * giveCathodeRadius()));
         }
 
         flux = pow(giveTransparency(),2) * (term1 + term2);

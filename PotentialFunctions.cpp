@@ -17,10 +17,21 @@ double Potential_Phi(double r)
     if ( r <= giveCathodeRadius())
         phi = giveVoltage();
     else
-        phi = (giveCathodeRadius() * (giveAnodeRadius() - r) * -1 * giveVoltage()) / (r * (giveCathodeRadius() - giveAnodeRadius()));
+        phi = (giveCathodeRadius() * (giveAnodeRadius() - r)  * giveVoltage()) / (r * ( giveAnodeRadius() - giveCathodeRadius() ));
 
     return phi;
 }
+
+double Potential_Phi_Inv(double E)
+{
+    double r;
+
+	r  = giveAnodeRadius() * giveCathodeRadius();
+	r /= (E/giveVoltage()) * ( giveAnodeRadius() - giveCathodeRadius() ) - giveCathodeRadius();  
+	
+    return radius;
+}
+
 
 /** \brief calculates the energy of particle at radius r coming from outer edge
  *
@@ -49,15 +60,5 @@ double ParticleEnergy2(double r, double r1)
     return energy;
 }
 
-double r_shell(double r, double E)
-{
-    double radius;
-
-    radius =  -giveVoltage() * giveAnodeRadius() * giveCathodeRadius() * r;
-    double teller = (giveAnodeRadius() * giveCathodeRadius() * -giveVoltage() + (giveCathodeRadius() - giveAnodeRadius()) * E * r );
-    radius /= teller;
-
-    return radius;
-}
 
 

@@ -21,9 +21,9 @@ double IonSpectrumInwards(double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
-    double dr = r_shell(r, E);
+    double dr = Potential_Phi_Inv(E);
 
-    if ( dr < giveCathodeRadius() || dr > giveAnodeRadius() || r < dr)
+    if ( giveAnodeRadius() < dr || dr < r )
         return NAN;
 
     double (*PhiPtr)(double);
@@ -40,9 +40,7 @@ double IonSpectrumInwards(double r, double E)
         term1  *= g(r,dr);
 
         if ( DELTA(E - ParticleEnergy1(r)) )
-        {
             term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux * f(r);
-        }
 
         flux = term1 + term2;
     }
@@ -75,9 +73,9 @@ double IonSpectrumOutwards(double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
-    double dr = r_shell(r, E);
+    double dr = Potential_Phi_Inv(E);
 
-    if ( dr < giveCathodeRadius() | dr > giveAnodeRadius())
+    if ( dr < giveCathodeRadius() || dr < r )
         return NAN;
 
     double (*PhiPtr)(double);
@@ -88,14 +86,14 @@ double IonSpectrumOutwards(double r, double E)
     term1 *= interpolation(dr) / abs(differentiat(*PhiPtr, dr));
     term1 *= pow(g(0, dr),2) / ( 1 - pow(giveTransparency() * g(0,dr),2) );
 
-    if ( giveCathodeRadius() > r)
+    if ( r < giveCathodeRadius())
     {
         // outwards flux inside the cathode
         term1 *= 1 / (g(giveCathodeRadius(), dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius())));
 
         if ( DELTA(E - ParticleEnergy1(r)) )
         {
-            term2  = pow(giveAnodeRadius() * f(0)/r,2) * EdgeIonFlux ;
+            term2  = pow(giveAnodeRadius() * f(0)/r,2) * EdgeIonFlux;
             term2 /= f(giveCathodeRadius()) * exp(ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * (r - giveCathodeRadius()));
         }
 

@@ -9,10 +9,42 @@
 
 #include "NeutralsClassISpectrum.h"
 
+double NeutralsClassIISpectrumInwards_Inte1(double E, double ddr)
+{
+    double integrant;
+
+    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+
+    if ( dr < r )
+        return 0;
+
+    integrant  = g(dr, ddr) * pow(ddr,2);
+    integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
+
+    return integrant;
+}
+
+double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
+{
+    double integrant;
+
+    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+
+    if ( giveCathodeRadius() < dr )
+        return 0;
+
+    integrant  = g(dr, ddr) * pow(ddr,2);
+    integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
+
+    return integrant;
+}
+
+
 double NeutralsClassIISpectrumInwards (double r, double E)
 {
-    double term1;
-    double dr = r_shell(r, E);
+    double flux;
+    double term1 = 0, term2 = 0;
+    double dr = Potential_Phi_Inv(E);
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -21,11 +53,23 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     term1 *= pow(1/r,2);
     term1 *= f(dr) * ngas * CrosssecCX(E);
 
-
     term1 /= abs(differentiat(*PhiPtr, dr));
 
     if ( giveCathodeRadius() < r )
-        return term1;
+    {
+        double (*IntegrandPtr)(double, double);
+        IntegrandPtr = *NeutralsClassIISpectrumInwards_Inte1;
+        term1 *= NIntegration_2(IntegrandPtr, E, r, giveAnodeRadius());
+
+        drr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
+        term2  = pow(drr/r, 2);
+        term2 *= g(giveCathodeRadius(), ddr);
+        term2 /= 1 - pow(giveTransparency() * g(0, ddr));
+        term2 *= 1 - exp(- ngas * CrosssecCX(E) * ( r - giveCathodeRadius()) );
+        term2 *= interpolation(ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+
+        flux = giveTransparency() * ( term1 + term2);
+    }
     else
     {
         double term2 = 0;
@@ -49,9 +93,9 @@ double NeutralsClassIISpectrumInwards (double r, double E)
 double NeutralsClassIISpectrumOutwards (double r, double E)
 {
     double term1;
-    double dr = r_shell(r, E);
+    double dr = Potential_Phi_Inv(E);
 
-    if ( dr < giveCathodeRadius() | dr > giveAnodeRadius())
+    if ( giveCathodeRadius() < dr  || dr < giveAnodeRadius())
         return -1;
 
     double (*PhiPtr)(double);
