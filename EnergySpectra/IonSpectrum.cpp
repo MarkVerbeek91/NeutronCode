@@ -89,7 +89,7 @@ double IonSpectrumOutwards(double r, double E)
     if ( r < giveCathodeRadius())
     {
         // outwards flux inside the cathode
-        term1 *= 1 / (g(giveCathodeRadius(), dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius())));
+        term1 /= g(giveCathodeRadius(), dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 
         if ( DELTA(E - ParticleEnergy1(r)) )
         {
@@ -102,7 +102,7 @@ double IonSpectrumOutwards(double r, double E)
     else
     {
         // outwards flux outside the cathode
-        term1 *= 1 / g(r, dr);
+        term1 /= g(r, dr);
 
         if ( DELTA(E - ParticleEnergy1(r)) )
         {
