@@ -17,4 +17,12 @@
 #include "NeutralsClassISpectrum.h"
 #include "NeutralsClassIISpectrum.h"
 
+#include "IonFlux.h"
+#include "NeutralsClassIFlux.h"
+#include "NeutralsClassIIFlux.h"
+
+#include "NeutronProductionIons.h"
+#include "NeutronProductionNeutralsClassI.h"
+#include "NeutronProductionNeutralsClassII.h"
+
 #endif // INCLUDES_H_INCLUDED

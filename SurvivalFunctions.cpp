@@ -61,14 +61,14 @@ double A(double r)
     return tmp;
 }
 
-double g_inte(double r, double dr)
+double g_inte(double dr, double ddr)
 {
-    return CrosssecCX(ParticleEnergy2(r,dr));
+    return CrosssecCX(ParticleEnergy2(dr,ddr));
 }
 
-double g(double r, double r1)
+double g(double r, double dr)
 {
-    if ( r > r1)
+    if ( r > dr)
     {
         printf("error: r >= r1 \n");
         return -2;
@@ -77,7 +77,7 @@ double g(double r, double r1)
     double (*g_intePtr)(double, double);
     g_intePtr = &g_inte;
 
-    double sum = NIntegration_3(*g_intePtr, r, r1);
+    double sum = NIntegration_2(*g_intePtr, dr, r, dr);
 
     sum *= ngas;
     sum = exp(-sum);

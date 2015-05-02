@@ -13,7 +13,7 @@
 double f_min(double r, double E)
 {
     double result;
-    double dr = r_shell(r, E);
+    double dr = Potential_Phi_Inv(E);
 
     if ( r > dr || dr > giveAnodeRadius())
         return -1;

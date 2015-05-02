@@ -11,33 +11,60 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
 {
     FILE * output;
     output = fopen(name,"w");
+    double value;
+
+    // print data to gnu plot
+    printf("unset key\n");
+    printf("set xlabel \"position\"\n");
+    printf("set ylabel \"a.u\"\n");
+    printf("set Titel \"%s\"\n",name);
+    printf("set xrange [%f:%f]\n",Start,End);
+    printf("plot '-' w l\n");
+
     for (double r = Start; r<End; r+=step)
     {
-        fprintf (output, "%E,%E\n",r, (*funcPtr)(r));
+        value = (*funcPtr)(r);
+        fprintf (output, "%E,%E\n",r, value );
+        printf("%f \t %f \n",r, value);
     }
 
-    printf("%s: writing done\n",name);
+    printf("e\n");
+    printf("%s: done writing to file\n",name);
 
     fclose(output);
+
     return;
 }
 
 /**
     This function writes a given function to a file.
 */
-void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, double step, double sec, char name[])
+void print_data_ddd(double (*funcPtr)(double,double), double var, double Start, double End, double step, char name[])
 {
     FILE * output;
     output = fopen(name,"w");
+    double value;
+
+    // print data to gnu plot
+    printf("unset key\n");
+    printf("set xlabel \"position\"\n");
+    printf("set ylabel \"a.u\"\n");
+    printf("set Titel \"%s\"\n",name);
+    printf("set xrange [%f:%f]\n",Start,End);
+    printf("plot '-' w l\n");
 
     for (double r = Start; r<End; r+=step)
     {
-        fprintf (output, "%E,%E\n",r, (*funcPtr)(sec, r));
+        value = (*funcPtr)(var, r);
+        fprintf (output, "%E,%E\n",r, value);
+        printf("%f \t %f \n",r, value);
     }
 
-    printf("%s: writing done\n",name);
+    printf("e\n");
+    printf("%s: done writing to file\n",name);
 
     fclose(output);
+
     return;
 }
 

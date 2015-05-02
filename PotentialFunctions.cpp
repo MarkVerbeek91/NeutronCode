@@ -27,9 +27,9 @@ double Potential_Phi_Inv(double E)
     double r;
 
 	r  = giveAnodeRadius() * giveCathodeRadius();
-	r /= (E/giveVoltage()) * ( giveAnodeRadius() - giveCathodeRadius() ) - giveCathodeRadius();  
-	
-    return radius;
+	r /= (E/giveVoltage()) * ( giveAnodeRadius() - giveCathodeRadius() ) - giveCathodeRadius();
+
+    return r;
 }
 
 
