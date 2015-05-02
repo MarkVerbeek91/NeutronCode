@@ -54,10 +54,10 @@ double NeutronsIonFluxInwards(double r)
 
     if ( giveCathodeRadius() < r )
     {
-        double (*NeutronsIonFluxOutwards_Inte1Ptr)(double);
-        NeutronsIonFluxOutwards_Inte1Ptr = &NeutronsIonFluxOutwards_Inte1;
+        double (*FunctPtr)(double, double);
+        FunctPtr = &NeutronsIonFluxOutwards_Inte1;
 
-        term1 = NIntegration(NeutronsIonFluxOutwards_Inte1Ptr, r, giveAnodeRadius());
+        term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux * f(r);
@@ -67,10 +67,10 @@ double NeutronsIonFluxInwards(double r)
     }
     else
     {
-        double (*NeutronsIonFluxOutwards_Inte2Ptr)(double, double);
-        NeutronsIonFluxOutwards_Inte2Ptr = &NeutronsIonFluxOutwards_Inte2;
+        double (*FunctPtr)(double, double);
+        FunctPtr = &NeutronsIonFluxOutwards_Inte2;
 
-        term1 = NIntegration(NeutronsIonFluxOutwards_Inte2Ptr, r, giveAnodeRadius());
+        term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
         term2 *= f(giveCathodeRadius()) * exp(ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * (r - giveCathodeRadius()));
@@ -124,10 +124,10 @@ double NeutronsIonFluxOutwards(double r)
 
     if ( giveCathodeRadius() < r )
     {
-        double (*NeutronsIonFluxOutwards_Inte2Ptr)(double);
-        NeutronsIonFluxOutwards_Inte2Ptr = &NeutronsIonFluxOutwards_Inte2;
+        double (*FunctPtr)(double, double);
+        FunctPtr = &NeutronsIonFluxOutwards_Inte2;
 
-        term1 = NIntegration(NeutronsIonFluxOutwards_Inte2Ptr, r, giveAnodeRadius());
+        term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
         term2  = pow(giveAnodeRadius() * f(0)/r,2) * EdgeIonFlux;
         term2 /= f(giveCathodeRadius()) * exp(ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * (r - giveCathodeRadius()));
@@ -137,10 +137,10 @@ double NeutronsIonFluxOutwards(double r)
     }
     else
     {
-        double (*NeutronsIonFluxOutwards_Inte1Ptr)(double);
-        NeutronsIonFluxOutwards_Inte1Ptr = &NeutronsIonFluxOutwards_Inte1;
+        double (*FunctPtr)(double, double);
+        FunctPtr = &NeutronsIonFluxOutwards_Inte1;
 
-        term1 = NIntegration(NeutronsIonFluxOutwards_Inte1Ptr, r, giveAnodeRadius());
+        term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
         term2 =  pow(giveAnodeRadius() * f(0)/r,2) * EdgeIonFlux / f(r);
         term2 *= CrosssecFusion(giveq() * Potential_Phi(r));
