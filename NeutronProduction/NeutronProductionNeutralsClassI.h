@@ -1,0 +1,7 @@
+#ifndef NEUTRONPRODUCTIONNEUTRALSCLASSI_H_INCLUDED
+#define NEUTRONPRODUCTIONNEUTRALSCLASSI_H_INCLUDED
+
+double NeutronsNeutralsClassIFluxInwards(double r);
+double NeutronsNeutralsClassIFluxOutwards(double r);
+
+#endif // NEUTRONPRODUCTIONNEUTRALSCLASSI_H_INCLUDED
