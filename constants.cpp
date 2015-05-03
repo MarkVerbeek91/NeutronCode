@@ -21,16 +21,16 @@ void init(void)
 
 void initBool(void)
 {
-    printbool.potential     = true;
+    printbool.potential     = false;
     printbool.SIIEE         = false;
     printbool.Cross_section = false;
-    printbool.Survival      = true;
-    printbool.Atable        = true;
+    printbool.Survival      = false;
+    printbool.Atable        = false;
     printbool.KernelTable   = false;
-    printbool.Stable        = true;
+    printbool.Stable        = false;
     printbool.Spectrum      = false;
-    printbool.NSR           = false;
-    printbool.NPR           = true;
+    printbool.NSR           = true;
+    printbool.NPR           = false;
 }
 
 Fusor fusor;

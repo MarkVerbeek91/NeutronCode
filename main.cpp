@@ -207,36 +207,51 @@ int main()
 
     }
 
+    // the neutron source rate
     if ( printbool.NSR )
     {
         printf("# Printing neutron source rate to file:\n");
-/*
-        // outside the cathode
-        double (*Sfi_OutMinPtr)(double);
-        Sfi_OutMinPtr = &Sfi_OutMin;
+        double (*FuncPtr)(double);
 
-        printf("Outside cathode, inwards\n");
-        print_data_dd(*Sfi_OutMinPtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "Sfi_OutMin.csv");
+            // Ions
+        // inwards
+        FuncPtr = &NeutronsIonFluxInwards;
 
-        double (*Sfi_OutPlusPtr)(double);
-        Sfi_OutPlusPtr = &Sfi_OutPlus;
+        printf("# Outside cathode, inwards\n");
+        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_1.csv", 10);
 
-        printf("Outside cathode, outwards\n");
-        print_data_dd(*Sfi_OutPlusPtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "Sfi_OutPlus.csv");
+        // outwards
+        FuncPtr = &NeutronsIonFluxOutwards;
 
-        // inside the cathode
-        double (*Sfi_InMinPtr)(double);
-        Sfi_InMinPtr = &Sfi_InMin;
+        printf("# Outside cathode, outwards\n");
+        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", 11);
 
-        printf("In cathode, inwards\n");
-        print_data_dd(*Sfi_InMinPtr, 0, giveCathodeRadius(), 0.001, "Sfi_InMin.csv");
+            // Neutrals Class I
+        // inwards
+        FuncPtr = &NeutronsNeutralsClassIFluxInwards;
 
-        double (*Sfi_InPlusPtr)(double);
-        Sfi_InPlusPtr = &Sfi_InPlus;
+        printf("# In cathode, inwards\n");
+        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.csv", 12);
 
-        printf("In cathode, outwards\n");
-        print_data_dd(*Sfi_InPlusPtr, 0, giveCathodeRadius(), 0.001, "Sfi_InPlus.csv");
-*/
+        // outwards
+        FuncPtr = &NeutronsNeutralsClassIFluxOutwards;
+
+        printf("# In cathode, outwards\n");
+        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.csv", 13);
+
+            // Neutrals ClassII
+        // inwards
+        FuncPtr = &NeutronsNeutralsClassIIFluxInwards;
+
+        printf("# In cathode, inwards\n");
+        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", 14);
+
+        // outwards
+        FuncPtr = &NeutronsNeutralsClassIIFluxOutwards;
+
+        printf("# In cathode, outwards\n");
+        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.csv", 15);
+
     }
 
     if ( printbool.NPR )
@@ -247,16 +262,7 @@ int main()
 
     }
 
-    if ( false )
-    {
-        printf("# Calculation NPR from fast neutrals:\n");
-
-
-    }
-
     // program is done
-
-
     printf("# -- Done --");
     return 0;
 }
