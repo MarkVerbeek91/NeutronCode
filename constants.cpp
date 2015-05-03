@@ -21,14 +21,14 @@ void init(void)
 
 void initBool(void)
 {
-    printbool.potential     = false;
+    printbool.potential     = true;
     printbool.SIIEE         = false;
     printbool.Cross_section = false;
-    printbool.Survival      = false;
-    printbool.Atable        = false;
+    printbool.Survival      = true;
+    printbool.Atable        = true;
     printbool.KernelTable   = false;
-    printbool.Stable        = false;
-    printbool.Spectrum      = true;
+    printbool.Stable        = true;
+    printbool.Spectrum      = false;
     printbool.NSR           = false;
     printbool.NPR           = true;
 }

@@ -5,7 +5,7 @@
 #include "MathFunctions.h"
 #include "PotentialFunctions.h"
 #include "SurvivalFunctions.h"
-#include "Crossections.h"
+#include "CrossSections.h"
 
 #include "NeutronProductionNeutralsClassI.h"
 
@@ -61,7 +61,7 @@ double NeutronsNeutralsClassIFluxInwards(double r)
     }
     else
     {
-        double (*FunctPtr)(double);
+        double (*FunctPtr)(double, double);
         FunctPtr = &NeutronsNeutralsClassIFluxInwards_Inte2;
 
         term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
@@ -138,7 +138,7 @@ double NeutronsNeutralsClassIFluxOutwards(double r)
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutronsNeutralsClassIFluxOutwards_Inte1;
 
-        term1 = NIntegration(FunctPtr, r, r, giveAnodeRadius());
+        term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
         term2 *= f(giveCathodeRadius()) * ( 1 - exp(-2 * ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * giveCathodeRadius()));

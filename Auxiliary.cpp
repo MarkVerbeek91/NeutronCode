@@ -7,7 +7,7 @@
 /**
     This function writes a given function to a file.
 */
-void print_data_dd(double (*funcPtr)(double), double Start, double End, double step, char name[])
+void print_data_dd(double (*funcPtr)(double), double Start, double End, double step, char name[], int ID)
 {
     FILE * output;
     output = fopen(name,"w");
@@ -17,8 +17,9 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
     printf("unset key\n");
     printf("set xlabel \"position\"\n");
     printf("set ylabel \"a.u\"\n");
-    printf("set Titel \"%s\"\n",name);
+    printf("set title \"%s\"\n",name);
     printf("set xrange [%f:%f]\n",Start,End);
+    printf("set term wxt %d\n",ID);
     printf("plot '-' w l\n");
 
     for (double r = Start; r<End; r+=step)
@@ -29,7 +30,7 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
     }
 
     printf("e\n");
-    printf("%s: done writing to file\n",name);
+    printf("# %s: done writing to file\n",name);
 
     fclose(output);
 
@@ -39,7 +40,7 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
 /**
     This function writes a given function to a file.
 */
-void print_data_ddd(double (*funcPtr)(double,double), double var, double Start, double End, double step, char name[])
+void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, double step, double var, char name[], int ID)
 {
     FILE * output;
     output = fopen(name,"w");
@@ -49,8 +50,9 @@ void print_data_ddd(double (*funcPtr)(double,double), double var, double Start, 
     printf("unset key\n");
     printf("set xlabel \"position\"\n");
     printf("set ylabel \"a.u\"\n");
-    printf("set Titel \"%s\"\n",name);
+    printf("set title \"%s\"\n",name);
     printf("set xrange [%f:%f]\n",Start,End);
+    printf("set term wxt %d\n",ID);
     printf("plot '-' w l\n");
 
     for (double r = Start; r<End; r+=step)
@@ -61,7 +63,7 @@ void print_data_ddd(double (*funcPtr)(double,double), double var, double Start, 
     }
 
     printf("e\n");
-    printf("%s: done writing to file\n",name);
+    printf("# %s: done writing to file\n",name);
 
     fclose(output);
 
@@ -80,24 +82,24 @@ void print_table(int choice, char name[])
         {
             fprintf(output,"%d, %E\n",i,Table.A[i]);
         }
-        printf("Printed ATable\n");
+        printf("# Printed ATable\n");
         break;
         case 2:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%d, %E\n",i,Table.K[N_TABLE-2][i]);
         }
-        printf("Printed KTable\n");
+        printf("# Printed KTable\n");
         break;
         case 9:
         for ( int i = 0; i < N_TABLE; i++)
         {
             fprintf(output,"%E, %E\n",Table.R[i],Table.S[i]);
         }
-        printf("Printed STable\n");
+        printf("# Printed STable\n");
         break;
         default:
-            printf("nothing to do\n");
+            printf("# nothing to do\n");
         break;
     }
 
@@ -114,7 +116,7 @@ void readfile(FILE * input)
 
     // cathode
     fscanf (input, "%s", str); // read word 'cathode'
-    printf("%s ",str);
+    printf("# %s ",str);
 
     fscanf (input, "%s", str); // read word '0.05'
     printf("%s \n",str);
@@ -123,7 +125,7 @@ void readfile(FILE * input)
 
     // anode
     fscanf (input, "%s", str); // read word 'anode'
-    printf("%s ",str);
+    printf("# %s ",str);
 
     fscanf (input, "%s", str); // read word '0.25'
 
@@ -135,7 +137,7 @@ void readfile(FILE * input)
 
     // Voltage
     fscanf (input, "%s", str); // read word 'voltage'
-    printf("%s ",str);
+    printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
 
@@ -144,7 +146,7 @@ void readfile(FILE * input)
 
     // Pressure
     fscanf (input, "%s", str); // read word 'pressure'
-    printf("%s ",str);
+    printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
 
@@ -153,7 +155,7 @@ void readfile(FILE * input)
 
     // Current
     fscanf (input, "%s", str); // read word 'Current'
-    printf("%s ",str);
+    printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
 
@@ -161,4 +163,6 @@ void readfile(FILE * input)
     printf("\t%f \n",Itot);
 
 }
+
+
 

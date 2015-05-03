@@ -53,10 +53,10 @@ double ParticleEnergy1(double r)
  * \return energy in eV.
  *
  */
-double ParticleEnergy2(double r, double r1)
+double ParticleEnergy2(double r, double dr)
 {
     double energy;
-    energy = (Potential_Phi(r1) - Potential_Phi(r)) + 4;
+    energy = (Potential_Phi(dr) - Potential_Phi(r)) + 4;
     return energy;
 }
 

@@ -41,10 +41,6 @@
 		<Unit filename="CathodeCurrents.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="ClassIISourceFunction.cpp" />
-		<Unit filename="ClassIISourceFunction.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="CrossSections.cpp" />
 		<Unit filename="CrossSections.h" />
 		<Unit filename="CrossSectionsCont.h" />
@@ -60,16 +56,7 @@
 		<Unit filename="EnergySpectra/NeutralsClassISpectrum.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="EnergySpectrumIons.cpp" />
-		<Unit filename="EnergySpectrumIons.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="Fusor.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="IonParticleFlux.cpp" />
-		<Unit filename="IonParticleFlux.h">
-			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="MathFunctions.cpp" />
@@ -77,29 +64,19 @@
 			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="NeutralParticleFlux.cpp" />
-		<Unit filename="NeutralParticleFlux.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="NeutronProductionRate.cpp" />
 		<Unit filename="NeutronProductionRate.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="NeutronProduction/NeutronProductionIons.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="NeutronProduction/NeutronProductionIons.cpp" />
 		<Unit filename="NeutronProduction/NeutronProductionIons.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassI.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassI.cpp" />
 		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassI.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassII.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassII.cpp" />
 		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassII.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -112,6 +89,10 @@
 		<Unit filename="PotentialFunctions.cpp" />
 		<Unit filename="PotentialFunctions.h">
 			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="SourceFunction.cpp" />
+		<Unit filename="SourceFunction.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="SurvivalFunctions.cpp" />

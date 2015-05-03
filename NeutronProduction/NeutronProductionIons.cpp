@@ -1,10 +1,11 @@
 #include <math.h>
+#include <stdlib.h>
 
 #include "constants.h"
 #include "MathFunctions.h"
 #include "PotentialFunctions.h"
 #include "SurvivalFunctions.h"
-#include "Crossections.h"
+#include "CrossSections.h"
 
 #include "NeutronProductionIons.h"
 
@@ -40,7 +41,7 @@ double NeutronsIonFluxInwards_Inte2(double r, double dr)
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
-    term1 *= interpolation(dr) / abs(differentiat(*PhiPtr, dr));
+    term1 *= interpolation(dr);
     term1 *= 1 / ( 1 - pow(giveTransparency() * g(0,dr),2));
     term1 *= g(giveCathodeRadius(),dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * (r - giveCathodeRadius()));
 
@@ -55,7 +56,7 @@ double NeutronsIonFluxInwards(double r)
     if ( giveCathodeRadius() < r )
     {
         double (*FunctPtr)(double, double);
-        FunctPtr = &NeutronsIonFluxOutwards_Inte1;
+        FunctPtr = &NeutronsIonFluxInwards_Inte1;
 
         term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
@@ -68,7 +69,7 @@ double NeutronsIonFluxInwards(double r)
     else
     {
         double (*FunctPtr)(double, double);
-        FunctPtr = &NeutronsIonFluxOutwards_Inte2;
+        FunctPtr = &NeutronsIonFluxInwards_Inte2;
 
         term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
@@ -87,7 +88,7 @@ double NeutronsIonFluxInwards(double r)
 */
 
 // inside the cathod
-double NeutronsIonFluxOutwards_Inte1(double r)
+double NeutronsIonFluxOutwards_Inte1(double r, double dr)
 {
     double E, term1;
 
@@ -102,7 +103,7 @@ double NeutronsIonFluxOutwards_Inte1(double r)
     return term1;}
 
 // outside the cathod
-double NeutronsIonFluxOutwards_Inte2(double r)
+double NeutronsIonFluxOutwards_Inte2(double r, double dr)
 {
     double E, term1;
 

@@ -1,5 +1,5 @@
 /**
- *  NeutronCode written by Mark Verbeek, mark.verbeek91(at)gmail(dot)com.
+ *  NeutronCode written by Mark Verbeek, mark(dot)verbeek91(at)gmail(dot)com.
  *
  *  This code calculated the neutron production rate, NPR, of a fusor devise by
  *  using analitical descriptions of the physics in the fusor.
@@ -23,23 +23,23 @@
 int main()
 {
     FILE * input;
-    input = fopen("input.txt","r");
+    input = fopen("input.ini","r");
 
     if ( input == NULL)
     {
-        printf("missing input file, using standard parameters\n\n");
+        printf("# Missing input file, using standard parameters\n\n");
         init();
     }
     else
     {
-        printf("Reading input file:\n\n");
+        printf("# Reading input file:\n\n");
         readfile(input);
     }
 
     fclose(input);
 
     // filling the potential array and particle energy
-    printf("-- Start of program -- \n");
+    printf("# -- Start of program -- \n");
     // initialise the fusor parameters
     init();
     initBool();
@@ -48,7 +48,7 @@ int main()
 
     if ( printbool.potential )
     {
-        printf("Potential calculation\n");
+        printf("# Potential calculation\n");
 
         double (*Potential_PhiPtr)(double);
         Potential_PhiPtr = &Potential_Phi;
@@ -56,90 +56,90 @@ int main()
         double (*ParticleEnergy2Ptr)(double,double);
         ParticleEnergy2Ptr = &ParticleEnergy2;
 
-        print_data_ddd(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0, "Particle2.csv");
+        print_data_ddd(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0, "Particle2.csv", 0);
 
-        print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv");
+        print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv", 0);
     }
 
     // writing the SIIEE to a file for plotting
     if ( printbool.SIIEE )
     {
-        printf("SIIEE calculation\n");
+        printf("# SIIEE calculation\n");
 
         double (*SIIEEPtr)(double);
         SIIEEPtr = &SIIEE;
 
-        print_data_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv");
+        print_data_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", 1);
     }
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
     if ( printbool.Cross_section )
     {
-        printf("Cross section calculation\n");
+        printf("# Cross section calculation\n");
 
         double (*CrosssecCXPtr)(double);
         CrosssecCXPtr = &CrosssecCX;
 
-        print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv");
+        print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv", 1);
 
         double (*CrosssecIonPtr)(double);
         CrosssecIonPtr = &CrosssecIon;
 
-        print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv");
+        print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv", 1);
 
         double (*CrosssecTotPtr)(double);
         CrosssecTotPtr = &CrosssecTot;
 
-        print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv");
+        print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv", 1);
     }
 
     // Writing the survival functions to a file for plotting.
     if ( printbool.Survival )
     {
-        printf("Survival function calculation\n");
+        printf("# Survival function calculation\n");
 
         double (*fPtr)(double);
         fPtr = &f;
 
-        print_data_dd(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv");
+        print_data_dd(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv", 2);
 
         double (*gPtr)(double,double);
         gPtr = &g;
 
-        print_data_ddd(*gPtr, 0.0, giveAnodeRadius()+0.001, 0.001, 0, "g.csv");
+        print_data_ddd(*gPtr, 0.0, giveAnodeRadius()+0.001, 0.001, 0.0, "g.csv", 2);
     }
 
 
     // writing A to a file for plotting
     if ( printbool.Atable )
     {
-        printf("doing some thing with A\n");
+        printf("# Doing some things with A\n");
 
         double (*APtr)(double);
         APtr = &A;
 
-        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv");
+        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv", 3);
     }
 
     // building the "Kernel"
     if ( printbool.KernelTable )
     {
-        printf("Kernel\n");
+        printf("# Kernel\n");
         double (*KPtr)(double,double);
         KPtr = &kernel;
 
-        print_data_ddd(*KPtr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0001, "K.csv");
+        print_data_ddd(*KPtr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0001, "K.csv", 4);
     }
 
     // source rate for first generation of Class II ions.
 
-    printf("filling tables:\n");
+    printf("# filling tables:\n");
     kernel_to_table();
 
-    printf("Calculating S:\n");
+    printf("# Calculating S:\n");
     S();
-    printf(" - Done\n");
+    printf("#  - Done\n");
 
     // calculating the energy spectrum of ions
 
@@ -147,38 +147,34 @@ int main()
     // print the S tables to screen
     if ( printbool.Stable )
     {
-        printf("Writing tables to files:\n");
+        printf("# Writing tables to files:\n");
 
         print_table(1, "Atable.csv");
         print_table(2, "Ktable.csv");
         print_table(9, "S.csv");
     }
 
-    double TotalCurrent = 0, dummie;
+    double I1, I2, I3, I4;
 
-    printf("Calculating Currents:\n");
-    dummie = I_c1();
-    printf("total current: %E\n",dummie);
-    TotalCurrent += dummie;
-    dummie = I_c2();
-    printf("total current: %E\n",dummie);
-    TotalCurrent += dummie;
-    dummie = I_c3();
-    printf("total current: %E\n",dummie);
-    TotalCurrent += dummie;
-    dummie = I_c4();
-    printf("total current: %E\n",dummie);
-    TotalCurrent += dummie;
+    printf("# Calculating Currents:\n");
+    I1 = I_c1();
+    printf("# 1 current: %E\n",I1);
+    I2 = I_c2();
+    printf("# 2 current: %E\n",I2);
+    I3 = I_c3();
+    printf("# 3 current: %E\n",I3);
+    I4 = I_c4();
+    printf("# 4 current: %E\n",I4);
 
-    EdgeIonFlux = Itot / TotalCurrent;
+    EdgeIonFlux = (Itot - I2 - I3) / (I1 + I3);
 
-    printf("total current: %E, \n\n EdgeIonFlux: %E\n - Done\n",TotalCurrent, EdgeIonFlux);
+    printf("# EdgeIonFlux: %E\n - Done\n", EdgeIonFlux);
 
     if ( printbool.Spectrum )
     {
-        printf("Printing Energy spectrum to files\n");
+        printf("# Printing Energy spectrum to files\n");
 
-        printf("Energy spectrum of ions going inwards\n");
+        printf("# Energy spectrum of ions going inwards\n");
 
         double (*IonSpectrumInwardsPtr)(double, double);
         IonSpectrumInwardsPtr = &IonSpectrumInwards;
@@ -202,26 +198,19 @@ int main()
             char filename2[100];
             sprintf( filename2, "IonSpectrumOutwards%d.csv", j);
 
-            print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1);
-            print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2);
+            print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1, 5);
+            print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2, 5);
 
             j++;
         }
-/*
-        for ( int i = 0; i < 10000; i=i+100)
-        {
-            printf("%d, %E\n",i, f_min(0.06,i));
-        }
-  */
-
 
 
     }
 
     if ( printbool.NSR )
     {
-        printf("Printing neutron source rate to file:\n");
-
+        printf("# Printing neutron source rate to file:\n");
+/*
         // outside the cathode
         double (*Sfi_OutMinPtr)(double);
         Sfi_OutMinPtr = &Sfi_OutMin;
@@ -247,20 +236,20 @@ int main()
 
         printf("In cathode, outwards\n");
         print_data_dd(*Sfi_InPlusPtr, 0, giveCathodeRadius(), 0.001, "Sfi_InPlus.csv");
-
+*/
     }
 
     if ( printbool.NPR )
     {
-        printf("Calculating NPR:\n");
+        printf("# Calculating NPR:\n");
         double NPR = Nps();
-        printf("NPR: %E \n - Done\n", NPR);
+        printf("# NPR: %E \n# - Done\n", NPR);
 
     }
 
     if ( false )
     {
-        printf("Calculation NPR from fast neutrals:\n");
+        printf("# Calculation NPR from fast neutrals:\n");
 
 
     }
@@ -268,6 +257,6 @@ int main()
     // program is done
 
 
-    printf("\n-- Done --");
+    printf("# -- Done --");
     return 0;
 }

@@ -63,14 +63,14 @@ double A(double r)
 
 double g_inte(double dr, double ddr)
 {
-    return CrosssecCX(ParticleEnergy2(dr,ddr));
+    return CrosssecCX(ParticleEnergy2(ddr,dr));
 }
 
 double g(double r, double dr)
 {
-    if ( r > dr)
+    if ( dr < r)
     {
-        printf("error: r >= r1 \n");
+        printf("error: dr < r \n");
         return -2;
     }
 
@@ -103,6 +103,7 @@ void kernel_to_table(void)
 {
     double step = (giveAnodeRadius() - giveCathodeRadius())/(N_TABLE-1);
 
+    printf("#");
     for ( int i = 0; i < N_TABLE; i++)
     {
         for ( int j = 0; j < N_TABLE; j++)
