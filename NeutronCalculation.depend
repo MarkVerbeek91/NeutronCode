@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1420305660 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -39,7 +39,7 @@
 	<math.h>
 	"constants.hpp"
 
-1416612131 source:c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
+1416615731 source:c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -63,12 +63,12 @@
 	"constants.h"
 	"ClassIISourceFunction.h"
 
-1416383477 source:c:\users\mark\documents\development\neutroncalculation\crosssections.cpp
+1416387077 source:c:\users\mark\documents\development\neutroncalculation\crosssections.cpp
 	<math.h>
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1420715294 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	<stdlib.h>
 	"constants.h"
@@ -176,52 +176,60 @@
 
 1416338605 source:d:\documenten\programmeren\neutroncode\functions.hpp
 
-1420191048 c:\users\mark\documents\development\neutroncalculation\includes.h
+1431871911 c:\users\mark\documents\development\neutroncalculation\includes.h
 	"constants.h"
 	"PotentialFunctions.h"
-	"Auxiliary.h"
-	"CathodeCurrents.h"
 	"SurvivalFunctions.h"
-	"ClassIISourceFunction.h"
-	"IonParticleFlux.h"
-	"EnergySpectrumIons.h"
+	"CathodeCurrents.h"
+	"SourceFunction.h"
 	"NeutronProductionRate.h"
 	"CrossSections.h"
+	"Auxiliary.h"
 	"MathFunctions.h"
+	"IonSpectrum.h"
+	"NeutralsClassISpectrum.h"
+	"NeutralsClassIISpectrum.h"
+	"FluxIons.h"
+	"FluxNeutralsClassI.h"
+	"FluxNeutralsClassII.h"
+	"NeutronProductionIons.h"
+	"NeutronProductionNeutralsClassI.h"
+	"NeutronProductionNeutralsClassII.h"
 
-1416383018 c:\users\mark\documents\development\neutroncalculation\potentialfunctions.h
+1431871911 c:\users\mark\documents\development\neutroncalculation\potentialfunctions.h
 
-1418161708 c:\users\mark\documents\development\neutroncalculation\auxiliary.h
+1431871911 c:\users\mark\documents\development\neutroncalculation\auxiliary.h
 
-1416385035 c:\users\mark\documents\development\neutroncalculation\cathodecurrents.h
+1416388635 c:\users\mark\documents\development\neutroncalculation\cathodecurrents.h
 
-1416383018 c:\users\mark\documents\development\neutroncalculation\survivalfunctions.h
+1416386618 c:\users\mark\documents\development\neutroncalculation\survivalfunctions.h
 
 1418161708 c:\users\mark\documents\development\neutroncalculation\classiisourcefunction.h
 
 1416383018 c:\users\mark\documents\development\neutroncalculation\particleflux.h
 
-1416383018 c:\users\mark\documents\development\neutroncalculation\neutronproductionrate.h
+1416386618 c:\users\mark\documents\development\neutroncalculation\neutronproductionrate.h
 
-1417264858 c:\users\mark\documents\development\neutroncalculation\mathfunctions.h
+1431871911 c:\users\mark\documents\development\neutroncalculation\mathfunctions.h
 
-1420718049 c:\users\mark\documents\development\neutroncalculation\constants.h
+1431871911 c:\users\mark\documents\development\neutroncalculation\constants.h
 
-1416383413 c:\users\mark\documents\development\neutroncalculation\crosssections.h
+1416387013 c:\users\mark\documents\development\neutroncalculation\crosssections.h
 
-1416383422 c:\users\mark\documents\development\neutroncalculation\crosssectionscont.h
+1439563876 c:\users\mark\documents\development\neutroncalculation\crosssectionscont.h
 
-1418161708 source:c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\mathfunctions.cpp
 	<math.h>
 	"constants.h"
 	"MathFunctions.h"
 
-1420717401 source:c:\users\mark\documents\development\neutroncalculation\neutronproductionrate.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\neutronproductionrate.cpp
 	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
-	"IonParticleFlux.h"
-	"NeutralParticleFlux.h"
+	"NeutronProductionIons.h"
+	"NeutronProductionNeutralsClassI.h"
+	"NeutronProductionNeutralsClassII.h"
 	"NeutronProductionRate.h"
 
 1416612131 source:c:\users\mark\documents\development\neutroncalculation\particleflux.cpp
@@ -233,11 +241,11 @@
 	"SurvivalFunctions.h"
 	"ParticleFlux.h"
 
-1416612132 source:c:\users\mark\documents\development\neutroncalculation\potentialfunctions.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\potentialfunctions.cpp
 	"constants.h"
 	"PotentialFunctions.h"
 
-1418161708 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -250,7 +258,7 @@
 
 1416424322 d:\documenten\programmeren\neutroncode\crosssectionscont.h
 
-1420193510 source:c:\users\mark\documents\development\neutroncalculation\constants.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\constants.cpp
 	"constants.h"
 
 1421175210 source:d:\documenten\programmeren\neutroncode\constants.cpp
@@ -258,9 +266,9 @@
 
 1421093836 d:\documenten\programmeren\neutroncode\energyspectrumions.h
 
-1417360287 c:\users\mark\documents\development\neutroncalculation\energyspectrumions.h
+1421189622 c:\users\mark\documents\development\neutroncalculation\energyspectrumions.h
 
-1417516401 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
 	<math.h>
 	<stdlib.h>
 	"constants.h"
@@ -278,9 +286,9 @@
 	"MathFunctions.h"
 	"EnergySpectrumIons.h"
 
-1420305446 c:\users\mark\documents\development\neutroncalculation\ionparticleflux.h
+1420309046 c:\users\mark\documents\development\neutroncalculation\ionparticleflux.h
 
-1420716081 source:c:\users\mark\documents\development\neutroncalculation\ionparticleflux.cpp
+1420719681 source:c:\users\mark\documents\development\neutroncalculation\ionparticleflux.cpp
 	<math.h>
 	"CrossSections.h"
 	"PotentialFunctions.h"
@@ -289,7 +297,7 @@
 	"SurvivalFunctions.h"
 	"IonParticleFlux.h"
 
-1420717515 source:c:\users\mark\documents\development\neutroncalculation\neutralparticleflux.cpp
+1420721115 source:c:\users\mark\documents\development\neutroncalculation\neutralparticleflux.cpp
 	"math.h"
 	"constants.h"
 	"CrossSections.h"
@@ -298,7 +306,7 @@
 	"MathFunctions.h"
 	"NeutralParticleFlux.h"
 
-1420305866 c:\users\mark\documents\development\neutroncalculation\neutralparticleflux.h
+1420309466 c:\users\mark\documents\development\neutroncalculation\neutralparticleflux.h
 
 1421092329 d:\documenten\programmeren\neutroncode\ionparticleflux.h
 
@@ -541,4 +549,76 @@
 	"NeutronProductionNeutralsClassII.h"
 
 1430589631 d:\documenten\development\neutroncode\neutronproduction\neutronproductionneutralsclassii.h
+
+1431871911 c:\users\mark\documents\development\neutroncalculation\sourcefunction.h
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\energyspectra\ionspectrum.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"MathFunctions.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"Crosssections.h"
+	"IonSpectrum.h"
+
+1421189622 c:\users\mark\documents\development\neutroncalculation\energyspectra\ionspectrum.h
+
+1430148541 source:c:\users\mark\documents\development\neutroncalculation\energyspectra\neutralsclassispectrum.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"MathFunctions.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"Crosssections.h"
+	"NeutralsClassISpectrum.h"
+
+1421583748 c:\users\mark\documents\development\neutroncalculation\energyspectra\neutralsclassispectrum.h
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\particleflux\fluxions.cpp
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\particleflux\fluxneutralsclassi.cpp
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\particleflux\fluxneutralsclassii.cpp
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionions.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"MathFunctions.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"CrossSections.h"
+	"NeutronProductionIons.h"
+
+1431871911 c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionions.h
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"MathFunctions.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"CrossSections.h"
+	"NeutronProductionNeutralsClassI.h"
+
+1431871911 c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.h
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassii.cpp
+	<math.h>
+	<stdlib.h>
+	"constants.h"
+	"MathFunctions.h"
+	"PotentialFunctions.h"
+	"SurvivalFunctions.h"
+	"CrossSections.h"
+	"NeutronProductionNeutralsClassII.h"
+
+1431871911 c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassii.h
+
+1431871911 source:c:\users\mark\documents\development\neutroncalculation\sourcefunction.cpp
+	"constants.h"
+	"SourceFunction.h"
 
