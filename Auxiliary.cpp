@@ -88,7 +88,7 @@ void plot_function_dd(double (*funcPtr)(double), double Start, double End, doubl
 /**
     This function writes a given function to a file.
 */
-void plot_function_ddd(double (*funcPtr)(double, double), double Start, double End, double step, double var, char name[], char input_file_name[])
+void plot_function_ddd(double (*funcPtr)(double, double),  double var, double Start, double End, double step, char name[], char input_file_name[])
 {
     FILE *  input;
     FILE * output;
@@ -112,9 +112,23 @@ void plot_function_ddd(double (*funcPtr)(double, double), double Start, double E
         {
             for (double r = Start; r<End; r+=step)
             {
-                value = (*funcPtr)(r, var);
+                value = (*funcPtr)(var, r);
                 fprintf (output, "%E,%E\n",r, value );
                 printf("%E \t %E \n",r, value);
+            }
+        }
+        else if ( c == '%') // only for Kernel
+        {
+            for (double r = Start; r<End; r+=step)
+            {
+                for ( double dr = Start; dr<End; dr+=step)
+                {
+                    value = (*funcPtr)(r, dr);
+                    fprintf (output, "%E ", value );
+                    printf("%E ", value);
+                }
+                fprintf (output, "\n");
+                printf("\n");
             }
         }
         else

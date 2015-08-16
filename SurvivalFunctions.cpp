@@ -85,13 +85,13 @@ double g(double r, double dr)
     return sum;
 }
 
-double kernel(double r, double r1)
+double kernel(double r, double dr)
 {
     double tmp;
     if ( r < r1 )
     {
-        tmp = pow(r1/r,2) * ((g(r,r1) + (pow(giveTransparency()*g(0,r1),2)/g(r,r1)))/(1.0-pow(giveTransparency()*g(0,r1),2)));
-        tmp = tmp * ngas * CrosssecTot(ParticleEnergy2(r,r1));
+        tmp = pow(dr/r,2) * ((g(r,dr) + (pow(giveTransparency()*g(0,dr),2)/g(r,dr)))/(1.0-pow(giveTransparency()*g(0,dr),2)));
+        tmp = tmp * ngas * CrosssecTot(ParticleEnergy2(r,dr));
     }
     else
         tmp = 0;

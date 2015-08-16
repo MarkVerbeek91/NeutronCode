@@ -111,7 +111,7 @@ int main()
         double (*gPtr)(double,double);
         gPtr = &g;
 
-        plot_function_ddd(*gPtr, 0.0, giveAnodeRadius()+0.001, 0.001, 0.0, "g.csv", "GNU_Survival_funcitons.txt");
+        plot_function_ddd(*gPtr, 0.0, 0.00001, giveAnodeRadius(), 0.001, "g.csv", "GNU_Survival_funcitons.txt");
     }
 
 
@@ -133,7 +133,7 @@ int main()
         double (*KPtr)(double,double);
         KPtr = &kernel;
 
-        print_data_ddd(*KPtr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0001, "K.csv", 4);
+        plot_function_ddd(*KPtr, 0.0, 0.0, giveAnodeRadius()+0.001, 0.01, "K.csv", "GNU_Ktable.txt");
     }
 
     // source rate for first generation of Class II ions.
