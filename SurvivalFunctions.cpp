@@ -70,8 +70,8 @@ double g(double r, double dr)
 {
     if ( dr < r)
     {
-        printf("error: dr < r \n");
-        return -2;
+        printf("G function error: dr < r \n");
+        return NAN;
     }
 
     double (*g_intePtr)(double, double);
@@ -88,7 +88,7 @@ double g(double r, double dr)
 double kernel(double r, double dr)
 {
     double tmp;
-    if ( r < r1 )
+    if ( r < dr )
     {
         tmp = pow(dr/r,2) * ((g(r,dr) + (pow(giveTransparency()*g(0,dr),2)/g(r,dr)))/(1.0-pow(giveTransparency()*g(0,dr),2)));
         tmp = tmp * ngas * CrosssecTot(ParticleEnergy2(r,dr));

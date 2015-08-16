@@ -20,8 +20,10 @@ double NeutralsClassIISpectrumInwards_Inte1(double E, double ddr)
     dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
     if ( dr < r )
-        return 0;
-
+    {
+        perror("NeutralsClassIISpectrumInwards_Inte1 error: dr < r \n");
+        return NAN;
+    }
     double integrant;
 
     integrant  = interpolation(ddr);
@@ -39,7 +41,11 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
     dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
     if ( giveCathodeRadius() < dr )
-        return 0;
+    {
+        perror("NeutralsClassIISPectrumInwards error: d < dr \n");
+        return NAN;
+    }
+
 
     double integrant;
 
@@ -107,7 +113,11 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
     dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
     if ( dr < r )
-        return 0;
+    {
+        perror("NeutralsClassIISpectrumOutwards_Inte1 error: dr < r \n");
+        return NAN;
+    }
+
 
     double integrant;
 

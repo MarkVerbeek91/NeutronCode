@@ -24,7 +24,11 @@ double IonSpectrumInwards(double r, double E)
     double dr = Potential_Phi_Inv(E);
 
     if ( giveAnodeRadius() < dr || dr < r )
+    {
+        perror("IonSpectrumInwards function error: AnodeRadius < dr or dr < r\n");
         return NAN;
+    }
+
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -76,7 +80,10 @@ double IonSpectrumOutwards(double r, double E)
     double dr = Potential_Phi_Inv(E);
 
     if ( dr < giveCathodeRadius() || dr < r )
+    {
+        perror("IonSpectrumOutwards error: dr < b or dr < r\n");
         return NAN;
+    }
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;

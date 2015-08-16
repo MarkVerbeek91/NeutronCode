@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1439735622 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1439744831 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -69,7 +69,7 @@
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1439735566 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1439744794 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -200,7 +200,7 @@
 
 1431871911 c:\users\mark\documents\development\neutroncalculation\potentialfunctions.h
 
-1439734888 c:\users\mark\documents\development\neutroncalculation\auxiliary.h
+1439744792 c:\users\mark\documents\development\neutroncalculation\auxiliary.h
 
 1416388635 c:\users\mark\documents\development\neutroncalculation\cathodecurrents.h
 
@@ -214,7 +214,7 @@
 
 1431871911 c:\users\mark\documents\development\neutroncalculation\mathfunctions.h
 
-1431871911 c:\users\mark\documents\development\neutroncalculation\constants.h
+1439753285 c:\users\mark\documents\development\neutroncalculation\constants.h
 
 1416387013 c:\users\mark\documents\development\neutroncalculation\crosssections.h
 
@@ -247,7 +247,7 @@
 	"constants.h"
 	"PotentialFunctions.h"
 
-1439734987 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
+1439741810 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"

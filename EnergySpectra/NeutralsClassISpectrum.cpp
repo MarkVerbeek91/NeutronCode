@@ -10,15 +10,19 @@
 #include "NeutralsClassISpectrum.h"
 
 // equation 40 and 47
-double NeutralsClassISpectrumInwards (double r, double E)
+double NeutralsClassISpectrumInwards(double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
     double dr = Potential_Phi_Inv(E);
 
     // make sure that only physical numbers are calculated
-    if ( giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius())
+    if ( giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius()) // @@@@@@ r < dr ?=> dr < r
+    {
+        perror("NeutralsClassISpectrumInwards error: a < dr, r < dr or dr < a\n");
         return NAN;
+    }
+
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -49,14 +53,17 @@ double NeutralsClassISpectrumInwards (double r, double E)
 }
 
 // equation 51 and 55
-double NeutralsClassISpectrumOutwards (double r, double E)
+double NeutralsClassISpectrumOutwards(double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
     double dr = Potential_Phi_Inv(E);
 
-    if (  giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius() )
+    if (  giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius() ) // @@@@ r < dr ?=> dr < r
+    {
+        perror("NeutralsClassISpectrumOutwards error: a < dr, r < dr or dr < a\n");
         return NAN;
+    }
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;

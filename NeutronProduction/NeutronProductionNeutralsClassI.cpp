@@ -17,7 +17,10 @@ double NeutronsNeutralsClassIFluxInwards_Inte1(double r, double dr)
     double E, term1;
 
     if ( r < dr )
-        return 0;
+    {
+        perror("NeutronsNeutralsClassIFluxInwards_Inte1 error: r < dr \n");
+        return NAN;
+    }
 
     E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
 

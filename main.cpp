@@ -126,15 +126,6 @@ int main()
         plot_function_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv", "GNU_Atable.txt");
     }
 
-    // building the "Kernel"
-    if ( printbool.KernelTable )
-    {
-        printf("# Kernel\n");
-        double (*KPtr)(double,double);
-        KPtr = &kernel;
-
-        plot_function_ddd(*KPtr, 0.0, 0.0, giveAnodeRadius()+0.001, 0.01, "K.csv", "GNU_Ktable.txt");
-    }
 
     // source rate for first generation of Class II ions.
 
@@ -147,16 +138,33 @@ int main()
 
     // calculating the energy spectrum of ions
 
+        // building the "Kernel"
+    // TODO: replace this function by the table in memory to file. Just like
+    // by the S table a few line down. This will save computation time because
+    // the kernel does not to be calculated twice.
+    if ( printbool.KernelTable )
+    {
+        printf("# Kernel\n");
+        double (*KPtr)(double,double);
+        KPtr = &kernel;
+
+        plot_function_ddd(*KPtr, 0.0, 0.0, giveAnodeRadius()+0.001, 0.01, "K.csv", "GNU_Ktable.txt");
+
+ //       plot_table_2D();
+
+    }
+
 
     // print the S tables to screen
     if ( printbool.Stable )
     {
         printf("# Writing tables to files:\n");
 
-        print_table(1, "Atable.csv");
-        print_table(2, "Ktable.csv");
-        print_table(9, "S.csv");
+        plot_table_1D("STable.csv", "GNU_Stable.txt");
+
     }
+
+
 
     double I1, I2, I3, I4;
 

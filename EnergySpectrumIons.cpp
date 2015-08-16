@@ -16,7 +16,11 @@ double f_min(double r, double E)
     double dr = Potential_Phi_Inv(E);
 
     if ( r > dr || dr > giveAnodeRadius())
-        return -1;
+    {
+        perror("f_min function error: r > dr or dr > a\n");
+        return NAN;
+    }
+
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -46,7 +50,11 @@ double f_plus(double r, double E)
 //    printf("E = %E, r = %E, dr = %E\n", E, r, dr);
 
     if ( r > dr || dr > giveAnodeRadius())
-        return -1;
+    {
+        perror("f_plus function error: r > dr or dr > Anode Radius\n");
+        return NAN;
+    }
+
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -54,7 +62,11 @@ double f_plus(double r, double E)
     double dPhi_dr = differentiat(*PhiPtr, dr);
 
     if ( abs(dPhi_dr) < 0.0001 )
-        return -2;
+    {
+        perror("f_plus error: dPhi to small\n")
+        return NAN;
+    }
+
 
     result = pow(dr/r,2) * (interpolation(dr) / abs(dPhi_dr)) * pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) );
     result *= 1/g(r,dr);

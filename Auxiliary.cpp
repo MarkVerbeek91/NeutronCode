@@ -180,6 +180,60 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
     return;
 }
 
+void plot_table_1D(char name[], char input_file_name[])
+{
+    FILE *  input;
+    FILE * output;
+    input  = fopen(input_file_name,"r");
+    output = fopen(name,"w");
+
+    if ( input == NULL || output == NULL)
+    {
+        perror("could not open file or open new file\n");
+        return;
+    }
+
+    double value;
+    char c = '0';
+
+    while ((c = fgetc(input)) != EOF)
+    {
+        if ( c == '@')
+        {
+            for ( int i = 0; i < N_TABLE; i++)
+            {
+                fprintf(output, "%E, %E \n", Table.R[i], Table.S[i]);
+                printf("%E, %E \n", Table.R[i], Table.S[i]);
+            }
+        }
+        else
+        {
+            printf("%c",c);
+        }
+    }
+
+//    printf("e\n");
+    printf("# %s: done writing to file\n",name);
+
+    fclose(input);
+    fclose(output);
+
+
+
+}
+
+void plot_table_2D()
+{
+    for ( int j = 0; j < N_TABLE; j++)
+    {
+        for ( int i = 0; i < N_TABLE; i++)
+        {
+            printf("%f ", Table.K[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void print_table(int choice, char name[])
 {
     FILE * output;
