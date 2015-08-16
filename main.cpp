@@ -17,6 +17,7 @@
 #include <iostream>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>     /* getenv */
 
 #include "includes.h"
 
@@ -26,7 +27,6 @@ int main()
     input = fopen("input.ini","r");
 
     initBool();
-
 
     if ( input == NULL)
     {
@@ -58,9 +58,10 @@ int main()
         double (*ParticleEnergy2Ptr)(double,double);
         ParticleEnergy2Ptr = &ParticleEnergy2;
 
-        print_data_ddd(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0, "Particle2.csv", 0);
+//        print_data_ddd(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0, "Particle2.csv", 0);
 
-        print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv", 0);
+          plot_function_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv", "GNU_potential.txt");
+//        print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv", 0);
     }
 
     // writing the SIIEE to a file for plotting
@@ -71,7 +72,8 @@ int main()
         double (*SIIEEPtr)(double);
         SIIEEPtr = &SIIEE;
 
-        print_data_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", 1);
+        //print_data_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", 1);
+        plot_function_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", "GNU_SIIEE.txt");
     }
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
@@ -83,17 +85,17 @@ int main()
         double (*CrosssecCXPtr)(double);
         CrosssecCXPtr = &CrosssecCX;
 
-        print_data_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv", 1);
+        plot_function_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv", "GNU_Cross_sections.txt");
 
         double (*CrosssecIonPtr)(double);
         CrosssecIonPtr = &CrosssecIon;
 
-        print_data_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv", 1);
+        plot_function_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv", "GNU_Cross_sections.txt");
 
         double (*CrosssecTotPtr)(double);
         CrosssecTotPtr = &CrosssecTot;
 
-        print_data_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv", 1);
+        plot_function_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv", "GNU_Cross_sections.txt");
     }
 
     // Writing the survival functions to a file for plotting.
@@ -104,12 +106,12 @@ int main()
         double (*fPtr)(double);
         fPtr = &f;
 
-        print_data_dd(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv", 2);
+        plot_function_dd(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv", "GNU_Survival_funcitons.txt");
 
         double (*gPtr)(double,double);
         gPtr = &g;
 
-        print_data_ddd(*gPtr, 0.0, giveAnodeRadius()+0.001, 0.001, 0.0, "g.csv", 2);
+        plot_function_ddd(*gPtr, 0.0, giveAnodeRadius()+0.001, 0.001, 0.0, "g.csv", "GNU_Survival_funcitons.txt");
     }
 
 
@@ -121,7 +123,7 @@ int main()
         double (*APtr)(double);
         APtr = &A;
 
-        print_data_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv", 3);
+        plot_function_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv", "GNU_Atable.txt");
     }
 
     // building the "Kernel"
@@ -170,7 +172,7 @@ int main()
 
     EdgeIonFlux = (Itot - I2 - I3) / (I1 + I3);
 
-    printf("# EdgeIonFlux: %E\n - Done\n", EdgeIonFlux);
+    printf("# EdgeIonFlux: %E\n# - Done\n", EdgeIonFlux);
 
     if ( printbool.Spectrum )
     {

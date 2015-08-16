@@ -41,6 +41,101 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
 /**
     This function writes a given function to a file.
 */
+void plot_function_dd(double (*funcPtr)(double), double Start, double End, double step, char name[], char input_file_name[])
+{
+    FILE *  input;
+    FILE * output;
+    input  = fopen(input_file_name,"r");
+    output = fopen(name,"w");
+
+    if ( input == NULL || output == NULL)
+    {
+        perror("could not open file or open new file");
+        return;
+    }
+
+    double value;
+    char c = '0';
+
+    while ((c = fgetc(input)) != EOF)
+    {
+       // fread(&c, 1, 1, input);
+
+        if ( c == '@')
+        {
+            for (double r = Start; r<End; r+=step)
+            {
+                value = (*funcPtr)(r);
+                fprintf (output, "%E,%E\n",r, value );
+                printf("%E \t %E \n",r, value);
+            }
+        }
+        else
+        {
+            printf("%c",c);
+        }
+    }
+
+//    printf("e\n");
+    printf("# %s: done writing to file\n",name);
+
+    fclose(input);
+    fclose(output);
+
+    return;
+}
+
+/**
+    This function writes a given function to a file.
+*/
+void plot_function_ddd(double (*funcPtr)(double, double), double Start, double End, double step, double var, char name[], char input_file_name[])
+{
+    FILE *  input;
+    FILE * output;
+    input  = fopen(input_file_name,"r");
+    output = fopen(name,"w");
+
+    if ( input == NULL || output == NULL)
+    {
+        perror("could not open file or open new file");
+        return;
+    }
+
+    double value;
+    char c = '0';
+
+    while ((c = fgetc(input)) != EOF)
+    {
+       // fread(&c, 1, 1, input);
+
+        if ( c == '@')
+        {
+            for (double r = Start; r<End; r+=step)
+            {
+                value = (*funcPtr)(r, var);
+                fprintf (output, "%E,%E\n",r, value );
+                printf("%E \t %E \n",r, value);
+            }
+        }
+        else
+        {
+            printf("%c",c);
+        }
+    }
+
+//    printf("e\n");
+    printf("# %s: done writing to file\n",name);
+
+    fclose(input);
+    fclose(output);
+
+    return;
+}
+
+
+/**
+    This function writes a given function to a file.
+*/
 void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, double step, double var, char name[], int ID)
 {
     FILE * output;

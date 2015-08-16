@@ -1,1 +1,1 @@
-COPY *.csv D:\Dropbox\Projecten\NeutronCode
+bin\Debug\NeutronCalculation.exe | gnuplot -persists

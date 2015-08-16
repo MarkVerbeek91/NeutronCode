@@ -1,0 +1,11 @@
+#
+# plot of the inmplemented cross sections
+#
+set title "Cross sections"			# set title
+set xlabel "energy [eV]"			# set x axis lable
+set ylabel "cross sections [m2]"		# set y axis lable
+set term wxt 2					# set figure ID, prevention of overwriting of existing figures
+$data << EOD
+@
+EOD
+plot '$data' using 1:2 with lines notitle 	
