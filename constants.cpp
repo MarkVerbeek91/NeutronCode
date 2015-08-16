@@ -29,7 +29,7 @@ void initBool(void)
     printbool.KernelTable   = false;
     printbool.Stable        = false;
     printbool.Spectrum      = false;
-    printbool.NSR           = true;
+    printbool.NSR           = false;
     printbool.NPR           = false;
 }
 

@@ -25,6 +25,9 @@ int main()
     FILE * input;
     input = fopen("input.ini","r");
 
+    initBool();
+
+
     if ( input == NULL)
     {
         printf("# Missing input file, using standard parameters\n\n");
@@ -41,8 +44,7 @@ int main()
     // filling the potential array and particle energy
     printf("# -- Start of program -- \n");
     // initialise the fusor parameters
-    init();
-    initBool();
+//    init();
 
     // writing the potential to a file for plotting
 

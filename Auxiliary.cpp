@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "constants.h"
 #include "Auxiliary.h"
@@ -119,7 +120,7 @@ void readfile(FILE * input)
     printf("# %s ",str);
 
     fscanf (input, "%s", str); // read word '0.05'
-    printf("%s \n",str);
+    printf("\t %s \n",str);
 
     fusor.a = strtof(str,NULL);
 
@@ -161,6 +162,130 @@ void readfile(FILE * input)
 
     Itot = strtof(str,NULL);
     printf("\t%f \n",Itot);
+
+    /* READ IN BOOLS FROM FILE */
+    printf("# Which data is printen to files and screen:\n");
+    fscanf (input, "%s", str); // read word '# outfiles'
+
+    // potential
+    fscanf (input, "%s", str); // read word 'Potential'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.potential = true;
+    else
+        printbool.potential = false;
+
+    printf("\t %s \n", printbool.potential ? "true" : "false");
+
+    // SIIEE
+    fscanf (input, "%s", str); // read word 'SIIEE'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.SIIEE = true;
+    else
+        printbool.SIIEE = false;
+
+    printf("\t %s \n", printbool.SIIEE ? "true" : "false");
+
+    // Cross_section
+    fscanf (input, "%s", str); // read word 'Cross_section'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.Cross_section = true;
+    else
+        printbool.Cross_section = false;
+
+    printf("\t %s \n", printbool.Cross_section ? "true" : "false");
+
+    // Survival
+    fscanf (input, "%s", str); // read word 'Survival'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.Survival = true;
+    else
+        printbool.Survival = false;
+
+    printf("\t %s \n", printbool.Survival ? "true" : "false");
+
+    // Atable
+    fscanf (input, "%s", str); // read word 'Atable'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.Atable = true;
+    else
+        printbool.Atable = false;
+
+    printf("\t %s \n", printbool.Atable ? "true" : "false");
+
+    // KernelTable
+    fscanf (input, "%s", str); // read word 'KernelTable'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.KernelTable = true;
+    else
+        printbool.KernelTable = false;
+
+    printf("\t %s \n", printbool.KernelTable ? "true" : "false");
+
+    // Stable
+    fscanf (input, "%s", str); // read word 'Stable'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.Stable = true;
+    else
+        printbool.Stable = false;
+
+    printf("\t %s \n", printbool.Stable ? "true" : "false");
+
+    // Spectrum
+    fscanf (input, "%s", str); // read word 'Spectrum'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.Spectrum = true;
+    else
+        printbool.Spectrum = false;
+
+    printf("\t %s \n", printbool.Spectrum ? "true" : "false");
+
+    // NSR
+    fscanf (input, "%s", str); // read word 'NSR'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.NSR = true;
+    else
+        printbool.NSR = false;
+
+    printf("\t\t %s \n", printbool.NSR ? "true" : "false");
+
+    // NPR
+    fscanf (input, "%s", str); // read word 'NPR'
+    printf("# %s ",str);
+    fscanf (input, "%s", str); // read number
+
+    if ( !strcmp(str, "true;") )
+        printbool.NPR = true;
+    else
+        printbool.NPR = false;
+
+    printf("\t\t %s \n", printbool.NPR ? "true" : "false");
 
 }
 
