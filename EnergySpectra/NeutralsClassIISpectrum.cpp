@@ -21,7 +21,7 @@ double NeutralsClassIISpectrumInwards_Inte1(double E, double ddr)
 
     if ( dr < r )
     {
-        perror("NeutralsClassIISpectrumInwards_Inte1 error: dr < r \n");
+        printf("NeutralsClassIISpectrumInwards_Inte1 error: dr < r \n");
         return NAN;
     }
     double integrant;
@@ -42,7 +42,7 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
 
     if ( giveCathodeRadius() < dr )
     {
-        perror("NeutralsClassIISPectrumInwards error: d < dr \n");
+        printf("NeutralsClassIISPectrumInwards error: d < dr \n");
         return NAN;
     }
 
@@ -114,7 +114,7 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
 
     if ( dr < r )
     {
-        perror("NeutralsClassIISpectrumOutwards_Inte1 error: dr < r \n");
+        printf("NeutralsClassIISpectrumOutwards_Inte1 error: dr < r \n");
         return NAN;
     }
 

@@ -69,7 +69,7 @@
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1439744794 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1439755403 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -247,7 +247,7 @@
 	"constants.h"
 	"PotentialFunctions.h"
 
-1439741810 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
+1439754814 source:c:\users\mark\documents\development\neutroncalculation\survivalfunctions.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -270,9 +270,10 @@
 
 1421189622 c:\users\mark\documents\development\neutroncalculation\energyspectrumions.h
 
-1431871911 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
+1439755481 source:c:\users\mark\documents\development\neutroncalculation\energyspectrumions.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"PotentialFunctions.h"
 	"SurvivalFunctions.h"
@@ -554,9 +555,10 @@
 
 1431871911 c:\users\mark\documents\development\neutroncalculation\sourcefunction.h
 
-1431871911 source:c:\users\mark\documents\development\neutroncalculation\energyspectra\ionspectrum.cpp
+1439755432 source:c:\users\mark\documents\development\neutroncalculation\energyspectra\ionspectrum.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"
@@ -566,9 +568,10 @@
 
 1421189622 c:\users\mark\documents\development\neutroncalculation\energyspectra\ionspectrum.h
 
-1430148541 source:c:\users\mark\documents\development\neutroncalculation\energyspectra\neutralsclassispectrum.cpp
+1439755449 source:c:\users\mark\documents\development\neutroncalculation\energyspectra\neutralsclassispectrum.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"
@@ -596,9 +599,10 @@
 
 1431871911 c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionions.h
 
-1431871911 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.cpp
+1439755488 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"
@@ -608,9 +612,10 @@
 
 1431871911 c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.h
 
-1431871911 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassii.cpp
+1439755497 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassii.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"

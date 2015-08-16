@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "constants.h"
 #include "MathFunctions.h"
@@ -19,7 +20,7 @@ double NeutralsClassISpectrumInwards(double r, double E)
     // make sure that only physical numbers are calculated
     if ( giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius()) // @@@@@@ r < dr ?=> dr < r
     {
-        perror("NeutralsClassISpectrumInwards error: a < dr, r < dr or dr < a\n");
+        printf("NeutralsClassISpectrumInwards error: a < dr, r < dr or dr < a\n");
         return NAN;
     }
 
@@ -61,7 +62,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
     if (  giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius() ) // @@@@ r < dr ?=> dr < r
     {
-        perror("NeutralsClassISpectrumOutwards error: a < dr, r < dr or dr < a\n");
+        printf("NeutralsClassISpectrumOutwards error: a < dr, r < dr or dr < a\n");
         return NAN;
     }
 

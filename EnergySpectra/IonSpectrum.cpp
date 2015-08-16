@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "constants.h"
 #include "MathFunctions.h"
@@ -25,7 +26,7 @@ double IonSpectrumInwards(double r, double E)
 
     if ( giveAnodeRadius() < dr || dr < r )
     {
-        perror("IonSpectrumInwards function error: AnodeRadius < dr or dr < r\n");
+        printf("IonSpectrumInwards function error: AnodeRadius < dr or dr < r\n");
         return NAN;
     }
 
@@ -81,7 +82,7 @@ double IonSpectrumOutwards(double r, double E)
 
     if ( dr < giveCathodeRadius() || dr < r )
     {
-        perror("IonSpectrumOutwards error: dr < b or dr < r\n");
+        printf("IonSpectrumOutwards error: dr < b or dr < r\n");
         return NAN;
     }
 

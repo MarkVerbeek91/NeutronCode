@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "constants.h"
 #include "MathFunctions.h"
@@ -20,7 +21,7 @@ double NeutralsClassIISpectrumInwards_Inte1_Int(double E, double r, double ddr)
 
     if ( dr < r )
     {
-        perror("NeutralsClassIISpectrumInwards_Inte1_Int error: dr < r\n");
+        printf("NeutralsClassIISpectrumInwards_Inte1_Int error: dr < r\n");
         return NAN;
     }
 
@@ -41,7 +42,7 @@ double NeutronsNeutralsClassIIFluxInwards_Inte1(double r, double dr)
 
     if ( r < dr )
     {
-        perror("NeutronsNeutralsClassIIFluxInwards_Inte1 error: r < dr\n");
+        printf("NeutronsNeutralsClassIIFluxInwards_Inte1 error: r < dr\n");
         return NAN;
     }
 
@@ -66,7 +67,7 @@ double NeutralsClassIISpectrumInwards_Inte2_Int(double E, double ddr)
 
     if ( giveCathodeRadius() < dr )
     {
-        perror("NeutralsClassIISpectrumInwards_Inte2_Int error: d < dr\n");
+        printf("NeutralsClassIISpectrumInwards_Inte2_Int error: d < dr\n");
         return NAN;
     }
 
@@ -142,7 +143,7 @@ double NeutralsClassIISpectrumOutwards_Inte1_Int(double E, double ddr)
 
     if ( dr < giveCathodeRadius() )
     {
-        perror("NeutralsClassIISpectrumOutwards_Inte1_Int error: dr < b\n");
+        printf("NeutralsClassIISpectrumOutwards_Inte1_Int error: dr < b\n");
         return NAN;
     }
 

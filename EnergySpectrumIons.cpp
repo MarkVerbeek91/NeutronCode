@@ -1,6 +1,6 @@
-
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "constants.h"
 #include "PotentialFunctions.h"
@@ -17,7 +17,7 @@ double f_min(double r, double E)
 
     if ( r > dr || dr > giveAnodeRadius())
     {
-        perror("f_min function error: r > dr or dr > a\n");
+        printf("f_min function error: r > dr or dr > a\n");
         return NAN;
     }
 
@@ -51,7 +51,7 @@ double f_plus(double r, double E)
 
     if ( r > dr || dr > giveAnodeRadius())
     {
-        perror("f_plus function error: r > dr or dr > Anode Radius\n");
+        printf("f_plus function error: r > dr or dr > Anode Radius\n");
         return NAN;
     }
 
@@ -63,7 +63,7 @@ double f_plus(double r, double E)
 
     if ( abs(dPhi_dr) < 0.0001 )
     {
-        perror("f_plus error: dPhi to small\n")
+        printf("f_plus error: dPhi to small\n");
         return NAN;
     }
 

@@ -50,7 +50,7 @@ void plot_function_dd(double (*funcPtr)(double), double Start, double End, doubl
 
     if ( input == NULL || output == NULL)
     {
-        perror("could not open file or open new file");
+        printf("could not open file or open new file");
         return;
     }
 
@@ -97,7 +97,7 @@ void plot_function_ddd(double (*funcPtr)(double, double),  double var, double St
 
     if ( input == NULL || output == NULL)
     {
-        perror("could not open file or open new file");
+        printf("could not open file or open new file");
         return;
     }
 
@@ -189,7 +189,7 @@ void plot_table_1D(char name[], char input_file_name[])
 
     if ( input == NULL || output == NULL)
     {
-        perror("could not open file or open new file\n");
+        printf("could not open file or open new file\n");
         return;
     }
 

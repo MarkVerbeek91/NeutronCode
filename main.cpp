@@ -271,7 +271,6 @@ int main()
         printf("# Calculating NPR:\n");
         double NPR = Nps();
         printf("# NPR: %E \n# - Done\n", NPR);
-
     }
 
     // program is done

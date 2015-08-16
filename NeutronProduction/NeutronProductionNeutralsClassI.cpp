@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "constants.h"
 #include "MathFunctions.h"
@@ -18,7 +19,7 @@ double NeutronsNeutralsClassIFluxInwards_Inte1(double r, double dr)
 
     if ( r < dr )
     {
-        perror("NeutronsNeutralsClassIFluxInwards_Inte1 error: r < dr \n");
+        printf("NeutronsNeutralsClassIFluxInwards_Inte1 error: r < dr \n");
         return NAN;
     }
 
