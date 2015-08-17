@@ -46,7 +46,7 @@ double NeutronsNeutralsClassIIFluxInwards_Inte1(double r, double dr)
         return NAN;
     }
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1  = CrosssecFusion(E);
     term1 /= pow(r,2);
@@ -86,7 +86,7 @@ double NeutronsNeutralsClassIIFluxInwards_Inte2(double r, double dr)
 {
     double E, term1;
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1  = CrosssecFusion(E);
     term1 /= pow(r,2);
@@ -162,7 +162,7 @@ double NeutronsNeutralsClassIIFluxOutwards_Inte1(double r, double dr)
 {
     double E, term1;
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1 *= pow(giveAnodeRadius()/r,2);
     term1 *= ngas * CrosssecCX(E);
@@ -205,7 +205,7 @@ double NeutronsNeutralsClassIIFluxOutwards_Inte2(double r, double dr)
 {
     double E, term1;
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1 *= f(dr);
 

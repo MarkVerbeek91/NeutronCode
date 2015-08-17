@@ -27,15 +27,17 @@ double I_c1(void)
 {
     double current;
 
-    current = 4 * 3.141529 * pow(giveAnodeRadius(),2) * giveq() * (1.0 - giveTransparency()) * (f(giveCathodeRadius()) + (giveTransparency() * pow(f(0.0),2))/f(giveCathodeRadius()))*(1 + SIIEE(-giveVoltage()));
+    current  = 4 * 3.141529 * pow(giveAnodeRadius(),2) * giveq() * (1.0 - giveTransparency());
+    current *= f(giveCathodeRadius()) + (giveTransparency() * pow(f(0.0),2))/f(giveCathodeRadius());
+    current *= 1 + SIIEE(-giveVoltage());
 
     return current;
 }
 
 double I_c2inte(double dr)
 {
-    double  fac  = interpolation(dr) / ( 1 - pow(giveTransparency(),2)*g(0,dr));
-            fac *= (g(giveCathodeRadius(),dr) + giveTransparency() * g(0,dr)/g(giveCathodeRadius(),dr));
+    double  fac  = interpolation(dr) / ( 1 - pow(giveTransparency()*g(0,dr),2));
+            fac *= (g(giveCathodeRadius(),dr) + giveTransparency() * pow(g(0,dr),2)/g(giveCathodeRadius(),dr));
             fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
 
     return fac;
@@ -59,9 +61,10 @@ double I_c2(void)
 double I_c3(void)
 {
     double current;
+    double Emax = -giveVoltage(); // ParticleEnergy1(giveAnodeRadius());
 
-    current  = 4 * 3.141529 * pow(giveAnodeRadius(),2) * q * (CrosssecTot(-giveVoltage())/CrosssecCX(-giveVoltage()));
-    current *= giveTransparency() * f(giveCathodeRadius()) * ( 1 - exp( -2 * ngas * giveCathodeRadius() * CrosssecCX(-giveVoltage())));
+    current  = 4 * 3.141529 * pow(giveAnodeRadius(),2) * giveq() * ngas * (CrosssecTot(Emax)/CrosssecCX(Emax));
+    current *= giveTransparency() * f(giveCathodeRadius()) * ( 1.0 - exp( -2 * ngas * giveCathodeRadius() * CrosssecCX(Emax)));
 
     return current;
 }
@@ -72,7 +75,7 @@ double I_c4inte(double dr)
 
     fac  = pow(dr,2);
     fac *= CrosssecTot(ParticleEnergy2(giveCathodeRadius(),dr))/CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr));
-    fac *= (interpolation(dr) * g(giveCathodeRadius(),dr))/( 1 - pow(giveTransparency(),2) * g(0,dr));
+    fac *= (interpolation(dr) * g(giveCathodeRadius(),dr))/( 1.0 - pow(giveTransparency(),2) * g(0,dr));
     fac *= ( 1 - exp( -2 * ngas * giveCathodeRadius() * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr))));
 
     return fac;

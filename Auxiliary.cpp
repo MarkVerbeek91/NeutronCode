@@ -27,7 +27,7 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
     {
         value = (*funcPtr)(r);
         fprintf (output, "%E,%E\n",r, value );
-        printf("%f \t %f \n",r, value);
+        printf("%E \t %E \n",r, value);
     }
 
     printf("e\n");
@@ -169,7 +169,7 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
     {
         value = (*funcPtr)(var, r);
         fprintf (output, "%E,%E\n",r, value);
-        printf("%f \t %f \n",r, value);
+        printf("%E \t %E \n",r, value);
     }
 
     printf("e\n");

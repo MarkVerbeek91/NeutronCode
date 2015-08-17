@@ -42,7 +42,7 @@ double Potential_Phi_Inv(double E)
 double ParticleEnergy1(double r)
 {
     double energy;
-    energy = - Potential_Phi(r) + 0.001;
+    energy = -giveq() * Potential_Phi(r) + 0.001;
     return energy;
 }
 
@@ -56,7 +56,7 @@ double ParticleEnergy1(double r)
 double ParticleEnergy2(double r, double dr)
 {
     double energy;
-    energy = (Potential_Phi(dr) - Potential_Phi(r)) + 4;
+    energy = giveq() * (Potential_Phi(dr) - Potential_Phi(r)) + 0.1;
     return energy;
 }
 

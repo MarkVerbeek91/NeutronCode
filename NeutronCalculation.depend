@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1439744831 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
+1439801557 source:c:\users\mark\documents\development\neutroncalculation\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
@@ -40,7 +40,7 @@
 	<math.h>
 	"constants.hpp"
 
-1416615731 source:c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
+1439802392 source:c:\users\mark\documents\development\neutroncalculation\cathodecurrents.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -64,12 +64,13 @@
 	"constants.h"
 	"ClassIISourceFunction.h"
 
-1416387077 source:c:\users\mark\documents\development\neutroncalculation\crosssections.cpp
+1439806207 source:c:\users\mark\documents\development\neutroncalculation\crosssections.cpp
 	<math.h>
+	<stdio.h>
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1439755403 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
+1439802553 source:c:\users\mark\documents\development\neutroncalculation\auxiliary.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -243,7 +244,7 @@
 	"SurvivalFunctions.h"
 	"ParticleFlux.h"
 
-1431871911 source:c:\users\mark\documents\development\neutroncalculation\potentialfunctions.cpp
+1439809703 source:c:\users\mark\documents\development\neutroncalculation\potentialfunctions.cpp
 	"constants.h"
 	"PotentialFunctions.h"
 
@@ -587,7 +588,7 @@
 
 1431871911 source:c:\users\mark\documents\development\neutroncalculation\particleflux\fluxneutralsclassii.cpp
 
-1431871911 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionions.cpp
+1439809735 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionions.cpp
 	<math.h>
 	<stdlib.h>
 	"constants.h"
@@ -599,7 +600,7 @@
 
 1431871911 c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionions.h
 
-1439755488 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.cpp
+1439807339 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.cpp
 	<math.h>
 	<stdlib.h>
 	<stdio.h>
@@ -612,7 +613,7 @@
 
 1431871911 c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassi.h
 
-1439755497 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassii.cpp
+1439807381 source:c:\users\mark\documents\development\neutroncalculation\neutronproduction\neutronproductionneutralsclassii.cpp
 	<math.h>
 	<stdlib.h>
 	<stdio.h>

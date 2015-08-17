@@ -4,6 +4,7 @@
 */
 
 #include <math.h>
+#include <stdio.h>
 
 #include "CrossSectionsCont.h"
 #include "CrossSections.h"
@@ -17,6 +18,12 @@
  */
 double CrosssecCX(double E)
 {
+    if ( E == 0 )
+    {
+        printf("Cross section CX called for zero energy\n");
+        E = 0.0001;
+    }
+
     double crosssection;
     double energy = E/1000.;
     crosssection = 1e-20 * CS_cx.A1cx;
@@ -35,7 +42,13 @@ double CrosssecCX(double E)
  */
 double CrosssecIon(double E)
 {
-    double crosssection = 0;
+    if ( E == 0 )
+    {
+        printf("Cross section Ion called for zero energy\n");
+        E = 0.0001;
+    }
+
+    double crosssection;
 
     // because the int E is in eV and the formula in keV, the factor 1/1000 is introduced.
     double energy = E/1000.;
@@ -68,6 +81,12 @@ double CrosssecTot(double energy)
  */
 double CrosssecFusion(double E)
 {
+    if ( E == 0 )
+    {
+        printf("Cross section Fusion called for zero energy\n");
+        E = 0.0001;
+    }
+
     double crosssection, energy = E/1000.;
     crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
     crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion / sqrt(energy))-1));

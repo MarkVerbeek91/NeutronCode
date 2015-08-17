@@ -16,12 +16,12 @@
 /**
         NEUTRONS FROM IONS GOING INWARDS
 */
-// outside the cathod
+// outside the cathode
 double NeutronsIonFluxInwards_Inte1(double r, double dr)
 {
     double E, term1;
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
@@ -32,12 +32,12 @@ double NeutronsIonFluxInwards_Inte1(double r, double dr)
     return term1;
 }
 
-// inside the cathod
+// inside the cathode
 double NeutronsIonFluxInwards_Inte2(double r, double dr)
 {
     double E, term1;
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
@@ -53,7 +53,7 @@ double NeutronsIonFluxInwards(double r)
     double NeutronFlux;
     double term1 = 0, term2 = 0;
 
-    if ( giveCathodeRadius() < r )
+    if ( giveCathodeRadius() < r ) // outside the cathode
     {
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutronsIonFluxInwards_Inte1;
@@ -62,20 +62,20 @@ double NeutronsIonFluxInwards(double r)
 
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux * f(r);
-        term2 *= CrosssecFusion(giveq() * Potential_Phi(r));
+        term2 *= CrosssecFusion(ParticleEnergy1(r));
 
         NeutronFlux = term1 + term2;
     }
-    else
+    else    // inside the cathode
     {
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutronsIonFluxInwards_Inte2;
 
-        term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
+        term1 = NIntegration_2(FunctPtr, r, giveCathodeRadius(), giveAnodeRadius());
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
         term2 *= f(giveCathodeRadius()) * exp(ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * (r - giveCathodeRadius()));
-        term2 *= CrosssecFusion(giveq() * Potential_Phi(r));
+        term2 *= CrosssecFusion(ParticleEnergy1(r));
 
         NeutronFlux = giveTransparency() * (term1 + term2);
     }
@@ -92,7 +92,7 @@ double NeutronsIonFluxOutwards_Inte1(double r, double dr)
 {
     double E, term1;
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
@@ -107,7 +107,7 @@ double NeutronsIonFluxOutwards_Inte2(double r, double dr)
 {
     double E, term1;
 
-    E = giveq() * ( Potential_Phi(r) - Potential_Phi(dr));
+    E = ParticleEnergy2(r, dr);
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
@@ -123,10 +123,10 @@ double NeutronsIonFluxOutwards(double r)
     double NeutronFlux;
     double term1 = 0, term2 = 0;
 
-    if ( giveCathodeRadius() < r )
+    if ( r < giveCathodeRadius() ) // inside the cathode
     {
         double (*FunctPtr)(double, double);
-        FunctPtr = &NeutronsIonFluxOutwards_Inte2;
+        FunctPtr = &NeutronsIonFluxOutwards_Inte1;
 
         term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 
@@ -136,10 +136,10 @@ double NeutronsIonFluxOutwards(double r)
 
         NeutronFlux = giveTransparency() * ( term1 + term2);
     }
-    else
+    else    // outside the cathode
     {
         double (*FunctPtr)(double, double);
-        FunctPtr = &NeutronsIonFluxOutwards_Inte1;
+        FunctPtr = &NeutronsIonFluxOutwards_Inte2;
 
         term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 

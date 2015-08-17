@@ -178,7 +178,7 @@ int main()
     I4 = I_c4();
     printf("# 4 current: %E\n",I4);
 
-    EdgeIonFlux = (Itot - I2 - I3) / (I1 + I3);
+    EdgeIonFlux = 5e15; //(Itot - I2 - I3) / (I1 + I3);
 
     printf("# EdgeIonFlux: %E\n# - Done\n", EdgeIonFlux);
 
