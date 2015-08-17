@@ -49,7 +49,7 @@ double Nps(void)
     printf("# Total Neutrons: %E \t %E from Neutrals outwards\n", NPS, tempNPS);
 
 
-
+/*
     // Neutrons from Neutrals from Class II ions.
     FunctPtr = &NeutronsNeutralsClassIIFluxInwards;
 
@@ -62,7 +62,7 @@ double Nps(void)
     tempNPS = NIntegration(*FunctPtr, 0.00001, giveAnodeRadius() - 0.000001);
     NPS += tempNPS;
     printf("# Total Neutrons: %E \t %E from Neutrals outwards\n", NPS, tempNPS);
-
+*/
     return NPS;
 }
 

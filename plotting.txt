@@ -1,0 +1,4 @@
+set datafile separator ","
+set title "Fusion stuff"
+set logscale y
+plot "NSR_1.csv" using 1:2 with lines, "NSR_2.csv" using 1:2 with lines, "NSR_3.csv" using 1:2 with lines, "NSR_4.csv" using 1:2 with lines

@@ -283,18 +283,17 @@ void readfile(FILE * input)
     printf("# %s ",str);
 
     fscanf (input, "%s", str); // read word '0.05'
-    printf("\t %s \n",str);
-
     fusor.a = strtof(str,NULL);
+    printf("\t %f \n",fusor.a);
+
 
     // anode
     fscanf (input, "%s", str); // read word 'anode'
     printf("# %s ",str);
 
     fscanf (input, "%s", str); // read word '0.25'
-
     fusor.b = strtof(str,NULL);
-    printf("\t%f \n",fusor.b);
+    printf("\t %f \n",fusor.b);
 
     // read comment in input file
     fscanf (input, "%s", str); // read word '#fusor-dimentions'
@@ -304,7 +303,6 @@ void readfile(FILE * input)
     printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
-
     fusor.V0 = strtof(str,NULL);
     printf("\t%f \n",fusor.V0);
 
@@ -313,7 +311,6 @@ void readfile(FILE * input)
     printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
-
     pressure = strtof(str,NULL);
     printf("\t%f \n",pressure);
 
@@ -322,9 +319,16 @@ void readfile(FILE * input)
     printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
-
     Itot = strtof(str,NULL);
     printf("\t%f \n",Itot);
+
+    // Transparenty
+    fscanf (input, "%s", str); // read word 'Transparenty'
+    printf("# %s ",str);
+
+    fscanf (input, "%s", str); // read number
+    fusor.Tc = strtof(str,NULL);
+    printf("\t%f \n",fusor.Tc);
 
     /* READ IN BOOLS FROM FILE */
     printf("# Which data is printen to files and screen:\n");

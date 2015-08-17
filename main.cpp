@@ -256,13 +256,13 @@ int main()
         FuncPtr = &NeutronsNeutralsClassIIFluxInwards;
 
         printf("# In cathode, inwards\n");
-        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", 14);
+  //      print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", 14);
 
         // outwards
         FuncPtr = &NeutronsNeutralsClassIIFluxOutwards;
 
         printf("# In cathode, outwards\n");
-        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.csv", 15);
+  //      print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.csv", 15);
 
     }
 

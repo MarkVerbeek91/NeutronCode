@@ -348,17 +348,18 @@
 
 1421092329 d:\documenten\programmeren\neutroncode\neutralparticleflux.h
 
-1430663627 source:d:\documenten\development\neutroncode\auxiliary.cpp
+1439837212 source:d:\documenten\development\neutroncode\auxiliary.cpp
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"constants.h"
 	"Auxiliary.h"
 
-1430515451 d:\documenten\development\neutroncode\constants.h
+1439825996 d:\documenten\development\neutroncode\constants.h
 
-1430663213 d:\documenten\development\neutroncode\auxiliary.h
+1439825996 d:\documenten\development\neutroncode\auxiliary.h
 
-1416429675 source:d:\documenten\development\neutroncode\cathodecurrents.cpp
+1439825996 source:d:\documenten\development\neutroncode\cathodecurrents.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -384,19 +385,21 @@
 
 1420618927 d:\documenten\development\neutroncode\classiisourcefunction.h
 
-1430656690 source:d:\documenten\development\neutroncode\constants.cpp
+1439836754 source:d:\documenten\development\neutroncode\constants.cpp
 	"constants.h"
 
-1416427922 source:d:\documenten\development\neutroncode\crosssections.cpp
+1439825996 source:d:\documenten\development\neutroncode\crosssections.cpp
 	<math.h>
+	<stdio.h>
 	"CrossSectionsCont.h"
 	"CrossSections.h"
 
-1416427922 d:\documenten\development\neutroncode\crosssectionscont.h
+1439825996 d:\documenten\development\neutroncode\crosssectionscont.h
 
-1430597735 source:d:\documenten\development\neutroncode\energyspectra\neutralsclassispectrum.cpp
+1439825996 source:d:\documenten\development\neutroncode\energyspectra\neutralsclassispectrum.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"
@@ -406,9 +409,10 @@
 
 1421358650 d:\documenten\development\neutroncode\energyspectra\neutralsclassispectrum.h
 
-1430514617 source:d:\documenten\development\neutroncode\energyspectrumions.cpp
+1439825996 source:d:\documenten\development\neutroncode\energyspectrumions.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"PotentialFunctions.h"
 	"SurvivalFunctions.h"
@@ -439,7 +443,7 @@
 
 1421095929 d:\documenten\development\neutroncode\neutralparticleflux.h
 
-1430665175 source:d:\documenten\development\neutroncode\neutronproductionrate.cpp
+1439833701 source:d:\documenten\development\neutroncode\neutronproductionrate.cpp
 	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
@@ -450,11 +454,11 @@
 
 1416344942 d:\documenten\development\neutroncode\neutronproductionrate.h
 
-1430664464 source:d:\documenten\development\neutroncode\potentialfunctions.cpp
+1439825996 source:d:\documenten\development\neutroncode\potentialfunctions.cpp
 	"constants.h"
 	"PotentialFunctions.h"
 
-1430665099 source:d:\documenten\development\neutroncode\survivalfunctions.cpp
+1439825996 source:d:\documenten\development\neutroncode\survivalfunctions.cpp
 	<stdio.h>
 	<math.h>
 	"constants.h"
@@ -463,10 +467,11 @@
 	"PotentialFunctions.h"
 	"SurvivalFunctions.h"
 
-1430663647 source:d:\documenten\development\neutroncode\main.cpp
+1439833625 source:d:\documenten\development\neutroncode\main.cpp
 	<iostream>
 	<math.h>
 	<stdio.h>
+	<stdlib.h>
 	"includes.h"
 
 1430639704 d:\documenten\development\neutroncode\includes.h
@@ -494,9 +499,10 @@
 	"constants.h"
 	"MathFunctions.h"
 
-1430595332 source:d:\documenten\development\neutroncode\energyspectra\ionspectrum.cpp
+1439825996 source:d:\documenten\development\neutroncode\energyspectra\ionspectrum.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"
@@ -518,9 +524,10 @@
 	"constants.h"
 	"SourceFunction.h"
 
-1430642331 source:d:\documenten\development\neutroncode\neutronproduction\neutronproductionions.cpp
+1439836810 source:d:\documenten\development\neutroncode\neutronproduction\neutronproductionions.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"
@@ -530,9 +537,10 @@
 
 1430586928 d:\documenten\development\neutroncode\neutronproduction\neutronproductionions.h
 
-1430642359 source:d:\documenten\development\neutroncode\neutronproduction\neutronproductionneutralsclassi.cpp
+1439832545 source:d:\documenten\development\neutroncode\neutronproduction\neutronproductionneutralsclassi.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"
@@ -542,9 +550,10 @@
 
 1430589344 d:\documenten\development\neutroncode\neutronproduction\neutronproductionneutralsclassi.h
 
-1430642847 source:d:\documenten\development\neutroncode\neutronproduction\neutronproductionneutralsclassii.cpp
+1439832860 source:d:\documenten\development\neutroncode\neutronproduction\neutronproductionneutralsclassii.cpp
 	<math.h>
 	<stdlib.h>
+	<stdio.h>
 	"constants.h"
 	"MathFunctions.h"
 	"PotentialFunctions.h"

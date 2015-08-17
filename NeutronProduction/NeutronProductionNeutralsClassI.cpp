@@ -17,9 +17,9 @@ double NeutronsNeutralsClassIFluxInwards_Inte1(double r, double dr)
 {
     double E, term1;
 
-    if ( r < dr )
+    if ( r > dr )
     {
-        printf("NeutronsNeutralsClassIFluxInwards_Inte1 error: r < dr \n");
+        printf("NeutronsNeutralsClassIFluxInwards_Inte1 error: r > dr \n");
         return NAN;
     }
 
@@ -37,6 +37,12 @@ double NeutronsNeutralsClassIFluxInwards_Inte1(double r, double dr)
 double NeutronsNeutralsClassIFluxInwards_Inte2(double r, double dr)
 {
     double E, term1;
+
+    if ( r > dr )
+    {
+        printf("NeutronsNeutralsClassIFluxInwards_Inte1 error: r > dr \n");
+        return NAN;
+    }
 
     E = ParticleEnergy2(r, dr);
 
@@ -72,7 +78,7 @@ double NeutronsNeutralsClassIFluxInwards(double r)
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
         term2 *= f(giveCathodeRadius()) * ( 1 - exp(-2 * ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * giveCathodeRadius()));
-        term2 *= CrosssecFusion(giveq() * Potential_Phi(r));
+        term2 *= CrosssecFusion(ParticleEnergy1(r));
 
         NeutronFlux = giveTransparency() * (term1 + term2);
     }
@@ -133,7 +139,7 @@ double NeutronsNeutralsClassIFluxOutwards(double r)
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
         term2 *= f(giveCathodeRadius()) * ( 1 - exp(2 * ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * (r - giveCathodeRadius())));
-        term2 *= CrosssecFusion(giveq() * Potential_Phi(r));
+        term2 *= CrosssecFusion(ParticleEnergy1(r));
 
         NeutronFlux = giveTransparency() * (term1 + term2);
     }
@@ -146,7 +152,7 @@ double NeutronsNeutralsClassIFluxOutwards(double r)
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
         term2 *= f(giveCathodeRadius()) * ( 1 - exp(-2 * ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * giveCathodeRadius()));
-        term2 *= CrosssecFusion(giveq() * Potential_Phi(r));
+        term2 *= CrosssecFusion(ParticleEnergy1(r));
 
         NeutronFlux = giveTransparency() * (term1 + term2);
     }

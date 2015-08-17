@@ -65,9 +65,9 @@ double NeutralsClassIISpectrumInwards_Inte2_Int(double E, double ddr)
 {
     double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
-    if ( giveCathodeRadius() < dr )
+    if ( giveCathodeRadius() > dr )
     {
-        printf("NeutralsClassIISpectrumInwards_Inte2_Int error: d < dr\n");
+        printf("NeutralsClassIISpectrumInwards_Inte2_Int error: d > dr\n");
         return NAN;
     }
 
@@ -85,6 +85,13 @@ double NeutralsClassIISpectrumInwards_Inte2_Int(double E, double ddr)
 double NeutronsNeutralsClassIIFluxInwards_Inte2(double r, double dr)
 {
     double E, term1;
+
+    if ( giveCathodeRadius() > dr )
+    {
+        printf("NeutralsClassIISpectrumInwards_Inte2 error: d > dr\n");
+        return NAN;
+    }
+
 
     E = ParticleEnergy2(r, dr);
 
@@ -125,7 +132,7 @@ double NeutronsNeutralsClassIIFluxInwards(double r)
 
         term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
         term2 *= f(giveCathodeRadius()) * ( 1 - exp(-2 * ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * giveCathodeRadius()));
-        term2 *= CrosssecFusion(giveq() * Potential_Phi(r));
+        term2 *= CrosssecFusion(ParticleEnergy1(r));
 
         NeutronFlux = giveTransparency() * (term1 + term2);
     }
