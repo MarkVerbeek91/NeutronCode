@@ -112,12 +112,12 @@ double NeutronsNeutralsClassIFluxOutwards_Inte2(double r, double dr)
 
     E = ParticleEnergy2(r, dr);
 
-    term1 *= f(dr);
+    term1 = f(dr);
 
     if ( dr < r)
         term1 += pow(f(0),2)/f(dr);
 
-    term1  = CrosssecFusion(E);
+    term1 *= CrosssecFusion(E);
     term1 *= pow(giveAnodeRadius()/r,2);
     term1 *= ngas * CrosssecCX(E);
     term1 *= EdgeIonFlux;

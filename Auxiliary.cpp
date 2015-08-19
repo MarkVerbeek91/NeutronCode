@@ -18,6 +18,9 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
     if ( input == NULL || output == NULL)
     {
         printf("could not open file or open new file");
+
+        fclose(input);
+        fclose(output);
         return;
     }
 
@@ -33,7 +36,7 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
             for (double r = Start; r<End; r+=step)
             {
                 value = (*funcPtr)(r);
-                fprintf (output, "%E,%E\n",r, value );
+                fprintf (output, "%E %E\n",r, value );
                 printf("%E \t %E \n",r, value);
             }
         }
@@ -65,6 +68,9 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     if ( input == NULL || output == NULL)
     {
         printf("could not open file or open new file");
+
+        fclose(input);
+        fclose(output);
         return;
     }
 
@@ -80,7 +86,7 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
                 for (double r = Start2; r<End2; r+=step2)
                 {
                     value = (*funcPtr)(Start1, r);
-                    fprintf (output, "%E,%E\n",r, value );
+                    fprintf (output, "%E %E\n",r, value );
                     printf("%E \t %E \n",r, value);
                 }
             }
@@ -94,15 +100,15 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     {
         while ((c = fgetc(input)) != EOF)
         {
-            for (double r = Start1; r<End1; r+=step2)
+            for (double r = Start1; r<End1; r+=step1)
             {
                 for ( double dr = Start1; dr<End1; dr+=step2)
                 {
                     value = (*funcPtr)(r, dr);
-                    fprintf (output, "%E ", value );
+                    fprintf(output, "%E ", value );
                     printf("%E ", value);
                 }
-                fprintf (output, "\n");
+                fprintf(output, "\n");
                 printf("\n");
             }
         }
@@ -119,7 +125,7 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
 /**
     print data of a table to file
 */
-void plot_table_1D(const char name[], const char input_file_name[])
+void plot_table_1D(double *table, const char name[], const char input_file_name[])
 {
     FILE *  input;
     FILE * output;
@@ -129,6 +135,9 @@ void plot_table_1D(const char name[], const char input_file_name[])
     if ( input == NULL || output == NULL)
     {
         printf("could not open file or open new file\n");
+
+        fclose(input);
+        fclose(output);
         return;
     }
 
@@ -140,8 +149,8 @@ void plot_table_1D(const char name[], const char input_file_name[])
         {
             for ( int i = 0; i < N_TABLE; i++)
             {
-                fprintf(output, "%E, %E \n", Table.R[i], Table.S[i]);
-                printf("%E, %E \n", Table.R[i], Table.S[i]);
+                fprintf(output, "%E %E \n", Table.R[i], table[i]);
+                printf("%E %E \n", Table.R[i], table[i]);
             }
         }
         else
@@ -154,21 +163,57 @@ void plot_table_1D(const char name[], const char input_file_name[])
 
     fclose(input);
     fclose(output);
+
+    return;
 }
 
 /**
     Print data of a 2D table to screen.
 */
-void plot_table_2D()
+void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input_file_name[])
 {
-    for ( int j = 0; j < N_TABLE; j++)
+    FILE *  input;
+    FILE * output;
+    input  = fopen(input_file_name,"r");
+    output = fopen(name,"w");
+
+    if ( input == NULL || output == NULL)
     {
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            printf("%f ", Table.K[i][j]);
-        }
-        printf("\n");
+        printf("could not open file or open new file\n");
+
+        fclose(input);
+        fclose(output);
+        return;
     }
+
+    char c = '0';
+
+    while ((c = fgetc(input)) != EOF)
+    {
+        if ( c == '@')
+        {
+            for ( int j = 0; j < N_TABLE; j++)
+            {
+                for ( int i = 0; i < N_TABLE; i++)
+                {
+                    printf("%E ", table[i][j]);
+                    fprintf(output, "%E ", table[i][j]);
+                }
+                fprintf(output, "\n");
+                printf("\n");
+            }
+        }
+        else
+        {
+            printf("%c",c);
+        }
+    }
+
+    printf("# %s: done writing to file\n",name);
+
+    fclose(input);
+    fclose(output);
+
 }
 
 /**

@@ -34,7 +34,7 @@ struct Fusor{
 #define N_PRECISION 100
 #define PRECISION 100000
 #define MAX_RECURSION_DEPTH 20
-#define N_TABLE     50
+#define N_TABLE     250
 #define Q_ELECTRON 1.602e-19
 
 // declaration of some variables

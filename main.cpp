@@ -113,19 +113,6 @@ int main()
         plot_function_2D(*gPtr, 0.0, 0.0, 0.00001, giveAnodeRadius(), 0.001, 0.001, "g.csv", "GNU_Survival_functions.txt");
     }
 
-
-    // writing A to a file for plotting
-    if ( printbool.Atable )
-    {
-        printf("# Doing some things with A\n");
-
-        double (*APtr)(double);
-        APtr = &A;
-
-        plot_function_1D(*APtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "A.csv", "GNU_Atable.txt");
-    }
-
-
     // source rate for first generation of Class II ions.
 
     printf("# filling tables:\n");
@@ -144,14 +131,18 @@ int main()
     if ( printbool.KernelTable )
     {
         printf("# Kernel\n");
-        double (*KPtr)(double,double);
-        KPtr = &kernel;
 
-        plot_function_2D(*KPtr, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "K.csv", "GNU_Ktable.txt");
-
- //       plot_table_2D();
-
+        plot_table_2D(Table.K, "KTable.csv", "GNU_Ktable.txt");
     }
+
+        // writing A to a file for plotting
+    if ( printbool.Atable )
+    {
+        printf("# Doing some things with A\n");
+
+        plot_table_1D(Table.A, "ATable.csv", "GNU_Stable.txt");
+    }
+
 
 
     // print the S tables to screen
@@ -159,8 +150,7 @@ int main()
     {
         printf("# Writing tables to files:\n");
 
-        plot_table_1D("STable.csv", "GNU_Stable.txt");
-
+        plot_table_1D(Table.S, "STable.csv", "GNU_Stable.txt");
     }
 
 
@@ -186,7 +176,7 @@ int main()
         printf("# Printing Energy spectrum to files\n");
 
         printf("# Energy spectrum of ions going inwards\n");
-
+/*
         double (*IonSpectrumInwardsPtr)(double, double);
         IonSpectrumInwardsPtr = &IonSpectrumInwards;
 
@@ -215,7 +205,7 @@ int main()
             j++;
         }
 
-
+*/
     }
 
     // the neutron source rate
@@ -226,7 +216,7 @@ int main()
 
             // Ions
         // inwards
-        FuncPtr = &NeutronsIonFluxInwards;
+//        FuncPtr = &NeutronsIonFluxInwards;
 
         printf("# Outside cathode, inwards\n");
 //        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_1.csv", 10);

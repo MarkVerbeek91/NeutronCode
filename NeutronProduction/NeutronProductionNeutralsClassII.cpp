@@ -171,7 +171,7 @@ double NeutronsNeutralsClassIIFluxOutwards_Inte1(double r, double dr)
 
     E = ParticleEnergy2(r, dr);
 
-    term1 *= pow(giveAnodeRadius()/r,2);
+    term1  = pow(giveAnodeRadius()/r,2);
     term1 *= ngas * CrosssecCX(E);
     term1 *= EdgeIonFlux;
     term1 *= f(dr);
@@ -214,7 +214,7 @@ double NeutronsNeutralsClassIIFluxOutwards_Inte2(double r, double dr)
 
     E = ParticleEnergy2(r, dr);
 
-    term1 *= f(dr);
+    term1 = f(dr);
 
     if ( dr < r)
         term1 += pow(f(0),2)/f(dr);

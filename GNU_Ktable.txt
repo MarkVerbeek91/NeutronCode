@@ -9,6 +9,6 @@ set term wxt 7					# set figure ID, prevention of overwriting of existing figure
 set grid
 set hidden3d
 $data << EOD
-%
+@
 EOD
 splot '$data' matrix with lines notitle
