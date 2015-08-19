@@ -25,40 +25,14 @@ double f(double r)
     double sum = NIntegration(*f_intePtr, r, giveAnodeRadius());
 
     sum *= ngas;
-
     sum = exp(-1 * sum);
 
     return sum;
 }
 
-double Intergrant(double r)
-{
-    double tmp;
-
-    tmp = ngas * CrosssecCX(ParticleEnergy1(r));
-
-    return tmp;
-
-}
-
-double gamma(double r)
-{
-    double Gamma = -1;
-    Gamma = pow(giveAnodeRadius()/r,2) * (f(r) + pow(giveTransparency() * f(0),2)/f(r));
-    return Gamma;
-}
-
 double A(double r)
 {
-    double tmp = -1;
-    tmp = ngas * CrosssecTot(ParticleEnergy1(r)) * gamma(r);
-
-    if (isnan(tmp))
-    {
-        printf("went to the end\n");
-        tmp = 0;
-    }
-    return tmp;
+    return ngas * CrosssecTot(ParticleEnergy1(r)) * pow(giveAnodeRadius()/r,2) * (f(r) + pow(giveTransparency() * f(0),2)/f(r));
 }
 
 double g_inte(double dr, double ddr)
@@ -90,8 +64,8 @@ double kernel(double r, double dr)
     double tmp;
     if ( r < dr )
     {
-        tmp = pow(dr/r,2) * ((g(r,dr) + (pow(giveTransparency()*g(0,dr),2)/g(r,dr)))/(1.0-pow(giveTransparency()*g(0,dr),2)));
-        tmp = tmp * ngas * CrosssecTot(ParticleEnergy2(r,dr));
+        tmp  = ngas * CrosssecTot(ParticleEnergy2(r,dr));
+        tmp *= pow(dr/r,2) * ((g(r,dr) + (pow(giveTransparency()*g(0,dr),2)/g(r,dr)))/(1.0-pow(giveTransparency()*g(0,dr),2)));
     }
     else
         tmp = 0;
@@ -99,7 +73,7 @@ double kernel(double r, double dr)
     return tmp;
 }
 
-void kernel_to_table(void)
+void CalculateTables(void)
 {
     double step = (giveAnodeRadius() - giveCathodeRadius())/(N_TABLE-1);
 
@@ -118,9 +92,6 @@ void kernel_to_table(void)
 
         Table.R[i] = i*step+giveCathodeRadius();
     }
-
-    // to do, change this.
-//    Table.A[N_TABLE-1] = 43.9944;
 
     printf("\n");
 
