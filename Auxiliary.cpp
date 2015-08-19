@@ -7,7 +7,6 @@
 
 /**
     This function writes a given function to a file.
-*/
 void print_data_dd(double (*funcPtr)(double), double Start, double End, double step, char name[], int ID)
 {
     FILE * output;
@@ -37,11 +36,12 @@ void print_data_dd(double (*funcPtr)(double), double Start, double End, double s
 
     return;
 }
+*/
 
 /**
     This function writes a given function to a file.
 */
-void plot_function_dd(double (*funcPtr)(double), double Start, double End, double step, char name[], char input_file_name[])
+void plot_function_dd(double (*funcPtr)(double), double Start, double End, double step, const char name[], const char input_file_name[])
 {
     FILE *  input;
     FILE * output;
@@ -88,7 +88,7 @@ void plot_function_dd(double (*funcPtr)(double), double Start, double End, doubl
 /**
     This function writes a given function to a file.
 */
-void plot_function_ddd(double (*funcPtr)(double, double),  double var, double Start, double End, double step, char name[], char input_file_name[])
+void plot_function_ddd(double (*funcPtr)(double, double),  double var, double Start, double End, double step, const char name[], const char input_file_name[])
 {
     FILE *  input;
     FILE * output;
@@ -149,7 +149,7 @@ void plot_function_ddd(double (*funcPtr)(double, double),  double var, double St
 
 /**
     This function writes a given function to a file.
-*/
+
 void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, double step, double var, char name[], int ID)
 {
     FILE * output;
@@ -179,8 +179,12 @@ void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, 
 
     return;
 }
+*/
 
-void plot_table_1D(char name[], char input_file_name[])
+/**
+    print data of a table to file
+*/
+void plot_table_1D(const char name[], const char input_file_name[])
 {
     FILE *  input;
     FILE * output;
@@ -193,7 +197,6 @@ void plot_table_1D(char name[], char input_file_name[])
         return;
     }
 
-    double value;
     char c = '0';
 
     while ((c = fgetc(input)) != EOF)
@@ -222,6 +225,9 @@ void plot_table_1D(char name[], char input_file_name[])
 
 }
 
+/**
+    Print data of a 2D table to screen.
+*/
 void plot_table_2D()
 {
     for ( int j = 0; j < N_TABLE; j++)
@@ -234,6 +240,7 @@ void plot_table_2D()
     }
 }
 
+/*
 void print_table(int choice, char name[])
 {
     FILE * output;
@@ -271,6 +278,7 @@ void print_table(int choice, char name[])
 
     return;
 }
+*/
 
 void readfile(FILE * input)
 {

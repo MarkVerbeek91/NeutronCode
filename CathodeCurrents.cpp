@@ -27,7 +27,7 @@ double I_c1(void)
 {
     double current;
 
-    current  = 4 * 3.141529 * pow(giveAnodeRadius(),2) * giveq() * (1.0 - giveTransparency());
+    current  = 4 * 3.141529 * Q_ELECTRON * (1.0 - giveTransparency()) * pow(giveAnodeRadius(),2);
     current *= f(giveCathodeRadius()) + (giveTransparency() * pow(f(0.0),2))/f(giveCathodeRadius());
     current *= 1 + SIIEE(-giveVoltage());
 
@@ -53,7 +53,7 @@ double I_c2(void)
 
     sum = NIntegration(*I_c2intePtr, giveCathodeRadius(), giveAnodeRadius());
 
-    current = 4 * 3.141529 * q * (1 - giveTransparency()) * sum;
+    current = 4 * 3.141529 * Q_ELECTRON * (1 - giveTransparency()) * sum;
 
     return current;
 }
@@ -61,10 +61,10 @@ double I_c2(void)
 double I_c3(void)
 {
     double current;
-    double Emax = -giveVoltage(); // ParticleEnergy1(giveAnodeRadius());
+    double Emax = ParticleEnergy1(giveCathodeRadius());
 
-    current  = 4 * 3.141529 * pow(giveAnodeRadius(),2) * giveq() * ngas * (CrosssecTot(Emax)/CrosssecCX(Emax));
-    current *= giveTransparency() * f(giveCathodeRadius()) * ( 1.0 - exp( -2 * ngas * giveCathodeRadius() * CrosssecCX(Emax)));
+    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * ngas * (CrosssecTot(Emax)/CrosssecCX(Emax));
+    current *= pow(giveAnodeRadius(),2) * f(giveCathodeRadius()) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * giveCathodeRadius()));
 
     return current;
 }
@@ -75,7 +75,7 @@ double I_c4inte(double dr)
 
     fac  = pow(dr,2);
     fac *= CrosssecTot(ParticleEnergy2(giveCathodeRadius(),dr))/CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr));
-    fac *= (interpolation(dr) * g(giveCathodeRadius(),dr))/( 1.0 - pow(giveTransparency(),2) * g(0,dr));
+    fac *= (interpolation(dr) * g(giveCathodeRadius(),dr))/( 1.0 - pow(giveTransparency() * g(0,dr),2));
     fac *= ( 1 - exp( -2 * ngas * giveCathodeRadius() * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr))));
 
     return fac;
@@ -91,7 +91,7 @@ double I_c4(void)
 
     sum = NIntegration(*I_c4intePtr, giveCathodeRadius(), giveAnodeRadius());
 
-    current = 4 * 3.141529 * pow(giveAnodeRadius(),2) * q * sum;
+    current = 4 * 3.141529 * Q_ELECTRON * sum;
 
     return current;
 }

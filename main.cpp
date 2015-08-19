@@ -178,7 +178,7 @@ int main()
     I4 = I_c4();
     printf("# 4 current: %E\n",I4);
 
-    EdgeIonFlux = 5e15; //(Itot - I2 - I3) / (I1 + I3);
+    EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
 
     printf("# EdgeIonFlux: %E\n# - Done\n", EdgeIonFlux);
 
@@ -210,8 +210,8 @@ int main()
             char filename2[100];
             sprintf( filename2, "IonSpectrumOutwards%d.csv", j);
 
-            print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1, 5);
-            print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2, 5);
+            //print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1, 5);
+            //print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2, 5);
 
             j++;
         }
@@ -230,26 +230,26 @@ int main()
         FuncPtr = &NeutronsIonFluxInwards;
 
         printf("# Outside cathode, inwards\n");
-        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_1.csv", 10);
+//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_1.csv", 10);
 
         // outwards
         FuncPtr = &NeutronsIonFluxOutwards;
 
         printf("# Outside cathode, outwards\n");
-        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", 11);
+//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", 11);
 
             // Neutrals Class I
         // inwards
         FuncPtr = &NeutronsNeutralsClassIFluxInwards;
 
         printf("# In cathode, inwards\n");
-        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.csv", 12);
+//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.csv", 12);
 
         // outwards
         FuncPtr = &NeutronsNeutralsClassIFluxOutwards;
 
         printf("# In cathode, outwards\n");
-        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.csv", 13);
+//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.csv", 13);
 
             // Neutrals ClassII
         // inwards
