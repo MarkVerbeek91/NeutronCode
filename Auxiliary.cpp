@@ -116,41 +116,6 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     return;
 }
 
-
-/**
-    This function writes a given function to a file.
-
-void print_data_ddd(double (*funcPtr)(double,double), double Start, double End, double step, double var, char name[], int ID)
-{
-    FILE * output;
-    output = fopen(name,"w");
-    double value;
-
-    // print data to gnu plot
-    printf("unset key\n");
-    printf("set xlabel \"position\"\n");
-    printf("set ylabel \"a.u\"\n");
-    printf("set title \"%s\"\n",name);
-    printf("set xrange [%f:%f]\n",Start,End);
-    printf("set term wxt %d\n",ID);
-    printf("plot '-' w l\n");
-
-    for (double r = Start; r<End; r+=step)
-    {
-        value = (*funcPtr)(var, r);
-        fprintf (output, "%E,%E\n",r, value);
-        printf("%E \t %E \n",r, value);
-    }
-
-    printf("e\n");
-    printf("# %s: done writing to file\n",name);
-
-    fclose(output);
-
-    return;
-}
-*/
-
 /**
     print data of a table to file
 */
@@ -185,14 +150,10 @@ void plot_table_1D(const char name[], const char input_file_name[])
         }
     }
 
-//    printf("e\n");
     printf("# %s: done writing to file\n",name);
 
     fclose(input);
     fclose(output);
-
-
-
 }
 
 /**
@@ -210,46 +171,11 @@ void plot_table_2D()
     }
 }
 
-/*
-void print_table(int choice, char name[])
-{
-    FILE * output;
-    output = fopen(name,"w");
-
-    switch (choice)
-    {
-        case 1:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%d, %E\n",i,Table.A[i]);
-        }
-        printf("# Printed ATable\n");
-        break;
-        case 2:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%d, %E\n",i,Table.K[N_TABLE-2][i]);
-        }
-        printf("# Printed KTable\n");
-        break;
-        case 9:
-        for ( int i = 0; i < N_TABLE; i++)
-        {
-            fprintf(output,"%E, %E\n",Table.R[i],Table.S[i]);
-        }
-        printf("# Printed STable\n");
-        break;
-        default:
-            printf("# nothing to do\n");
-        break;
-    }
-
-    fclose(output);
-
-    return;
-}
+/**
+    This function reads date from the input file.
+    TODO: make this function so the order of settings in the input file does
+    not matter anymore.
 */
-
 void readfile(FILE * input)
 {
     char str [80];
