@@ -7,41 +7,8 @@
 
 /**
     This function writes a given function to a file.
-void print_data_dd(double (*funcPtr)(double), double Start, double End, double step, char name[], int ID)
-{
-    FILE * output;
-    output = fopen(name,"w");
-    double value;
-
-    // print data to gnu plot
-    printf("unset key\n");
-    printf("set xlabel \"position\"\n");
-    printf("set ylabel \"a.u\"\n");
-    printf("set title \"%s\"\n",name);
-    printf("set xrange [%f:%f]\n",Start,End);
-    printf("set term wxt %d\n",ID);
-    printf("plot '-' w l\n");
-
-    for (double r = Start; r<End; r+=step)
-    {
-        value = (*funcPtr)(r);
-        fprintf (output, "%E,%E\n",r, value );
-        printf("%E \t %E \n",r, value);
-    }
-
-    printf("e\n");
-    printf("# %s: done writing to file\n",name);
-
-    fclose(output);
-
-    return;
-}
 */
-
-/**
-    This function writes a given function to a file.
-*/
-void plot_function_dd(double (*funcPtr)(double), double Start, double End, double step, const char name[], const char input_file_name[])
+void plot_function_1D(double (*funcPtr)(double), double Start, double End, double step, const char name[], const char input_file_name[])
 {
     FILE *  input;
     FILE * output;
@@ -88,7 +55,7 @@ void plot_function_dd(double (*funcPtr)(double), double Start, double End, doubl
 /**
     This function writes a given function to a file.
 */
-void plot_function_ddd(double (*funcPtr)(double, double),  double var, double Start, double End, double step, const char name[], const char input_file_name[])
+void plot_function_2D(double (*funcPtr)(double, double), double Start1, double End1, double Start2, double End2, double step1, double step2, const char name[], const char input_file_name[])
 {
     FILE *  input;
     FILE * output;
@@ -104,24 +71,32 @@ void plot_function_ddd(double (*funcPtr)(double, double),  double var, double St
     double value;
     char c = '0';
 
-    while ((c = fgetc(input)) != EOF)
+    if ( Start1 == End1 )
     {
-       // fread(&c, 1, 1, input);
-
-        if ( c == '@')
+        while ((c = fgetc(input)) != EOF)
         {
-            for (double r = Start; r<End; r+=step)
+            if ( c == '@')
             {
-                value = (*funcPtr)(var, r);
-                fprintf (output, "%E,%E\n",r, value );
-                printf("%E \t %E \n",r, value);
+                for (double r = Start2; r<End2; r+=step2)
+                {
+                    value = (*funcPtr)(Start1, r);
+                    fprintf (output, "%E,%E\n",r, value );
+                    printf("%E \t %E \n",r, value);
+                }
+            }
+            else
+            {
+                printf("%c",c);
             }
         }
-        else if ( c == '%') // only for Kernel
+    }
+    else
+    {
+        while ((c = fgetc(input)) != EOF)
         {
-            for (double r = Start; r<End; r+=step)
+            for (double r = Start1; r<End1; r+=step2)
             {
-                for ( double dr = Start; dr<End; dr+=step)
+                for ( double dr = Start1; dr<End1; dr+=step2)
                 {
                     value = (*funcPtr)(r, dr);
                     fprintf (output, "%E ", value );
@@ -131,13 +106,8 @@ void plot_function_ddd(double (*funcPtr)(double, double),  double var, double St
                 printf("\n");
             }
         }
-        else
-        {
-            printf("%c",c);
-        }
     }
 
-//    printf("e\n");
     printf("# %s: done writing to file\n",name);
 
     fclose(input);

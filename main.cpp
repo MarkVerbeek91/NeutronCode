@@ -58,10 +58,9 @@ int main()
         double (*ParticleEnergy2Ptr)(double,double);
         ParticleEnergy2Ptr = &ParticleEnergy2;
 
-//        print_data_ddd(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.01, 0.0, "Particle2.csv", 0);
+        plot_function_2D(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "Particle2.csv", "GNU_potential");
 
-          plot_function_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv", "GNU_potential.txt");
-//        print_data_dd(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv", 0);
+        plot_function_1D(*Potential_PhiPtr, 0.0, 0.25, 0.001, "Potential.csv", "GNU_potential.txt");
     }
 
     // writing the SIIEE to a file for plotting
@@ -73,7 +72,7 @@ int main()
         SIIEEPtr = &SIIEE;
 
         //print_data_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", 1);
-        plot_function_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", "GNU_SIIEE.txt");
+        plot_function_1D(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", "GNU_SIIEE.txt");
     }
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
@@ -85,17 +84,17 @@ int main()
         double (*CrosssecCXPtr)(double);
         CrosssecCXPtr = &CrosssecCX;
 
-        plot_function_dd(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv", "GNU_Cross_sections.txt");
+        plot_function_1D(*CrosssecCXPtr, 1.0, 500000, 10, "CrosssecCX.csv", "GNU_Cross_sections.txt");
 
         double (*CrosssecIonPtr)(double);
         CrosssecIonPtr = &CrosssecIon;
 
-        plot_function_dd(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv", "GNU_Cross_sections.txt");
+        plot_function_1D(*CrosssecIonPtr, 1.0, 500000, 10, "CrosssecIon.csv", "GNU_Cross_sections.txt");
 
         double (*CrosssecTotPtr)(double);
         CrosssecTotPtr = &CrosssecTot;
 
-        plot_function_dd(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv", "GNU_Cross_sections.txt");
+        plot_function_1D(*CrosssecTotPtr, 1.0, 500000, 10, "CrosssecTot.csv", "GNU_Cross_sections.txt");
     }
 
     // Writing the survival functions to a file for plotting.
@@ -106,12 +105,12 @@ int main()
         double (*fPtr)(double);
         fPtr = &f;
 
-        plot_function_dd(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv", "GNU_Survival_funcitons.txt");
+        plot_function_1D(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv", "GNU_Survival_functions.txt");
 
         double (*gPtr)(double,double);
         gPtr = &g;
 
-        plot_function_ddd(*gPtr, 0.0, 0.00001, giveAnodeRadius(), 0.001, "g.csv", "GNU_Survival_funcitons.txt");
+        plot_function_2D(*gPtr, 0.0, 0.0, 0.00001, giveAnodeRadius(), 0.001, 0.001, "g.csv", "GNU_Survival_functions.txt");
     }
 
 
@@ -123,14 +122,14 @@ int main()
         double (*APtr)(double);
         APtr = &A;
 
-        plot_function_dd(*APtr, giveCathodeRadius(), giveAnodeRadius(), 0.001, "A.csv", "GNU_Atable.txt");
+        plot_function_1D(*APtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "A.csv", "GNU_Atable.txt");
     }
 
 
     // source rate for first generation of Class II ions.
 
     printf("# filling tables:\n");
-    kernel_to_table();
+    CalculateTables();
 
     printf("# Calculating S:\n");
     S();
@@ -148,7 +147,7 @@ int main()
         double (*KPtr)(double,double);
         KPtr = &kernel;
 
-        plot_function_ddd(*KPtr, 0.0, 0.0, giveAnodeRadius()+0.001, 0.01, "K.csv", "GNU_Ktable.txt");
+        plot_function_2D(*KPtr, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "K.csv", "GNU_Ktable.txt");
 
  //       plot_table_2D();
 
