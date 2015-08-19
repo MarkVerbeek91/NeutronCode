@@ -140,10 +140,8 @@ int main()
     {
         printf("# Doing some things with A\n");
 
-        plot_table_1D(Table.A, "ATable.csv", "GNU_Stable.txt");
+        plot_table_1D(Table.A, "ATable.csv", "GNU_Atable.txt");
     }
-
-
 
     // print the S tables to screen
     if ( printbool.Stable )

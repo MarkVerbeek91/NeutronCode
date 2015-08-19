@@ -62,7 +62,7 @@ double g(double r, double dr)
 double kernel(double r, double dr)
 {
     double tmp;
-    if ( r < dr )
+    if ( r <= dr )
     {
         tmp  = ngas * CrosssecTot(ParticleEnergy2(r,dr));
         tmp *= pow(dr/r,2) * ((g(r,dr) + (pow(giveTransparency()*g(0,dr),2)/g(r,dr)))/(1.0-pow(giveTransparency()*g(0,dr),2)));
