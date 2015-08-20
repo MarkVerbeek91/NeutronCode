@@ -15,23 +15,18 @@ void S(void)
 
     h = ( giveAnodeRadius() - giveCathodeRadius()) / N_TABLE;
 
-    // case i = 0
-    Table.S[0] = Table.A[0];
+    // case i = N
+    Table.S[N_TABLE-1] = Table.A[N_TABLE-1];
 
-    for ( int r = 0; r < N_TABLE; r++)
+    for ( i = N_TABLE-2; i >= 0; i--)
     {
-
-    }
-    for ( i = 1; i < N_TABLE; i++)
-    {
-
         sum = 0;
-        for ( j = 1; j < i - 1; j++)
+        for ( j = N_TABLE-2; j > i; j--)
             sum += Table.K[i][j] * Table.S[j];
 
-        Table.S[i] = h * ( 0.5 * Table.K[i][0] * Table.S[0] + sum);
+        Table.S[i] = h * ( 0.5 * Table.K[0][i] * Table.S[N_TABLE-1] + sum);
         Table.S[i] += Table.A[i];
-        Table.S[i] /= ( 1 - (h/2.0) * Table.K[i][i] );
+        Table.S[i] /= ( 1 -  0.5 * h * Table.K[i][i] );
     }
 
     return;

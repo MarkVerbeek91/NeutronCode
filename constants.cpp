@@ -41,7 +41,7 @@ PrintBool printbool;
 double q = 1;
 double pressure = 0.5;  // Pa
 double Tgas = 400; // K
-double ngas = 9.05401e19; //6.022e23 * pressure / (8.314 * Tgas);
+double ngas = 9.05401e19; //t
 double E0 = 0.0001;          // reducing errors
 double Itot = 0.1;
 

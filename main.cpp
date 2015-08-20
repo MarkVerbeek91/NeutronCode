@@ -41,6 +41,8 @@ int main()
 
     fclose(input);
 
+    ngas = 6.022e23 * pressure / (8.314 * Tgas); //
+
     // filling the potential array and particle energy
     printf("# -- Start of program -- \n");
     // initialise the fusor parameters
@@ -105,12 +107,12 @@ int main()
         double (*fPtr)(double);
         fPtr = &f;
 
-        plot_function_1D(*fPtr, 0.0, giveAnodeRadius()+0.001, 0.001, "f.csv", "GNU_Survival_functions.txt");
+        plot_function_1D(*fPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "f.csv", "GNU_Survival_functions.txt");
 
         double (*gPtr)(double,double);
         gPtr = &g;
 
-        plot_function_2D(*gPtr, 0.0, 0.0, 0.00001, giveAnodeRadius(), 0.001, 0.001, "g.csv", "GNU_Survival_functions.txt");
+        plot_function_2D(*gPtr, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "g.csv", "GNU_Survival_functions.txt");
     }
 
     // source rate for first generation of Class II ions.
