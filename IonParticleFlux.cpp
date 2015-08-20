@@ -50,7 +50,7 @@ double Sfi_OutMin(double r)
  */
 double Sfi_OutMinInte(double r, double dr)
 {
-    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(Table.S, dr)
             * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
 }
 
@@ -86,7 +86,7 @@ double Sfi_OutPlus(double r)
  */
 double Sfi_OutPlusInte(double r, double dr)
 {
-    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(Table.S, dr)
            * (pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) )) * 1 / g(r,dr);
 }
 
@@ -123,7 +123,7 @@ double Sfi_InMin(double r)
  */
 double Sfi_InMinInte(double r, double dr)
 {
-    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(Table.S, dr)
            * giveTransparency() * g(r,dr) / ( 1 - pow(giveTransparency()*g(0,dr),2) )
            * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 }
@@ -161,7 +161,7 @@ double Sfi_InPlus(double r)
  */
 double Sfi_InPlusInte(double r, double dr)
 {
-    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(dr)
+    return CrosssecFusion(ParticleEnergy2(r,dr)) * pow(dr/r,2) * interpolation(Table.S, dr)
            * pow(giveTransparency() * g(0,dr),2) / ( 1 - pow(giveTransparency()*g(0,dr),2) ) * 1 / g(giveCathodeRadius(),dr)
            * exp( -1 * ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 }

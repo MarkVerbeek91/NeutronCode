@@ -26,7 +26,7 @@ double NeutronsIonFluxInwards_Inte1(double r, double dr)
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
-    term1 *= interpolation(dr);
+    term1 *= interpolation(Table.S, dr);
     term1 *= 1 / ( 1 - pow(giveTransparency() * g(0,dr),2));
     term1 *= g(r,dr);
 
@@ -42,7 +42,7 @@ double NeutronsIonFluxInwards_Inte2(double r, double dr)
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
-    term1 *= interpolation(dr);
+    term1 *= interpolation(Table.S, dr);
     term1 *= 1 / ( 1 - pow(giveTransparency() * g(0,dr),2));
     term1 *= g(giveCathodeRadius(),dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * (r - giveCathodeRadius()));
 
@@ -99,7 +99,7 @@ double NeutronsIonFluxOutwards_Inte1(double r, double dr)
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
-    term1 *= interpolation(dr);
+    term1 *= interpolation(Table.S, dr);
     term1 *= pow(g(0,dr),2) / ( 1 - pow(giveTransparency() * g(0,dr),2));
     term1 /= g(giveCathodeRadius(), dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 
@@ -114,7 +114,7 @@ double NeutronsIonFluxOutwards_Inte2(double r, double dr)
 
     term1  = CrosssecFusion(E);
     term1 *= pow(dr/r,2);
-    term1 *= interpolation(dr);
+    term1 *= interpolation(Table.S, dr);
     term1 *= 1 / ( 1 - pow(giveTransparency() * g(0,dr),2));
     term1 /= g(r, dr);
 

@@ -26,7 +26,7 @@ double NeutralsClassIISpectrumInwards_Inte1(double E, double ddr)
     }
     double integrant;
 
-    integrant  = interpolation(ddr);
+    integrant  = interpolation(Table.S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(dr, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
@@ -49,7 +49,7 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
 
     double integrant;
 
-    integrant  = interpolation(ddr);
+    integrant  = interpolation(Table.S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(dr, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
@@ -95,7 +95,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
         term2 *= g(giveCathodeRadius(), ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr));
         term2 *= 1 - exp(ngas * CrosssecCX(E) * ( r - giveCathodeRadius()) );
-        term2 *= interpolation(ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table.S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = giveTransparency() * ( term1 + term2);
     }
@@ -121,7 +121,7 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
 
     double integrant;
 
-    integrant  = interpolation(ddr);
+    integrant  = interpolation(Table.S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(giveCathodeRadius(), ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
@@ -145,7 +145,7 @@ double NeutralsClassIISpectrumOutwards_Inte2(double E, double r, double ddr)
     if ( intergrant == 0)
         return 0;
 
-    integrant  = interpolation(ddr);
+    integrant  = interpolation(Table.S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
     integrant *= pow(ddr,2);
@@ -181,7 +181,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
         term2 *= g(giveCathodeRadius(), ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr));
         term2 *= 1 - exp(- ngas * CrosssecCX(E) * ( r + giveCathodeRadius()) );
-        term2 *= interpolation(ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table.S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = giveTransparency() * ( term1 + term2);
     }
@@ -200,7 +200,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
         term2 *= g(giveCathodeRadius(), ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr));
         term2 *= 1 - exp(-2 * ngas * CrosssecCX(E) * giveCathodeRadius());
-        term2 *= interpolation(ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table.s, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = pow(giveTransparency(),2) * ( term1 + term2);
     }

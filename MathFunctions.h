@@ -5,7 +5,7 @@ double NIntegration( double (*funcPtr)(double), double Start, double End);
 double NIntegration_2( double (*funcPtr)(double, double), double var, double Start, double End);
 double NIntegration_3( double (*funcPtr)(double, double, double), double var1, double var2, double Start, double End);
 
-double interpolation(double r);
+double interpolation(double *table, double r);
 
 double differentiat( double (*funcPtr)(double), double point);
 

@@ -36,7 +36,7 @@ double IonSpectrumInwards(double r, double E)
 
     term1  = 1/giveq();
     term1 *= pow(dr/r,2);
-    term1 *= interpolation(dr) / abs(differentiat(*PhiPtr, dr));
+    term1 *= interpolation(Table.S, dr) / abs(differentiat(*PhiPtr, dr));
     term1 *= 1 / ( 1 - pow(giveTransparency() * g(0,dr),2));
 
     if ( giveCathodeRadius() < r )
@@ -91,7 +91,7 @@ double IonSpectrumOutwards(double r, double E)
 
     term1  = 1/giveq();
     term1 *= pow(dr/r,2);
-    term1 *= interpolation(dr) / abs(differentiat(*PhiPtr, dr));
+    term1 *= interpolation(Table.S, dr) / abs(differentiat(*PhiPtr, dr));
     term1 *= pow(g(0, dr),2) / ( 1 - pow(giveTransparency() * g(0,dr),2) );
 
     if ( r < giveCathodeRadius())

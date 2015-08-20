@@ -11,7 +11,7 @@
 #include "MathFunctions.h"
 
 // TODO: variable input for which points should be inerpolated
-double interpolation(double r)
+double interpolation(double *table, double r)
 {
     double value = -1;
     int low = N_TABLE - 2, upper = N_TABLE - 1;
@@ -25,9 +25,9 @@ double interpolation(double r)
         }
     }
 
-    double slope = ( Table.S[upper] - Table.S[low])/(Table.R[upper] - Table.R[low]);
+    double slope = ( table[upper] - table[low])/(Table.R[upper] - Table.R[low]);
 
-    value = slope*r + Table.S[low] - Table.R[low] * slope;
+    value = slope*r + table[low] - Table.R[low] * slope;
 
     if (value < 0)
         value *= -1;
