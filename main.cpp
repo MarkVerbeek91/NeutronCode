@@ -167,7 +167,8 @@ int main()
     I4 = I_c4();
     printf("# 4 current: %E\n",I4);
 
-    EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
+    //EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
+    EdgeIonFlux = Itot / ( I1 + I2 + I3 + I4);
 
     printf("# EdgeIonFlux: %E\n# - Done\n", EdgeIonFlux);
 
@@ -216,42 +217,42 @@ int main()
 
             // Ions
         // inwards
-//        FuncPtr = &NeutronsIonFluxInwards;
+        FuncPtr = &NeutronsIonFluxInwards;
 
         printf("# Outside cathode, inwards\n");
-//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_1.csv", 10);
+   //     plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_1.csv", "GNU_NSR.txt");
 
         // outwards
         FuncPtr = &NeutronsIonFluxOutwards;
 
         printf("# Outside cathode, outwards\n");
-//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", 11);
+   //     plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", "GNU_NSR.txt");
 
             // Neutrals Class I
         // inwards
         FuncPtr = &NeutronsNeutralsClassIFluxInwards;
 
         printf("# In cathode, inwards\n");
-//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.csv", 12);
+   //     plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.csv", "GNU_NSR.txt");
 
         // outwards
         FuncPtr = &NeutronsNeutralsClassIFluxOutwards;
 
         printf("# In cathode, outwards\n");
-//        print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.csv", 13);
+   //     plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.csv", "GNU_NSR.txt");
 
             // Neutrals ClassII
         // inwards
         FuncPtr = &NeutronsNeutralsClassIIFluxInwards;
 
         printf("# In cathode, inwards\n");
-  //      print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", 14);
+        plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", "GNU_NSR.txt");
 
         // outwards
         FuncPtr = &NeutronsNeutralsClassIIFluxOutwards;
 
         printf("# In cathode, outwards\n");
-  //      print_data_dd(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.csv", 15);
+  //      plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.csv", "GNU_NSR.txt");
 
     }
 

@@ -96,11 +96,13 @@ double NeutronsNeutralsClassIFluxOutwards_Inte1(double r, double dr)
 
     E = ParticleEnergy2(r, dr);
 
-    term1  = CrosssecFusion(E);
+    term1  = f(dr);
+
+    term1 *= CrosssecFusion(E);
     term1 *= pow(giveAnodeRadius()/r,2);
     term1 *= ngas * CrosssecCX(E);
     term1 *= EdgeIonFlux;
-    term1 *= f(dr);
+
 
     return term1;
 }
@@ -130,7 +132,7 @@ double NeutronsNeutralsClassIFluxOutwards(double r)
     double NeutronFlux;
     double term1 = 0, term2 = 0;
 
-    if ( giveCathodeRadius() < r )
+    if ( r < giveCathodeRadius() )
     {
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutronsNeutralsClassIFluxOutwards_Inte1;
@@ -146,7 +148,7 @@ double NeutronsNeutralsClassIFluxOutwards(double r)
     else
     {
         double (*FunctPtr)(double, double);
-        FunctPtr = &NeutronsNeutralsClassIFluxOutwards_Inte1;
+        FunctPtr = &NeutronsNeutralsClassIFluxOutwards_Inte2;
 
         term1 = NIntegration_2(FunctPtr, r, r, giveAnodeRadius());
 

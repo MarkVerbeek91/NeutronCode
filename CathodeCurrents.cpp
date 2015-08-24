@@ -63,7 +63,7 @@ double I_c3(void)
     double current;
     double Emax = ParticleEnergy1(giveCathodeRadius());
 
-    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * ngas * (CrosssecTot(Emax)/CrosssecCX(Emax));
+    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * (CrosssecTot(Emax)/CrosssecCX(Emax));
     current *= pow(giveAnodeRadius(),2) * f(giveCathodeRadius()) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * giveCathodeRadius()));
 
     return current;
@@ -91,7 +91,7 @@ double I_c4(void)
 
     sum = NIntegration(*I_c4intePtr, giveCathodeRadius(), giveAnodeRadius());
 
-    current = 4 * 3.141529 * Q_ELECTRON * sum;
+    current = 4 * 3.141529 * Q_ELECTRON * sum; // missing ngas
 
     return current;
 }

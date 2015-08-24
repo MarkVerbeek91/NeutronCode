@@ -19,11 +19,8 @@ double NeutralsClassIISpectrumInwards_Inte1_Int(double E, double r, double ddr)
 {
     double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
-    if ( dr < r )
-    {
-        printf("NeutralsClassIISpectrumInwards_Inte1_Int error: dr < r\n");
-        return NAN;
-    }
+    if ( dr > r )
+        return 0;
 
     double integrant;
 
@@ -67,8 +64,7 @@ double NeutralsClassIISpectrumInwards_Inte2_Int(double E, double ddr)
 
     if ( giveCathodeRadius() > dr )
     {
-        printf("NeutralsClassIISpectrumInwards_Inte2_Int error: d > dr\n");
-        return NAN;
+        return 0;
     }
 
     double integrant;
