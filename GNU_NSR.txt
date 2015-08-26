@@ -3,7 +3,8 @@
 #
 set title "Neutron source rate"			# set title
 set xlabel "radius [m]"			# set x axis lable
-set ylabel "foo"		# set y axis lable
+set ylabel "Neutron production [/s]"		# set y axis lable
+set yrange log
 set term wxt 8					# set figure ID, prevention of overwriting of existing figures
 $data << EOD
 @

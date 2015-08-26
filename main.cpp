@@ -219,14 +219,14 @@ int main()
         // inwards
         FuncPtr = &NeutronsIonFluxInwards;
 
-        printf("# Outside cathode, inwards\n");
-   //     plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_1.csv", "GNU_NSR.txt");
+        printf("# Neutrons from inwards ions\n");
+//        plot_function_1D(*FuncPtr, 1e-3, giveAnodeRadius(), 0.001, "NSR_1.csv", "GNU_NSR.txt");
 
         // outwards
         FuncPtr = &NeutronsIonFluxOutwards;
 
-        printf("# Outside cathode, outwards\n");
-   //     plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", "GNU_NSR.txt");
+        printf("# Neutrons from outwards ions\n");
+        plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", "GNU_NSR.txt");
 
             // Neutrals Class I
         // inwards
@@ -246,7 +246,7 @@ int main()
         FuncPtr = &NeutronsNeutralsClassIIFluxInwards;
 
         printf("# In cathode, inwards\n");
-        plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", "GNU_NSR.txt");
+  //      plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", "GNU_NSR.txt");
 
         // outwards
         FuncPtr = &NeutronsNeutralsClassIIFluxOutwards;
