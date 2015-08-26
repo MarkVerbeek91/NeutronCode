@@ -83,7 +83,7 @@ double NeutronsNeutralsClassIFluxInwards(double r)
         NeutronFlux = giveTransparency() * (term1 + term2);
     }
 
-    return NeutronFlux;
+    return ngas * NeutronFlux;
 }
 
 /**
@@ -159,5 +159,5 @@ double NeutronsNeutralsClassIFluxOutwards(double r)
         NeutronFlux = giveTransparency() * (term1 + term2);
     }
 
-    return NeutronFlux;
+    return ngas * NeutronFlux;
 }

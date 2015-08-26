@@ -246,7 +246,7 @@ int main()
         FuncPtr = &NeutronsNeutralsClassIIFluxInwards;
 
         printf("# In cathode, inwards\n");
-  //      plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", "GNU_NSR.txt");
+        plot_function_1D(*FuncPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", "GNU_NSR.txt");
 
         // outwards
         FuncPtr = &NeutronsNeutralsClassIIFluxOutwards;

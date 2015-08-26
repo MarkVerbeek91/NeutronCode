@@ -15,7 +15,7 @@
 */
 
 // intregral of neutral from claas II ions _outside_ the cathode _inwards_
-double NeutralsClassIISpectrumInwards_Inte1_Int(double E, double r, double ddr)
+double NeutralsClassIISpectrumInwards_Inte1_Inte(double E, double r, double ddr)
 {
     double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
@@ -43,14 +43,14 @@ double NeutronsNeutralsClassIIFluxInwards_Inte1(double r, double dr)
         return NAN;
     }
 
-    E = ParticleEnergy2(r, dr);
+    E = ParticleEnergy1(dr);
 
     term1  = CrosssecFusion(E);
     term1 /= pow(r,2);
-    term1 *= ngas * CrosssecCX(E);
+    term1 *= CrosssecCX(E);
 
     double (*FunctPtr)(double, double, double);
-    FunctPtr = &NeutralsClassIISpectrumInwards_Inte1_Int;
+    FunctPtr = &NeutralsClassIISpectrumInwards_Inte1_Inte;
 
     term1 *= NIntegration_3(*FunctPtr, E, r, r, giveAnodeRadius());
 
@@ -58,7 +58,7 @@ double NeutronsNeutralsClassIIFluxInwards_Inte1(double r, double dr)
 }
 
 // intregral of neutral from claas II ions _inside_ the cathode _inwards_
-double NeutralsClassIISpectrumInwards_Inte2_Int(double E, double ddr)
+double NeutralsClassIISpectrumInwards_Inte2_Inte(double E, double ddr)
 {
     double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
@@ -82,22 +82,21 @@ double NeutronsNeutralsClassIIFluxInwards_Inte2(double r, double dr)
 {
     double E, term1;
 
-    if ( giveCathodeRadius() > dr )
+    if ( r > giveCathodeRadius() )
     {
-        printf("NeutralsClassIISpectrumInwards_Inte2 error: d > dr\n");
+        printf("NeutralsClassIISpectrumInwards_Inte2 error: r > d\n");
         return NAN;
     }
 
 
-    E = ParticleEnergy2(r, dr);
+    E = ParticleEnergy1(dr);
 
     term1  = CrosssecFusion(E);
     term1 /= pow(r,2);
-    term1 *= ngas * CrosssecCX(E);
-    term1 *= EdgeIonFlux;
+    term1 *= CrosssecCX(E);
 
     double (*FunctPtr)(double, double);
-    FunctPtr = &NeutralsClassIISpectrumInwards_Inte2_Int;
+    FunctPtr = &NeutralsClassIISpectrumInwards_Inte2_Inte;
 
     term1 *= NIntegration_2(*FunctPtr, E, giveCathodeRadius(), giveAnodeRadius());
 
@@ -133,7 +132,7 @@ double NeutronsNeutralsClassIIFluxInwards(double r)
         NeutronFlux = giveTransparency() * (term1 + term2);
     }
 
-    return NeutronFlux;
+    return ngas * NeutronFlux;
 }
 
 /**
