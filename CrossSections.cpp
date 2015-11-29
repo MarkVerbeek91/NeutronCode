@@ -9,6 +9,9 @@
 #include "CrossSectionsCont.h"
 #include "CrossSections.h"
 
+/** \brief give all constants in the cross section structs a value.
+ *
+ */
 void InitCrossSectionConstands(void)
 {
 

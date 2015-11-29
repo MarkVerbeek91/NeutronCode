@@ -26,7 +26,9 @@ int main()
     FILE * input;
     input = fopen("input.ini","r");
 
+    // call function to initalise needed variables.
     initBool();
+    InitCrossSectionConstands();
 
     if ( input == NULL)
     {
