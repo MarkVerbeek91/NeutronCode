@@ -9,6 +9,33 @@
 #include "CrossSectionsCont.h"
 #include "CrossSections.h"
 
+void InitCrossSectionConstands(void)
+{
+
+    CS_cx.A1cx =   3.245     ;
+    CS_cx.A2cx = 235.88      ;
+    CS_cx.A3cx =   0.038371  ;
+    CS_cx.A4cx =   3.8068e-6 ;
+    CS_cx.A5cx =   1.1832e-10;
+    CS_cx.A6cx =   2.3713    ;
+
+    CS_Ion.A1Ion = 12.899    ;
+    CS_Ion.A2Ion = 61.897    ;
+    CS_Ion.A3Ion =  9.27e3   ;
+    CS_Ion.A4Ion =  4.9749e-4;
+    CS_Ion.A5Ion =  3.989e-2 ;
+    CS_Ion.A6Ion = -1.59     ;
+    CS_Ion.A7Ion =  3.1834   ;
+    CS_Ion.A8Ion = -3.7154   ;
+
+    CS_Fusion.A1Fusion =  47.88     ;
+    CS_Fusion.A2Fusion = 482        ;
+    CS_Fusion.A3Fusion =   3.08e-4  ;
+    CS_Fusion.A4Fusion =   1.177    ;
+    CS_Fusion.A5Fusion =   0        ;
+
+}
+
 /** \brief Calculates the CX crosssection for particle with energy E
  *
  * \param E = energy of particle
