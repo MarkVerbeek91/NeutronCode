@@ -1,5 +1,5 @@
 /**
-    This file contains all cross sections
+    This file contains all cross sections functions
 
 */
 
@@ -18,10 +18,10 @@
  */
 double CrosssecCX(double E)
 {
-    if ( E == 0 )
+    if ( E < 1e-4 )
     {
         printf("Cross section CX called for zero energy\n");
-        E = 0.0001;
+        E = 1e-5;
     }
 
     double crosssection;
@@ -42,10 +42,10 @@ double CrosssecCX(double E)
  */
 double CrosssecIon(double E)
 {
-    if ( E == 0 )
+    if ( E < 1e-4 )
     {
         printf("Cross section Ion called for zero energy\n");
-        E = 0.0001;
+        E = 1e-5;
     }
 
     double crosssection;
@@ -81,10 +81,10 @@ double CrosssecTot(double energy)
  */
 double CrosssecFusion(double E)
 {
-    if ( E == 0 )
+    if ( E < 1e-4 )
     {
         printf("Cross section Fusion called for zero energy\n");
-        E = 0.0001;
+        E = 1e-5;
     }
 
     double crosssection, energy = E/1000.;
