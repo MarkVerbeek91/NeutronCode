@@ -26,10 +26,12 @@ int main()
     FILE * input;
     input = fopen("input.ini","r");
 
-    // call function to initalise needed variables.
+    // Initalise needed variables.
     initBool();
     InitCrossSectionConstands();
 
+    // read in ini file
+    // TODO: more parameters to file
     if ( input == NULL)
     {
         printf("# Missing input file, using standard parameters\n\n");
@@ -43,15 +45,9 @@ int main()
 
     fclose(input);
 
-    ngas = 6.022e23 * pressure / (8.314 * Tgas); //
-
-    // filling the potential array and particle energy
     printf("# -- Start of program -- \n");
-    // initialise the fusor parameters
-//    init();
 
     // writing the potential to a file for plotting
-
     if ( printbool.potential )
     {
         printf("# Potential calculation\n");
@@ -75,7 +71,6 @@ int main()
         double (*SIIEEPtr)(double);
         SIIEEPtr = &SIIEE;
 
-        //print_data_dd(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", 1);
         plot_function_1D(*SIIEEPtr, 1.0, -giveVoltage(), 1, "SIIEE.csv", "GNU_SIIEE.txt");
     }
 
@@ -117,21 +112,17 @@ int main()
         plot_function_2D(*gPtr, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "g.csv", "GNU_Survival_functions.txt");
     }
 
-    // source rate for first generation of Class II ions.
+    // Calculating: source rate for first generation of Class II ions.
 
     printf("# filling tables:\n");
+    // building the "Kernel", filling tables A and R.
     CalculateTables();
 
     printf("# Calculating S:\n");
     S();
     printf("#  - Done\n");
 
-    // calculating the energy spectrum of ions
-
-        // building the "Kernel"
-    // TODO: replace this function by the table in memory to file. Just like
-    // by the S table a few line down. This will save computation time because
-    // the kernel does not to be calculated twice.
+    // writing K to file
     if ( printbool.KernelTable )
     {
         printf("# Kernel\n");
@@ -139,7 +130,7 @@ int main()
         plot_table_2D(Table.K, "KTable.csv", "GNU_Ktable.txt");
     }
 
-        // writing A to a file for plotting
+    // writing A to file
     if ( printbool.Atable )
     {
         printf("# Doing some things with A\n");
@@ -147,7 +138,7 @@ int main()
         plot_table_1D(Table.A, "ATable.csv", "GNU_Atable.txt");
     }
 
-    // print the S tables to screen
+    // writing S to file
     if ( printbool.Stable )
     {
         printf("# Writing tables to files:\n");
@@ -156,7 +147,7 @@ int main()
     }
 
 
-
+    // calculate the currents in the cathode
     double I1, I2, I3, I4;
 
     printf("# Calculating Currents:\n");
@@ -174,12 +165,15 @@ int main()
 
     printf("# EdgeIonFlux: %E\n# - Done\n", EdgeIonFlux);
 
-    if ( printbool.Spectrum )
+    // write spectrum to files
+    // TODO: write to folder, are a lot of files
+    //       or find a way of making one file
+/*    if ( printbool.Spectrum )
     {
         printf("# Printing Energy spectrum to files\n");
 
         printf("# Energy spectrum of ions going inwards\n");
-/*
+
         double (*IonSpectrumInwardsPtr)(double, double);
         IonSpectrumInwardsPtr = &IonSpectrumInwards;
 
@@ -208,10 +202,9 @@ int main()
             j++;
         }
 
-*/
-    }
+    } */
 
-    // the neutron source rate
+    // Calculate the neutron source rate
     if ( printbool.NSR )
     {
         printf("# Printing neutron source rate to file:\n");
@@ -258,6 +251,7 @@ int main()
 
     }
 
+    // calculate neutron production rate (NPR)
     if ( printbool.NPR )
     {
         printf("# Calculating NPR:\n");

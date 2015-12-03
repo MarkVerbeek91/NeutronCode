@@ -17,6 +17,8 @@ void init(void)
     fusor.V0 = -40000;
     fusor.wire_diameter = 0.005;
     fusor.Tc = 0.95;
+
+    ngas = 6.022e23 * pressure / (8.314 * Tgas); //
 }
 
 void initBool(void)
@@ -41,7 +43,7 @@ PrintBool printbool;
 double q = 1;
 double pressure = 0.5;  // Pa
 double Tgas = 400; // K
-double ngas = 9.05401e19; //t
+double ngas; //t
 double E0 = 0.0001;          // reducing errors
 double Itot = 0.1;
 
