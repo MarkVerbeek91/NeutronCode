@@ -72,9 +72,13 @@ double adaptiveSimpsonsAux(double (*f)(double), double a, double b, double epsil
     double Sleft = (h/12)*(fa + 4*fd + fc);
     double Sright = (h/12)*(fc + 4*fe + fb);
     double S2 = Sleft + Sright;
+    
+    if (S2 == NAN)
+        return NAN;
+    
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
-
+   
     return adaptiveSimpsonsAux(f, a, c, epsilon/2, Sleft,  fa, fc, fd, bottom-1) +
            adaptiveSimpsonsAux(f, c, b, epsilon/2, Sright, fc, fb, fe, bottom-1);
 }
@@ -101,6 +105,10 @@ double adaptiveSimpsonsAux2(double (*f)(double, double), double a, double b, dou
     double Sleft = (h/12)*(fa + 4*fd + fc);
     double Sright = (h/12)*(fc + 4*fe + fb);
     double S2 = Sleft + Sright;
+    
+    if (S2 == NAN)
+        return NAN;
+
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
 
@@ -131,6 +139,10 @@ double adaptiveSimpsonsAux3(double (*f)(double, double, double), double a, doubl
     double Sleft = (h/12)*(fa + 4*fd + fc);
     double Sright = (h/12)*(fc + 4*fe + fb);
     double S2 = Sleft + Sright;
+    
+    if (S2 == NAN)
+        return NAN;
+    
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
 
@@ -172,17 +184,4 @@ bool DELTA(double d)
     return 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
