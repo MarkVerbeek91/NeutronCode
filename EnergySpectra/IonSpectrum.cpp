@@ -10,6 +10,10 @@
 
 #include "IonSpectrum.h"
 
+// When DEBUG_PARAMETER is defined all check are turned.
+//#define DEBUG_PARAMETER
+
+
 /** \brief Flux of ions moving inwards in the fusor.
  *
  * \param r the radius where to calculate the spectrum
@@ -24,12 +28,13 @@ double IonSpectrumInwards(double r, double E)
     double term1 = 0, term2 = 0;
     double dr = Potential_Phi_Inv(E);
 
+    #ifdef DEBUG_PARAMETER
     if ( giveAnodeRadius() < dr || dr < r )
     {
         printf("IonSpectrumInwards function error: AnodeRadius < dr or dr < r\n");
         return NAN;
     }
-
+    #endif
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -80,11 +85,13 @@ double IonSpectrumOutwards(double r, double E)
     double term1 = 0, term2 = 0;
     double dr = Potential_Phi_Inv(E);
 
+    #ifdef DEBUG_PARAMETER
     if ( dr < giveCathodeRadius() || dr < r )
     {
         printf("IonSpectrumOutwards error: dr < b or dr < r\n");
         return NAN;
     }
+    #endif
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;

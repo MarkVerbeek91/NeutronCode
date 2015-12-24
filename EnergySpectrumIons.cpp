@@ -9,18 +9,21 @@
 #include "EnergySpectrumIons.h"
 
 // inward ions.
+// When DEBUG_PARAMETER is defined all check are turned.
+#define DEBUG_PARAMETER
 
 double f_min(double r, double E)
 {
     double result;
     double dr = Potential_Phi_Inv(E);
 
+    #ifdef DEBUG_PARAMETER
     if ( r > dr || dr > giveAnodeRadius())
     {
         printf("f_min function error: r > dr or dr > a\n");
         return NAN;
     }
-
+    #endif
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -47,14 +50,13 @@ double f_plus(double r, double E)
     double result;
     double dr = r_shell2(r, E);
 
-//    printf("E = %E, r = %E, dr = %E\n", E, r, dr);
-
+    #ifdef DEBUG_PARAMETER
     if ( r > dr || dr > giveAnodeRadius())
     {
         printf("f_plus function error: r > dr or dr > Anode Radius\n");
         return NAN;
     }
-
+    #endif
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;

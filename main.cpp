@@ -21,6 +21,9 @@
 
 #include "includes.h"
 
+// When DEBUG_PARAMETER is defined all check are turned.
+#define DEBUG_PARAMETER
+
 int main()
 {
     FILE * input;
@@ -29,6 +32,11 @@ int main()
     // Initalise needed variables.
     initBool();
     InitCrossSectionConstands();
+
+    #ifdef DEBUG_PARAMETER
+        // test
+        printf("Debug parameter turned on\n");
+    #endif
 
     // read in ini file
     // TODO: more parameters to file
