@@ -34,6 +34,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="-DEBUG_PARAMETER" />
 		</Compiler>
 		<Unit filename="Auxiliary.cpp" />
 		<Unit filename="Auxiliary.h">
