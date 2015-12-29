@@ -38,6 +38,12 @@ void initBool(void)
 //Fusor fusor;
 //Tables Table;
 //PrintBool printbool;
+struct Fusor FusorData;
+struct Fusor *fusor = &FusorData;
+struct Tables TableData;
+struct Tables *Table =&TableData;
+struct PrintBool Printbool;
+struct PrintBool *printbool = &Printbool;
 
 // defining of some variables
 double q = 1;

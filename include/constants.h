@@ -69,8 +69,8 @@ struct PrintBool{
     bool NPR;
 };
 
-struct Fusor FusorData, *fusor = &FusorData;
-struct Tables TableData, *Table =&TableData;
-struct PrintBool Printbool, *printbool = &Printbool;
+extern struct Fusor FusorData, *fusor;
+extern struct Tables TableData, *Table;
+extern struct PrintBool Printbool, *printbool;
 
 #endif // CONSTANTS_H_INCLUDED
