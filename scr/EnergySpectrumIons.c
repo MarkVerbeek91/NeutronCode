@@ -9,8 +9,6 @@
 #include "EnergySpectrumIons.h"
 
 // inward ions.
-// When DEBUG_PARAMETER is defined all check are turned.
-#define DEBUG_PARAMETER
 
 double f_min(double r, double E)
 {
