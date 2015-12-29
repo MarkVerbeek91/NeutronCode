@@ -14,9 +14,9 @@
  */
 
 // standaard libs
-#include <iostream>
 #include <math.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>     /* getenv */
 
 #include "includes.h"
@@ -56,7 +56,7 @@ int main()
     printf("# -- Start of program -- \n");
 
     // writing the potential to a file for plotting
-    if ( printbool.potential )
+    if ( printbool->potential )
     {
         printf("# Potential calculation\n");
 
@@ -72,7 +72,7 @@ int main()
     }
 
     // writing the SIIEE to a file for plotting
-    if ( printbool.SIIEE )
+    if ( printbool->SIIEE )
     {
         printf("# SIIEE calculation\n");
 
@@ -84,7 +84,7 @@ int main()
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
     // of those to files to a file for plotting
-    if ( printbool.Cross_section )
+    if ( printbool->Cross_section )
     {
         printf("# Cross section calculation\n");
 
@@ -105,7 +105,7 @@ int main()
     }
 
     // Writing the survival functions to a file for plotting.
-    if ( printbool.Survival )
+    if ( printbool->Survival )
     {
         printf("# Survival function calculation\n");
 
@@ -131,27 +131,27 @@ int main()
     printf("#  - Done\n");
 
     // writing K to file
-    if ( printbool.KernelTable )
+    if ( printbool->KernelTable )
     {
         printf("# Kernel\n");
 
-        plot_table_2D(Table.K, "KTable.csv", "GNU_Ktable.txt");
+        plot_table_2D(Table->K, "KTable.csv", "GNU_Ktable.txt");
     }
 
     // writing A to file
-    if ( printbool.Atable )
+    if ( printbool->Atable )
     {
         printf("# Doing some things with A\n");
 
-        plot_table_1D(Table.A, "ATable.csv", "GNU_Atable.txt");
+        plot_table_1D(Table->A, "ATable.csv", "GNU_Atable.txt");
     }
 
     // writing S to file
-    if ( printbool.Stable )
+    if ( printbool->Stable )
     {
         printf("# Writing tables to files:\n");
 
-        plot_table_1D(Table.S, "STable.csv", "GNU_Stable.txt");
+        plot_table_1D(Table->S, "STable.csv", "GNU_Stable.txt");
     }
 
 
@@ -176,7 +176,7 @@ int main()
     // write spectrum to files
     // TODO: write to folder, are a lot of files
     //       or find a way of making one file
-/*    if ( printbool.Spectrum )
+/*    if ( printbool->Spectrum )
     {
         printf("# Printing Energy spectrum to files\n");
 
@@ -213,7 +213,7 @@ int main()
     } */
 
     // Calculate the neutron source rate
-    if ( printbool.NSR )
+    if ( printbool->NSR )
     {
         printf("# Printing neutron source rate to file:\n");
         double (*FuncPtr)(double);
@@ -260,7 +260,7 @@ int main()
     }
 
     // calculate neutron production rate (NPR)
-    if ( printbool.NPR )
+    if ( printbool->NPR )
     {
         printf("# Calculating NPR:\n");
         double NPR = Nps();

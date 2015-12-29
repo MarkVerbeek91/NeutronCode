@@ -1,6 +1,3 @@
-
-#include "constants.h"
-
 /**
  * Declaration of constants and tables. Here the properties of a fusor are
  * descripted. Some phicical constants defined like charge of a proton and
@@ -9,30 +6,33 @@
  * The tables will contain the values that take a long time to calculate.
  *
  */
-
+#include "stdbool.h"
+	
+#include "constants.h"
+ 
 void init(void)
 {
-    fusor.a = 0.05;
-    fusor.b = 0.25;
-    fusor.V0 = -40000;
-    fusor.wire_diameter = 0.005;
-    fusor.Tc = 0.95;
+    fusor->a = 0.05;
+    fusor->b = 0.25;
+    fusor->V0 = -40000;
+    fusor->wire_diameter = 0.005;
+    fusor->Tc = 0.95;
 
     ngas = 6.022e23 * pressure / (8.314 * Tgas); //
 }
 
 void initBool(void)
 {
-    printbool.potential     = false;
-    printbool.SIIEE         = false;
-    printbool.Cross_section = false;
-    printbool.Survival      = false;
-    printbool.Atable        = false;
-    printbool.KernelTable   = false;
-    printbool.Stable        = false;
-    printbool.Spectrum      = false;
-    printbool.NSR           = false;
-    printbool.NPR           = false;
+    printbool->potential     = false;
+    printbool->SIIEE         = false;
+    printbool->Cross_section = false;
+    printbool->Survival      = false;
+    printbool->Atable        = false;
+    printbool->KernelTable   = false;
+    printbool->Stable        = false;
+    printbool->Spectrum      = false;
+    printbool->NSR           = false;
+    printbool->NPR           = false;
 }
 
 Fusor fusor;
@@ -52,22 +52,22 @@ double EdgeIonFlux;
 
 double giveCathodeRadius(void)
 {
-    return fusor.a;
+    return fusor->a;
 }
 
 double giveAnodeRadius(void)
 {
-    return fusor.b;
+    return fusor->b;
 }
 
 double giveVoltage(void)
 {
-    return fusor.V0;
+    return fusor->V0;
 }
 
 double giveTransparency(void)
 {
-    return fusor.Tc;
+    return fusor->Tc;
 }
 
 double giveq(void)

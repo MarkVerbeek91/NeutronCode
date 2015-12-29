@@ -36,7 +36,7 @@ double I_c1(void)
 
 double I_c2inte(double dr)
 {
-    double  fac  = interpolation(Table.S, dr) / ( 1 - pow(giveTransparency()*g(0,dr),2));
+    double  fac  = interpolation(Table->S, dr) / ( 1 - pow(giveTransparency()*g(0,dr),2));
             fac *= (g(giveCathodeRadius(),dr) + giveTransparency() * pow(g(0,dr),2)/g(giveCathodeRadius(),dr));
             fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
 
@@ -75,7 +75,7 @@ double I_c4inte(double dr)
 
     fac  = pow(dr,2);
     fac *= CrosssecTot(ParticleEnergy2(giveCathodeRadius(),dr))/CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr));
-    fac *= (interpolation(Table.S, dr) * g(giveCathodeRadius(),dr))/( 1.0 - pow(giveTransparency() * g(0,dr),2));
+    fac *= (interpolation(Table->S, dr) * g(giveCathodeRadius(),dr))/( 1.0 - pow(giveTransparency() * g(0,dr),2));
     fac *= ( 1 - exp( -2 * ngas * giveCathodeRadius() * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr))));
 
     return fac;

@@ -1,6 +1,8 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
+
 
 #include "constants.h"
 #include "MathFunctions.h"
@@ -17,16 +19,20 @@
 // intregral of neutral from claas II ions _outside_ the cathode _inwards_
 double NeutralsClassIISpectrumInwards_Inte1(double E, double ddr)
 {
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-
+    double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+/*
     if ( dr < r )
     {
         printf("NeutralsClassIISpectrumInwards_Inte1 error: dr < r \n");
         return NAN;
     }
+*/
+	double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
+
     double integrant;
 
-    integrant  = interpolation(Table.S, ddr);
+    integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(dr, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
@@ -38,7 +44,7 @@ double NeutralsClassIISpectrumInwards_Inte1(double E, double ddr)
 // intregral of neutral from claas II ions _inside_ the cathode _inwards_
 double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
 {
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+    double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
     if ( giveCathodeRadius() < dr )
     {
@@ -46,10 +52,12 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
         return NAN;
     }
 
+	double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
 
     double integrant;
 
-    integrant  = interpolation(Table.S, ddr);
+    integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(dr, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
@@ -62,7 +70,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
-
+	
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
@@ -74,7 +82,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     {
         // outside the cathode region
         double (*FunctPtr)(double, double);
-        FunctPtr = &NeutralsClassIISpectrumInwardsInte1;
+        FunctPtr = &NeutralsClassIISpectrumInwards_Inte1;
 
         term1 *= NIntegration_2(*FunctPtr, E, r, giveAnodeRadius());
 
@@ -84,18 +92,19 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     {
         // inside the cathode region
         double (*FunctPtr)(double, double);
-        FunctPtr = &NeutralsClassIISpectrumInwardsInte2;
+        FunctPtr = &NeutralsClassIISpectrumInwards_Inte2;
 
         term1 *= NIntegration_2(FunctPtr, E, giveCathodeRadius(), giveAnodeRadius());
 
-        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-        drr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
+		double ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
 
-        term2  = pow(drr/r, 2);
+        double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+        
+        term2  = pow(ddr/r, 2);
         term2 *= g(giveCathodeRadius(), ddr);
-        term2 /= 1 - pow(giveTransparency() * g(0, ddr));
+        term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);
         term2 *= 1 - exp(ngas * CrosssecCX(E) * ( r - giveCathodeRadius()) );
-        term2 *= interpolation(Table.S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = giveTransparency() * ( term1 + term2);
     }
@@ -110,18 +119,20 @@ double NeutralsClassIISpectrumInwards (double r, double E)
 // intregral of neutrals from claas II ions _outside_ the cathode _outward_
 double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
 {
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-
+    double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+/*
     if ( dr < r )
     {
         printf("NeutralsClassIISpectrumOutwards_Inte1 error: dr < r \n");
         return NAN;
     }
-
+*/
+	double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
 
     double integrant;
 
-    integrant  = interpolation(Table.S, ddr);
+    integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(giveCathodeRadius(), ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
@@ -133,19 +144,22 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
 // intregral of neutral from claas II ions _inside_ the cathode _outwards_
 double NeutralsClassIISpectrumOutwards_Inte2(double E, double r, double ddr)
 {
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+    double dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
-    double intergrant = 0;
+    double integrant = 0;
     if ( giveCathodeRadius() < dr )
-        intergrant = g(dr, ddr);
+        integrant = g(dr, ddr);
 
     if ( dr < r )
-        intergrant += pow(g(0,ddr),2) / g(dr, ddr);
+        integrant += pow(g(0,ddr),2) / g(dr, ddr);
 
-    if ( intergrant == 0)
+    if ( integrant == 0)
         return 0;
 
-    integrant  = interpolation(Table.S, ddr);
+	double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
+	
+    integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
     integrant *= pow(ddr,2);
@@ -155,9 +169,9 @@ double NeutralsClassIISpectrumOutwards_Inte2(double E, double r, double ddr)
 
 double NeutralsClassIISpectrumOutwards (double r, double E)
 {
-    double flux;
+    double flux, dr, ddr;
     double term1 = 0, term2 = 0;
-
+	
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
@@ -169,19 +183,20 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
     {
         // inside the cathode region
 
-        double (*FunctPtr)(double, double);
+        double (*FunctPtr)(double, double, double);
         FunctPtr = &NeutralsClassIISpectrumOutwards_Inte2;
 
-        term1 *= NIntegration_2(*FunctPtr, E, r, giveAnodeRadius());
+        term1 *= NIntegration_3(*FunctPtr, E, r, r, giveAnodeRadius());
+
+		ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
 
         dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-        drr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
 
-        term2  = pow(drr/r, 2);
+        term2  = pow(ddr/r, 2);
         term2 *= g(giveCathodeRadius(), ddr);
-        term2 /= 1 - pow(giveTransparency() * g(0, ddr));
+        term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);
         term2 *= 1 - exp(- ngas * CrosssecCX(E) * ( r + giveCathodeRadius()) );
-        term2 *= interpolation(Table.S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = giveTransparency() * ( term1 + term2);
     }
@@ -191,16 +206,16 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutralsClassIISpectrumOutwards_Inte1;
 
-        term1 *= NIntegration_3(FunctPtr, E, r, giveCathodeRadius(), giveAnodeRadius());
+        term1 *= NIntegration_2(FunctPtr, E, giveCathodeRadius(), giveAnodeRadius());
 
-        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-        drr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
-
-        term2  = pow(drr/r, 2);
+        ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
+		dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+        
+        term2  = pow(ddr/r, 2);
         term2 *= g(giveCathodeRadius(), ddr);
-        term2 /= 1 - pow(giveTransparency() * g(0, ddr));
+        term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);
         term2 *= 1 - exp(-2 * ngas * CrosssecCX(E) * giveCathodeRadius());
-        term2 *= interpolation(Table.s, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = pow(giveTransparency(),2) * ( term1 + term2);
     }
