@@ -82,15 +82,15 @@ void CalculateTables(void)
     {
         for ( int j = 0; j < N_TABLE; j++)
         {
-            Table.K[i][j] = kernel(i*step+giveCathodeRadius(),j*step+giveCathodeRadius());
+            Table->K[i][j] = kernel(i*step+giveCathodeRadius(),j*step+giveCathodeRadius());
         }
 
         if ( i *(N_TABLE / 50) % 20 == 0)
             printf(".");
 
-        Table.A[i] = A(i*step+giveCathodeRadius());
+        Table->A[i] = A(i*step+giveCathodeRadius());
 
-        Table.R[i] = i*step+giveCathodeRadius();
+        Table->R[i] = i*step+giveCathodeRadius();
     }
 
     printf("\n");

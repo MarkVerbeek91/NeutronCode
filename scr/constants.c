@@ -35,9 +35,9 @@ void initBool(void)
     printbool->NPR           = false;
 }
 
-Fusor fusor;
-Tables Table;
-PrintBool printbool;
+//Fusor fusor;
+//Tables Table;
+//PrintBool printbool;
 
 // defining of some variables
 double q = 1;

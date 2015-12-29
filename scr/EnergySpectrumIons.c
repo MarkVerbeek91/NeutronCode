@@ -30,7 +30,7 @@ double f_min(double r, double E)
 
     double dPhi_dr = differentiat(*PhiPtr, dr);
 
-    result = pow(dr/r,2) * (interpolation(Table.S, dr) / abs(dPhi_dr)) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
+    result = pow(dr/r,2) * (interpolation(Table->S, dr) / abs(dPhi_dr)) * g(r,dr)/( 1 - pow(giveTransparency()*g(0,dr),2) );
 
     // a delta term should be included here
     double delta = 0;
@@ -70,7 +70,7 @@ double f_plus(double r, double E)
     }
 
 
-    result = pow(dr/r,2) * (interpolation(Table.S, dr) / abs(dPhi_dr)) * pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) );
+    result = pow(dr/r,2) * (interpolation(Table->S, dr) / abs(dPhi_dr)) * pow(giveTransparency() * g(0,dr),2)/( 1 - pow(giveTransparency()*g(0,dr),2) );
     result *= 1/g(r,dr);
 
     double delta = 0;

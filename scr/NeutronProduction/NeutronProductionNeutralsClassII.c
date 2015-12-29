@@ -24,7 +24,7 @@ double NeutralsClassIISpectrumInwards_Inte1_Inte(double E, double r, double ddr)
 
     double integrant;
 
-    integrant  = interpolation(Table.S, ddr);
+    integrant  = interpolation(Table->S, ddr);
     integrant *= g(dr, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
     integrant *= pow(ddr,2);
@@ -69,7 +69,7 @@ double NeutralsClassIISpectrumInwards_Inte2_Inte(double E, double ddr)
 
     double integrant;
 
-    integrant  = interpolation(Table.S, ddr);
+    integrant  = interpolation(Table->S, ddr);
     integrant *= g(dr, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
     integrant *= pow(ddr,2);
@@ -151,7 +151,7 @@ double NeutralsClassIISpectrumOutwards_Inte1_Int(double E, double ddr)
 
     double integrant;
 
-    integrant  = interpolation(Table.S, ddr);
+    integrant  = interpolation(Table->S, ddr);
     integrant *= g(giveCathodeRadius(), ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
     integrant *= pow(ddr,2);
@@ -194,7 +194,7 @@ double NeutralsClassIISpectrumOutwards_Inte2_Int(double E, double r, double ddr)
     if ( integrant == 0)
         return 0;
 
-    integrant  = interpolation(Table.S, ddr);
+    integrant  = interpolation(Table->S, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
     integrant *= pow(ddr,2);
 

@@ -18,16 +18,16 @@ double interpolation(double *table, double r)
 
     for ( int i = 0; i < N_TABLE; i++)
     {
-        if ( r < Table.R[i])
+        if ( r < Table->R[i])
         {
             low = i - 1;
             upper = i;
         }
     }
 
-    double slope = ( table[upper] - table[low])/(Table.R[upper] - Table.R[low]);
+    double slope = ( table[upper] - table[low])/(Table->R[upper] - Table->R[low]);
 
-    value = slope*r + table[low] - Table.R[low] * slope;
+    value = slope*r + table[low] - Table->R[low] * slope;
 
     if (value < 0)
         value *= -1;
