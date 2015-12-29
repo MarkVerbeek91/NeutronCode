@@ -7,6 +7,8 @@
  *
  */
 
+#include "stdbool.h"
+ 
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
@@ -67,8 +69,8 @@ struct PrintBool{
     bool NPR;
 };
 
-extern Fusor fusor;
-extern Tables Table;
-extern PrintBool printbool;
+struct Fusor FusorData, *fusor = &FusorData;
+struct Tables TableData, *Table =&TableData;
+struct PrintBool Printbool, *printbool = &Printbool;
 
 #endif // CONSTANTS_H_INCLUDED
