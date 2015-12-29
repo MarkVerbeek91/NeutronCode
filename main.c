@@ -21,9 +21,6 @@
 
 #include "includes.h"
 
-// When DEBUG_PARAMETER is defined all check are turned.
-#define DEBUG_PARAMETER
-
 int main()
 {
     FILE * input;
