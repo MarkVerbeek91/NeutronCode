@@ -1,16 +1,22 @@
 /**
- * This file contains a few pure mathematical functions like interpolation and
+ * @file MathFunctions.c
+ * @author Mark Verbeek
+ * @date 30 december 2015
+ * @brief This file contains a few pure mathematical functions like interpolation and
  * numerical integration. These numerical integration is in several forms
- * because in this code several different integrations are done.
+ * because in this code several different type of functions are needed to be 
+ * integrations are done.
  */
 
 #include <math.h>
 
 #include "constants.h"
-
 #include "MathFunctions.h"
 
-// TODO: variable input for which points should be inerpolated
+/**
+ * @brief Interpolate linear the value in table for location r
+ *
+ */
 double interpolation(double *table, double r)
 {
     double value = -1;
@@ -34,30 +40,6 @@ double interpolation(double *table, double r)
 
     return value;
 }
-/*
-double Interpolation(double* Table[], double r)
-{
-    double value = -1;
-    int low = N_TABLE - 2, upper = N_TABLE - 1;
-
-    for ( int i = 0; i < N_TABLE; i++)
-    {
-        if ( r < Table.R[i])
-        {
-            low = i - 1;
-            upper = i;
-        }
-    }
-
-    double slope = ( Table.S[upper] - Table.S[low])/(Table.R[upper] - Table.R[low]);
-
-    value = slope*r + Table.S[low] - Table.R[low] * slope;
-
-    if (value < 0)
-        value *= -1;
-
-    return value;}
-*/
 
 /** This section of code uses the Adaptive Simpsons rule to calculate the
     integral. It uses a recursive way to minimize to error.
