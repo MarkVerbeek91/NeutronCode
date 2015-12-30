@@ -1,3 +1,9 @@
+/**
+ * \brief All functions to calculate the spectrum of Ions moving through the 
+ * fusor. This are two main functions. One for inward traveling ions and 
+ * another for outward traving ions. 
+ */
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -10,10 +16,6 @@
 
 #include "IonSpectrum.h"
 
-// When DEBUG_PARAMETER is defined all check are turned.
-//#define DEBUG_PARAMETER
-
-
 /** \brief Flux of ions moving inwards in the fusor.
  *
  * \param r the radius where to calculate the spectrum
@@ -24,10 +26,13 @@
 // equations 28 and 30;
 double IonSpectrumInwards(double r, double E)
 {
-    double flux;
+    double flux, dr;
     double term1 = 0, term2 = 0;
-    double dr = Potential_Phi_Inv(E);
+	double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
 
+	dr = Potential_Phi_Inv(E);
+	
     #ifdef DEBUG_PARAMETER
     if ( giveAnodeRadius() < dr || dr < r )
     {
@@ -36,13 +41,10 @@ double IonSpectrumInwards(double r, double E)
     }
     #endif
 
-    double (*PhiPtr)(double);
-    PhiPtr = &Potential_Phi;
-
     term1  = 1/giveq();
     term1 *= pow(dr/r,2);
     term1 *= interpolation(Table->S, dr) / abs(differentiat(*PhiPtr, dr));
-    term1 *= 1 / ( 1 - pow(giveTransparency() * g(0,dr),2));
+    term1 /= 1 - pow(giveTransparency() * g(0,dr),2);
 
     if ( giveCathodeRadius() < r )
     {
@@ -86,7 +88,7 @@ double IonSpectrumOutwards(double r, double E)
     double dr = Potential_Phi_Inv(E);
 
     #ifdef DEBUG_PARAMETER
-    if ( dr < giveCathodeRadius() || dr < r )
+    if ( giveCathodeRadius() < dr || dr < giveAnodeRadius() )
     {
         printf("IonSpectrumOutwards error: dr < b or dr < r\n");
         return NAN;
@@ -120,9 +122,7 @@ double IonSpectrumOutwards(double r, double E)
         term1 /= g(r, dr);
 
         if ( DELTA(E - ParticleEnergy1(r)) )
-        {
             term2 =  pow(giveAnodeRadius() * f(0)/r,2) * EdgeIonFlux / f(r);
-        }
 
         flux = pow(giveTransparency(),2) * (term1 + term2);
     }
