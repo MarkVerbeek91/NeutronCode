@@ -1,3 +1,9 @@
+/** 
+ * /brief These functions calculate the neutral particle flux on a given 
+ * radius (r) for a given energy (E). This are two main functions. One for 
+ * inward traveling ions and another for outward traving ions. 
+ */
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,20 +19,21 @@
 // equation 40 and 47
 double NeutralsClassISpectrumInwards(double r, double E)
 {
-    double flux;
+    double flux, dr;
     double term1 = 0, term2 = 0;
-    double dr = Potential_Phi_Inv(E);
+	double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
+	
+	dr = Potential_Phi_Inv(E);
 
     // make sure that only physical numbers are calculated
-    if ( giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius()) // @@@@@@ r < dr ?=> dr < r
+	#ifdef DEBUG_PARAMETER
+    if ( r < dr || dr < giveAnodeRadius()) 
     {
-        printf("NeutralsClassISpectrumInwards error: a < dr, r < dr or dr < a\n");
+        printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
         return NAN;
     }
-
-
-    double (*PhiPtr)(double);
-    PhiPtr = &Potential_Phi;
+	#endif
 
     term1  = 1 / giveq();
     term1 *= pow(giveAnodeRadius()/r,2);
@@ -56,19 +63,21 @@ double NeutralsClassISpectrumInwards(double r, double E)
 // equation 51 and 55
 double NeutralsClassISpectrumOutwards(double r, double E)
 {
-    double flux;
+    double flux, dr;
     double term1 = 0, term2 = 0;
-    double dr = Potential_Phi_Inv(E);
-
-    if (  giveCathodeRadius() < dr || r < dr || dr < giveAnodeRadius() ) // @@@@ r < dr ?=> dr < r
+	double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
+	
+	dr = Potential_Phi_Inv(E);
+	
+	#ifdef DEBUG_PARAMETER
+    if (  giveCathodeRadius() < dr || dr < giveAnodeRadius() )
     {
-        printf("NeutralsClassISpectrumOutwards error: a < dr, r < dr or dr < a\n");
+        printf("NeutralsClassISpectrumOutwards error: a < dr or dr < a\n");
         return NAN;
     }
-
-    double (*PhiPtr)(double);
-    PhiPtr = &Potential_Phi;
-
+	#endif
+	
     term1  = 1 / giveq();
     term1 *= pow(giveAnodeRadius()/r,2);
     term1 *= ngas * CrosssecCX(E);
@@ -80,8 +89,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
         if ( DELTA(E + giveVoltage()) )
         {
-            term2  = pow(giveAnodeRadius()/r,2);
-            term2 *= giveTransparency();
+            term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux;
             term2 *= f(giveCathodeRadius())* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * (r - giveCathodeRadius())));
         }
 
@@ -93,8 +101,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
         if ( DELTA(E + giveVoltage()) )
         {
-            term2  = pow(giveAnodeRadius()/r,2);
-            term2 *= giveTransparency();
+            term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux;
             term2 *= f(giveCathodeRadius())* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * giveCathodeRadius()));
         }
 
@@ -103,11 +110,3 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
     return flux;
 }
-
-
-
-
-
-
-
-
