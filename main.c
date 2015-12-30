@@ -52,6 +52,8 @@ int main()
 
     printf("# -- Start of program -- \n");
 
+	print_program_parameters();
+	
     // writing the potential to a file for plotting
     if ( printbool->potential )
     {

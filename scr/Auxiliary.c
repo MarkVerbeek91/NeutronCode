@@ -229,63 +229,44 @@ void readfile(FILE * input)
 
     // cathode
     fscanf (input, "%s", str); // read word 'cathode'
-    printf("# %s ",str);
-
     fscanf (input, "%s", str); // read word '0.05'
     fusor->a = strtof(str,NULL);
-    printf("\t %f \n",fusor->a);
-
 
     // anode
     fscanf (input, "%s", str); // read word 'anode'
-    printf("# %s ",str);
-
     fscanf (input, "%s", str); // read word '0.25'
     fusor->b = strtof(str,NULL);
-    printf("\t %f \n",fusor->b);
 
     // read comment in input file
-    fscanf (input, "%s", str); // read word '#fusor-dimentions'
+    fscanf (input, "%s", str); // read word '#fusor-parameters'
 
     // Voltage
     fscanf (input, "%s", str); // read word 'voltage'
-    printf("# %s ",str);
-
-    fscanf (input, "%s", str); // read number
+	fscanf (input, "%s", str); // read number
     fusor->V0 = strtof(str,NULL);
-    printf("\t%f \n",fusor->V0);
 
     // Pressure
     fscanf (input, "%s", str); // read word 'pressure'
-    printf("# %s ",str);
-
     fscanf (input, "%s", str); // read number
     pressure = strtof(str,NULL);
-    printf("\t%f \n",pressure);
 
     // Current
     fscanf (input, "%s", str); // read word 'Current'
-    printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
     Itot = strtof(str,NULL);
-    printf("\t%f \n",Itot);
 
     // Transparenty
     fscanf (input, "%s", str); // read word 'Transparenty'
-    printf("# %s ",str);
 
     fscanf (input, "%s", str); // read number
     fusor->Tc = strtof(str,NULL);
-    printf("\t%f \n",fusor->Tc);
 
     /* READ IN BOOLS FROM FILE */
-    printf("# Which data is printen to files and screen:\n");
-    fscanf (input, "%s", str); // read word '# outfiles'
+    fscanf (input, "%s", str); // read word '#outfiles'
 
     // potential
     fscanf (input, "%s", str); // read word 'Potential'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -293,11 +274,8 @@ void readfile(FILE * input)
     else
         printbool->potential = false;
 
-    printf("\t %s \n", printbool->potential ? "true" : "false");
-
     // SIIEE
     fscanf (input, "%s", str); // read word 'SIIEE'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -305,11 +283,8 @@ void readfile(FILE * input)
     else
         printbool->SIIEE = false;
 
-    printf("\t %s \n", printbool->SIIEE ? "true" : "false");
-
     // Cross_section
     fscanf (input, "%s", str); // read word 'Cross_section'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -317,11 +292,8 @@ void readfile(FILE * input)
     else
         printbool->Cross_section = false;
 
-    printf("\t %s \n", printbool->Cross_section ? "true" : "false");
-
     // Survival
     fscanf (input, "%s", str); // read word 'Survival'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -329,11 +301,8 @@ void readfile(FILE * input)
     else
         printbool->Survival = false;
 
-    printf("\t %s \n", printbool->Survival ? "true" : "false");
-
     // Atable
     fscanf (input, "%s", str); // read word 'Atable'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -341,11 +310,9 @@ void readfile(FILE * input)
     else
         printbool->Atable = false;
 
-    printf("\t %s \n", printbool->Atable ? "true" : "false");
 
     // KernelTable
     fscanf (input, "%s", str); // read word 'KernelTable'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -353,11 +320,8 @@ void readfile(FILE * input)
     else
         printbool->KernelTable = false;
 
-    printf("\t %s \n", printbool->KernelTable ? "true" : "false");
-
     // Stable
     fscanf (input, "%s", str); // read word 'Stable'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -365,11 +329,8 @@ void readfile(FILE * input)
     else
         printbool->Stable = false;
 
-    printf("\t %s \n", printbool->Stable ? "true" : "false");
-
     // Spectrum
     fscanf (input, "%s", str); // read word 'Spectrum'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -377,11 +338,8 @@ void readfile(FILE * input)
     else
         printbool->Spectrum = false;
 
-    printf("\t %s \n", printbool->Spectrum ? "true" : "false");
-
     // NSR
     fscanf (input, "%s", str); // read word 'NSR'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -389,11 +347,8 @@ void readfile(FILE * input)
     else
         printbool->NSR = false;
 
-    printf("\t\t %s \n", printbool->NSR ? "true" : "false");
-
     // NPR
     fscanf (input, "%s", str); // read word 'NPR'
-    printf("# %s ",str);
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
@@ -401,9 +356,34 @@ void readfile(FILE * input)
     else
         printbool->NPR = false;
 
-    printf("\t\t %s \n", printbool->NPR ? "true" : "false");
+
 
 }
 
+void print_program_parameters(void)
+{
+	// print fusor parameters
+    printf("# Fusor Cathode Radius : \t %f \n",fusor->a);
+    printf("# Fusor Anode Radius   : \t %f \n",fusor->b);
+    printf("# Voltage on Fusor     : \t %f \n",fusor->V0);
+    printf("# Pressure in Fusor    : \t %f \n",pressure);
+    printf("# Current though Fusor : \t %f \n",Itot);
+    printf("# Transparenty of gird : \t %f \n",fusor->Tc);
 
+	// print output parameters    
+	printf("\n# - Which data is printen to files and screen:\n");
+	
+	printf("# Potential : \t %s \n", printbool->potential ? "true" : "false");
+	printf("# SIIEE     : \t %s \n", printbool->SIIEE ? "true" : "false");
+	printf("# Cross_sections : \t %s \n", printbool->Cross_section ? "true" : "false");
+	printf("# Survival functions : \t %s \n", printbool->Survival ? "true" : "false");
+	printf("# Source Table : \t %s \n", printbool->Atable ? "true" : "false");	
+    printf("# Kernel : \t %s \n", printbool->KernelTable ? "true" : "false");
+	printf("# Neutral Source Table : \t %s \n", printbool->Stable ? "true" : "false");
+	printf("# Spectra : \t %s \n", printbool->Spectrum ? "true" : "false");
+    printf("# NSR : \t %s \n", printbool->NSR ? "true" : "false");	
+    printf("# NPR : \t %s \n", printbool->NPR ? "true" : "false");
+	
+	return;
+}
 
