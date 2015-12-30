@@ -373,16 +373,16 @@ void print_program_parameters(void)
 	// print output parameters    
 	printf("\n# - Which data is printen to files and screen:\n");
 	
-	printf("# Potential : \t %s \n", printbool->potential ? "true" : "false");
-	printf("# SIIEE     : \t %s \n", printbool->SIIEE ? "true" : "false");
-	printf("# Cross_sections : \t %s \n", printbool->Cross_section ? "true" : "false");
-	printf("# Survival functions : \t %s \n", printbool->Survival ? "true" : "false");
-	printf("# Source Table : \t %s \n", printbool->Atable ? "true" : "false");	
-    printf("# Kernel : \t %s \n", printbool->KernelTable ? "true" : "false");
+	printf("# Potential            : \t %s \n", printbool->potential ? "true" : "false");
+	printf("# SIIEE                : \t %s \n", printbool->SIIEE ? "true" : "false");
+	printf("# Cross_sections       : \t %s \n", printbool->Cross_section ? "true" : "false");
+	printf("# Survival functions   : \t %s \n", printbool->Survival ? "true" : "false");
+	printf("# Source Table         : \t %s \n", printbool->Atable ? "true" : "false");	
+    printf("# Kernel               : \t %s \n", printbool->KernelTable ? "true" : "false");
 	printf("# Neutral Source Table : \t %s \n", printbool->Stable ? "true" : "false");
-	printf("# Spectra : \t %s \n", printbool->Spectrum ? "true" : "false");
-    printf("# NSR : \t %s \n", printbool->NSR ? "true" : "false");	
-    printf("# NPR : \t %s \n", printbool->NPR ? "true" : "false");
+	printf("# Spectra              : \t %s \n", printbool->Spectrum ? "true" : "false");
+    printf("# NSR                  : \t %s \n", printbool->NSR ? "true" : "false");	
+    printf("# NPR                  : \t %s \n", printbool->NPR ? "true" : "false");
 	
 	return;
 }
