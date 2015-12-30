@@ -1,4 +1,6 @@
-/** the next section will calculate currents and such:
+/** 
+ * \brief The functions in this file calculate the differend currents that 
+ * exist inside the cathode. 
 
 */
 
@@ -16,10 +18,10 @@
 /**
     In E in eV
 */
-double SIIEE(double energy)
+double SIIEE(double E)
 {
     double tmp;
-    tmp = 1.5 * pow((1.15*(energy/97861)),-0.667)*(1-exp(-1.8*pow(energy/97891,1.2)));
+    tmp = 1.5 * pow((1.15*(E/97861)),-0.667)*(1-exp(-1.8*pow(E/97891,1.2)));
     return tmp;
 }
 
@@ -45,17 +47,15 @@ double I_c2inte(double dr)
 
 double I_c2(void)
 {
-    double current = 0;
-    double sum = 0;
+    double term;
+    double (*FuncPtr)(double);
+    FuncPtr = &I_c2inte;
 
-    double (*I_c2intePtr)(double);
-    I_c2intePtr = &I_c2inte;
+    term = NIntegration(*FuncPtr, giveCathodeRadius(), giveAnodeRadius());
 
-    sum = NIntegration(*I_c2intePtr, giveCathodeRadius(), giveAnodeRadius());
+    term *= 4 * 3.141529 * Q_ELECTRON * (1 - giveTransparency()) * term;
 
-    current = 4 * 3.141529 * Q_ELECTRON * (1 - giveTransparency()) * sum;
-
-    return current;
+    return term;
 }
 
 double I_c3(void)
@@ -63,7 +63,7 @@ double I_c3(void)
     double current;
     double Emax = ParticleEnergy1(giveCathodeRadius());
 
-    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * (CrosssecTot(Emax)/CrosssecCX(Emax));
+    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * ngas * (CrosssecTot(Emax)/CrosssecCX(Emax));
     current *= pow(giveAnodeRadius(),2) * f(giveCathodeRadius()) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * giveCathodeRadius()));
 
     return current;
@@ -72,28 +72,27 @@ double I_c3(void)
 double I_c4inte(double dr)
 {
     double fac;
-
-    fac  = pow(dr,2);
-    fac *= CrosssecTot(ParticleEnergy2(giveCathodeRadius(),dr))/CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr));
-    fac *= (interpolation(Table->S, dr) * g(giveCathodeRadius(),dr))/( 1.0 - pow(giveTransparency() * g(0,dr),2));
-    fac *= ( 1 - exp( -2 * ngas * giveCathodeRadius() * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr))));
-
+	double E = ParticleEnergy2(giveCathodeRadius(),dr);
+	
+    fac  = CrosssecTot(E)/CrosssecCX(E);
+    fac *= interpolation(Table->S, dr) * g(giveCathodeRadius(),dr) / ( 1.0 - pow(giveTransparency() * g(0,dr),2));
+    fac *= 1 - exp( -2 * ngas * CrosssecCX(E) * giveCathodeRadius());
+	fac *= pow(dr,2);
+	
     return fac;
 }
 
 double I_c4(void)
 {
-    double current = 0;
-    double sum = 0;
+    double term;
+    double (*FuncPtr)(double);
+    FuncPtr = &I_c4inte;
 
-    double (*I_c4intePtr)(double);
-    I_c4intePtr = &I_c4inte;
+    term = NIntegration(*FuncPtr, giveCathodeRadius(), giveAnodeRadius());
 
-    sum = NIntegration(*I_c4intePtr, giveCathodeRadius(), giveAnodeRadius());
+    term *= 4 * 3.141529 * Q_ELECTRON * ngas * term; 
 
-    current = 4 * 3.141529 * Q_ELECTRON * sum; // missing ngas
-
-    return current;
+    return term;
 }
 
 
