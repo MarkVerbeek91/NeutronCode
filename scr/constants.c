@@ -39,6 +39,17 @@ void initBool(void)
     printbool->Spectrum      = false;
     printbool->NSR           = false;
     printbool->NPR           = false;
+	
+	printbool2->potential     = false;
+    printbool2->SIIEE         = false;
+    printbool2->Cross_section = false;
+    printbool2->Survival      = false;
+    printbool2->Atable        = false;
+    printbool2->KernelTable   = false;
+    printbool2->Stable        = false;
+    printbool2->Spectrum      = false;
+    printbool2->NSR           = false;
+    printbool2->NPR           = false;
 }
 
 //Fusor fusor;
@@ -51,7 +62,7 @@ struct Tables *Table =&TableData;
 struct PrintBool Printbool;
 struct PrintBool *printbool = &Printbool;
 struct PrintBool Printbool2;
-struct PrintBool *printbool2 = &Printbool;
+struct PrintBool *printbool2 = &Printbool2;
 
 // defining of some variables
 double q;

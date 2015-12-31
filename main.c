@@ -65,7 +65,7 @@ int main()
         double (*ParticleEnergy2Ptr)(double,double);
         ParticleEnergy2Ptr = &ParticleEnergy2;
 
-        plot_function_2D(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "Particle2.csv", "GNU_potential");
+        plot_function_2D(*ParticleEnergy2Ptr, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential");
 
         plot_function_1D(*Potential_PhiPtr, 0.0, 0.25, 0.001, "output_files\\Potential.csv", "GNUplot\\GNU_potential.txt");
     }

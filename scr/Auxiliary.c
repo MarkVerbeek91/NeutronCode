@@ -51,6 +51,7 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
         else
         {
             printf("%c",c);
+            fprintf(output, "%c", c);
         }
     }
 
@@ -109,6 +110,7 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
             else
             {
                 printf("%c",c);
+                fprintf(output, "%c", c);
             }
         }
     }
@@ -180,6 +182,7 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
         else
         {
             printf("%c",c);
+            fprintf(output, "%c", c);
         }
     }
 
@@ -238,6 +241,7 @@ void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input
         else
         {
             printf("%c",c);
+            fprintf(output, "%c", c);
         }
     }
 
