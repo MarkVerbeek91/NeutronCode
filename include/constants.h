@@ -25,37 +25,39 @@ double giveItot(void);
 double giveEdgeIonFlux(void);
 
 struct Fusor{
-    double a;
-    double b;
-    double V0; // voltage
-    double wire_diameter;
-    double Tc;
+    double a;				// Cathode radius
+    double b;				// Anode radius
+    double V0; 				// Voltage on Fusor
+//    double wire_diameter;	// 
+    double Tc;				// Transparency of grid
 };
 
 // the precision of the functions.
-#define N_PRECISION 100
-#define PRECISION 100000
-#define MAX_RECURSION_DEPTH 5
-#define N_TABLE     250
-#define Q_ELECTRON 1.602e-19
+#define N_PRECISION 100			// number of step in differencation function
+#define PRECISION 100000		// max allowed error in integration functions
+#define MAX_RECURSION_DEPTH 15	// max depth of recusing integration functions
+#define N_TABLE     250			// size of Tables, Kernel is value^2
+#define Q_ELECTRON 1.602e-19   	// coulombs
 
 // declaration of some variables
-extern double q;
-extern double pressure;  // Pa
-extern double Tgas; // K
-extern double ngas; //6.022e23 * pressure / (8.314 * Tgas);
-extern double E0;          // reducing errors
-extern double Itot;
-extern double EdgeIonFlux;
+extern double q;			// unit
+extern double pressure;  	// Pa
+extern double Tgas; 		// K
+extern double ngas; 		// #
+extern double E0;          	// eV
+extern double Itot;			// A
+extern double EdgeIonFlux;	// 1/m^2
 
 // some data storage is now needed because other wise the calculation becomes hugh
 struct Tables{
-    double R[N_TABLE];
-    double A[N_TABLE];
-    double K[N_TABLE][N_TABLE];
-    double S[N_TABLE];
+    double R[N_TABLE];			// Table filled with radius location of other tables
+    double A[N_TABLE];			// ions source rate table
+    double K[N_TABLE][N_TABLE];	// kernel for neutral source rate table
+    double S[N_TABLE];			// neutral source rate table
 };
 
+// Struct for bools of which parameters should be printen to screen and file
+// TODO: separate printing to screen and file.
 struct PrintBool{
     bool potential;
     bool SIIEE;
