@@ -73,13 +73,13 @@ void output_data(void)
         printf("# Cross section calculation\n");
 
 		funcPtr = &CrosssecCX;
-        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecCX.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecCX.txt", "GNUplot\\GNU_Cross_sections.txt");
 
         funcPtr = &CrosssecIon;
-        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecIon.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecIon.txt", "GNUplot\\GNU_Cross_sections.txt");
 
         funcPtr = &CrosssecTot;
-        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecTot.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecTot.txt", "GNUplot\\GNU_Cross_sections.txt");
     }
 	
     // Writing the survival functions to a file for plotting.
@@ -99,46 +99,47 @@ void output_data(void)
         printf("# Survival function calculation\n");
 
         funcPtr = &f;
-        plot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "output_files\\f.GNUfile", "GNUplot\\GNU_Survival_functions.txt");
+        plot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "output_files\\f.txt", "GNUplot\\GNU_Survival_functions.txt");
 
         double (*funcPtr2)(double,double);
         funcPtr2 = &g;
-        plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.GNUfile", "GNUplot\\GNU_Survival_functions.txt");
+        plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.txt", "GNUplot\\GNU_Survival_functions.txt");
     }
     
-	    // writing K to file
+	// writing K to file
     if ( printbool->KernelTable )
     {
-        printf("# Kernel\n");
-        GNUplot_table_2D(Table->K, "GNUplot\\GNU_Ktable.GNUfile");
+        printf("# Writing Kernel to screen \n");
+        GNUplot_table_2D(Table->K, "GNUplot\\GNU_Ktable.txt");
     }
 	if ( printbool2->KernelTable )
     {
-        printf("# Kernel\n");
-		plot_table_2D(Table->K, "KTable.csv", "GNUplot\\GNU_Ktable.GNUfile");        
+        printf("# Writing Kernel to file \n");
+		plot_table_2D(Table->K, "output_files\\KTable.csv", "GNUplot\\GNU_Ktable.txt");        
     }
-    // writing A to file
+    
+	// writing A to file
     if ( printbool->Atable )
     {
-        printf("# Doing some things with A\n");
-		GNUplot_table_1D(Table->A, "GNUplot\\GNU_Atable.GNUfile");
+        printf("# Writing A to screen \n");
+		GNUplot_table_1D(Table->A, "GNUplot\\GNU_Atable.txt");
     }
     if ( printbool2->Atable )
     {
-        printf("# Doing some things with A\n");
-        plot_table_1D(Table->A, "ATable.csv", "GNUplot\\GNU_Atable.GNUfile");
+        printf("# Writing A to file \n");
+        plot_table_1D(Table->A, "output_files\\ATable.csv", "GNUplot\\GNU_Atable.txt");
     }
 
     // writing S to file
     if ( printbool->Stable )
     {
-        printf("# Writing tables to files:\n");
-        GNUplot_table_1D(Table->S, "GNUplot\\GNU_Stable.GNUfile");
+        printf("# Writing S to screen \n");
+        GNUplot_table_1D(Table->S, "GNUplot\\GNU_Stable.txt");
     }
     if ( printbool2->Stable )
     {
-        printf("# Writing tables to files:\n");
-        plot_table_1D(Table->S, "STable.csv", "GNUplot\\GNU_Stable.GNUfile");
+        printf("# Writing S to file \n");
+        plot_table_1D(Table->S, "output_files\\STable.csv", "GNUplot\\GNU_Stable.txt");
     }
 
 	    // write spectrum to files
@@ -167,7 +168,7 @@ void output_data(void)
         for ( double r = 0.01;  r < 0.25; r=r+0.01)
         {
             char filename1[100];
-            sprintf( filename1, "IonSpectrumInwards%d.GNUfile", j);
+            sprintf( filename1, "IonSpectrumInwards%d.txt", j);
 
             char filename2[100];
             sprintf( filename2, "IonSpectrumOutwards%d.GNUfile", j);
@@ -273,7 +274,7 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
 
     if ( input == NULL ) 
     {
-        printf("# Could not open file: %s\n", name); 
+        printf("# Could not open file: %s\n", input_file_name); 
 
         fclose(input);
         fclose(output);
@@ -281,7 +282,7 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
     }
 	if ( output == NULL )
 	{
-        printf("# Could not open file: %s\n", input_file_name);
+        printf("# Could not open file: %s\n", name);
 
         fclose(input);
         fclose(output);
@@ -364,7 +365,7 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
 
     if ( input == NULL ) 
     {
-        printf("# Could not open file: %s\n", name); 
+        printf("# Could not open file: %s\n", input_file_name); 
 
         fclose(input);
         fclose(output);
@@ -372,7 +373,7 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     }
 	if ( output == NULL )
 	{
-        printf("# Could not open file: %s\n", input_file_name);
+        printf("# Could not open file: %s\n", name);
 
         fclose(input);
         fclose(output);
@@ -492,7 +493,7 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
 
     if ( input == NULL ) 
     {
-        printf("# Could not open file: %s\n", name); 
+        printf("# Could not open file: %s\n", input_file_name); 
 
         fclose(input);
         fclose(output);
@@ -500,7 +501,7 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
     }
 	if ( output == NULL )
 	{
-        printf("# Could not open file: %s\n", input_file_name);
+        printf("# Could not open file: %s\n", name);
 
         fclose(input);
         fclose(output);
@@ -516,12 +517,10 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
             for ( int i = 0; i < N_TABLE; i++)
             {
                 fprintf(output, "%E %E \n", Table->R[i], table[i]);
-                printf("%E %E \n", Table->R[i], table[i]);
             }
         }
         else
         {
-            printf("%c",c);
             fprintf(output, "%c", c);
         }
     }
@@ -609,16 +608,13 @@ void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input
             {
                 for ( int i = 0; i < N_TABLE; i++)
                 {
-                    printf("%E ", table[i][j]);
                     fprintf(output, "%E ", table[i][j]);
                 }
                 fprintf(output, "\n");
-                printf("\n");
             }
         }
         else
         {
-            printf("%c",c);
             fprintf(output, "%c", c);
         }
     }
@@ -653,14 +649,14 @@ void GNUplot_table_2D(double (*table)[N_TABLE], const char name[])
             {
                 for ( int i = 0; i < N_TABLE; i++)
                 {
-                    fprintf(output, "%E ", table[i][j]);
+                    printf("%E ", table[i][j]);
                 }
-                fprintf(output, "\n");
+                printf("\n");
             }
         }
         else
         {
-            fprintf(output, "%c", c);
+            printf("%c", c);
         }
     }
 
