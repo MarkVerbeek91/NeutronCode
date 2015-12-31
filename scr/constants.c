@@ -7,6 +7,7 @@
  *
  */
 #include "stdbool.h"
+#include "stdio.h"	
 	
 #include "constants.h"
  
@@ -17,8 +18,13 @@ void init(void)
     fusor->V0 = -40000;
     fusor->wire_diameter = 0.005;
     fusor->Tc = 0.95;
-
+	q = 1;
+	pressure = 0.5;
+	Itot = 0.1;
+	Tgas = 400;
     ngas = 6.022e23 * pressure / (8.314 * Tgas); //
+	
+	printf("using default parameters\n");
 }
 
 void initBool(void)
@@ -46,15 +52,13 @@ struct PrintBool Printbool;
 struct PrintBool *printbool = &Printbool;
 
 // defining of some variables
-double q = 1;
-double pressure = 0.5;  // Pa
-double Tgas = 400; // K
+double q;
+double pressure;  // Pa
+double Tgas; // K
 double ngas; //t
-double E0 = 0.0001;          // reducing errors
-double Itot = 0.1;
-
+double Itot;
 double EdgeIonFlux;
-
+double E0 = 0.0001;          // reducing errors
 
 double giveCathodeRadius(void)
 {
@@ -100,6 +104,3 @@ double giveEdgeIonFlux(void)
 {
     return EdgeIonFlux;
 }
-
-
-

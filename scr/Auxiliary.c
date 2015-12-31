@@ -262,6 +262,12 @@ void readfile(FILE * input)
     fscanf (input, "%s", str); // read number
     fusor->Tc = strtof(str,NULL);
 
+	q = 1;
+	pressure = 0.5;	
+	Itot = 0.1;
+	Tgas = 400;
+	ngas = 6.022e23 * pressure / (8.314 * Tgas); //
+		
     /* READ IN BOOLS FROM FILE */
     fscanf (input, "%s", str); // read word '#outfiles'
 
@@ -369,7 +375,8 @@ void print_program_parameters(void)
     printf("# Pressure in Fusor    : \t %f \n",pressure);
     printf("# Current though Fusor : \t %f \n",Itot);
     printf("# Transparenty of gird : \t %f \n",fusor->Tc);
-
+	printf("# Ngas                 : \t %f \n",ngas);
+	
 	// print output parameters    
 	printf("\n# - Which data is printen to files and screen:\n");
 	
