@@ -86,6 +86,9 @@ int main()
         printf("# NPR: %E \n\n", NPR);
     }
 
+	printf("Writing data to screen or files\n");	
+	output_data();
+	
     // program is done
     printf("# -- Program Finished --");
     return 0;

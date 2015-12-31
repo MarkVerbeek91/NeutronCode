@@ -23,7 +23,7 @@ void output_data(void)
 		GNUplot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "GNUplot\\GNU_potential.txt");
         
         funcPtr2 = &ParticleEnergy2;
-        GNUplot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "GNUplot\\GNU_potential");
+        GNUplot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "GNUplot\\GNU_potential.txt");
     }
 	if ( printbool2->potential )
 	{
@@ -33,7 +33,7 @@ void output_data(void)
 		plot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "output_files\\Potential.csv", "GNUplot\\GNU_potential.txt");
         
         funcPtr2 = &ParticleEnergy2;
-        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential");		
+        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential.txt");		
 	}
 	
     // writing the SIIEE to a file for plotting
@@ -215,25 +215,20 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
 
     while ((c = fgetc(input)) != EOF)
     {
-       // fread(&c, 1, 1, input);
-
         if ( c == '@')
         {
             for (double r = Start; r<End; r+=step)
             {
                 value = (*funcPtr)(r);
                 fprintf (output, "%E %E\n",r, value );
-                printf("%E \t %E \n",r, value);
             }
         }
         else
         {
-            printf("%c",c);
             fprintf(output, "%c", c);
         }
     }
 
-//    printf("e\n");
     printf("# %s: done writing to file\n",name);
 
     fclose(input);
@@ -245,7 +240,7 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
 void GNUplot_function_1D(double (*funcPtr)(double), double Start, double End, double step, const char name[])
 {
     FILE * output;
-    output = fopen(name,"w");
+    output = fopen(name,"r");
 
 	if ( output == NULL )
 	{
@@ -271,7 +266,7 @@ void GNUplot_function_1D(double (*funcPtr)(double), double Start, double End, do
             printf("%c",c);
     }
 
-    printf("# %s: done writing to file\n",name);
+    printf("# \t done writing to screen\n");
 
     fclose(output);
 
@@ -319,12 +314,10 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
                 {
                     value = (*funcPtr)(Start1, r);
                     fprintf (output, "%E %E\n",r, value );
-                    printf("%E \t %E \n",r, value);
                 }
             }
             else
             {
-                printf("%c",c);
                 fprintf(output, "%c", c);
             }
         }
@@ -339,10 +332,8 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
                 {
                     value = (*funcPtr)(r, dr);
                     fprintf(output, "%E ", value );
-                    printf("%E ", value);
                 }
                 fprintf(output, "\n");
-                printf("\n");
             }
         }
     }
@@ -358,7 +349,7 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
 void GNUplot_function_2D(double (*funcPtr)(double, double), double Start1, double End1, double Start2, double End2, double step1, double step2, const char name[])
 {
     FILE * output;
-    output = fopen(name,"w");
+    output = fopen(name,"r");
 
 	if ( output == NULL )
 	{
@@ -404,7 +395,7 @@ void GNUplot_function_2D(double (*funcPtr)(double, double), double Start1, doubl
         }
     }
 
-    printf("# %s: done writing to file\n",name);
+    printf("# \t done writing to screen \n");
 
     fclose(output);
 
