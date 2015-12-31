@@ -284,7 +284,6 @@ void readfile(FILE * input)
 
     // Current
     fscanf (input, "%s", str); // read word 'Current'
-
     fscanf (input, "%s", str); // read number
     Itot = strtof(str,NULL);
 
@@ -303,35 +302,29 @@ void readfile(FILE * input)
     /* READ IN BOOLS FROM FILE */
     fscanf (input, "%s", str); // read word '#outfiles'
 
-    // potential
 	printbool->potential = readline_ini_file_bools(input);
-
-    // SIIEE
 	printbool->SIIEE = readline_ini_file_bools(input);
-
-    // Cross_section
 	printbool->Cross_section = readline_ini_file_bools(input);
-
-    // Survival
 	printbool->Survival = readline_ini_file_bools(input);
-
-    // Atable
 	printbool->Atable = readline_ini_file_bools(input);
-
-    // KernelTable
 	printbool->KernelTable = readline_ini_file_bools(input);
-
-    // Stable
 	printbool->Stable = readline_ini_file_bools(input);
-
-    // Spectrum
 	printbool->Spectrum = readline_ini_file_bools(input);
-
-    // NSR
 	printbool->NSR = readline_ini_file_bools(input);
-
-    // NPR
 	printbool->NPR = readline_ini_file_bools(input);
+
+	fscanf (input, "%s", str); // read word '#print_to_screen'
+	
+	printbool2->potential = readline_ini_file_bools(input);
+	printbool2->SIIEE = readline_ini_file_bools(input);
+	printbool2->Cross_section = readline_ini_file_bools(input);
+	printbool2->Survival = readline_ini_file_bools(input);
+	printbool2->Atable = readline_ini_file_bools(input);
+	printbool2->KernelTable = readline_ini_file_bools(input);
+	printbool2->Stable = readline_ini_file_bools(input);
+	printbool2->Spectrum = readline_ini_file_bools(input);
+	printbool2->NSR = readline_ini_file_bools(input);
+	printbool2->NPR = readline_ini_file_bools(input);
 	
 }
 
@@ -374,7 +367,7 @@ void print_program_parameters(void)
 	
 	// print output parameters    
 	printf("\n# - Which data is printen to files:\n");
-/*	
+	
 	printf("# Potential            : \t %s \n", printbool2->potential ? "true" : "false");
 	printf("# SIIEE                : \t %s \n", printbool2->SIIEE ? "true" : "false");
 	printf("# Cross_sections       : \t %s \n", printbool2->Cross_section ? "true" : "false");
@@ -385,7 +378,7 @@ void print_program_parameters(void)
 	printf("# Spectra              : \t %s \n", printbool2->Spectrum ? "true" : "false");
     printf("# NSR                  : \t %s \n", printbool2->NSR ? "true" : "false");	
     printf("# NPR                  : \t %s \n", printbool2->NPR ? "true" : "false");
-	*/
+	
 	return;
 }
 

@@ -74,5 +74,6 @@ struct PrintBool{
 extern struct Fusor FusorData, *fusor;
 extern struct Tables TableData, *Table;
 extern struct PrintBool Printbool, *printbool;
+extern struct PrintBool Printbool2, *printbool2;
 
 #endif // CONSTANTS_H_INCLUDED

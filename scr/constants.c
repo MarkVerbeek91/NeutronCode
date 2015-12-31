@@ -50,6 +50,8 @@ struct Tables TableData;
 struct Tables *Table =&TableData;
 struct PrintBool Printbool;
 struct PrintBool *printbool = &Printbool;
+struct PrintBool Printbool2;
+struct PrintBool *printbool2 = &Printbool;
 
 // defining of some variables
 double q;
