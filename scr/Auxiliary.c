@@ -407,7 +407,7 @@ void print_program_parameters(void)
     printf("# Pressure in Fusor    : \t %f \n",pressure);
     printf("# Current though Fusor : \t %f \n",Itot);
     printf("# Transparenty of gird : \t %f \n",fusor->Tc);
-	printf("# Ngas                 : \t %f \n",ngas);
+	printf("# Ngas                 : \t %E \n",ngas);
 	
 	// print output parameters    
 	printf("\n# - Which data is printen to files and screen:\n");

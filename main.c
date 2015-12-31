@@ -121,7 +121,7 @@ int main()
 
     // Calculating: source rate for first generation of Class II ions.
 
-    printf("# filling tables:\n");
+    printf("\n# filling tables:\n");
     // building the "Kernel", filling tables A and R.
     CalculateTables();
 
@@ -157,7 +157,7 @@ int main()
     // calculate the currents in the cathode
     double I1, I2, I3, I4;
 
-    printf("# Calculating Currents:\n");
+    printf("\n# Calculating Currents:\n");
     I1 = I_c1();
     printf("# 1 current: %E\n",I1);
     I2 = I_c2();
@@ -170,7 +170,7 @@ int main()
     //EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
     EdgeIonFlux = Itot / ( I1 + I2 + I3 + I4);
 
-    printf("# EdgeIonFlux: %E\n# - Done\n", EdgeIonFlux);
+    printf("# EdgeIonFlux: %E\n \n", EdgeIonFlux);
 
     // write spectrum to files
     // TODO: write to folder, are a lot of files
@@ -263,10 +263,10 @@ int main()
     {
         printf("# Calculating NPR:\n");
         double NPR = Nps();
-        printf("# NPR: %E \n# - Done\n", NPR);
+        printf("# NPR: %E \n\n", NPR);
     }
 
     // program is done
-    printf("# -- Done --");
+    printf("# -- Program Finished --");
     return 0;
 }
