@@ -44,7 +44,7 @@ int main()
     }
     else
     {
-        printf("# Reading input file:\n\n");
+        printf("# Reading input file   : \t input.ini \n\n");
         readfile(input);
     }
 

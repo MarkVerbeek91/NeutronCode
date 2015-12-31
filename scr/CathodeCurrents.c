@@ -16,19 +16,21 @@
 #include "CathodeCurrents.h"
 
 /**
-    In E in eV
-*/
+ * \brief Calculation of the Secondary Ion Induced Electron Emision coeffiecent
+ * \parameter E for energy in eV
+ * \return gamma, dimentionless
+ */
 double SIIEE(double E)
 {
-    double tmp;
-    tmp = 1.5 * pow((1.15*(E/97861)),-0.667)*(1-exp(-1.8*pow(E/97891,1.2)));
-    return tmp;
+    double gamma;
+    gamma = 1.5 * pow((1.15*(E/97861)),-0.667)*(1-exp(-1.8*pow(E/97891,1.2)));
+    return gamma;
 }
 
 double I_c1(void)
 {
     double current;
-
+	// C * m^2 
     current  = 4 * 3.141529 * Q_ELECTRON * (1.0 - giveTransparency()) * pow(giveAnodeRadius(),2);
     current *= f(giveCathodeRadius()) + (giveTransparency() * pow(f(0.0),2))/f(giveCathodeRadius());
     current *= 1 + SIIEE(-giveVoltage());
@@ -63,7 +65,7 @@ double I_c3(void)
     double current;
     double Emax = ParticleEnergy1(giveCathodeRadius());
 
-    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * ngas * (CrosssecTot(Emax)/CrosssecCX(Emax));
+    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * (CrosssecTot(Emax)/CrosssecCX(Emax));
     current *= pow(giveAnodeRadius(),2) * f(giveCathodeRadius()) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * giveCathodeRadius()));
 
     return current;
@@ -90,7 +92,7 @@ double I_c4(void)
 
     term = NIntegration(*FuncPtr, giveCathodeRadius(), giveAnodeRadius());
 
-    term *= 4 * 3.141529 * Q_ELECTRON * ngas * term; 
+    term *= 4 * 3.141529 * Q_ELECTRON * term; 
 
     return term;
 }
