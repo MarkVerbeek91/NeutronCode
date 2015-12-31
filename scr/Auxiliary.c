@@ -42,6 +42,13 @@ void output_data(void)
         printf("# SIIEE calculation\n");
 
         funcPtr = &SIIEE;
+        GNUplot_function_1D(*funcPtr, 1.0, -giveVoltage(), 1, "GNUplot\\GNU_SIIEE.txt");
+    }
+    if ( printbool2->SIIEE )
+    {
+        printf("# SIIEE calculation\n");
+
+        funcPtr = &SIIEE;
         plot_function_1D(*funcPtr, 1.0, -giveVoltage(), 1, "output_files\\SIIEE.csv", "GNUplot\\GNU_SIIEE.txt");
     }
 
@@ -51,7 +58,21 @@ void output_data(void)
     {
         printf("# Cross section calculation\n");
 
-        funcPtr = &CrosssecCX;
+		funcPtr = &CrosssecCX;
+        GNUplot_function_1D(*funcPtr, 1.0, 500000, 10, "GNUplot\\GNU_Cross_sections.txt");
+
+        funcPtr = &CrosssecIon;
+        GNUplot_function_1D(*funcPtr, 1.0, 500000, 10, "GNUplot\\GNU_Cross_sections.txt");
+
+        funcPtr = &CrosssecTot;
+        GNUplot_function_1D(*funcPtr, 1.0, 500000, 10, "GNUplot\\GNU_Cross_sections.txt");
+
+    }
+	if ( printbool2->Cross_section )
+    {
+        printf("# Cross section calculation\n");
+
+		funcPtr = &CrosssecCX;
         plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecCX.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
 
         funcPtr = &CrosssecIon;
@@ -60,9 +81,20 @@ void output_data(void)
         funcPtr = &CrosssecTot;
         plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecTot.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
     }
-
+	
     // Writing the survival functions to a file for plotting.
     if ( printbool->Survival )
+    {
+        printf("# Survival function calculation\n");
+
+        funcPtr = &f;
+        GNUplot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "GNUplot\\GNU_Survival_functions.txt");
+
+        double (*funcPtr2)(double,double);
+        funcPtr2 = &g;
+        GNUplot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "GNUplot\\GNU_Survival_functions.txt");
+    }
+	if ( printbool2->Survival )
     {
         printf("# Survival function calculation\n");
 
@@ -73,16 +105,25 @@ void output_data(void)
         funcPtr2 = &g;
         plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.GNUfile", "GNUplot\\GNU_Survival_functions.txt");
     }
-
+    
 	    // writing K to file
     if ( printbool->KernelTable )
     {
         printf("# Kernel\n");
-        plot_table_2D(Table->K, "KTable.csv", "GNUplot\\GNU_Ktable.GNUfile");
+        GNUplot_table_2D(Table->K, "GNUplot\\GNU_Ktable.GNUfile");
     }
-
+	if ( printbool2->KernelTable )
+    {
+        printf("# Kernel\n");
+		plot_table_2D(Table->K, "KTable.csv", "GNUplot\\GNU_Ktable.GNUfile");        
+    }
     // writing A to file
     if ( printbool->Atable )
+    {
+        printf("# Doing some things with A\n");
+		GNUplot_table_1D(Table->A, "GNUplot\\GNU_Atable.GNUfile");
+    }
+    if ( printbool2->Atable )
     {
         printf("# Doing some things with A\n");
         plot_table_1D(Table->A, "ATable.csv", "GNUplot\\GNU_Atable.GNUfile");
@@ -90,6 +131,11 @@ void output_data(void)
 
     // writing S to file
     if ( printbool->Stable )
+    {
+        printf("# Writing tables to files:\n");
+        GNUplot_table_1D(Table->S, "GNUplot\\GNU_Stable.GNUfile");
+    }
+    if ( printbool2->Stable )
     {
         printf("# Writing tables to files:\n");
         plot_table_1D(Table->S, "STable.csv", "GNUplot\\GNU_Stable.GNUfile");
@@ -142,44 +188,76 @@ void output_data(void)
             // Ions
         // inwards
         funcPtr = &NeutronsIonFluxInwards;
-
         printf("# Neutrons from inwards ions\n");
-//        plot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "NSR_1.GNUfile", "GNUplot\\GNU_NSR.txt");
+//        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
 
         // outwards
         funcPtr = &NeutronsIonFluxOutwards;
+        printf("# Neutrons from outwards ions\n");
+        GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
 
+            // Neutrals Class I
+        // inwards
+        funcPtr = &NeutronsNeutralsClassIFluxInwards;
+        printf("# In cathode, inwards\n");
+   //     GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
+
+        // outwards
+        funcPtr = &NeutronsNeutralsClassIFluxOutwards;
+        printf("# In cathode, outwards\n");
+   //     GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
+
+            // Neutrals ClassII
+        // inwards
+        funcPtr = &NeutronsNeutralsClassIIFluxInwards;
+        printf("# In cathode, inwards\n");
+   //     GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
+
+        // outwards
+        funcPtr = &NeutronsNeutralsClassIIFluxOutwards;
+        printf("# In cathode, outwards\n");
+  //      GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
+
+    }	
+    if ( printbool->NSR )
+    {
+        printf("# Printing neutron source rate to file:\n");
+
+            // Ions
+        // inwards
+        funcPtr = &NeutronsIonFluxInwards;
+        printf("# Neutrons from inwards ions\n");
+//        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "NSR_1.GNUfile", "GNUplot\\GNU_NSR.txt");
+
+        // outwards
+        funcPtr = &NeutronsIonFluxOutwards;
         printf("# Neutrons from outwards ions\n");
         plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.GNUfile", "GNUplot\\GNU_NSR.txt");
 
             // Neutrals Class I
         // inwards
         funcPtr = &NeutronsNeutralsClassIFluxInwards;
-
         printf("# In cathode, inwards\n");
-   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.GNUfile", "GNUplot\\GNU_NSR.txt");
+   //   plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.GNUfile", "GNUplot\\GNU_NSR.txt");
 
         // outwards
         funcPtr = &NeutronsNeutralsClassIFluxOutwards;
-
         printf("# In cathode, outwards\n");
-   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.GNUfile", "GNUplot\\GNU_NSR.txt");
+   //   plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.GNUfile", "GNUplot\\GNU_NSR.txt");
 
             // Neutrals ClassII
         // inwards
         funcPtr = &NeutronsNeutralsClassIIFluxInwards;
-
         printf("# In cathode, inwards\n");
-   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.GNUfile", "GNUplot\\GNU_NSR.txt");
+   //   plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.GNUfile", "GNUplot\\GNU_NSR.txt");
 
         // outwards
         funcPtr = &NeutronsNeutralsClassIIFluxOutwards;
-
         printf("# In cathode, outwards\n");
-  //      plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.GNUfile", "GNUplot\\GNU_NSR.txt");
+  //    plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.GNUfile", "GNUplot\\GNU_NSR.txt");
 
     }
-	
+
 	return;
 }
 
@@ -456,6 +534,44 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
     return;
 }
 
+void GNUplot_table_1D(double *table, const char name[])
+{
+    FILE * output;
+    output = fopen(name,"r");
+
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", name);
+
+        fclose(output);
+        return;
+    }
+
+    char c = '0';
+
+    while ((c = fgetc(output)) != EOF)
+    {
+        if ( c == '@')
+        {
+            for ( int i = 0; i < N_TABLE; i++)
+            {
+                fprintf(output, "%E %E \n", Table->R[i], table[i]);
+            }
+        }
+        else
+        {
+            printf("%c",c);
+        }
+    }
+
+    printf("# %s: done writing to file\n",name);
+
+    fclose(output);
+
+    return;
+}
+
+
 /**
     Print data of a 2D table to screen.
 */
@@ -512,7 +628,49 @@ void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input
     fclose(input);
     fclose(output);
 
+	return;
 }
+
+void GNUplot_table_2D(double (*table)[N_TABLE], const char name[])
+{
+    FILE * output;
+    output = fopen(name,"r");
+
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", name);
+        fclose(output);
+        return;
+    }
+
+    char c = '0';
+
+    while ((c = fgetc(output)) != EOF)
+    {
+        if ( c == '@')
+        {
+            for ( int j = 0; j < N_TABLE; j++)
+            {
+                for ( int i = 0; i < N_TABLE; i++)
+                {
+                    fprintf(output, "%E ", table[i][j]);
+                }
+                fprintf(output, "\n");
+            }
+        }
+        else
+        {
+            fprintf(output, "%c", c);
+        }
+    }
+
+    printf("# %s: done writing to file\n",name);
+
+    fclose(output);
+	
+	return;
+}
+
 
 /**
     This function reads date from the input file.
