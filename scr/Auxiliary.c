@@ -13,18 +13,29 @@ void output_data(void)
 {
 	double (*funcPtr)(double);
 	double (*funcPtr2)(double, double);
+	
 	// writing the potential to a file for plotting
     if ( printbool->potential )
     {
-        printf("# Potential calculation\n");
+        printf("# Wrinting potential to stdout in gnu format\n");
 
-        funcPtr = &Potential_Phi;
+		funcPtr = &Potential_Phi;
+		GNUplot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "GNUplot\\GNU_potential.txt");
+        
+        funcPtr2 = &ParticleEnergy2;
+        GNUplot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "GNUplot\\GNU_potential");
+    }
+	if ( printbool2->potential )
+	{
+		printf("# Writing potential to GNUfile \n");
+
+		funcPtr = &Potential_Phi;
 		plot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "output_files\\Potential.csv", "GNUplot\\GNU_potential.txt");
         
         funcPtr2 = &ParticleEnergy2;
-        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential");
-    }
-
+        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential");		
+	}
+	
     // writing the SIIEE to a file for plotting
     if ( printbool->SIIEE )
     {
@@ -41,13 +52,13 @@ void output_data(void)
         printf("# Cross section calculation\n");
 
         funcPtr = &CrosssecCX;
-        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecCX.csv", "GNUplot\\GNU_Cross_sections.txt");
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecCX.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
 
         funcPtr = &CrosssecIon;
-        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecIon.csv", "GNUplot\\GNU_Cross_sections.txt");
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecIon.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
 
         funcPtr = &CrosssecTot;
-        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecTot.csv", "GNUplot\\GNU_Cross_sections.txt");
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecTot.GNUfile", "GNUplot\\GNU_Cross_sections.txt");
     }
 
     // Writing the survival functions to a file for plotting.
@@ -56,32 +67,32 @@ void output_data(void)
         printf("# Survival function calculation\n");
 
         funcPtr = &f;
-        plot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "output_files\\f.csv", "GNUplot\\GNU_Survival_functions.txt");
+        plot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "output_files\\f.GNUfile", "GNUplot\\GNU_Survival_functions.txt");
 
         double (*funcPtr2)(double,double);
         funcPtr2 = &g;
-        plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.csv", "GNUplot\\GNU_Survival_functions.txt");
+        plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.GNUfile", "GNUplot\\GNU_Survival_functions.txt");
     }
 
 	    // writing K to file
     if ( printbool->KernelTable )
     {
         printf("# Kernel\n");
-        plot_table_2D(Table->K, "KTable.csv", "GNUplot\\GNU_Ktable.txt");
+        plot_table_2D(Table->K, "KTable.csv", "GNUplot\\GNU_Ktable.GNUfile");
     }
 
     // writing A to file
     if ( printbool->Atable )
     {
         printf("# Doing some things with A\n");
-        plot_table_1D(Table->A, "ATable.csv", "GNUplot\\GNU_Atable.txt");
+        plot_table_1D(Table->A, "ATable.csv", "GNUplot\\GNU_Atable.GNUfile");
     }
 
     // writing S to file
     if ( printbool->Stable )
     {
         printf("# Writing tables to files:\n");
-        plot_table_1D(Table->S, "STable.csv", "GNUplot\\GNU_Stable.txt");
+        plot_table_1D(Table->S, "STable.csv", "GNUplot\\GNU_Stable.GNUfile");
     }
 
 	    // write spectrum to files
@@ -101,8 +112,8 @@ void output_data(void)
 
 //        double r = 0.06;
 
-//        print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,"IonSpectrumInwards.csv");
-//        print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,"IonSpectrumOutwards.csv");
+//        print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,"IonSpectrumInwards.GNUfile");
+//        print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,"IonSpectrumOutwards.GNUfile");
 
 //        int j = 6;
 
@@ -110,10 +121,10 @@ void output_data(void)
         for ( double r = 0.01;  r < 0.25; r=r+0.01)
         {
             char filename1[100];
-            sprintf( filename1, "IonSpectrumInwards%d.csv", j);
+            sprintf( filename1, "IonSpectrumInwards%d.GNUfile", j);
 
             char filename2[100];
-            sprintf( filename2, "IonSpectrumOutwards%d.csv", j);
+            sprintf( filename2, "IonSpectrumOutwards%d.GNUfile", j);
 
             //print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1, 5);
             //print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2, 5);
@@ -133,39 +144,39 @@ void output_data(void)
         funcPtr = &NeutronsIonFluxInwards;
 
         printf("# Neutrons from inwards ions\n");
-//        plot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "NSR_1.csv", "GNUplot\\GNU_NSR.txt");
+//        plot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "NSR_1.GNUfile", "GNUplot\\GNU_NSR.txt");
 
         // outwards
         funcPtr = &NeutronsIonFluxOutwards;
 
         printf("# Neutrons from outwards ions\n");
-        plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", "GNUplot\\GNU_NSR.txt");
+        plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.GNUfile", "GNUplot\\GNU_NSR.txt");
 
             // Neutrals Class I
         // inwards
         funcPtr = &NeutronsNeutralsClassIFluxInwards;
 
         printf("# In cathode, inwards\n");
-   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.csv", "GNUplot\\GNU_NSR.txt");
+   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.GNUfile", "GNUplot\\GNU_NSR.txt");
 
         // outwards
         funcPtr = &NeutronsNeutralsClassIFluxOutwards;
 
         printf("# In cathode, outwards\n");
-   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.csv", "GNUplot\\GNU_NSR.txt");
+   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.GNUfile", "GNUplot\\GNU_NSR.txt");
 
             // Neutrals ClassII
         // inwards
         funcPtr = &NeutronsNeutralsClassIIFluxInwards;
 
         printf("# In cathode, inwards\n");
-   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", "GNUplot\\GNU_NSR.txt");
+   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.GNUfile", "GNUplot\\GNU_NSR.txt");
 
         // outwards
         funcPtr = &NeutronsNeutralsClassIIFluxOutwards;
 
         printf("# In cathode, outwards\n");
-  //      plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.csv", "GNUplot\\GNU_NSR.txt");
+  //      plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.GNUfile", "GNUplot\\GNU_NSR.txt");
 
     }
 	
@@ -230,6 +241,43 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
 
     return;
 }
+
+void GNUplot_function_1D(double (*funcPtr)(double), double Start, double End, double step, const char name[])
+{
+    FILE * output;
+    output = fopen(name,"w");
+
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", name);
+        fclose(output);
+        return;
+    }
+		
+    double value;
+    char c = '0';
+
+    while ((c = fgetc(output)) != EOF)
+    {
+        if ( c == '@')
+        {
+            for (double r = Start; r<End; r+=step)
+            {
+                value = (*funcPtr)(r);
+                printf("%E \t %E \n",r, value);
+            }
+        }
+        else
+            printf("%c",c);
+    }
+
+    printf("# %s: done writing to file\n",name);
+
+    fclose(output);
+
+    return;
+}
+
 
 /**
     This function writes a given function to a file.
@@ -302,6 +350,62 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     printf("# %s: done writing to file\n",name);
 
     fclose(input);
+    fclose(output);
+
+    return;
+}
+
+void GNUplot_function_2D(double (*funcPtr)(double, double), double Start1, double End1, double Start2, double End2, double step1, double step2, const char name[])
+{
+    FILE * output;
+    output = fopen(name,"w");
+
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", name);
+        fclose(output);
+        return;
+    }
+
+    double value;
+    char c = '0';
+
+    if ( Start1 == End1 )
+    {
+        while ((c = fgetc(output)) != EOF)
+        {
+            if ( c == '@')
+            {
+                for (double r = Start2; r<End2; r+=step2)
+                {
+                    value = (*funcPtr)(Start1, r);
+                    printf("%E \t %E \n",r, value);
+                }
+            }
+            else
+            {
+                printf("%c",c);
+            }
+        }
+    }
+    else
+    {
+        while ((c = fgetc(output)) != EOF)
+        {
+            for (double r = Start1; r<End1; r+=step1)
+            {
+                for ( double dr = Start1; dr<End1; dr+=step2)
+                {
+                    value = (*funcPtr)(r, dr);
+                    printf("%E ", value);
+                }
+                printf("\n");
+            }
+        }
+    }
+
+    printf("# %s: done writing to file\n",name);
+
     fclose(output);
 
     return;
