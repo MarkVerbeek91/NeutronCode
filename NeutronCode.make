@@ -72,10 +72,7 @@ OBJECTS := \
 	$(OBJDIR)/IonSpectrum.o \
 	$(OBJDIR)/NeutralsClassIISpectrum.o \
 	$(OBJDIR)/NeutralsClassISpectrum.o \
-	$(OBJDIR)/EnergySpectrumIons.o \
-	$(OBJDIR)/IonParticleFlux.o \
 	$(OBJDIR)/MathFunctions.o \
-	$(OBJDIR)/NeutralParticleFlux.o \
 	$(OBJDIR)/NeutronProductionIons.o \
 	$(OBJDIR)/NeutronProductionNeutralsClassI.o \
 	$(OBJDIR)/NeutronProductionNeutralsClassII.o \
@@ -165,16 +162,7 @@ $(OBJDIR)/NeutralsClassIISpectrum.o: scr/EnergySpectra/NeutralsClassIISpectrum.c
 $(OBJDIR)/NeutralsClassISpectrum.o: scr/EnergySpectra/NeutralsClassISpectrum.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/EnergySpectrumIons.o: scr/EnergySpectrumIons.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/IonParticleFlux.o: scr/IonParticleFlux.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/MathFunctions.o: scr/MathFunctions.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/NeutralParticleFlux.o: scr/NeutralParticleFlux.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/NeutronProductionIons.o: scr/NeutronProduction/NeutronProductionIons.c
