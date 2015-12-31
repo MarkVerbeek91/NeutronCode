@@ -304,98 +304,47 @@ void readfile(FILE * input)
     fscanf (input, "%s", str); // read word '#outfiles'
 
     // potential
-    fscanf (input, "%s", str); // read word 'Potential'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->potential = true;
-    else
-        printbool->potential = false;
+	printbool->potential = readline_ini_file_bools(input);
 
     // SIIEE
-    fscanf (input, "%s", str); // read word 'SIIEE'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->SIIEE = true;
-    else
-        printbool->SIIEE = false;
+	printbool->SIIEE = readline_ini_file_bools(input);
 
     // Cross_section
-    fscanf (input, "%s", str); // read word 'Cross_section'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->Cross_section = true;
-    else
-        printbool->Cross_section = false;
+	printbool->Cross_section = readline_ini_file_bools(input);
 
     // Survival
-    fscanf (input, "%s", str); // read word 'Survival'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->Survival = true;
-    else
-        printbool->Survival = false;
+	printbool->Survival = readline_ini_file_bools(input);
 
     // Atable
-    fscanf (input, "%s", str); // read word 'Atable'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->Atable = true;
-    else
-        printbool->Atable = false;
-
+	printbool->Atable = readline_ini_file_bools(input);
 
     // KernelTable
-    fscanf (input, "%s", str); // read word 'KernelTable'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->KernelTable = true;
-    else
-        printbool->KernelTable = false;
+	printbool->KernelTable = readline_ini_file_bools(input);
 
     // Stable
-    fscanf (input, "%s", str); // read word 'Stable'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->Stable = true;
-    else
-        printbool->Stable = false;
+	printbool->Stable = readline_ini_file_bools(input);
 
     // Spectrum
-    fscanf (input, "%s", str); // read word 'Spectrum'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->Spectrum = true;
-    else
-        printbool->Spectrum = false;
+	printbool->Spectrum = readline_ini_file_bools(input);
 
     // NSR
-    fscanf (input, "%s", str); // read word 'NSR'
-    fscanf (input, "%s", str); // read number
-
-    if ( !strcmp(str, "true;") )
-        printbool->NSR = true;
-    else
-        printbool->NSR = false;
+	printbool->NSR = readline_ini_file_bools(input);
 
     // NPR
-    fscanf (input, "%s", str); // read word 'NPR'
+	printbool->NPR = readline_ini_file_bools(input);
+	
+}
+
+bool readline_ini_file_bools(FILE* input)
+{
+    char str[80];
+	fscanf (input, "%s", str); // read word 'NPR'
     fscanf (input, "%s", str); // read number
 
     if ( !strcmp(str, "true;") )
-        printbool->NPR = true;
+        return true;
     else
-        printbool->NPR = false;
-
-
-
+        return false;
 }
 
 void print_program_parameters(void)
@@ -410,7 +359,7 @@ void print_program_parameters(void)
 	printf("# Ngas                 : \t %E \n",ngas);
 	
 	// print output parameters    
-	printf("\n# - Which data is printen to files and screen:\n");
+	printf("\n# - Which data is printen to screen:\n");
 	
 	printf("# Potential            : \t %s \n", printbool->potential ? "true" : "false");
 	printf("# SIIEE                : \t %s \n", printbool->SIIEE ? "true" : "false");
@@ -423,6 +372,20 @@ void print_program_parameters(void)
     printf("# NSR                  : \t %s \n", printbool->NSR ? "true" : "false");	
     printf("# NPR                  : \t %s \n", printbool->NPR ? "true" : "false");
 	
+	// print output parameters    
+	printf("\n# - Which data is printen to files:\n");
+/*	
+	printf("# Potential            : \t %s \n", printbool2->potential ? "true" : "false");
+	printf("# SIIEE                : \t %s \n", printbool2->SIIEE ? "true" : "false");
+	printf("# Cross_sections       : \t %s \n", printbool2->Cross_section ? "true" : "false");
+	printf("# Survival functions   : \t %s \n", printbool2->Survival ? "true" : "false");
+	printf("# Source Table         : \t %s \n", printbool2->Atable ? "true" : "false");	
+    printf("# Kernel               : \t %s \n", printbool2->KernelTable ? "true" : "false");
+	printf("# Neutral Source Table : \t %s \n", printbool2->Stable ? "true" : "false");
+	printf("# Spectra              : \t %s \n", printbool2->Spectrum ? "true" : "false");
+    printf("# NSR                  : \t %s \n", printbool2->NSR ? "true" : "false");	
+    printf("# NPR                  : \t %s \n", printbool2->NPR ? "true" : "false");
+	*/
 	return;
 }
 

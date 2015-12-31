@@ -9,6 +9,7 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
 void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input_file_name[]);
 void print_table(int choice, char name[]);
 void readfile(FILE * input);
+bool readline_ini_file_bools(FILE* input);
 void print_program_parameters(void);
 
 #endif // AUXILIARY_H_INCLUDED
