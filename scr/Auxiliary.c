@@ -4,6 +4,173 @@
 
 #include "constants.h"
 #include "Auxiliary.h"
+#include "..\includes.h"
+
+/**
+ * This function writes data to files or screen depending on input file.
+ */ 
+void output_data(void)
+{
+	double (*funcPtr)(double);
+	double (*funcPtr2)(double, double);
+	// writing the potential to a file for plotting
+    if ( printbool->potential )
+    {
+        printf("# Potential calculation\n");
+
+        funcPtr = &Potential_Phi;
+		plot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "output_files\\Potential.csv", "GNUplot\\GNU_potential.txt");
+        
+        funcPtr2 = &ParticleEnergy2;
+        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential");
+    }
+
+    // writing the SIIEE to a file for plotting
+    if ( printbool->SIIEE )
+    {
+        printf("# SIIEE calculation\n");
+
+        funcPtr = &SIIEE;
+        plot_function_1D(*funcPtr, 1.0, -giveVoltage(), 1, "output_files\\SIIEE.csv", "GNUplot\\GNU_SIIEE.txt");
+    }
+
+    // writing the Cross sections for Charge Exchange, Iononisation and the sum
+    // of those to files to a file for plotting
+    if ( printbool->Cross_section )
+    {
+        printf("# Cross section calculation\n");
+
+        funcPtr = &CrosssecCX;
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecCX.csv", "GNUplot\\GNU_Cross_sections.txt");
+
+        funcPtr = &CrosssecIon;
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecIon.csv", "GNUplot\\GNU_Cross_sections.txt");
+
+        funcPtr = &CrosssecTot;
+        plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecTot.csv", "GNUplot\\GNU_Cross_sections.txt");
+    }
+
+    // Writing the survival functions to a file for plotting.
+    if ( printbool->Survival )
+    {
+        printf("# Survival function calculation\n");
+
+        funcPtr = &f;
+        plot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "output_files\\f.csv", "GNUplot\\GNU_Survival_functions.txt");
+
+        double (*funcPtr2)(double,double);
+        funcPtr2 = &g;
+        plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.csv", "GNUplot\\GNU_Survival_functions.txt");
+    }
+
+	    // writing K to file
+    if ( printbool->KernelTable )
+    {
+        printf("# Kernel\n");
+        plot_table_2D(Table->K, "KTable.csv", "GNUplot\\GNU_Ktable.txt");
+    }
+
+    // writing A to file
+    if ( printbool->Atable )
+    {
+        printf("# Doing some things with A\n");
+        plot_table_1D(Table->A, "ATable.csv", "GNUplot\\GNU_Atable.txt");
+    }
+
+    // writing S to file
+    if ( printbool->Stable )
+    {
+        printf("# Writing tables to files:\n");
+        plot_table_1D(Table->S, "STable.csv", "GNUplot\\GNU_Stable.txt");
+    }
+
+	    // write spectrum to files
+    // TODO: write to folder, are a lot of files
+    //       or find a way of making one file
+/*    if ( printbool->Spectrum )
+    {
+        printf("# Printing Energy spectrum to files\n");
+
+        printf("# Energy spectrum of ions going inwards\n");
+
+        double (*IonSpectrumInwardsPtr)(double, double);
+        IonSpectrumInwardsPtr = &IonSpectrumInwards;
+
+        double (*IonSpectrumOutwardsPtr)(double, double);
+        IonSpectrumOutwardsPtr = &IonSpectrumOutwards;
+
+//        double r = 0.06;
+
+//        print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,"IonSpectrumInwards.csv");
+//        print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,"IonSpectrumOutwards.csv");
+
+//        int j = 6;
+
+        int j = 1;
+        for ( double r = 0.01;  r < 0.25; r=r+0.01)
+        {
+            char filename1[100];
+            sprintf( filename1, "IonSpectrumInwards%d.csv", j);
+
+            char filename2[100];
+            sprintf( filename2, "IonSpectrumOutwards%d.csv", j);
+
+            //print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1, 5);
+            //print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2, 5);
+
+            j++;
+        }
+
+    } */
+
+    // Calculate the neutron source rate
+    if ( printbool->NSR )
+    {
+        printf("# Printing neutron source rate to file:\n");
+
+            // Ions
+        // inwards
+        funcPtr = &NeutronsIonFluxInwards;
+
+        printf("# Neutrons from inwards ions\n");
+//        plot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "NSR_1.csv", "GNUplot\\GNU_NSR.txt");
+
+        // outwards
+        funcPtr = &NeutronsIonFluxOutwards;
+
+        printf("# Neutrons from outwards ions\n");
+        plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.csv", "GNUplot\\GNU_NSR.txt");
+
+            // Neutrals Class I
+        // inwards
+        funcPtr = &NeutronsNeutralsClassIFluxInwards;
+
+        printf("# In cathode, inwards\n");
+   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.csv", "GNUplot\\GNU_NSR.txt");
+
+        // outwards
+        funcPtr = &NeutronsNeutralsClassIFluxOutwards;
+
+        printf("# In cathode, outwards\n");
+   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.csv", "GNUplot\\GNU_NSR.txt");
+
+            // Neutrals ClassII
+        // inwards
+        funcPtr = &NeutronsNeutralsClassIIFluxInwards;
+
+        printf("# In cathode, inwards\n");
+   //     plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.csv", "GNUplot\\GNU_NSR.txt");
+
+        // outwards
+        funcPtr = &NeutronsNeutralsClassIIFluxOutwards;
+
+        printf("# In cathode, outwards\n");
+  //      plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.csv", "GNUplot\\GNU_NSR.txt");
+
+    }
+	
+	return;
+}
 
 /**
     This function writes a given function to a file.
