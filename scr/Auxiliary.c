@@ -15,15 +15,23 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL || output == NULL)
+    if ( input == NULL ) 
     {
-        printf("could not open file or open new file");
+        printf("# Could not open file: %s\n", name); 
 
         fclose(input);
         fclose(output);
         return;
     }
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", input_file_name);
 
+        fclose(input);
+        fclose(output);
+        return;
+    }
+		
     double value;
     char c = '0';
 
@@ -65,9 +73,17 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL || output == NULL)
+    if ( input == NULL ) 
     {
-        printf("could not open file or open new file");
+        printf("# Could not open file: %s\n", name); 
+
+        fclose(input);
+        fclose(output);
+        return;
+    }
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", input_file_name);
 
         fclose(input);
         fclose(output);
@@ -132,9 +148,17 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL || output == NULL)
+    if ( input == NULL ) 
     {
-        printf("could not open file or open new file\n");
+        printf("# Could not open file: %s\n", name); 
+
+        fclose(input);
+        fclose(output);
+        return;
+    }
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", input_file_name);
 
         fclose(input);
         fclose(output);
@@ -177,9 +201,17 @@ void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL || output == NULL)
+    if ( input == NULL ) 
     {
-        printf("could not open file or open new file\n");
+        printf("# Could not open file: %s\n", name); 
+
+        fclose(input);
+        fclose(output);
+        return;
+    }
+	if ( output == NULL )
+	{
+        printf("# Could not open file: %s\n", input_file_name);
 
         fclose(input);
         fclose(output);
