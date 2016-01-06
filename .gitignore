@@ -41,3 +41,6 @@
 
 # Folders
 Doxygen
+
+# Specific files
+input.ini
