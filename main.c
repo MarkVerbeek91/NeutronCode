@@ -21,16 +21,32 @@
 
 #include "includes.h"
 
-int main()
+int main( int argc, char *argv[] )  
 {
-	// notivi user that debug mode is on. 
+	// notifi user that debug mode is on. 
 	#ifdef DEBUG_PARAMETER
         printf("# Debug parameter turned on\n");
     #endif
-	
-    FILE * input;
-    input = fopen("input.ini","r");
 
+	// open input file, default or supplied by user.
+	FILE * input;
+    
+	if( argc == 2 ) 
+	{
+		printf("# Using input file: %s\n", argv[1]);
+		input = fopen(argv[1],"r");
+	}
+	else if( argc > 2 ) 
+	{
+		printf("# Too many arguments supplied. Only using the first argument: %s\n", argv[1]);
+		input = fopen(argv[1],"r");
+	}
+	else 
+	{
+		printf("# Using default input file: input.ini\n");
+		input = fopen("input.ini","r");	  
+	}
+	
     // Initalise needed variables.
     initBool();
     InitCrossSectionConstands();
@@ -38,12 +54,12 @@ int main()
     // read in ini file
     if ( input == NULL)
     {
-        printf("# No input file, using standard parameters\n\n");
+        printf("# input file not found, using default parameters\n\n");
         init();
     }
     else
     {
-        printf("# Reading input file   : \t input.ini \n\n");
+        printf("# Reading input file \n\n");
         readfile(input);
     }
     fclose(input);
