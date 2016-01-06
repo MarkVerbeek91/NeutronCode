@@ -23,8 +23,6 @@ void init(void)
 	Itot = 0.1;
 	Tgas = 400;
     ngas = 6.022e23 * pressure / (8.314 * Tgas); //
-	
-	printf("using default parameters\n");
 }
 
 void initBool(void)
