@@ -19,6 +19,7 @@
 #include <stdbool.h>
 #include <stdlib.h>     /* getenv */
 #include <unistd.h>
+#include <string.h> 
 
 #include "includes.h"
 
@@ -29,9 +30,14 @@ int main( int argc, char *argv[] )
         printf("# Debug parameter turned on\n");
     #endif
 
+	// Initalise needed variables.
+    initBool();
+    InitCrossSectionConstands();
+	
 	// open input file, default or supplied by user.
 	FILE * input;
     int opt; 
+	char parameter_name[6];
 	
 	if( argc >= 2 ) 
 	{
@@ -42,14 +48,13 @@ int main( int argc, char *argv[] )
 			switch (opt)
 			{
 				case 'f': 		// get file
-					printf("read in file: %s",optarg)
+					printf("read in file: %s",optarg);
 					input = fopen(optarg,"r");
 					if ( input == NULL)
 					{
-						printf("input file not found, aborting");
+						printf("input file not found, stopping code");
 						return 1;
 					}
-
 					else
 					{
 						printf("# Reading input file \n\n");
@@ -60,13 +65,34 @@ int main( int argc, char *argv[] )
 					break;
 
 				case 'p':		// parameter
-					type = optarg;
+					strncpy ( parameter_name, optarg, 5);
+					parameter_name[6] = '\0';
+
+					parameter_value = atof (optarg);
 					
-					// insert here loop for all arguments
-					break;
-				case 'o':
-					subopts = optarg;
-									
+					switch ( parameter_name )
+					{
+						case "cath=":
+							fusor->a = parameter_value;
+							break;
+						case "anod=":
+							fusor->b = parameter_value;
+							break;
+						case "volt=":
+							fusor->V0 = parameter_value;
+							break;
+						case "pres=":
+							pressure = parameter_value;
+							break;
+						case "curr=":
+							Itot = parameter_value;
+							break;
+						case "tran=":
+							fusor->Tc = parameter_value;
+							break;
+						default:
+							printf ("parameter unknown: %s", parameter_name)
+					}
 					break;
 				case '?'		// error case
 					if (optopt == 'f')
@@ -78,24 +104,18 @@ int main( int argc, char *argv[] )
 					return 1;
 				default:
 					abort ();
-      
-				
-				
+
 			}
 		}
-		input = fopen(argv[1],"r");
 	}
 	else 
 	{
 		printf("# Using default input file: input.ini\n");
-		input = fopen("input.ini","r");	  
+		input = fopen("input.ini","r");
+		readfile(input);
+		fclose(input);		
 	}
 	
-    // Initalise needed variables.
-    initBool();
-    InitCrossSectionConstands();
-
-
     printf("# -- Start of program -- \n");
 	print_program_parameters();
 	
