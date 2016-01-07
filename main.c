@@ -24,7 +24,7 @@
 
 #include "includes.h"
 
-int main( int argc, char *argv[] )  
+int main( int argc, char **argv )  
 {
 	// notifi user that debug mode is on. 
 	#ifdef DEBUG_PARAMETER
@@ -39,19 +39,21 @@ int main( int argc, char *argv[] )
 	FILE * input;
     int opt; 
 	char parameter_name[6];
+	char *cvalue = NULL;
 	double parameter_value;
 	
 	if( argc >= 2 ) 
 	{
 		printf("# Analising give arguments\n");
 		
-		while ((opt = getopt (argc, argv, "fp:")) != -1)
+		while ((opt = getopt (argc, argv, "f:p:")) != -1)
 		{
 			switch (opt)
 			{
 				case 'f': 		// get file
-					printf("read in file: %s",optarg);
-					input = fopen(optarg,"r");
+					cvalue = optarg;
+					printf("read in file: %s \n",cvalue);
+					input = fopen(cvalue,"r");
 					if ( input == NULL)
 					{
 						printf("input file not found, stopping code");
@@ -67,11 +69,15 @@ int main( int argc, char *argv[] )
 					break;
 
 				case 'p':		// parameter
-					strncpy ( parameter_name, optarg, 5);
+					cvalue = optarg;
+					strncpy ( parameter_name, cvalue, 5);
 					parameter_name[6] = '\0';
 
-					parameter_value = atof (optarg);
+					while (*cvalue && !(isdigit(*cvalue) || ((*cvalue == '-' || *cvalue == '+') && isdigit(*(cvalue + 1)))))
+						cvalue++;
 					
+					parameter_value = atof (cvalue);
+
 					if (strcmp(parameter_name, "cath=") == 0) 
 					{
 						fusor->a = parameter_value;
