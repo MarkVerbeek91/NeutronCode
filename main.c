@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>     /* getenv */
+#include <unistd.h>
 
 #include "includes.h"
 
@@ -30,15 +31,58 @@ int main( int argc, char *argv[] )
 
 	// open input file, default or supplied by user.
 	FILE * input;
-    
-	if( argc == 2 ) 
+    int opt; 
+	
+	if( argc >= 2 ) 
 	{
-		printf("# Using input file: %s\n", argv[1]);
-		input = fopen(argv[1],"r");
-	}
-	else if( argc > 2 ) 
-	{
-		printf("# Too many arguments supplied. Only using the first argument: %s\n", argv[1]);
+		printf("# Analising give arguments\n");
+		
+		while ((opt = getopt (argc, argv, "fp:")) != -1)
+		{
+			switch (opt)
+			{
+				case 'f': 		// get file
+					printf("read in file: %s",optarg)
+					input = fopen(optarg,"r");
+					if ( input == NULL)
+					{
+						printf("input file not found, aborting");
+						return 1;
+					}
+
+					else
+					{
+						printf("# Reading input file \n\n");
+						readfile(input);
+					}
+					fclose(input);
+					
+					break;
+
+				case 'p':		// parameter
+					type = optarg;
+					
+					// insert here loop for all arguments
+					break;
+				case 'o':
+					subopts = optarg;
+									
+					break;
+				case '?'		// error case
+					if (optopt == 'f')
+						printf("Wrong or no input file specifiet \n"
+					else if (isprint (optopt))
+						printf ("Unknown option `-%c'.\n", optopt);
+					else
+						printf ("Unknown option character `\\x%x'.\n", optopt);
+					return 1;
+				default:
+					abort ();
+      
+				
+				
+			}
+		}
 		input = fopen(argv[1],"r");
 	}
 	else 
@@ -51,18 +95,6 @@ int main( int argc, char *argv[] )
     initBool();
     InitCrossSectionConstands();
 
-    // read in ini file
-    if ( input == NULL)
-    {
-        printf("# input file not found, using default parameters\n\n");
-        init();
-    }
-    else
-    {
-        printf("# Reading input file \n\n");
-        readfile(input);
-    }
-    fclose(input);
 
     printf("# -- Start of program -- \n");
 	print_program_parameters();
