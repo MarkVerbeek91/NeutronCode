@@ -20,6 +20,7 @@
 #include <stdlib.h>     /* getenv */
 #include <unistd.h>
 #include <string.h> 
+#include <ctype.h>
 
 #include "includes.h"
 
@@ -38,6 +39,7 @@ int main( int argc, char *argv[] )
 	FILE * input;
     int opt; 
 	char parameter_name[6];
+	double parameter_value;
 	
 	if( argc >= 2 ) 
 	{
@@ -70,33 +72,39 @@ int main( int argc, char *argv[] )
 
 					parameter_value = atof (optarg);
 					
-					switch ( parameter_name )
+					if (strcmp(parameter_name, "cath=") == 0) 
 					{
-						case "cath=":
-							fusor->a = parameter_value;
-							break;
-						case "anod=":
-							fusor->b = parameter_value;
-							break;
-						case "volt=":
-							fusor->V0 = parameter_value;
-							break;
-						case "pres=":
-							pressure = parameter_value;
-							break;
-						case "curr=":
-							Itot = parameter_value;
-							break;
-						case "tran=":
-							fusor->Tc = parameter_value;
-							break;
-						default:
-							printf ("parameter unknown: %s", parameter_name)
+						fusor->a = parameter_value;
+					} 
+					else if (strcmp(parameter_name, "anod=") == 0)
+					{
+						fusor->b = parameter_value;
 					}
+					else if (strcmp(parameter_name, "volt=") == 0)
+					{
+						fusor->V0 = parameter_value;
+					}
+					else if (strcmp(parameter_name, "pres=") == 0)
+					{
+						pressure = parameter_value;
+					}
+					else if (strcmp(parameter_name, "curr=") == 0)
+					{
+						Itot = parameter_value;
+					}
+					else if (strcmp(parameter_name, "tran=") == 0)
+					{
+						fusor->Tc = parameter_value;
+					}
+					else
+					{
+						printf ("parameter unknown: %s", parameter_name);
+					}
+
 					break;
-				case '?'		// error case
+				case '?':		// error case
 					if (optopt == 'f')
-						printf("Wrong or no input file specifiet \n"
+						printf("Wrong or no input file specified \n");
 					else if (isprint (optopt))
 						printf ("Unknown option `-%c'.\n", optopt);
 					else
