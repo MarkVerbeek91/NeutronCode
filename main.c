@@ -28,7 +28,7 @@ int main( int argc, char **argv )
 {
 	// notifi user that debug mode is on. 
 	#ifdef DEBUG_PARAMETER
-        printf("# Debug parameter turned on\n");
+        fprintf(stdout,"# Debug parameter turned on\n");
     #endif
 
 	// Initalise needed variables.
@@ -44,7 +44,7 @@ int main( int argc, char **argv )
 	
 	if( argc >= 2 ) 
 	{
-		printf("# Analising give arguments\n");
+		fprintf(stdout,"# Analising give arguments\n");
 		
 		while ((opt = getopt (argc, argv, "f:p:")) != -1)
 		{
@@ -52,16 +52,14 @@ int main( int argc, char **argv )
 			{
 				case 'f': 		// get file
 					cvalue = optarg;
-					printf("read in file: %s \n",cvalue);
 					input = fopen(cvalue,"r");
 					if ( input == NULL)
 					{
-						printf("input file not found, stopping code");
+						fprintf(stderr,"input file not found, stopping code");
 						return 1;
 					}
 					else
 					{
-						printf("# Reading input file \n\n");
 						readfile(input);
 					}
 					fclose(input);
@@ -104,7 +102,7 @@ int main( int argc, char **argv )
 					}
 					else
 					{
-						printf ("parameter unknown: %s", parameter_name);
+						fprintf (stderr,"parameter unknown: %s", parameter_name);
 					}
 
 					break;
@@ -130,11 +128,14 @@ int main( int argc, char **argv )
 		fclose(input);		
 	}
 	
-    printf("# -- Start of program -- \n");
+    fprintf(stdout,"# ------------------------------------------------------ #\n");
+    fprintf(stdout,"# ------------------ Start of program ------------------ #\n");
+    fprintf(stdout,"# ------------------------------------------------------ #\n");
+
+	// write parameter that are used to screen
 	print_program_parameters();
 	
-    // building the "Kernel", filling tables A and R.
-    printf("\n# filling tables:\n");
+    // building the Kernel, filling tables A and R.
     CalculateTables();
 
     // Calculating: source rate for first generation of Class II ions.	
