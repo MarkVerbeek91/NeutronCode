@@ -128,25 +128,26 @@ int main( int argc, char **argv )
 		fclose(input);		
 	}
 	
-    fprintf(stdout,"# ------------------------------------------------------ #\n");
-    fprintf(stdout,"# ------------------ Start of program ------------------ #\n");
-    fprintf(stdout,"# ------------------------------------------------------ #\n");
+    fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
+    fprintf(stdout,"# ---------------------------- Start of program ---------------------------- #\n");
+    fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
 
 	// write parameter that are used to screen
 	print_program_parameters();
 	
     // building the Kernel, filling tables A and R.
+	print_comment2scr("Filling tables");
     CalculateTables();
 
     // Calculating: source rate for first generation of Class II ions.	
-    printf("# Calculating S:\n");
+	print_comment2scr("Calculating S");
     S();
     printf("#  - Done\n");
 
     // calculate the currents in the cathode
     double I1, I2, I3, I4;
 
-    printf("\n# Calculating Currents:\n");
+    print_comment2scr("Calculating Currents");
     I1 = I_c1();
     printf("# 1 current: %E\n",I1);
     I2 = I_c2();
@@ -164,15 +165,15 @@ int main( int argc, char **argv )
     // calculate neutron production rate (NPR)
     if ( printbool->NPR )
     {
-        printf("# Calculating NPR:\n");
+        print_comment2scr("Calculating NPR");
         double NPR = Nps();
         printf("# NPR: %E \n\n", NPR);
     }
 
-	printf("Writing data to screen or files\n");	
+	print_comment2scr("Writing data to screen or files");	
 	output_data();
 	
     // program is done
-    printf("# -- Program Finished --");
+    printf("# ---------------------------- Program Finished ---------------------------- #");
     return 0;
 }

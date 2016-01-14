@@ -77,8 +77,6 @@ void CalculateTables(void)
 {
     double step = (giveAnodeRadius() - giveCathodeRadius())/(N_TABLE-1);
 
-	fprintf(stdout,"\n# - Filling tables ----------------------------------- #\n");
-
     printf("#");
     for ( int i = 0; i < N_TABLE; i++)
     {

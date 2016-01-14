@@ -9,7 +9,8 @@
 
 void S(void)
 {
-    // a volterra solver
+
+	// a volterra solver
     int i, j;
     double h, sum;
 

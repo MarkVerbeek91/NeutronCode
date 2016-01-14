@@ -789,8 +789,8 @@ void print_program_parameters(void)
     printf("# NSR                  : \t %s \n", printbool->NSR ? "true" : "false");	
     printf("# NPR                  : \t %s \n", printbool->NPR ? "true" : "false");
 	
-	// print output parameters    
-	fprintf(stdout,"\n# - Which data is printen to files --------------------- #\n");
+	// print output parameters
+	print_comment2scr("Which data is printen to files");    
 	
 	printf("# Potential            : \t %s \n", printbool2->potential ? "true" : "false");
 	printf("# SIIEE                : \t %s \n", printbool2->SIIEE ? "true" : "false");
@@ -812,7 +812,7 @@ void print_comment2scr(char* str)
 	int len = strlen(str);
 	fprintf(stdout,"# - %s ",str);
 	
-	for (int i = len; i < 51; i++ )
+	for (int i = len; i < 71; i++ )
 		fprintf(stdout,"-");
 	
 	fprintf(stdout," #\n");
