@@ -718,10 +718,12 @@ void arg_parameter_check(char *cvalue)
     TODO: make this function so the order of settings in the input file does
     not matter anymore.
 */
-void readfile(FILE * input)
+void readfile(FILE * input, char* name)
 {
     char str [80];
 
+	fprintf(stdout,"# Reading input file: %s \n\n", name);
+	
     fscanf (input, "%s", str); // read word '#fusor-dimentions'
 
     // cathode
