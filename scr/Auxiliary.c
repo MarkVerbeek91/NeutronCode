@@ -766,13 +766,13 @@ void print_program_parameters(void)
 //    fprintf(stdout,"# - Using following parameters ------------------------- #\n");
 	
 	// print fusor parameters
-    printf("# Fusor Cathode Radius : \t %f \n",fusor->a);
-    printf("# Fusor Anode Radius   : \t %f \n",fusor->b);
-    printf("# Voltage on Fusor     : \t %f \n",fusor->V0);
-    printf("# Pressure in Fusor    : \t %f \n",pressure);
-    printf("# Current though Fusor : \t %f \n",Itot);
-    printf("# Transparenty of gird : \t %f \n",fusor->Tc);
-	printf("# Ngas                 : \t %E \n",ngas);
+    printf("# Fusor Cathode Radius : \t\t %f \n",fusor->a);
+    printf("# Fusor Anode Radius   : \t\t %f \n",fusor->b);
+    printf("# Voltage on Fusor     : \t %+11.1f \n",fusor->V0);
+    printf("# Pressure in Fusor    : \t\t %f \n",pressure);
+    printf("# Current though Fusor : \t\t %f \n",Itot);
+    printf("# Transparenty of gird : \t\t %f \n",fusor->Tc);
+	printf("# Ngas                 : \t\t %E \n",ngas);
 	
 	// print output parameters    
 	print_comment2scr("Which data is printen to screen");

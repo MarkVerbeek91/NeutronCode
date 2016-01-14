@@ -149,25 +149,25 @@ int main( int argc, char **argv )
 
     print_comment2scr("Calculating Currents");
     I1 = I_c1();
-    printf("# 1 current: %E\n",I1);
+    printf("# I1 Current           : \t %.2E\n",I1);
     I2 = I_c2();
-    printf("# 2 current: %E\n",I2);
+    printf("# I2 Current           : \t %.2E\n",I2);
     I3 = I_c3();
-    printf("# 3 current: %E\n",I3);
+    printf("# I3 Current           : \t %.2E\n",I3);
     I4 = I_c4();
-    printf("# 4 current: %E\n",I4);
-
+    printf("# I4 Current           : \t %.2E\n",I4);
+	
     //EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
     EdgeIonFlux = Itot / ( I1 + I2 + I3 + I4);
 
-    printf("# EdgeIonFlux: %E\n \n", EdgeIonFlux);
+    printf("# EdgeIonFlux: %.2E\n \n", EdgeIonFlux);
 
     // calculate neutron production rate (NPR)
     if ( printbool->NPR )
     {
         print_comment2scr("Calculating NPR");
         double NPR = Nps();
-        printf("# NPR: %E \n\n", NPR);
+        printf("# NPR: %.2E \n\n", NPR);
     }
 
 	print_comment2scr("Writing data to screen or files");	
