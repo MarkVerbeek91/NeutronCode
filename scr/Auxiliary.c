@@ -673,10 +673,12 @@ void GNUplot_table_2D(double (*table)[N_TABLE], const char name[])
     TODO: make this function so the order of settings in the input file does
     not matter anymore.
 */
-void readfile(FILE * input)
+void readfile(FILE * input, char* name)
 {
     char str [80];
 
+	fprintf(stdout,"# Reading input file: %s \n\n", name);
+	
     fscanf (input, "%s", str); // read word '#fusor-dimentions'
 
     // cathode
