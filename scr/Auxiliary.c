@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "constants.h"
 #include "Auxiliary.h"
@@ -667,6 +668,50 @@ void GNUplot_table_2D(double (*table)[N_TABLE], const char name[])
 	return;
 }
 
+void arg_parameter_check(char *cvalue)
+{
+	char parameter_name[6];
+	double parameter_value;
+		
+	strncpy ( parameter_name, cvalue, 5);
+					parameter_name[6] = '\0';
+
+	while (*cvalue && !(isdigit(*cvalue) || ((*cvalue == '-' || *cvalue == '+') && isdigit(*(cvalue + 1)))))
+		cvalue++;
+	
+	parameter_value = atof (cvalue);
+
+	if (strcmp(parameter_name, "cath=") == 0) 
+	{
+		fusor->a = parameter_value;
+	} 
+	else if (strcmp(parameter_name, "anod=") == 0)
+	{
+		fusor->b = parameter_value;
+	}
+	else if (strcmp(parameter_name, "volt=") == 0)
+	{
+		fusor->V0 = parameter_value;
+	}
+	else if (strcmp(parameter_name, "pres=") == 0)
+	{
+		pressure = parameter_value;
+	}
+	else if (strcmp(parameter_name, "curr=") == 0)
+	{
+		Itot = parameter_value;
+	}
+	else if (strcmp(parameter_name, "tran=") == 0)
+	{
+		fusor->Tc = parameter_value;
+	}
+	else
+	{
+		printf ("parameter unknown: %s", parameter_name);
+	}
+	
+	return;
+}
 
 /**
     This function reads date from the input file.
