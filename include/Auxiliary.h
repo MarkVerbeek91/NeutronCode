@@ -16,7 +16,7 @@ void print_table(int choice, char name[]);
 void readfile(FILE * input, char* name);
 bool readline_ini_file_bools(FILE* input);
 void print_program_parameters(void);
-void arg_parameter_check(char *cvalue);
+void print_comment2scr(char* str);
 
 
 #endif // AUXILIARY_H_INCLUDED

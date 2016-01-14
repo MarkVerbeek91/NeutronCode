@@ -809,17 +809,21 @@ bool readline_ini_file_bools(FILE* input)
 
 void print_program_parameters(void)
 {
+	print_comment2scr("Using following parameters");
+//    fprintf(stdout,"# - Using following parameters ------------------------- #\n");
+	
 	// print fusor parameters
-    printf("# Fusor Cathode Radius : \t %f \n",fusor->a);
-    printf("# Fusor Anode Radius   : \t %f \n",fusor->b);
-    printf("# Voltage on Fusor     : \t %f \n",fusor->V0);
-    printf("# Pressure in Fusor    : \t %f \n",pressure);
-    printf("# Current though Fusor : \t %f \n",Itot);
-    printf("# Transparenty of gird : \t %f \n",fusor->Tc);
-	printf("# Ngas                 : \t %E \n",ngas);
+    printf("# Fusor Cathode Radius : \t\t %f \n",fusor->a);
+    printf("# Fusor Anode Radius   : \t\t %f \n",fusor->b);
+    printf("# Voltage on Fusor     : \t %+11.1f \n",fusor->V0);
+    printf("# Pressure in Fusor    : \t\t %f \n",pressure);
+    printf("# Current though Fusor : \t\t %f \n",Itot);
+    printf("# Transparenty of gird : \t\t %f \n",fusor->Tc);
+	printf("# Ngas                 : \t\t %E \n",ngas);
 	
 	// print output parameters    
-	printf("\n# - Which data is printen to screen:\n");
+	print_comment2scr("Which data is printen to screen");
+//	fprintf(stdout,"\n# - Which data is printen to screen -------------------- #\n");
 	
 	printf("# Potential            : \t %s \n", printbool->potential ? "true" : "false");
 	printf("# SIIEE                : \t %s \n", printbool->SIIEE ? "true" : "false");
@@ -832,8 +836,8 @@ void print_program_parameters(void)
     printf("# NSR                  : \t %s \n", printbool->NSR ? "true" : "false");	
     printf("# NPR                  : \t %s \n", printbool->NPR ? "true" : "false");
 	
-	// print output parameters    
-	printf("\n# - Which data is printen to files:\n");
+	// print output parameters
+	print_comment2scr("Which data is printen to files");    
 	
 	printf("# Potential            : \t %s \n", printbool2->potential ? "true" : "false");
 	printf("# SIIEE                : \t %s \n", printbool2->SIIEE ? "true" : "false");
@@ -849,3 +853,19 @@ void print_program_parameters(void)
 	return;
 }
 
+void print_comment2scr(char* str)
+{
+	
+	int len = strlen(str);
+	fprintf(stdout,"# - %s ",str);
+	
+	for (int i = len; i < 71; i++ )
+		fprintf(stdout,"-");
+	
+	fprintf(stdout," #\n");
+	
+	return;
+}
+	
+	
+	

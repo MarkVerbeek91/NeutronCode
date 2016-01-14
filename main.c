@@ -28,7 +28,7 @@ int main( int argc, char **argv )
 {
 	// notifi user that debug mode is on. 
 	#ifdef DEBUG_PARAMETER
-        printf("# Debug parameter turned on\n");
+        fprintf(stdout,"# Debug parameter turned on\n");
     #endif
 
 	// Initalise needed variables.
@@ -42,7 +42,7 @@ int main( int argc, char **argv )
 	
 	if( argc >= 2 ) 
 	{
-		printf("# Analising give arguments\n");
+		fprintf(stdout,"# Analising give arguments\n");
 		
 		while ((opt = getopt (argc, argv, "f:p:")) != -1)
 		{
@@ -50,16 +50,14 @@ int main( int argc, char **argv )
 			{
 				case 'f': 		// get file
 					cvalue = optarg;
-					printf("read in file: %s \n",cvalue);
 					input = fopen(cvalue,"r");
 					if ( input == NULL)
 					{
-						printf("input file not found, stopping code");
+						fprintf(stderr,"input file not found, stopping code");
 						return 1;
 					}
 					else
 					{
-						printf("# Reading input file \n\n");
 						readfile(input);
 					}
 					fclose(input);
@@ -92,48 +90,52 @@ int main( int argc, char **argv )
 		fclose(input);		
 	}
 	
-    printf("# -- Start of program -- \n");
+    fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
+    fprintf(stdout,"# ---------------------------- Start of program ---------------------------- #\n");
+    fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
+
+	// write parameter that are used to screen
 	print_program_parameters();
 	
-    // building the "Kernel", filling tables A and R.
-    printf("\n# filling tables:\n");
+    // building the Kernel, filling tables A and R.
+	print_comment2scr("Filling tables");
     CalculateTables();
 
     // Calculating: source rate for first generation of Class II ions.	
-    printf("# Calculating S:\n");
+	print_comment2scr("Calculating S");
     S();
     printf("#  - Done\n");
 
     // calculate the currents in the cathode
     double I1, I2, I3, I4;
 
-    printf("\n# Calculating Currents:\n");
+    print_comment2scr("Calculating Currents");
     I1 = I_c1();
-    printf("# 1 current: %E\n",I1);
+    printf("# I1 Current           : \t %.2E\n",I1);
     I2 = I_c2();
-    printf("# 2 current: %E\n",I2);
+    printf("# I2 Current           : \t %.2E\n",I2);
     I3 = I_c3();
-    printf("# 3 current: %E\n",I3);
+    printf("# I3 Current           : \t %.2E\n",I3);
     I4 = I_c4();
-    printf("# 4 current: %E\n",I4);
-
+    printf("# I4 Current           : \t %.2E\n",I4);
+	
     //EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
     EdgeIonFlux = Itot / ( I1 + I2 + I3 + I4);
 
-    printf("# EdgeIonFlux: %E\n \n", EdgeIonFlux);
+    printf("# EdgeIonFlux: %.2E\n \n", EdgeIonFlux);
 
     // calculate neutron production rate (NPR)
     if ( printbool->NPR )
     {
-        printf("# Calculating NPR:\n");
+        print_comment2scr("Calculating NPR");
         double NPR = Nps();
-        printf("# NPR: %E \n\n", NPR);
+        printf("# NPR: %.2E \n\n", NPR);
     }
 
-	printf("Writing data to screen or files\n");	
+	print_comment2scr("Writing data to screen or files");	
 	output_data();
 	
     // program is done
-    printf("# -- Program Finished --");
+    printf("# ---------------------------- Program Finished ---------------------------- #");
     return 0;
 }
