@@ -19,14 +19,14 @@
 #include <stdbool.h>
 #include <stdlib.h>     /* getenv */
 #include <unistd.h>
-#include <string.h> 
+#include <string.h>
 #include <ctype.h>
 
 #include "includes.h"
 
-int main( int argc, char **argv )  
+int main( int argc, char **argv )
 {
-	// notifi user that debug mode is on. 
+	// notifi user that debug mode is on.
 	#ifdef DEBUG_PARAMETER
         fprintf(stdout,"# Debug parameter turned on\n");
     #endif
@@ -34,16 +34,16 @@ int main( int argc, char **argv )
 	// Initalise needed variables.
     initBool();
     InitCrossSectionConstands();
-	
+
 	// open input file, default or supplied by user.
 	FILE * input;
-    int opt; 
+    int opt;
 	char *cvalue = NULL;
-	
-	if( argc >= 2 ) 
+
+	if( argc >= 2 )
 	{
 		fprintf(stdout,"# Analising give arguments\n");
-		
+
 		while ((opt = getopt (argc, argv, "f:p:")) != -1)
 		{
 			switch (opt)
@@ -58,15 +58,15 @@ int main( int argc, char **argv )
 					}
 					else
 					{
-						readfile(input);
+						readfile(input,cvalue);
 					}
 					fclose(input);
-					
+
 					break;
 
 				case 'p':		// parameter
 					arg_parameter_check(optarg);
-					
+
 					break;
 				case '?':		// error case
 					if (optopt == 'f')
@@ -82,26 +82,26 @@ int main( int argc, char **argv )
 			}
 		}
 	}
-	else 
+	else
 	{
 		printf("# Using default input file: input.ini\n");
 		input = fopen("input.ini","r");
-		readfile(input);
-		fclose(input);		
+		readfile(input, "input.ini");
+		fclose(input);
 	}
-	
+
     fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
     fprintf(stdout,"# ---------------------------- Start of program ---------------------------- #\n");
     fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
 
 	// write parameter that are used to screen
 	print_program_parameters();
-	
+
     // building the Kernel, filling tables A and R.
 	print_comment2scr("Filling tables");
     CalculateTables();
 
-    // Calculating: source rate for first generation of Class II ions.	
+    // Calculating: source rate for first generation of Class II ions.
 	print_comment2scr("Calculating S");
     S();
     printf("#  - Done\n");
@@ -118,7 +118,7 @@ int main( int argc, char **argv )
     printf("# I3 Current           : \t %.2E\n",I3);
     I4 = I_c4();
     printf("# I4 Current           : \t %.2E\n",I4);
-	
+
     //EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
     EdgeIonFlux = Itot / ( I1 + I2 + I3 + I4);
 
@@ -132,9 +132,9 @@ int main( int argc, char **argv )
         printf("# NPR: %.2E \n\n", NPR);
     }
 
-	print_comment2scr("Writing data to screen or files");	
+	print_comment2scr("Writing data to screen or files");
 	output_data();
-	
+
     // program is done
     printf("# ---------------------------- Program Finished ---------------------------- #");
     return 0;
