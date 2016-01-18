@@ -16,7 +16,7 @@ ifeq ($(config),debug)
   TARGET = $(TARGETDIR)/NeutronCode.exe
   OBJDIR = obj/Debug
   DEFINES += -DDEBUG
-  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/NeutronProduction -Iinclude/ParticleFlux
+  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/NeutronProduction -Iinclude/FusionReactionRate
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -std=c99 -DDEBUG_PARAMETER
@@ -43,7 +43,7 @@ ifeq ($(config),release)
   TARGET = $(TARGETDIR)/NeutronCode.exe
   OBJDIR = obj/Release
   DEFINES += -DNDEBUG
-  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/NeutronProduction -Iinclude/ParticleFlux
+  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/NeutronProduction -Iinclude/FusionReactionRate
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -std=c99
@@ -72,14 +72,14 @@ OBJECTS := \
 	$(OBJDIR)/IonSpectrum.o \
 	$(OBJDIR)/NeutralsClassIISpectrum.o \
 	$(OBJDIR)/NeutralsClassISpectrum.o \
+	$(OBJDIR)/FusionReactionRateIons.o \
+	$(OBJDIR)/FusionReactionRateNeutralsClassI.o \
+	$(OBJDIR)/FusionReactionRateNeutralsClassII.o \
 	$(OBJDIR)/MathFunctions.o \
 	$(OBJDIR)/NeutronProductionIons.o \
 	$(OBJDIR)/NeutronProductionNeutralsClassI.o \
 	$(OBJDIR)/NeutronProductionNeutralsClassII.o \
 	$(OBJDIR)/NeutronProductionRate.o \
-	$(OBJDIR)/FluxIons.o \
-	$(OBJDIR)/FluxNeutralsClassI.o \
-	$(OBJDIR)/FluxNeutralsClassII.o \
 	$(OBJDIR)/PotentialFunctions.o \
 	$(OBJDIR)/SourceFunction.o \
 	$(OBJDIR)/SurvivalFunctions.o \
@@ -162,6 +162,15 @@ $(OBJDIR)/NeutralsClassIISpectrum.o: scr/EnergySpectra/NeutralsClassIISpectrum.c
 $(OBJDIR)/NeutralsClassISpectrum.o: scr/EnergySpectra/NeutralsClassISpectrum.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/FusionReactionRateIons.o: scr/FusionReactionRate/FusionReactionRateIons.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/FusionReactionRateNeutralsClassI.o: scr/FusionReactionRate/FusionReactionRateNeutralsClassI.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/FusionReactionRateNeutralsClassII.o: scr/FusionReactionRate/FusionReactionRateNeutralsClassII.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/MathFunctions.o: scr/MathFunctions.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -175,15 +184,6 @@ $(OBJDIR)/NeutronProductionNeutralsClassII.o: scr/NeutronProduction/NeutronProdu
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/NeutronProductionRate.o: scr/NeutronProductionRate.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/FluxIons.o: scr/ParticleFlux/FluxIons.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/FluxNeutralsClassI.o: scr/ParticleFlux/FluxNeutralsClassI.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/FluxNeutralsClassII.o: scr/ParticleFlux/FluxNeutralsClassII.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/PotentialFunctions.o: scr/PotentialFunctions.c

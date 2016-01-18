@@ -1,4 +1,0 @@
-#ifndef IONFLUX_H_INCLUDED
-#define IONFLUX_H_INCLUDED
-
-#endif // IONFLUX_H_INCLUDED
