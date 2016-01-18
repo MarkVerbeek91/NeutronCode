@@ -48,10 +48,10 @@ void InitCrossSectionConstands(void)
  */
 double CrosssecCX(double E)
 {
-    if ( E < 1e-4 )
+    if ( E < 1e-6 )
     {
         printf("Cross section CX called for zero energy\n");
-        E = 1e-5;
+        E = NAN;
     }
 
     double crosssection;
