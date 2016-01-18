@@ -1,8 +1,8 @@
 /**
- * /brief These functions calculate the neutral particle flux on a given 
- * radius (r) for a given energy (E). The neutrals come from the Class II 
- * ions. This are two main functions. One for inward traveling ions and 
- * another for outward traving ions. 
+ * /brief These functions calculate the neutral particle flux on a given
+ * radius (r) for a given energy (E). The neutrals come from the Class II
+ * ions. This are two main functions. One for inward traveling ions and
+ * another for outward traving ions.
  */
 
 #include <math.h>
@@ -17,7 +17,7 @@
 
 #include "NeutralsClassISpectrum.h"
 
-/** 
+/**
  *         INWARD TRAVELING NEUTRALS FROM CLASS II IONS
  */
 
@@ -27,12 +27,12 @@ double NeutralsClassIISpectrumInwards_Inte1(double r, double E, double ddr)
 	double integrant, dr;
 	double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
-    
+
 	dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
-	if ( dr < r ) 
+	if ( dr < r )
 		return 0;
-	
+
     integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(dr, ddr);
@@ -48,12 +48,12 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
     double integrant, dr;
 	double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
-	
+
 	dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
-	if ( dr < giveCathodeRadius() ) 
+	if ( dr < giveCathodeRadius() )
 		return 0;
-    
+
 	integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(dr, ddr);
@@ -63,11 +63,12 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
     return integrant;
 }
 
+// equation 58 and 65
 double NeutralsClassIISpectrumInwards (double r, double E)
 {
     double flux;
     double term1 = 0, term2 = 0;
-	
+
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
@@ -96,7 +97,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
 
 		ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
 		dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-        
+
         term2  = pow(ddr/r, 2);
         term2 *= g(giveCathodeRadius(), ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);
@@ -121,10 +122,10 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
     PhiPtr = &Potential_Phi;
 
 	dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-	
+
 	if ( dr < giveCathodeRadius() )
 		return 0;
-	
+
     integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant *= g(giveCathodeRadius(), ddr);
@@ -140,9 +141,9 @@ double NeutralsClassIISpectrumOutwards_Inte2(double r, double E, double ddr)
     double integrant, dr;
 	double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
-	
+
 	dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-    
+
     if ( dr < giveCathodeRadius() )
         integrant = g(dr, ddr);
 
@@ -151,7 +152,7 @@ double NeutralsClassIISpectrumOutwards_Inte2(double r, double E, double ddr)
 
     if ( integrant == 0)
         return 0;
-	
+
     integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
@@ -164,7 +165,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
 {
     double flux, dr, ddr;
     double term1 = 0, term2 = 0;
-	
+
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
@@ -201,7 +202,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
 
         ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
 		dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
-        
+
         term2  = pow(ddr/r, 2);
         term2 *= g(giveCathodeRadius(), ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);

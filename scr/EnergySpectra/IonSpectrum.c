@@ -1,7 +1,7 @@
 /**
- * \brief All functions to calculate the spectrum of Ions moving through the 
- * fusor. This are two main functions. One for inward traveling ions and 
- * another for outward traving ions. 
+ * \brief All functions to calculate the spectrum of Ions moving through the
+ * fusor. This are two main functions. One for inward traveling ions and
+ * another for outward traving ions.
  */
 
 #include <math.h>
@@ -31,8 +31,8 @@ double IonSpectrumInwards(double r, double E)
 	double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-	dr = Potential_Phi_Inv(E);
-	
+	dr = Potential_Phi_Inv(E/giveq() + Potential_Phi(r));
+
     #ifdef DEBUG_PARAMETER
     if ( giveAnodeRadius() < dr || dr < r )
     {
@@ -83,9 +83,12 @@ double IonSpectrumInwards(double r, double E)
 // equations 29 and 31
 double IonSpectrumOutwards(double r, double E)
 {
-    double flux;
+    double flux, dr;
     double term1 = 0, term2 = 0;
-    double dr = Potential_Phi_Inv(E);
+    double (*PhiPtr)(double);
+    PhiPtr = &Potential_Phi;
+
+    dr = Potential_Phi_Inv(E/giveq() + Potential_Phi(r));
 
     #ifdef DEBUG_PARAMETER
     if ( giveCathodeRadius() < dr || dr < giveAnodeRadius() )
@@ -95,8 +98,6 @@ double IonSpectrumOutwards(double r, double E)
     }
     #endif
 
-    double (*PhiPtr)(double);
-    PhiPtr = &Potential_Phi;
 
     term1  = 1/giveq();
     term1 *= pow(dr/r,2);
