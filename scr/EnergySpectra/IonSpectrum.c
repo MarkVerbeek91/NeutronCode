@@ -93,7 +93,7 @@ double IonSpectrumOutwards(double r, double E)
     #ifdef DEBUG_PARAMETER
     if ( giveCathodeRadius() < dr || dr < giveAnodeRadius() )
     {
-        printf("IonSpectrumOutwards error: dr < b or dr < r\n");
+        printf("IonSpectrumOutwards error: dr < a or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
         return NAN;
     }
     #endif
