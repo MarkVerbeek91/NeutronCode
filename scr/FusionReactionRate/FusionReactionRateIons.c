@@ -28,7 +28,7 @@ double FusionRateIons(double r)
     double (*funcPtr)(double, double);
 
     funcPtr = &FusionRateIons_Inte;
-    FRR  = NIntegration_2(funcPtr, r, 0, fusor->V0);
+    FRR  = NIntegration_2(funcPtr, r, 0, -1*fusor->V0);
 
     FRR *= ngas;
     return FRR;
