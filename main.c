@@ -40,7 +40,7 @@ int main( int argc, char **argv )
     int opt;
 	char *cvalue = NULL;
 
-	if( argc >= 2 )
+	if( argc > 1 )
 	{
 		fprintf(stdout,"# Analising give arguments\n");
 

@@ -9,12 +9,12 @@
 
 /**
  * This function writes data to files or screen depending on input file.
- */ 
+ */
 void output_data(void)
 {
 	double (*funcPtr)(double);
 	double (*funcPtr2)(double, double);
-	
+
 	// writing the potential to a file for plotting
     if ( printbool->potential )
     {
@@ -22,7 +22,7 @@ void output_data(void)
 
 		funcPtr = &Potential_Phi;
 		GNUplot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "GNUplot\\GNU_potential.txt");
-        
+
         funcPtr2 = &ParticleEnergy2;
         GNUplot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "GNUplot\\GNU_potential.txt");
     }
@@ -32,11 +32,11 @@ void output_data(void)
 
 		funcPtr = &Potential_Phi;
 		plot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "output_files\\Potential.csv", "GNUplot\\GNU_potential.txt");
-        
+
         funcPtr2 = &ParticleEnergy2;
-        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential.txt");		
+        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential.txt");
 	}
-	
+
     // writing the SIIEE to a file for plotting
     if ( printbool->SIIEE )
     {
@@ -82,7 +82,7 @@ void output_data(void)
         funcPtr = &CrosssecTot;
         plot_function_1D(*funcPtr, 1.0, 500000, 10, "output_files\\CrosssecTot.txt", "GNUplot\\GNU_Cross_sections.txt");
     }
-	
+
     // Writing the survival functions to a file for plotting.
     if ( printbool->Survival )
     {
@@ -106,7 +106,7 @@ void output_data(void)
         funcPtr2 = &g;
         plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.txt", "GNUplot\\GNU_Survival_functions.txt");
     }
-    
+
 	// writing K to file
     if ( printbool->KernelTable )
     {
@@ -116,9 +116,9 @@ void output_data(void)
 	if ( printbool2->KernelTable )
     {
         printf("# Writing Kernel to file \n");
-		plot_table_2D(Table->K, "output_files\\KTable.csv", "GNUplot\\GNU_Ktable.txt");        
+		plot_table_2D(Table->K, "output_files\\KTable.csv", "GNUplot\\GNU_Ktable.txt");
     }
-    
+
 	// writing A to file
     if ( printbool->Atable )
     {
@@ -220,7 +220,7 @@ void output_data(void)
         printf("# In cathode, outwards\n");
   //      GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
 
-    }	
+    }
     if ( printbool->NSR )
     {
         printf("# Printing neutron source rate to file:\n");
@@ -273,9 +273,9 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL ) 
+    if ( input == NULL )
     {
-        printf("# Could not open file: %s\n", input_file_name); 
+        printf("# Could not open file: %s\n", input_file_name);
 
         fclose(input);
         fclose(output);
@@ -289,7 +289,7 @@ void plot_function_1D(double (*funcPtr)(double), double Start, double End, doubl
         fclose(output);
         return;
     }
-		
+
     double value;
     char c = '0';
 
@@ -328,7 +328,7 @@ void GNUplot_function_1D(double (*funcPtr)(double), double Start, double End, do
         fclose(output);
         return;
     }
-		
+
     double value;
     char c = '0';
 
@@ -364,9 +364,9 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL ) 
+    if ( input == NULL )
     {
-        printf("# Could not open file: %s\n", input_file_name); 
+        printf("# Could not open file: %s\n", input_file_name);
 
         fclose(input);
         fclose(output);
@@ -492,9 +492,9 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL ) 
+    if ( input == NULL )
     {
-        printf("# Could not open file: %s\n", input_file_name); 
+        printf("# Could not open file: %s\n", input_file_name);
 
         fclose(input);
         fclose(output);
@@ -582,9 +582,9 @@ void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input
     input  = fopen(input_file_name,"r");
     output = fopen(name,"w");
 
-    if ( input == NULL ) 
+    if ( input == NULL )
     {
-        printf("# Could not open file: %s\n", name); 
+        printf("# Could not open file: %s\n", name);
 
         fclose(input);
         fclose(output);
@@ -664,7 +664,7 @@ void GNUplot_table_2D(double (*table)[N_TABLE], const char name[])
     printf("# %s: done writing to file\n",name);
 
     fclose(output);
-	
+
 	return;
 }
 
@@ -672,19 +672,19 @@ void arg_parameter_check(char *cvalue)
 {
 	char parameter_name[6];
 	double parameter_value;
-		
+
 	strncpy ( parameter_name, cvalue, 5);
 					parameter_name[6] = '\0';
 
 	while (*cvalue && !(isdigit(*cvalue) || ((*cvalue == '-' || *cvalue == '+') && isdigit(*(cvalue + 1)))))
 		cvalue++;
-	
+
 	parameter_value = atof (cvalue);
 
-	if (strcmp(parameter_name, "cath=") == 0) 
+	if (strcmp(parameter_name, "cath=") == 0)
 	{
 		fusor->a = parameter_value;
-	} 
+	}
 	else if (strcmp(parameter_name, "anod=") == 0)
 	{
 		fusor->b = parameter_value;
@@ -709,7 +709,7 @@ void arg_parameter_check(char *cvalue)
 	{
 		printf ("parameter unknown: %s", parameter_name);
 	}
-	
+
 	return;
 }
 
@@ -723,7 +723,7 @@ void readfile(FILE * input, char* name)
     char str [80];
 
 	fprintf(stdout,"# Reading input file: %s \n\n", name);
-	
+
     fscanf (input, "%s", str); // read word '#fusor-dimentions'
 
     // cathode
@@ -761,11 +761,11 @@ void readfile(FILE * input, char* name)
     fusor->Tc = strtof(str,NULL);
 
 	q = 1;
-	pressure = 0.5;	
+	pressure = 0.5;
 	Itot = 0.1;
 	Tgas = 400;
 	ngas = 6.022e23 * pressure / (8.314 * Tgas); //
-		
+
     /* READ IN BOOLS FROM FILE */
     fscanf (input, "%s", str); // read word '#outfiles'
 
@@ -781,7 +781,7 @@ void readfile(FILE * input, char* name)
 	printbool->NPR = readline_ini_file_bools(input);
 
 	fscanf (input, "%s", str); // read word '#print_to_screen'
-	
+
 	printbool2->potential = readline_ini_file_bools(input);
 	printbool2->SIIEE = readline_ini_file_bools(input);
 	printbool2->Cross_section = readline_ini_file_bools(input);
@@ -792,9 +792,27 @@ void readfile(FILE * input, char* name)
 	printbool2->Spectrum = readline_ini_file_bools(input);
 	printbool2->NSR = readline_ini_file_bools(input);
 	printbool2->NPR = readline_ini_file_bools(input);
-	
-}
 
+}
+/*
+void read_stdin(FILE * input)
+{
+    char str [80];
+
+    char *buffer = NULL;
+    int read;
+    unsigned int len;
+    read = getline(&buffer, &len, stdin);
+    if (-1 != read)
+        puts(buffer);
+    else
+        printf("No line read...\n");
+
+    printf("Size read: %d\n Len: %d\n", read, len);
+
+    return;
+}
+*/
 bool readline_ini_file_bools(FILE* input)
 {
     char str[80];
@@ -811,7 +829,7 @@ void print_program_parameters(void)
 {
 	print_comment2scr("Using following parameters");
 //    fprintf(stdout,"# - Using following parameters ------------------------- #\n");
-	
+
 	// print fusor parameters
     printf("# Fusor Cathode Radius : \t\t %f \n",fusor->a);
     printf("# Fusor Anode Radius   : \t\t %f \n",fusor->b);
@@ -820,52 +838,51 @@ void print_program_parameters(void)
     printf("# Current though Fusor : \t\t %f \n",Itot);
     printf("# Transparenty of gird : \t\t %f \n",fusor->Tc);
 	printf("# Ngas                 : \t\t %E \n",ngas);
-	
-	// print output parameters    
+
+	// print output parameters
 	print_comment2scr("Which data is printen to screen");
 //	fprintf(stdout,"\n# - Which data is printen to screen -------------------- #\n");
-	
+
 	printf("# Potential            : \t %s \n", printbool->potential ? "true" : "false");
 	printf("# SIIEE                : \t %s \n", printbool->SIIEE ? "true" : "false");
 	printf("# Cross_sections       : \t %s \n", printbool->Cross_section ? "true" : "false");
 	printf("# Survival functions   : \t %s \n", printbool->Survival ? "true" : "false");
-	printf("# Source Table         : \t %s \n", printbool->Atable ? "true" : "false");	
+	printf("# Source Table         : \t %s \n", printbool->Atable ? "true" : "false");
     printf("# Kernel               : \t %s \n", printbool->KernelTable ? "true" : "false");
 	printf("# Neutral Source Table : \t %s \n", printbool->Stable ? "true" : "false");
 	printf("# Spectra              : \t %s \n", printbool->Spectrum ? "true" : "false");
-    printf("# NSR                  : \t %s \n", printbool->NSR ? "true" : "false");	
+    printf("# NSR                  : \t %s \n", printbool->NSR ? "true" : "false");
     printf("# NPR                  : \t %s \n", printbool->NPR ? "true" : "false");
-	
+
 	// print output parameters
-	print_comment2scr("Which data is printen to files");    
-	
+	print_comment2scr("Which data is printen to files");
+
 	printf("# Potential            : \t %s \n", printbool2->potential ? "true" : "false");
 	printf("# SIIEE                : \t %s \n", printbool2->SIIEE ? "true" : "false");
 	printf("# Cross_sections       : \t %s \n", printbool2->Cross_section ? "true" : "false");
 	printf("# Survival functions   : \t %s \n", printbool2->Survival ? "true" : "false");
-	printf("# Source Table         : \t %s \n", printbool2->Atable ? "true" : "false");	
+	printf("# Source Table         : \t %s \n", printbool2->Atable ? "true" : "false");
     printf("# Kernel               : \t %s \n", printbool2->KernelTable ? "true" : "false");
 	printf("# Neutral Source Table : \t %s \n", printbool2->Stable ? "true" : "false");
 	printf("# Spectra              : \t %s \n", printbool2->Spectrum ? "true" : "false");
-    printf("# NSR                  : \t %s \n", printbool2->NSR ? "true" : "false");	
+    printf("# NSR                  : \t %s \n", printbool2->NSR ? "true" : "false");
     printf("# NPR                  : \t %s \n", printbool2->NPR ? "true" : "false");
-	
+
 	return;
 }
 
 void print_comment2scr(char* str)
 {
-	
+
 	int len = strlen(str);
 	fprintf(stdout,"# - %s ",str);
-	
+
 	for (int i = len; i < 71; i++ )
 		fprintf(stdout,"-");
-	
+
 	fprintf(stdout," #\n");
-	
+
 	return;
 }
-	
-	
-	
+
+
