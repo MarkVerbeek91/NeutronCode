@@ -9,6 +9,7 @@
  */
 
 #include <math.h>
+#include <stdio.h>
 
 #include "constants.h"
 #include "MathFunctions.h"
@@ -56,7 +57,10 @@ double adaptiveSimpsonsAux(double (*f)(double), double a, double b, double epsil
     double S2 = Sleft + Sright;
 
     if (S2 == NAN)
+    {
+        fprintf(stderr,"NAN detected while integrating, stopping integration");
         return NAN;
+    }
 
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
@@ -89,7 +93,10 @@ double adaptiveSimpsonsAux2(double (*f)(double, double), double a, double b, dou
     double S2 = Sleft + Sright;
 
     if (S2 == NAN)
+    {
+        fprintf(stderr,"NAN detected while integrating, stopping integration");
         return NAN;
+    }
 
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
@@ -123,7 +130,10 @@ double adaptiveSimpsonsAux3(double (*f)(double, double, double), double a, doubl
     double S2 = Sleft + Sright;
 
     if (S2 == NAN)
+    {
+        fprintf(stderr,"NAN detected while integrating, stopping integration");
         return NAN;
+    }
 
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
