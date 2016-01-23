@@ -4,7 +4,7 @@
  * @date 30 december 2015
  * @brief This file contains a few pure mathematical functions like interpolation and
  * numerical integration. These numerical integration is in several forms
- * because in this code several different type of functions are needed to be 
+ * because in this code several different type of functions are needed to be
  * integrations are done.
  */
 
@@ -54,13 +54,13 @@ double adaptiveSimpsonsAux(double (*f)(double), double a, double b, double epsil
     double Sleft = (h/12)*(fa + 4*fd + fc);
     double Sright = (h/12)*(fc + 4*fe + fb);
     double S2 = Sleft + Sright;
-    
+
     if (S2 == NAN)
         return NAN;
-    
+
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
-   
+
     return adaptiveSimpsonsAux(f, a, c, epsilon/2, Sleft,  fa, fc, fd, bottom-1) +
            adaptiveSimpsonsAux(f, c, b, epsilon/2, Sright, fc, fb, fe, bottom-1);
 }
@@ -87,7 +87,7 @@ double adaptiveSimpsonsAux2(double (*f)(double, double), double a, double b, dou
     double Sleft = (h/12)*(fa + 4*fd + fc);
     double Sright = (h/12)*(fc + 4*fe + fb);
     double S2 = Sleft + Sright;
-    
+
     if (S2 == NAN)
         return NAN;
 
@@ -121,10 +121,10 @@ double adaptiveSimpsonsAux3(double (*f)(double, double, double), double a, doubl
     double Sleft = (h/12)*(fa + 4*fd + fc);
     double Sright = (h/12)*(fc + 4*fe + fb);
     double S2 = Sleft + Sright;
-    
+
     if (S2 == NAN)
         return NAN;
-    
+
     if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
         return S2 + (S2 - S)/15;
 
@@ -132,7 +132,7 @@ double adaptiveSimpsonsAux3(double (*f)(double, double, double), double a, doubl
            adaptiveSimpsonsAux3(f, c, b, epsilon/2, var1, var2,  Sright, fc, fb, fe, bottom-1);
 }
 
-// An integration function for functions like: X(E, r, ddr) over ddr
+// An integration function for functions like: X(var1, var2, ddr) over ddr
 // TODO: make more robust
 double NIntegration_3( double (*funcPtr)(double, double, double), double var1, double var2, double Start, double End)
 {
@@ -166,4 +166,3 @@ bool DELTA(double d)
     return 0;
 }
 
-    

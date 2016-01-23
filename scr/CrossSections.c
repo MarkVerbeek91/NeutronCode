@@ -48,10 +48,10 @@ void InitCrossSectionConstands(void)
  */
 double CrosssecCX(double E)
 {
-    if ( E < 1e-4 )
+    if ( E < 1e-6 )
     {
-        printf("Cross section CX called for zero energy\n");
-        E = 1e-5;
+        printf("Cross section CX called for %E\n",E);
+        E = NAN;
     }
 
     double crosssection;
@@ -72,10 +72,10 @@ double CrosssecCX(double E)
  */
 double CrosssecIon(double E)
 {
-    if ( E < 1e-4 )
+    if ( E < 1e-6)
     {
-        printf("Cross section Ion called for zero energy\n");
-        E = 1e-5;
+        printf("Cross section Ion called for: %E\n", E);
+        E = NAN;
     }
 
     double crosssection;
@@ -111,10 +111,10 @@ double CrosssecTot(double energy)
  */
 double CrosssecFusion(double E)
 {
-    if ( E < 1e-4 )
+    if ( E < 0 )
     {
-        printf("Cross section Fusion called for zero energy\n");
-        E = 1e-5;
+        printf("Cross section Fusion called for zero energy: %E\n", E);
+        E = NAN;
     }
 
     double crosssection, energy = E/1000.;

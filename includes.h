@@ -17,9 +17,9 @@
 #include "NeutralsClassISpectrum.h"
 #include "NeutralsClassIISpectrum.h"
 
-#include "FluxIons.h"
-#include "FluxNeutralsClassI.h"
-#include "FluxNeutralsClassII.h"
+#include "FusionReactionRateIons.h"
+#include "FusionReactionRateNeutralsClassI.h"
+#include "FusionReactionRateNeutralsClassII.h"
 
 #include "NeutronProductionIons.h"
 #include "NeutronProductionNeutralsClassI.h"

@@ -44,3 +44,4 @@ Doxygen
 
 # Specific files
 input.ini
+*.GNUfile

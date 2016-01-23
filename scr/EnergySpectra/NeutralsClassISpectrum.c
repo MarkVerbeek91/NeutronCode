@@ -1,7 +1,7 @@
-/** 
- * /brief These functions calculate the neutral particle flux on a given 
- * radius (r) for a given energy (E). This are two main functions. One for 
- * inward traveling ions and another for outward traving ions. 
+/**
+ * /brief These functions calculate the neutral particle flux on a given
+ * radius (r) for a given energy (E). This are two main functions. One for
+ * inward traveling ions and another for outward traving ions.
  */
 
 #include <math.h>
@@ -23,12 +23,12 @@ double NeutralsClassISpectrumInwards(double r, double E)
     double term1 = 0, term2 = 0;
 	double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
-	
-	dr = Potential_Phi_Inv(E);
+
+	dr = Potential_Phi_Inv((E0 - E)/giveq());
 
     // make sure that only physical numbers are calculated
 	#ifdef DEBUG_PARAMETER
-    if ( r < dr || dr < giveAnodeRadius()) 
+    if ( r < dr || dr < giveAnodeRadius())
     {
         printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
         return NAN;
@@ -67,9 +67,9 @@ double NeutralsClassISpectrumOutwards(double r, double E)
     double term1 = 0, term2 = 0;
 	double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
-	
-	dr = Potential_Phi_Inv(E);
-	
+
+	dr = Potential_Phi_Inv((E0 - E)/giveq());
+
 	#ifdef DEBUG_PARAMETER
     if (  giveCathodeRadius() < dr || dr < giveAnodeRadius() )
     {
@@ -77,7 +77,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
         return NAN;
     }
 	#endif
-	
+
     term1  = 1 / giveq();
     term1 *= pow(giveAnodeRadius()/r,2);
     term1 *= ngas * CrosssecCX(E);
