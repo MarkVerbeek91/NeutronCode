@@ -6,6 +6,8 @@
  * \return potential in V
  */
 
+#include <math.h>
+#include <stdlib.h>
 #include "constants.h"
 
 #include "PotentialFunctions.h"
@@ -24,10 +26,38 @@ double Potential_Phi(double r)
 
 double Potential_Phi_Inv(double E)
 {
-    double r;
+    double r_left, r_right, r;
+    double Etmp;
 
-	r  = giveAnodeRadius() * giveCathodeRadius();
-	r /= (E/giveVoltage()) * ( giveAnodeRadius() - giveCathodeRadius() ) - giveCathodeRadius();
+    r_left  = giveCathodeRadius();
+    r_right = giveAnodeRadius();
+
+    r = r_left + ( r_right - r_left )/2.0;
+
+    Etmp = Potential_Phi(r);
+
+    while ( abs(Etmp - E) > 1 )
+    {
+        if ( Etmp < E )
+        {
+            // energy is smaller than needed so the radius should be bigger. From larger distance.
+            r_left = r;
+
+            r = r_left + ( r_right - r_left )/2.0;
+
+            Etmp = Potential_Phi(r);
+        }
+        else
+        {
+            // energy is bigger so originates from larger distance.
+            r_right = r;
+
+            r = r_left + ( r_right - r_left )/2.0;
+
+            Etmp = Potential_Phi(r);
+        }
+    }
+
 
     return r;
 }
