@@ -187,78 +187,20 @@ void output_data(void)
     {
         printf("# Printing neutron source rate to file:\n");
 
-            // Ions
-        // inwards
+        // Ions
         funcPtr = &FusionRateIons;
         printf("# Neutrons from inwards ions\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSR.txt");
 
-        // outwards
-        funcPtr = &FusionRateIons;
-        printf("# Neutrons from outwards ions\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
-
-            // Neutrals Class I
-        // inwards
-        funcPtr = &NeutronsNeutralsClassIFluxInwards;
+        // Neutrals Class I
+        funcPtr = &FusionRateNeutralsClassI;
         printf("# In cathode, inwards\n");
-        GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSR.txt");
 
-        // outwards
-        funcPtr = &NeutronsNeutralsClassIFluxOutwards;
-        printf("# In cathode, outwards\n");
-        GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
-
-            // Neutrals ClassII
-        // inwards
-        funcPtr = &NeutronsNeutralsClassIIFluxInwards;
+        // Neutrals ClassII
+        funcPtr = &FusionRateNeutralsClassII;
         printf("# In cathode, inwards\n");
-        GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
-
-        // outwards
-        funcPtr = &NeutronsNeutralsClassIIFluxOutwards;
-        printf("# In cathode, outwards\n");
-        GNUplot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "GNUplot\\GNU_NSR.txt");
-
-    }
-
-    if ( printbool->NSR )
-    {
-        printf("# Printing neutron source rate to file:\n");
-
-            // Ions
-        // inwards
-        funcPtr = &NeutronsIonFluxInwards;
-        printf("# Neutrons from inwards ions\n");
-//        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 0.001, "NSR_1.GNUfile", "GNUplot\\GNU_NSR.txt");
-
-        // outwards
-        funcPtr = &NeutronsIonFluxOutwards;
-        printf("# Neutrons from outwards ions\n");
-        plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_2.GNUfile", "GNUplot\\GNU_NSR.txt");
-
-            // Neutrals Class I
-        // inwards
-        funcPtr = &NeutronsNeutralsClassIFluxInwards;
-        printf("# In cathode, inwards\n");
-   //   plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_3.GNUfile", "GNUplot\\GNU_NSR.txt");
-
-        // outwards
-        funcPtr = &NeutronsNeutralsClassIFluxOutwards;
-        printf("# In cathode, outwards\n");
-   //   plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_4.GNUfile", "GNUplot\\GNU_NSR.txt");
-
-            // Neutrals ClassII
-        // inwards
-        funcPtr = &NeutronsNeutralsClassIIFluxInwards;
-        printf("# In cathode, inwards\n");
-   //   plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_5.GNUfile", "GNUplot\\GNU_NSR.txt");
-
-        // outwards
-        funcPtr = &NeutronsNeutralsClassIIFluxOutwards;
-        printf("# In cathode, outwards\n");
-  //    plot_function_1D(*funcPtr, 0.001, giveAnodeRadius(), 0.001, "NSR_6.GNUfile", "GNUplot\\GNU_NSR.txt");
-
+        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSR.txt");
     }
 
 	return;

@@ -8,9 +8,9 @@
 
 #include "constants.h"
 #include "MathFunctions.h"
-#include "NeutronProductionIons.h"
-#include "NeutronProductionNeutralsClassI.h"
-#include "NeutronProductionNeutralsClassII.h"
+#include "FusionReactionRateIons.h"
+#include "FusionReactionRateNeutralsClassI.h"
+#include "FusionReactionRateNeutralsClassII.h"
 
 #include "NeutronProductionRate.h"
 
@@ -21,46 +21,28 @@ double Nps(void)
     double (*FunctPtr)(double);
 
     // Neutrons from Ions
-    FunctPtr = &NeutronsIonFluxInwards;
+    FunctPtr = &FusionRateIons;
 
     tempNPS = NIntegration(*FunctPtr, 0.00001, giveAnodeRadius() - 0.000001);
     NPS  = tempNPS;
     fprintf(stdout,"# Neutrons from ...\n");
-	fprintf(stdout,"# Ions Inwards         : \t %.2E \n", tempNPS);
-
-    FunctPtr = &NeutronsIonFluxOutwards;
-
-    tempNPS = NIntegration(*FunctPtr, 0.00001, giveAnodeRadius() - 0.000001);
-    NPS += tempNPS;
-	fprintf(stdout,"# Ions Outwards        : \t %.2E \n", tempNPS);
+	fprintf(stdout,"#        Ions          : \t %.2E \n", tempNPS);
 
     // Neutrons from Neutrals from Class I ions.
-    FunctPtr = &NeutronsNeutralsClassIFluxInwards;
+    FunctPtr = &FusionRateNeutralsClassI;
 
     tempNPS = NIntegration(*FunctPtr, 0.00001, giveAnodeRadius() - 0.000001);
     NPS += tempNPS;
-	fprintf(stdout,"# Neutrals 1 Inwards   : \t %.2E \n", tempNPS);
-
-    FunctPtr = &NeutronsNeutralsClassIFluxOutwards;
-
-    tempNPS = NIntegration(*FunctPtr, 0.00001, giveAnodeRadius() - 0.000001);
-    NPS += tempNPS;
-	fprintf(stdout,"# Neutrals 1 Outwards  : \t %.2E \n", tempNPS);
-
+	fprintf(stdout,"#        Neutrals 1    : \t %.2E \n", tempNPS);
 
 /*
     // Neutrons from Neutrals from Class II ions.
-    FunctPtr = &NeutronsNeutralsClassIIFluxInwards;
+    FunctPtr = &FusionRateNeutralsClassI;
 
     tempNPS = NIntegration(*FunctPtr, 0.00001, giveAnodeRadius() - 0.000001);
     NPS += tempNPS;
-	fprintf(stdout,"# Neutrals 2 Inwards   : \t %.2E \n", tempNPS);
+	fprintf(stdout,"#        Neutrals 2    : \t %.2E \n", tempNPS);
 
-    FunctPtr = &NeutronsNeutralsClassIIFluxOutwards;
-
-    tempNPS = NIntegration(*FunctPtr, 0.00001, giveAnodeRadius() - 0.000001);
-    NPS += tempNPS;
-	fprintf(stdout,"# Neutrals 2 Outwards  : \t %.2E \n", tempNPS);
 */
     return NPS;
 }
