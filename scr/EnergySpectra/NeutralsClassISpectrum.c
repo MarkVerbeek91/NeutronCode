@@ -26,14 +26,8 @@ double NeutralsClassISpectrumInwards(double r, double E)
 
 	dr = Potential_Phi_Inv((E0 - E)/giveq());
 
-    // make sure that only physical numbers are calculated
-	#ifdef DEBUG_PARAMETER
-    if ( r < dr || dr < giveAnodeRadius())
-    {
-        printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
-        return NAN;
-    }
-	#endif
+    if ( dr < r )
+    	dr = roundf(dr * 10000) / 10000 + 1e-5;
 
     term1  = 1 / giveq();
     term1 *= pow(giveAnodeRadius()/r,2);
@@ -44,10 +38,25 @@ double NeutralsClassISpectrumInwards(double r, double E)
 
     if ( giveCathodeRadius() < r )
     {
+            // make sure that only physical numbers are calculated
+        if ( false )
+        {
+            printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
+            return NAN;
+        }
+
         flux = term1;
     }
     else
     {
+            // make sure that only physical numbers are calculated
+        if ( false )
+        {
+            printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
+            return NAN;
+        }
+
+
         if ( DELTA(E + giveVoltage()) )
         {
             term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux;
@@ -70,13 +79,8 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
 	dr = Potential_Phi_Inv((E0 - E)/giveq());
 
-	#ifdef DEBUG_PARAMETER
-    if (  giveCathodeRadius() < dr || dr < giveAnodeRadius() )
-    {
-        printf("NeutralsClassISpectrumOutwards error: a < dr or dr < a\n");
-        return NAN;
-    }
-	#endif
+    if ( dr < r )
+    	dr = roundf(dr * 10000) / 10000 + 1e-5;
 
     term1  = 1 / giveq();
     term1 *= pow(giveAnodeRadius()/r,2);
@@ -85,6 +89,13 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
     if ( giveCathodeRadius() > r )
     {
+        if (  false )
+        {
+            printf("NeutralsClassISpectrumOutwards error: a < dr or dr < a\n");
+            return NAN;
+        }
+
+
         term1 *= f(dr);
 
         if ( DELTA(E + giveVoltage()) )
@@ -97,6 +108,12 @@ double NeutralsClassISpectrumOutwards(double r, double E)
     }
     else
     {
+        if (  false )
+        {
+            printf("NeutralsClassISpectrumOutwards error: a < dr or dr < a\n");
+            return NAN;
+        }
+
         term1 *= f(dr) + pow(f(0),2) / f(dr);
 
         if ( DELTA(E + giveVoltage()) )

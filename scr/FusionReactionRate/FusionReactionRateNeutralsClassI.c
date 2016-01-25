@@ -24,11 +24,12 @@ double FusionRateNeutralsClassI_Inte(double r, double E)
 
 double FusionRateNeutralsClassI(double r)
 {
-    double FRR;
+    double FRR, Emax;
     double (*funcPtr)(double, double);
 
     funcPtr = &FusionRateNeutralsClassI_Inte;
-    FRR  = NIntegration_2(funcPtr, r, 0, fusor->V0);
+    Emax = ParticleEnergy1(r);
+    FRR  = NIntegration_2(funcPtr, r, 0, Emax);
 
     FRR *= ngas;
     return FRR;

@@ -79,6 +79,12 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     if ( giveCathodeRadius() < r)
     {
         // outside the cathode region
+        if ( false )
+        {
+            printf("NeutralsClassIISpectrumInwards error: r < dr or dr < a\n");
+            return NAN;
+        }
+
         double (*FunctPtr)(double, double, double);
         FunctPtr = &NeutralsClassIISpectrumInwards_Inte1;
 
@@ -89,6 +95,12 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     else
     {
         // inside the cathode region
+        if ( false )
+        {
+            printf("NeutralsClassIISpectrumInwards error: r < dr or dr < a\n");
+            return NAN;
+        }
+
 		double ddr, dr;
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutralsClassIISpectrumInwards_Inte2;
