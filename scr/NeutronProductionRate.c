@@ -35,7 +35,6 @@ double Nps(void)
     NPS += tempNPS;
 	fprintf(stdout,"#        Neutrals 1    : \t %.2E \n", tempNPS);
 
-/*
     // Neutrons from Neutrals from Class II ions.
     FunctPtr = &FusionRateNeutralsClassI;
 
@@ -43,7 +42,6 @@ double Nps(void)
     NPS += tempNPS;
 	fprintf(stdout,"#        Neutrals 2    : \t %.2E \n", tempNPS);
 
-*/
     return NPS;
 }
 

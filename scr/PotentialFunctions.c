@@ -36,7 +36,7 @@ double Potential_Phi_Inv(double E)
 
     Etmp = Potential_Phi(r);
 
-    while ( abs(Etmp - E) > 1 )
+    while ( abs(Etmp - E) > 0.1 )
     {
         if ( Etmp < E )
         {
