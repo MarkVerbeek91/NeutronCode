@@ -8,6 +8,7 @@
 #include "MathFunctions.h"
 #include "IonSpectrum.h"
 #include "CrossSections.h"
+#include "PotentialFunctions.h"
 
 #include "FusionReactionRateIons.h"
 
@@ -24,11 +25,12 @@ double FusionRateIons_Inte(double r, double E)
 
 double FusionRateIons(double r)
 {
-    double FRR;
+    double FRR, Emax;
     double (*funcPtr)(double, double);
 
     funcPtr = &FusionRateIons_Inte;
-    FRR  = NIntegration_2(funcPtr, r, 0, -1*fusor->V0);
+    Emax = ParticleEnergy1(r);
+    FRR  = NIntegration_2(funcPtr, r, 0, Emax);
 
     FRR *= ngas;
     return FRR;
