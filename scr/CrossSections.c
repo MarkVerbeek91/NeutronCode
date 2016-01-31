@@ -48,17 +48,14 @@ void InitCrossSectionConstands(void)
  */
 double CrosssecCX(double E)
 {
-    if ( E < 1e-6 )
-    {
-        printf("Cross section CX called for %E\n",E);
-        E = NAN;
-    }
-
     double crosssection;
     double energy = E/1000.;
     crosssection = 1e-20 * CS_cx.A1cx;
     crosssection = crosssection * log((CS_cx.A2cx/energy) + CS_cx.A6cx);
     crosssection = crosssection / (1 + CS_cx.A3cx * energy + CS_cx.A4cx * pow(energy,3.5) + CS_cx.A5cx * pow(energy,5.4));
+
+    if ( crosssection != crosssection)
+        fprintf(stderr,"Charge Exchange cross section returning NAN\n");
 
     return crosssection;
 }
@@ -72,12 +69,6 @@ double CrosssecCX(double E)
  */
 double CrosssecIon(double E)
 {
-    if ( E < 1e-6)
-    {
-        printf("Cross section Ion called for: %E\n", E);
-        E = NAN;
-    }
-
     double crosssection;
 
     // because the int E is in eV and the formula in keV, the factor 1/1000 is introduced.
@@ -85,6 +76,10 @@ double CrosssecIon(double E)
     crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
     crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
     crosssection = crosssection * 1e-20 * CS_Ion.A1Ion;
+
+    if ( crosssection != crosssection)
+        fprintf(stderr,"Ionnisation cross section returning NAN\n");
+
     return crosssection;
 }
 
@@ -111,14 +106,12 @@ double CrosssecTot(double energy)
  */
 double CrosssecFusion(double E)
 {
-    if ( E < 0 )
-    {
-        printf("Cross section Fusion called for zero energy: %E\n", E);
-        E = NAN;
-    }
-
     double crosssection, energy = E/1000.;
     crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
     crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion / sqrt(energy))-1));
+
+    if ( crosssection != crosssection)
+        fprintf(stderr,"Fusion cross section returning NAN\n");
+
     return crosssection;
 }
