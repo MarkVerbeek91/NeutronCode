@@ -28,13 +28,13 @@ double IonSpectrumInwards(double r, double E)
 {
     double flux, dr;
     double term1 = 0, term2 = 0;
-	double (*PhiPtr)(double);
+    double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-	dr = Potential_Phi_Inv( E/giveq() + Potential_Phi(r) );
+    dr = Potential_Phi_Inv( E/giveq() + Potential_Phi(r) );
 
     if ( dr < r )
-    	dr = roundf(dr * 10000) / 10000 + 1e-5;
+        dr = roundf(dr * 10000) / 10000 + 1e-5;
 
     term1  = 1/giveq();
     term1 *= pow(dr/r,2);
@@ -44,14 +44,12 @@ double IonSpectrumInwards(double r, double E)
     if ( giveCathodeRadius() < r )
     {
         // inwards flux outside the cathode
-        #ifdef DEBUG_PARAMETER
         if ( dr < r || giveAnodeRadius() < dr )
         {
             printf("IonSpectrumInwards error: dr < r or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
 
             return NAN;
         }
-        #endif
 
         term1  *= g(r,dr);
 
@@ -62,14 +60,12 @@ double IonSpectrumInwards(double r, double E)
     }
     else
     {
-        #ifdef DEBUG_PARAMETER
         if ( dr < giveCathodeRadius() || giveAnodeRadius() < dr )
         {
             printf("IonSpectrumInwards error: dr < a or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
 
             return NAN;
         }
-        #endif
 
         // inwards flux inside the cathode
         term1 *= g(giveCathodeRadius(),dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * (r - giveCathodeRadius()));
@@ -114,13 +110,11 @@ double IonSpectrumOutwards(double r, double E)
     if ( r < giveCathodeRadius())
     {
         // outwards flux inside the cathode
-        #ifdef DEBUG_PARAMETER
         if ( dr < giveCathodeRadius() || giveAnodeRadius() < dr )
         {
             printf("IonSpectrumOutwards error: dr < a or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
         }
-        #endif
 
         term1 /= g(giveCathodeRadius(), dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
 
@@ -135,13 +129,11 @@ double IonSpectrumOutwards(double r, double E)
     else
     {
         // outwards flux outside the cathode
-        #ifdef DEBUG_PARAMETER
         if ( dr < r || giveAnodeRadius() < dr )
         {
             printf("IonSpectrumInwards error: dr < a or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
         }
-        #endif
 
         term1 /= g(r, dr);
 

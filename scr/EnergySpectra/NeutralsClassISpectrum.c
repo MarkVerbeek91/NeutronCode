@@ -21,13 +21,13 @@ double NeutralsClassISpectrumInwards(double r, double E)
 {
     double flux, dr;
     double term1 = 0, term2 = 0;
-	double (*PhiPtr)(double);
+	  double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-	dr = Potential_Phi_Inv((E0 - E)/giveq());
+    dr = Potential_Phi_Inv((E0 - E)/giveq());
 
     if ( dr < r )
-    	dr = roundf(dr * 10000) / 10000 + 1e-5;
+        dr = roundf(dr * 10000) / 10000 + 1e-5;
 
     term1  = 1 / giveq();
     term1 *= pow(giveAnodeRadius()/r,2);
@@ -39,7 +39,7 @@ double NeutralsClassISpectrumInwards(double r, double E)
     if ( giveCathodeRadius() < r )
     {
             // make sure that only physical numbers are calculated
-        if ( false )
+        if ( dr < r || dr > giveAnodeRadius() )
         {
             printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
             return NAN;
@@ -49,8 +49,8 @@ double NeutralsClassISpectrumInwards(double r, double E)
     }
     else
     {
-            // make sure that only physical numbers are calculated
-        if ( false )
+            // make sure that only physical numbers are calculated (47)
+        if ( dr < giveCathodeRadius() )
         {
             printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
             return NAN;
@@ -74,24 +74,24 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 {
     double flux, dr;
     double term1 = 0, term2 = 0;
-	double (*PhiPtr)(double);
+    double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-	dr = Potential_Phi_Inv((E0 - E)/giveq());
+    dr = Potential_Phi_Inv((E0 - E)/giveq());
 
     if ( dr < r )
-    	dr = roundf(dr * 10000) / 10000 + 1e-5;
+        dr = roundf(dr * 10000) / 10000 + 1e-5;
 
     term1  = 1 / giveq();
     term1 *= pow(giveAnodeRadius()/r,2);
     term1 *= ngas * CrosssecCX(E);
     term1 /= abs(differentiat(*PhiPtr, dr));
 
-    if ( giveCathodeRadius() > r )
+    if ( r < giveCathodeRadius() )
     {
-        if (  false )
+        if ( dr < giveCathodeRadius() )
         {
-            printf("NeutralsClassISpectrumOutwards error: a < dr or dr < a\n");
+            fprintf(stderr,"NeutralsClassISpectrumOutwards error: dr < a:\n\tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
         }
 
@@ -108,9 +108,9 @@ double NeutralsClassISpectrumOutwards(double r, double E)
     }
     else
     {
-        if (  false )
+        if ( dr < giveCathodeRadius() || dr < r )
         {
-            printf("NeutralsClassISpectrumOutwards error: a < dr or dr < a\n");
+            fprintf(stderr,"NeutralsClassISpectrumOutwards error: dr < a || dr < r:\n\tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
         }
 
