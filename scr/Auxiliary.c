@@ -190,17 +190,17 @@ void output_data(void)
         // Ions
         funcPtr = &FusionRateIons;
         printf("# Neutrons from inwards ions\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSR.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSRions.txt");
 
         // Neutrals Class I
         funcPtr = &FusionRateNeutralsClassI;
         printf("# In cathode, inwards\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSR.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSRclassI.txt");
 
         // Neutrals ClassII
         funcPtr = &FusionRateNeutralsClassII;
         printf("# In cathode, inwards\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSR.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSRclassII.txt");
     }
 
 	return;

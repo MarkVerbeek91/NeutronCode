@@ -8,6 +8,7 @@
 #include "MathFunctions.h"
 #include "NeutralsClassISpectrum.h"
 #include "CrossSections.h"
+#include "PotentialFunctions.h"
 
 #include "FusionReactionRateNeutralsClassI.h"
 
@@ -29,7 +30,7 @@ double FusionRateNeutralsClassI(double r)
 
     funcPtr = &FusionRateNeutralsClassI_Inte;
     Emax = ParticleEnergy1(r);
-    FRR  = NIntegration_2(funcPtr, r, 0, Emax);
+    FRR  = NIntegration_2(funcPtr, r, 1e-3, Emax);
 
     FRR *= ngas;
     return FRR;

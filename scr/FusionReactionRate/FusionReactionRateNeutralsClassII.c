@@ -30,7 +30,7 @@ double FusionRateNeutralsClassII(double r)
 
     funcPtr = &FusionRateNeutralsClassII_Inte;
     Emax = ParticleEnergy1(r);
-    FRR  = NIntegration_2(funcPtr, r, 0, Emax);
+    FRR  = NIntegration_2(funcPtr, r, 1e-3, Emax);
 
     FRR *= ngas;
     return FRR;
