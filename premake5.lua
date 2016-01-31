@@ -5,7 +5,7 @@ project "NeutronCode"
    kind "ConsoleApp"
    language "c"
    files { "**.h", "**.c" }
-   includedirs{ "include", "include/EnergySpectra", "include/NeutronProduction", "include/FusionReactionRate" }
+   includedirs{ "include", "include/EnergySpectra", "include/FusionReactionRate" }
    
    buildoptions { "-std=c99" } 
    

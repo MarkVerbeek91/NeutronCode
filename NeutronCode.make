@@ -16,7 +16,7 @@ ifeq ($(config),debug)
   TARGET = $(TARGETDIR)/NeutronCode.exe
   OBJDIR = obj/Debug
   DEFINES += -DDEBUG
-  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/NeutronProduction -Iinclude/FusionReactionRate
+  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/FusionReactionRate
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -std=c99 -DDEBUG_PARAMETER
@@ -43,7 +43,7 @@ ifeq ($(config),release)
   TARGET = $(TARGETDIR)/NeutronCode.exe
   OBJDIR = obj/Release
   DEFINES += -DNDEBUG
-  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/NeutronProduction -Iinclude/FusionReactionRate
+  INCLUDES += -Iinclude -Iinclude/EnergySpectra -Iinclude/FusionReactionRate
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -std=c99
@@ -76,9 +76,6 @@ OBJECTS := \
 	$(OBJDIR)/FusionReactionRateNeutralsClassI.o \
 	$(OBJDIR)/FusionReactionRateNeutralsClassII.o \
 	$(OBJDIR)/MathFunctions.o \
-	$(OBJDIR)/NeutronProductionIons.o \
-	$(OBJDIR)/NeutronProductionNeutralsClassI.o \
-	$(OBJDIR)/NeutronProductionNeutralsClassII.o \
 	$(OBJDIR)/NeutronProductionRate.o \
 	$(OBJDIR)/PotentialFunctions.o \
 	$(OBJDIR)/SourceFunction.o \
@@ -172,15 +169,6 @@ $(OBJDIR)/FusionReactionRateNeutralsClassII.o: scr/FusionReactionRate/FusionReac
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/MathFunctions.o: scr/MathFunctions.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/NeutronProductionIons.o: scr/NeutronProduction/NeutronProductionIons.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/NeutronProductionNeutralsClassI.o: scr/NeutronProduction/NeutronProductionNeutralsClassI.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/NeutronProductionNeutralsClassII.o: scr/NeutronProduction/NeutronProductionNeutralsClassII.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/NeutronProductionRate.o: scr/NeutronProductionRate.c
