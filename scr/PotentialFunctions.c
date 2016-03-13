@@ -29,6 +29,9 @@ double Potential_Phi_Inv(double E)
     double r_left, r_right, r;
     double Etmp;
 
+    if ( E > fusor->V0)
+        return giveAnodeRadius();
+
     r_left  = giveCathodeRadius();
     r_right = giveAnodeRadius();
 

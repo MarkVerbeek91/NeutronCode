@@ -44,7 +44,7 @@ double g(double r, double dr)
 {
     if ( dr < r)
     {
-        printf("G function error: dr < r : %E < %E \n", r, dr);
+        printf("G function error: dr < r:\n\t dr = %E\n\t r = %E \n", dr, r);
         return NAN;
     }
 
