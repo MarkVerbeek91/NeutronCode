@@ -1,5 +1,5 @@
 # NeutronCode
-program that computes the neutronproduction of an IEC reator
+A program that computes the neutron production of an IEC reator
 
 
 
