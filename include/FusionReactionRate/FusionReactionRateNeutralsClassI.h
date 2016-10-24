@@ -1,0 +1,6 @@
+#ifndef NEUTRALSCLASSIFLUX_H_INCLUDED
+#define NEUTRALSCLASSIFLUX_H_INCLUDED
+
+double FusionRateNeutralsClassI(double r);
+
+#endif // NEUTRALSCLASSIFLUX_H_INCLUDED

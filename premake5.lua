@@ -1,0 +1,19 @@
+workspace "NeutronCodeWorkspace"
+   configurations { "Debug", "Release" }
+
+project "NeutronCode"
+   kind "ConsoleApp"
+   language "c"
+   files { "**.h", "**.c" }
+   includedirs{ "include", "include/EnergySpectra", "include/FusionReactionRate" }
+   
+   buildoptions { "-std=c99" } 
+   
+   filter { "configurations:Debug" }
+      defines { "DEBUG" }
+      flags { "Symbols" }
+	  buildoptions { "-DDEBUG_PARAMETER" }
+
+   filter { "configurations:Release" }
+      defines { "NDEBUG" }
+      optimize "On"

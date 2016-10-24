@@ -1,0 +1,11 @@
+# Subdirs to search for additional source files
+SUBDIRS := $(shell ls -F | grep "\/" )
+DIRS := ./ $(SUBDIRS)
+SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)*.c) )
+HEADER_FILES := $(foreach d, $(DIRS), $(wildcard $(d)*.h) )
+
+foo: 
+	echo $(SOURCE_FILES)
+	
+bar: 
+	echo $(HEADER_FILES)
