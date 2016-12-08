@@ -1,0 +1,301 @@
+\documentclass[a3]{book}
+
+\usepackage[fleqn]{amsmath} % Required for some math elements 
+
+\usepackage[margin=1cm,landscape,a3paper]{geometry}%
+
+\allowdisplaybreaks
+
+\begin{document}
+
+To calculate the neutron production we simply integrate all of the neutrons producing rates on each radii for a sphere. Calculating the neutron production rate on each radii is actually also quite simple. This is the fusion cross section times the energy spectrum of the particles on that radii. The difficult part is in calculation of the energy spectrum. This is done a the next page.
+\begin{align}
+	NPR 		& = 4 \pi 			\int_0^b \big\{S_{fi}(r) + S_{fn}(r) \big\} dr 			\\
+% 
+\label{Sfi}
+	S_{fi}(r)		& = n_{gas} 			\int_0^{E_{max}}		\sigma_f(E)  	\big\{ 	f_i^-(r, E) 		+ f_i^+(r, E) \big\} dE		\\
+				& = n_{gas} \bigg\{ 		\int_0^{E_{max}}		\sigma_f(E)				f_i^-(r, E) dE 	+ \int_0^{E_{max}} \sigma_f(E) f_i^+(r,E) dE \bigg\} \\
+%
+	S_{fn}(r)	& = n_{gas} 			\int_0^{E_{max}} 		\sigma_f(E)	\big\{	 f_n^-(r, E) 		+ f_n^+(r, E) \big\} dE		\\
+				& = n_{gas} \bigg\{	 	\int_0^{E_{max}}		\sigma_f(E)			 f_n^-(r, E) dE 	+ \int_0^{E_{max}} \sigma_f(E) f_n^+(r,E) dE \bigg\} \\
+%
+	f_n^-(r, E)	& =				f_{n1}^-(r, E) + f_{n2}^-(r, E) \\
+	f_n^+(r, E)	& =				f_{n1}^+(r, E) + f_{n2}^+(r, E) \\
+%
+\intertext{so}
+	S_{fn}(r)		& = n_{gas} \bigg\{ \int_0^{E_{max}} \sigma_f(E) f_{n1}^-(r,E) dE + \int_0^{E_{max}} \sigma_f(E) f_{n1}^+(r,E) dE + \int_0^{E_{max}} \sigma_f(E) f_{n2}^-(r,E) dE + \int_0^{E_{max}} \sigma_f(E) f_{n2}^+(r,E) dE \bigg\} 
+\end{align}
+
+
+
+On the next page all $f^\pm_x$ functions are displayed. There is however a catch. 
+
+\begin{equation}
+ S_{fn} = n_{gas} \big\{ S_{fn1}^- + S_{fn1}^+ + S_{fn2}^- + S_{fn1}^+\big\}
+\end{equation}•
+with:
+\begin{align}
+ S_{fn1}^- 	& = \int_0^{E_{max}} \sigma_f(E) f_{n1}^-(r,E) dE =
+	\begin{cases}
+		S_{fn1,a<r}^- 	 = \int_0^{E_{max}} \sigma_f(E) f_{n1,a<r}^-(r,E) dE & \text{for } a < r  \\
+		S_{fn1,r<a}^- 	 = \int_0^{E_{max}} \sigma_f(E) f_{n1,r<a}^-(r,E) dE & \text{for } r > a
+	\end{cases}• \\
+ S_{fn1}^+ 	& = \int_0^{E_{max}} \sigma_f(E) f_{n1}^+(r,E) dE = 
+	\begin{cases}
+		S_{fn1,a<r}^+ 	 = \int_0^{E_{max}} \sigma_f(E) f_{n1,a<r}^+(r,E) dE & \text{for } a < r  \\
+		S_{fn1,r<a}^+ 	 = \int_0^{E_{max}} \sigma_f(E) f_{n1,r<a}^+(r,E) dE & \text{for } r > a
+	\end{cases}• \\
+ S_{fn2}^- 	& = \int_0^{E_{max}} \sigma_f(E) f_{n2}^-(r,E) dE  = 
+	\begin{cases}
+		S_{fn2,a<r}^- 	 = \int_0^{E_{max}} \sigma_f(E) f_{n2,a<r}^-(r,E) dE & \text{for } a < r  \\
+		S_{fn2,r<a}^- 	 = \int_0^{E_{max}} \sigma_f(E) f_{n2,r<a}^-(r,E) dE & \text{for } r > a
+	\end{cases}• \\
+ S_{fn2}^+ 	& = \int_0^{E_{max}} \sigma_f(E) f_{n2}^+(r,E) dE =
+	\begin{cases}
+		S_{fn2,a<r}^+    = \int_0^{E_{max}} \sigma_f(E) f_{n2,a<r}^+(r,E) dE & \text{for } a < r  \\
+		S_{fn2,r<a}^+ 	 = \int_0^{E_{max}} \sigma_f(E) f_{n2,r<a}^+(r,E) dE & \text{for } r > a
+	\end{cases}• \\
+\end{align}•
+from equation \ref{Sfi} we have:
+\begin{align}
+ S_{fi}^- 		& = \int_0^{E_{max}} \sigma_f(E) f_{i}^-(r,E) dE  =
+	\begin{cases}
+		S_{fi,a<r}^- = \int_0^{E_{max}} \sigma_f(E) f_{i,a<r}^-(r,E) dE & \text{for } a < r  \\
+		S_{fi,r<a}^- = \int_0^{E_{max}} \sigma_f(E) f_{i,r<a}^-(r,E) dE & \text{for } r > a
+	\end{cases}• \\
+ S_{fi}^+ 	& = \int_0^{E_{max}} \sigma_f(E) f_{i}^+(r,E) dE =
+	\begin{cases}
+		S_{fi,a<r}^+ = \int_0^{E_{max}} \sigma_f(E) f_{i,a<r}^+(r,E) dE & \text{for } a < r  \\
+		S_{fi,r<a}^+ = \int_0^{E_{max}} \sigma_f(E) f_{i,r<a}^+(r,E) dE & \text{for } r > a
+	\end{cases}• \\
+\end{align}•
+
+\newpage
+
+{\small
+\begin{align}
+	 \intertext{Inward traveling ions: $a < r$, (eq 28)}																																																																														
+&	f_{i,a<r}^-(r, E)        = \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& 			&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert }	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg] 					&& \bigg[ g_(r, r') \bigg]														&&			&& + 		&& \frac{b^2 \Gamma_0 }{r^2 } 												&& f(r)																&& \delta[E - E_0 - q\phi(r)]			\\
+	 \intertext{Inward traveling ions: $r < a$, (eq 30)}																																																																													
+&	f_{i,r<a}^-(r, E)        = \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&&  T_c		&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg]	 				&& \bigg[ g(a,r') \text{exp}[n_g \sigma_{cs}[ E(a,r') ] (r -a )]	\bigg]			&& 			&& + T_c	&& \frac{b^2 \Gamma_0 }{r^2 } 												&& f(a) \text{exp}[n_g \sigma_{cx}[ E(a)] (r - a)]						&& \delta[E - E_0 - q\phi(r)] 			\\
+%																																																																														
+	\intertext{Outward traveling ions: $r < a$, (eq 31)}																																																																													
+&	f_{i,a<r}^+(r, E)        = \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& T_c		&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g_{cp}(r')}{ 1 - T_c^2 g_{cp}(r')} \bigg] 			&& \bigg[ \frac{1}{g(a,r') \text{exp}[n_g \sigma_{cs}[ E(a,r') ] (r -a )]} \bigg]	&&			&& + T_c	&& \frac{b^2 \Gamma_0  }{r^2 } 											&& \frac{f^2(0)}{f(a) \text{exp}[n_g \sigma_{cx}[ E(a)] (r - a)]}		&& \delta[E - E_0 - q\phi(r)] 			\\
+ 	\intertext{Outward traveling ions: $a < r$, (eq 29)}	
+& 	f_{i,r<a}^+(r, E)        = \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& T_c^2	&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g_{cp}(r')}{ 1 - T_c^2 g_{cp}(r')} \bigg] 			&& \bigg[ \frac{1}{g(r,r')} \bigg]												&& 			&& + T_c^2	&& \frac{b^2 \Gamma_0  }{r^2 }												&& \frac{f^2(0)}{f(r)}												&& \delta[E - E_0 - q\phi(r)]			\\
+% 
+	\intertext{Inward traveling neutrals from Class I: $a < r < r' < b$, (eq 40)} 																																																																														
+&	f_{n1,a<r}^-(r, E) 	= \frac{1}{q}  	&& \frac{b^2}{ r^2 } 	&& n_g \sigma_{cx}(E) 	&&       		&& 			&& \Gamma_0 	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert}	&& \bigg[ f(r') \Theta(r' - r) \bigg]   \\
+	\intertext{Inward traveling neutrals from Class I: $r < a < r' < b$, (eq 47)} 																																																																														
+&	f_{n1,r<a}^-(r, E)  	= \frac{1}{q} 	&& \frac{b^2}{ r^2 } 	&& n_g \sigma_{cx}(E) 	&& T_c 		&& 		 	&& \Gamma_0	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert} 	&& \bigg[ f(r') \bigg] 											&& 																			&& 			&& + T_c	&& \frac{b^2 \Gamma_0}{r^2}   												&& f(a) \bigg[ 1 - \text{exp}[-2n_g\sigma_{cx}(E_{max})a] \bigg] 		&& \delta(E-E_{max})  		\\
+%																																																																														
+	\intertext{Outward traveling neutrals from Class I: $ r < a < r' < b$, (eq 51)}																																																																												
+&	f_{n1,a<r}^+(r, E) 	= \frac{1}{q} 	&& \frac{b^2}{ r^2 }	&& n_g \sigma_{cx}(E) 	&& T_c 		&& 		 	&& \Gamma_0	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert}	&& \bigg[ f(r')  \bigg]  											&& 																			&& 			&& + T_c	&& \frac{b^2 \Gamma_0}{r^2}  												&& f(a) \bigg[ 1 - \text{exp}[2 n_g\sigma_{cx}(E_{max})(r-a)] \bigg] 	&& \delta(E-E_{max})   	\\
+	\intertext{Outward traveling neutrals from Class I: $a < r < r' < b$, (eq 55)}																																																																														
+&	f_{n1,r<a}^+(r, E)  	= \frac{1}{q} 	&& \frac{b^2}{ r^2 }	&& n_g \sigma_{cx}(E) 	&& T_c^2 	&& 		 	&& \Gamma_0	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert}	&& \bigg[ f(r') + \frac{f^2(0)}{f(r')} \Theta(r'-r) \bigg]  			&& 																			&& 			&& + T_c^2	&& \frac{b^2 \Gamma_0}{r^2}  												&& f(a) \bigg[ 1 - \text{exp}[-2n_g\sigma_{cx}(E_{max})a] \bigg] 		&& \delta(E-E_{max})   	\\
+%																																																																														
+	\intertext{Inward traveling neutrals from Class II: $ a < r < b$, (eq 58) }																																																																														
+&	f_{n2,a<r}^-(r, E)  	= \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 	&& 			&& \int_r^b	&& S(r'') 		&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg] 			&& \bigg[ \Theta(r-r')  \bigg]													&& r''^2 dr''	&& \\
+	\intertext{Inward traveling neutrals from Class II: $ r < a$, (eq 65) }																																																																													
+&	f_{n2,r<a}^-(r, E)  	= \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 	&& T_c		&& \int_a^b && S(r'')		&&\frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg] 			&& \bigg[ \Theta(r'-a)  \bigg]													&& r''^2 dr''	&& + T_c 	&&\frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg]			&& \bigg[ 1 - \text{exp}[n_g \sigma_{cx}(E)(r-a)]\bigg] 				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert } \\
+%																																																																														
+	\intertext{Outward traveling neutrals from Class II: $r < a$, (eq 68) }																																																																																																																								
+&	f_{n2,a<r}^+(r, E)  	= \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 	&& T_c		&& \int_a^b	&& S(r'') 		&&\frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg]				&& \bigg[ \Theta(r'-a) \bigg]													&& r''^2 dr''	&& + T_c 	&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg]			&& \bigg[ 1 - \text{exp}[-n_g \sigma_{cx}(E)(r+a)]\bigg]  				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert }	\\
+	\intertext{Outward traveling neutrals from Class II: $a < r$ (eq 72) }																																																																																																																							
+&	f_{n2,r<a}^+(r, E)  	= \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 	&& T_c^2	&& \int_a^b	&& S(r'')		&&\frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ 1 }{ 1 - T_c^2 g_{cp}(r'')} \bigg] 					&& \bigg[ g(r',r'') \Theta(r'-a) + \frac{g_{cp}(r'')}{g(r',r'')} \Theta(r-r') \bigg] 	&& r''^2 dr'' 	&& + T_c^2 	&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg] 		&& \bigg[ 1 - \text{exp}[-2n_g \sigma_{cx}(E)a]\bigg] 				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert }	
+\end{align}																										
+}%
+
+for all equations r' is related to E via $E(r') = q\phi(r')$.
+																												
+																								
+In the last 4 equations r' is determined by r" and E. Equation 56 for the first inward going ions and equation 62 for the out going ions. 
+
+The potential inside the fusor is divined as: 
+
+\begin{equation}
+ \phi(r) = 
+ 	\begin{cases}
+		V_0 & \text{for } r < a \\
+		V_0 \frac{a ( b - r ) }{r ( b - a )} & \text{for } a < r
+	\end{cases}•
+\end{equation}•
+
+the equation to calculate $r'$ (eq :
+\begin{equation}
+ E(r, r') = q ( \phi(r') - \phi(r) ) 
+\end{equation}•
+
+the equation to calculate $r''$ eq 62):
+\begin{equation}
+ E = q ( \phi(r'') - \phi(a) ) 
+\end{equation}
+
+So when we want to know the radius where the particles are born we need the inverse of $\phi$. 
+\begin{equation}
+ r = \phi^{-1}(E) = 
+ 	\begin{cases}
+		V_0 & \text{for } r < a \\
+		\frac{ab}{\frac{E}{V_0} ( a - b ) - a} & \text{for } a < r
+	\end{cases}
+\end{equation}
+
+
+
+\newpage
+
+{\tiny
+\begin{align}
+%%%%%
+	 \intertext{Inward traveling ions: $a < r$}		
+&	S_{fi,a<r}^-(r)  	&& = \int_0^{E_{max}} \sigma_f(E) f_{i,a<r}^-(r,E) dE 		\\
+& 					&& = \int_0^{E_{max}} 		 	&& \sigma_f(E)	&& \bigg\{		&& \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& 			&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert }	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg] 					&& \bigg[ g_(r, r') \bigg]														&&																&& + 					&& \sigma_f(E)	&& \frac{b^2 \Gamma_0 }{r^2 } 				&& f(r)																&& \delta[E - E_0 - q\phi(r)]	 && \bigg\}		 dE &&\\
+&															&& = \int_0^{E_{max}} 		 	&& \sigma_f(E)	&&				&& \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& 			&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert }	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg] 					&& \bigg[ g_(r, r') \bigg]														&&	dE															&& + \int_0^{E_{max}}	&& \sigma_f(E)	&& \frac{b^2 \Gamma_0 }{r^2 } 				&& f(r)																&& \delta[E - E_0 - q\phi(r)]	 && 				 dE &&\\
+&															&& = \int_r^{b} 				 	&& \sigma_f(E)	&& 				&& \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& 			&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert }	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg] 					&& \bigg[ g_(r, r') \bigg]														&&	q \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert dr'	&& + 					&& 				&& \frac{b^2 \Gamma_0 }{r^2 } 				&& f(r)																&& \sigma_f(q \phi(r))	 	 && 				     &&\\
+&															&& = \int_r^{b}	 			 	&& \sigma_f(E)	&& 			 	&&				&& \frac{r'^2}{r^2}		&& 	 					&& 			&& 			&& S(r')			&& 																	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg] 					&& \bigg[ g_(r, r') \bigg]														&&	dr'															&& + 					&& 				&& \frac{b^2 \Gamma_0 }{r^2 } 				&& f(r)																&& \sigma_f(q \phi(r)) 		 && 				     &&\\
+%\end{align}
+%\begin{align}
+%
+	 \intertext{Inward traveling ions: $r < a$}	
+&	S_{fi,r<a}^-(r)  	&& = \int_0^{E_{max}} \sigma_f(E) f_{i,r<a}^-(r,E) dE \\
+&					&& = \int_0^{E_{max}} 			&& \sigma_f(E)			&& \bigg\{ 		&& \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&&  T_c		&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg]	 				&& \bigg[ g(a,r') \text{exp}[n_g \sigma_{cs}[ E(a,r') ] (r -a )]	\bigg]			&& 																&& + T_c				&&				&& \frac{b^2 \Gamma_0 }{r^2 } 				&& f(a) \text{exp}[n_g \sigma_{cx}[ E(a)] (r - a)]						&& \delta[E - E_0 - q\phi(r)] 	&& \bigg\}		 dE &&\\
+&					&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&& 		 		&& 			 	&& \frac{r'^2}{r^2}		&& 	 					&&  T_c		&& 			&& S(r')			&& 																 	&& \bigg[ \frac{ 1}{ 1 - T_c^2 g_{cp}(r')} \bigg]	 				&& \bigg[ g(a,r') \text{exp}[n_g \sigma_{cs}[ E(a,r') ] (r -a )]	\bigg]			&& 	dr'															&& + T_c				&& 				&& \frac{b^2 \Gamma_0 }{r^2 } 				&& f(a) \text{exp}[n_g \sigma_{cx}[ E(a)] (r - a)]						&& \sigma_f(q \phi(r))	 	&& 				     &&\\
+%%%%%
+	\intertext{Outward traveling ions: $r < a$}
+&	S_{fi,r<a}^+(r) 	&& = \int_0^{E_{max}} \sigma_f(E) f_{i,r<a}^+(r,E) dE \\
+& 				 	&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& \bigg\{		&& \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& T_c		&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g_{cp}(r')}{ 1 - T_c^2 g_{cp}(r')} \bigg] 			&& \bigg[ \frac{1}{g(a,r') \text{exp}[n_g \sigma_{cs}[ E(a,r') ] (r -a )]} \bigg]	&&																&& + T_c				&&				&& \frac{b^2 \Gamma_0  }{r^2 } 			&& \frac{f^2(0)}{f(a) \text{exp}[n_g \sigma_{cx}[ E(a)] (r - a)]}		&& \delta[E - E_0 - q\phi(r)] 	&& \bigg\} dE		\\
+&					&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&&				&& 				&& \frac{r'^2}{r^2}		&& 	 					&& T_c		&& 			&& S(r')			&& 																 	&& \bigg[ \frac{ g_{cp}(r')}{ 1 - T_c^2 g_{cp}(r')} \bigg] 			&& \bigg[ \frac{1}{g(a,r') \text{exp}[n_g \sigma_{cs}[ E(a,r') ] (r -a )]} \bigg]	&& dr'															&& + T_c				&&				&& \frac{b^2 \Gamma_0  }{r^2 } 			&& \frac{f^2(0)}{f(a) \text{exp}[n_g \sigma_{cx}[ E(a)] (r - a)]}		&& \sigma_f(q \phi(r)) 			\\
+%
+ 	\intertext{Outward traveling ions: $a < r$, (eq 29)}
+&	S_{fi,a<r}^+(r)  	&& = \int_0^{E_{max}} \sigma_f(E) f_{i,a<r}^+(r,E) dE \\
+& 					&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& \bigg\{		&& \frac{1}{q} 	&& \frac{r'^2}{r^2}		&& 	 					&& T_c^2	&& 			&& S(r')			&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g_{cp}(r')}{ 1 - T_c^2 g_{cp}(r')} \bigg] 			&& \bigg[ \frac{1}{g(r,r')} \bigg]												&& 																&& + T_c^2				&& 				&& \frac{b^2 \Gamma_0  }{r^2 }				&& \frac{f^2(0)}{f(r)}												&& \delta[E - E_0 - q\phi(r)]	&& \bigg\} dE		\\
+&					&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&& 				&&			 	&& \frac{r'^2}{r^2}		&& 	 					&& T_c^2	&& 			&& S(r')			&& 																 	&& \bigg[ \frac{ g_{cp}(r')}{ 1 - T_c^2 g_{cp}(r')} \bigg] 			&& \bigg[ \frac{1}{g(r,r')} \bigg]												&& dr' 															&& + T_c^2				&& 				&& \frac{b^2 \Gamma_0  }{r^2 }				&& \frac{f^2(0)}{f(r)}												&& \sigma_f(q \phi(r)) 			\\	
+%%%%%
+	\intertext{Inward traveling neutrals from Class I: $a < r < r' < b$} 
+&	S_{fn1,a<r}^-(r)  	&& = \int_0^{E_{max}} \sigma_f(E) f_{n1,a<r}^-(r,E) dE 	\\
+& 					&& = \int_0^{E_{max}}			&& \sigma_f(E)			&&				&& \frac{1}{q}  	&& \frac{b^2}{ r^2 } 	&&	 n_g \sigma_{cx}(E) 			&&       		&& 			&& \Gamma_0 	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert}	&& \bigg[ f(r') \Theta(r' - r) \bigg]   && && dE \\	
+&				 	&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&&				&&			  	&& \frac{b^2}{ r^2 } 	&&	 n_g \sigma_{cx}(q \phi(r')) 	&&       		&& 			&& \Gamma_0 	&&																	&& \bigg[ f(r') \Theta(r' - r) \bigg]   && && dr' \\	
+%
+	\intertext{Inward traveling neutrals from Class I: $r < a < r' < b$} 	
+&	S_{fn1,r<a}^-(r)	&& = \int_0^{E_{max}} \sigma_f(E) f_{n1,r<a}^-(r,E) dE \\
+&					&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& \bigg\{ 		&& \frac{1}{q} 	&& \frac{b^2}{ r^2 } 	&& n_g \sigma_{cx}(E) 			&& T_c 		&& 		 	&& \Gamma_0	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert} 	&& \bigg[ f(r') \bigg] 											&& 																			&&  															&& + T_c				&&				&& \frac{b^2 \Gamma_0}{r^2}   				&& f(a) \bigg[ 1 - \text{exp}[-2n_g\sigma_{cx}(E_{max})a] \bigg] 		&& \delta(E-E_{max})  && \bigg\} dE		\\
+&					&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&& 				&& 			 	&& \frac{b^2}{ r^2 } 	&& n_g \sigma_{cx}(q \phi(r')) 	&& T_c 		&& 		 	&& \Gamma_0	&& 																 	&& \bigg[ f(r') \bigg] 											&& 																			&& dr'															&& + T_c				&&				&& \frac{b^2 \Gamma_0}{r^2}   				&& f(a) \bigg[ 1 - \text{exp}[-2n_g\sigma_{cx}(E_{max})a] \bigg] 		&& \sigma_f(q \phi(r))  		\\
+%%%%%
+	\intertext{Outward traveling neutrals from Class I: $ r < a < r' < b$}	
+&	S_{fn1,r<a}^-(r)	&& = \int_0^{E_{max}} \sigma_f(E) f_{n1,a<r}^+(r,E) dE \\
+& 					&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& \bigg\{		&& \frac{1}{q} 	&& \frac{b^2}{ r^2 } 	&& n_g \sigma_{cx}(E) 			&& T_c 		&& 		 	&& \Gamma_0	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert}	&& \bigg[ f(r')  \bigg]  											&& 																			&& 																&& + T_c				&&				&& \frac{b^2 \Gamma_0}{r^2}  				&& f(a) \bigg[ 1 - \text{exp}[2 n_g\sigma_{cx}(E_{max})(r-a)] \bigg] 	&& \delta(E-E_{max})   && \bigg\} dE \\
+&				 	&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&& 				&& 			 	&& \frac{b^2}{ r^2 } 	&& n_g \sigma_{cx}(q \phi(r')) 	&& T_c 		&& 		 	&& \Gamma_0	&& 																	&& \bigg[ f(r')  \bigg]  											&& 																			&& 																&& + T_c 				&&				&& \frac{b^2 \Gamma_0}{r^2}  				&& f(a) \bigg[ 1 - \text{exp}[2 n_g\sigma_{cx}(E_{max})(r-a)] \bigg] 	&& \sigma_f(q \phi(r))  	\\
+%
+	\intertext{Outward traveling neutrals from Class I: $a < r < r' < b$}	
+&	S_{fn1,a<r}^-(r)	&& = \int_0^{E_{max}} \sigma_f(E) f_{n1,r<a}^+(r,E) dE \\
+&				 	&& = \int_0^{E_{max}}			&& \sigma_f(E)			&&				&& \frac{1}{q} 	&& \frac{b^2}{ r^2 }	&& n_g \sigma_{cx}(E) 			&& T_c^2 	&& 		 	&& \Gamma_0	&& \frac{1}{ \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert}	&& \bigg[ f(r') + \frac{f^2(0)}{f(r')} \Theta(r'-r) \bigg]  			&& 																			&& 																&& + T_c^2				&&				&& \frac{b^2 \Gamma_0}{r^2}  				&& f(a) \bigg[ 1 - \text{exp}[-2n_g\sigma_{cx}(E_{max})a] \bigg] 		&& \delta(E-E_{max})   	\\
+&				 	&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&& 				&& 			 	&& \frac{b^2}{ r^2 }	&& n_g \sigma_{cx}(q \phi(r')) 	&& T_c^2 	&& 		 	&& \Gamma_0	&& 																	&& \bigg[ f(r') + \frac{f^2(0)}{f(r')} \Theta(r'-r) \bigg]  			&& 																			&& dE															&& + T_c^2				&&				&& \frac{b^2 \Gamma_0}{r^2}  				&& f(a) \bigg[ 1 - \text{exp}[-2n_g\sigma_{cx}(E_{max})a] \bigg] 		&& \sigma_f(q \phi(r))   	\\
+%%%%%
+	\intertext{Inward traveling neutrals from Class II: $ a < r < b$}
+&	S_{fn2,a<r}^-(r)	&& = \int_0^{E_{max}} \sigma_f(E) f_{n2,a<r}^-(r,E) dE \\
+& 				 	&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& 				&& \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 			&& 			&& \int_r^b	&& S(r'') 		&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg] 			&& \bigg[ \Theta(r-r')  \bigg]													&& r''^2 dr''	dE		&& \\
+&					&& = \int_r^{b} 					&& \sigma_f(q \phi(r'))	&& 				&& 			 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(q \phi(r')) 	&& 			&& \int_r^b	&& S(r'') 		&& 																 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg] 			&& \bigg[ \Theta(r-r')  \bigg]													&& r''^2 dr''	dr'		&& \\
+%
+	\intertext{Inward traveling neutrals from Class II: $ r < a $}
+&	S_{fn2,r<a}^-(r)	&& = \int_0^{E_{max}} \sigma_f(E) f_{n2,r<a}^-(r,E) dE \\
+& 				 	&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& \bigg\{		&& \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 			&& T_c		&& \int_a^b && S(r'')		&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg] 			&& \bigg[ \Theta(r'-a)  \bigg]													&& r''^2 dr''														&& + T_c 					&& 				&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg]		&& \bigg[ 1 - \text{exp}[n_g \sigma_{cx}(E)(r-a)]\bigg] 				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert }  \bigg\} dE \\
+&				 	&& = \int_r^{b}					&& \sigma_f(q \phi(r'))	&& 				&& 			 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(q \phi(r')) 	&& T_c		&& \int_a^b && S(r'')		&& 																 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg] 			&& \bigg[ \Theta(r'-a)  \bigg]													&& r''^2 dr''														&& + T_c \int_0^{E_{max}}	&& \sigma_f(E)	&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg]		&& \bigg[ 1 - \text{exp}[n_g \sigma_{cx}(E)(r-a)]\bigg] 				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert }  \bigg\} dE \\
+%%%%%
+	\intertext{Outward traveling neutrals from Class II: $r < a$}
+&	S_{fn2,r<a}^-(r)	&& = \int_0^{E_{max}} \sigma_f(E) f_{n2,a<r}^+(r,E) dE \\
+& 				 	&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& \bigg\{ 		&& \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 			&& T_c		&& \int_a^b	&& S(r'') 		&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg]				&& \bigg[ \Theta(r'-a) \bigg]													&& r''^2 dr''														&& + T_c 					&&				&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg]			&& \bigg[ 1 - \text{exp}[-n_g \sigma_{cx}(E)(r+a)]\bigg]  				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert } && \bigg\} dE\\
+&				 	&& = \int_r^{b}					&& \sigma_f(q \phi(r'))	&&	 			&& 				&& \frac{1}{r^2}		&& n_g \sigma_{cx}(q \phi(r')) 	&& T_c		&& \int_a^b	&& S(r'') 		&& 																 	&& \bigg[ \frac{ g(r',r'')}{ 1 - T_c^2 g_{cp}(r'')} \bigg]				&& \bigg[ \Theta(r'-a) \bigg]													&& r''^2 dr''														&& + T_c \int_0^{E_{max}}	&& \sigma_f(E)	&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg]			&& \bigg[ 1 - \text{exp}[-n_g \sigma_{cx}(E)(r+a)]\bigg]  				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert }	&& dE\\	 
+%
+	\intertext{Outward traveling neutrals from Class II: $a < r$ }
+&	S_{fn2,r<a}^-(r)	&& = \int_0^{E_{max}} \sigma_f(E) f_{n2,r<a}^+(r,E) dE \\
+& 				 	&& = \int_0^{E_{max}}			&& \sigma_f(E)			&& \bigg\{		&& \frac{1}{q} 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(E) 			&& T_c^2	&& \int_a^b	&& S(r'')		&& \frac{1}{ \Big\vert \frac{ \partial \phi(r')}{ \partial r' } \Big\vert } 	&& \bigg[ \frac{ 1 }{ 1 - T_c^2 g_{cp}(r'')} \bigg] 					&& \bigg[ g(r',r'') \Theta(r'-a) + \frac{g_{cp}(r'')}{g(r',r'')} \Theta(r-r') \bigg] 	&& r''^2 dr'' 														&& + T_c^2 				&&				&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg] 		&& \bigg[ 1 - \text{exp}[-2n_g \sigma_{cx}(E)a]\bigg] 				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert } && \bigg\} dE	\\
+&				 	&& = \int_r^{b}					&& \sigma_f(q \phi(r'))	&&				&& 			 	&& \frac{1}{r^2}		&& n_g \sigma_{cx}(q \phi(r')) 	&& T_c^2	&& \int_a^b	&& S(r'')		&& 																 	&& \bigg[ \frac{ 1 }{ 1 - T_c^2 g_{cp}(r'')} \bigg] 					&& \bigg[ g(r',r'') \Theta(r'-a) + \frac{g_{cp}(r'')}{g(r',r'')} \Theta(r-r') \bigg] 	&& r''^2 dr'' dr'												 	&& + T_c^2 				&& \sigma_f(E)	&& \frac{r''^2}{r^2} \bigg[\frac{g(a,r'') }{1 - T_c^2 g_{cp}(r'')} \bigg] 		&& \bigg[ 1 - \text{exp}[-2n_g \sigma_{cx}(E)a]\bigg] 				&& \frac{S(r'')}{ q \Big\vert \frac{ \partial \phi}{ \partial r' } \Big\vert }	&& dE
+\end{align}•
+}%
+
+because we know:
+\begin{equation}
+dE = q \Big\vert \frac{  \partial \phi(r') }{ \partial r' } \Big\vert dr'
+\end{equation}•
+
+
+																						
+
+\newpage
+
+In the case of the ion spectrum inside the cathode, due to the constant potential in the cathode to following subsitude can be made:
+
+\begin{align}
+	f(r) 		& = f(a) \text{exp}[n_g \sigma_{cx}[ E(a)] (r - a)] \\
+	g(r, r') 	& = g(a,r') \text{exp}[n_g \sigma_{cs}[ E(a,r') ] (r -a )]
+\end{align}
+
+\begin{align}
+	f(r)		& = exp \bigg\{ -\int_r^{b} n_{gas} \sigma_{cx}[E(r')]dr' \bigg\} \\
+	g(r,r') 	& = exp \bigg\{ -\int_r^{r'} n_{gas} \sigma_{cx}[E(r",r')]dr" \bigg\} 
+\end{align}•
+
+The source rate:
+
+\begin{equation}
+ S(r) = A(r) + \int_r^b K(r,r')S('r)dr'
+\end{equation}•
+Where:
+\begin{equation}
+A(r) = \frac{b^2}{r^2} n_{gas} \Gamma_0 \sigma_{tot}[E(r)] \bigg[ f(r) + T_c^2 \frac{ f^2(0) }{f(r)} \bigg]
+\end{equation}•
+and
+\begin{equation}
+K(r,r') = n_{gas} \sigma_{tot}[E(r,r)] \frac{r'^2}{r^2} \bigg[ g(r,r') + T_c^2 \frac{g_{cp}(r')}{g(r,r')} \bigg] \frac{1}{1- T_c^2g_{cp}(r')}
+\end{equation}•
+for $r < r'$ otherwise $K(r,r') = 0.$
+
+
+The last part that remains is the ionflux at the anode. This can be calculated by the current:
+\begin{align}
+& I_{c1}		&& = 4 \pi q && ( 1 - T_c ) 	&& \Gamma_0 	&& 			&&				&&													&& b^2 	&& 								&& \bigg[ f(a) + T_c \frac{f^2(0)}{f(a)} \bigg]  		&& ( 1 + \gamma(q V_0))  \\\
+& I_{c2}		&& = 4 \pi q && ( 1 - T_c) 	&& 				&& 			&& \int_a^b 	&&													&& 		&& \frac{S(r')}{ 1-T_c^2g_{cp}(r')} 	&& \bigg[ g(a,r') + T_c \frac{ g_{cp}(r')}{g(a,r')} \bigg] 	&& ( 1 + \gamma(r')) && r'^2dr' 	\\
+& I_{c3}		&& = 4 \pi q && T_c  		&& \Gamma_0 	&& n_{gas} 	&&				&& \frac{\sigma_{tot}[E_{max}]}{\sigma_{cx}[E_{max}]} 	&& b^2 	&&								&& \bigg[ f(a) ] \bigg]								&& ( 1 - exp( -2n_{gas}\sigma_{cx}(E_{max})a)) 	\\
+& I_{c4}		&& = 4 \pi q && T_c  		&& 				&& n_{gas} 	&& \int_a^b  	&& \frac{\sigma_{tot}[ E(a,r') ]}{\sigma_{cx}[ E(a,r') ]} 		&&		&& \frac{S(r') }{1 - T_c^2 g_{cp}(r')}	&& \bigg[ g(a,r') ] \bigg]							&& ( 1 - exp[ -2 n_{gas} \sigma_{cx}[ E(a,r') a ] ) && r'^2dr'
+\end{align}•
+The Edge Ion flux is then:
+\begin{equation}
+ \Gamma_0 = \frac{I_{tot} -  I_{c2} -  I_{c4}}{I_{c1} + I_{c3}}
+\end{equation}•
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
