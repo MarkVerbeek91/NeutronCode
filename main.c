@@ -18,7 +18,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>     /* getenv */
-#include <unistd.h>
+//#include <unistd.h>
+#include <io.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -40,6 +41,7 @@ int main( int argc, char **argv )
     int opt;
 	char *cvalue = NULL;
 
+/*	
 	if( argc >= 2 )
 	{
 		fprintf(stdout,"# Analising give arguments\n");
@@ -49,7 +51,7 @@ int main( int argc, char **argv )
 			switch (opt)
 			{
 				case 'f': 		// get file
-					cvalue = optarg;
+					cvalue = opt;
 					input = fopen(cvalue,"r");
 					if ( input == NULL)
 					{
@@ -65,16 +67,16 @@ int main( int argc, char **argv )
 					break;
 
 				case 'p':		// parameter
-					arg_parameter_check(optarg);
+					arg_parameter_check(opt);
 
 					break;
 				case '?':		// error case
-					if (optopt == 'f')
+					if (opt == 'f')
 						printf("Wrong or no input file specified \n");
-					else if (isprint (optopt))
-						printf ("Unknown option `-%c'.\n", optopt);
+					else if (isprint (opt))
+						printf ("Unknown option `-%c'.\n", opt);
 					else
-						printf ("Unknown option character `\\x%x'.\n", optopt);
+						printf ("Unknown option character `\\x%x'.\n", opt);
 					return 1;
 				default:
 					abort ();
@@ -83,13 +85,22 @@ int main( int argc, char **argv )
 		}
 	}
 	else
-	{
+	{ */
 		printf("# Using default input file: input.ini\n");
 		input = fopen("input.ini","r");
-		readfile(input, "input.ini");
-		fclose(input);
-	}
-
+		if (input != NULL)
+		{
+			readfile(input, "input.ini");
+			fclose(input);
+		}
+		else
+		{
+			printf ("No default input file found, aborting\n");
+			return 0;
+		}
+			
+//	}
+	
     fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
     fprintf(stdout,"# ---------------------------- Start of program ---------------------------- #\n");
     fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
@@ -122,14 +133,15 @@ int main( int argc, char **argv )
     //EdgeIonFlux = (Itot - I2 - I4) / (I1 + I3);
     EdgeIonFlux = Itot / ( I1 + I2 + I3 + I4);
 
-    printf("# EdgeIonFlux: %.2E\n \n", EdgeIonFlux);
+    printf("# EdgeIonFlux          : \t %.2E\n \n", EdgeIonFlux);
 
     // calculate neutron production rate (NPR)
     if ( printbool->NPR )
     {
         print_comment2scr("Calculating NPR");
         double NPR = Nps();
-        printf("# NPR: %.2E \n\n", NPR);
+		fprintf(stdout, "# Total: \n");
+        fprintf(stdout,"#        NPR        : \t %.2E \n\n", NPR);
     }
 
 	print_comment2scr("Writing data to screen or files");

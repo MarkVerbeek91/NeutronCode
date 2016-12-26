@@ -144,7 +144,7 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
 // intregral of neutral from claas II ions _inside_ the cathode _outwards_
 double NeutralsClassIISpectrumOutwards_Inte2(double r, double E, double ddr)
 {
-    double integrant, dr;
+    double integrant = 0, dr;
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
