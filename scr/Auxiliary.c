@@ -5,7 +5,7 @@
 
 #include "constants.h"
 #include "Auxiliary.h"
-#include "..\includes.h"
+#include "includes.h"
 
 /**
  * This function writes data to files or screen depending on input file.

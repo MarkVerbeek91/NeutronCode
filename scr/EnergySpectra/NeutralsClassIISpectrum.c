@@ -13,7 +13,7 @@
 #include "MathFunctions.h"
 #include "PotentialFunctions.h"
 #include "SurvivalFunctions.h"
-#include "Crosssections.h"
+#include "CrossSections.h"
 
 #include "NeutralsClassISpectrum.h"
 

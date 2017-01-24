@@ -5,13 +5,14 @@ project "NeutronCode"
    kind "ConsoleApp"
    language "c"
    files { "**.h", "**.c" }
-   includedirs{ "include", "include/EnergySpectra", "include/FusionReactionRate" }
+   includedirs{ ".", "include", "include/EnergySpectra", "include/FusionReactionRate", "include/NeutronProduction" }
    
-   buildoptions { "-std=c99" } 
+   buildoptions { "-std=c99"} 
+   links { "m" }
    
    filter { "configurations:Debug" }
       defines { "DEBUG" }
-      flags { "Symbols" }
+      symbols "On"
 	  buildoptions { "-DDEBUG_PARAMETER" }
 
    filter { "configurations:Release" }

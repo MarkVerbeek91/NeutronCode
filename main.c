@@ -18,8 +18,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>     /* getenv */
-//#include <unistd.h>
-#include <io.h>
+#include <unistd.h>
+//#include <io.h>
 #include <string.h>
 #include <ctype.h>
 
