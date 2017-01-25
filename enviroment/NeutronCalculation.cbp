@@ -7,20 +7,27 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/NeutronCalculation" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
+				<Option output="../bin/Debug/NeutronCalculation" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="../obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option host_application="C:/Windows/System32/cmd.exe" />
 				<Option run_host_application_in_terminal="0" />
 				<Compiler>
 					<Add option="-Wextra" />
+					<Add option="-std=c99" />
 					<Add option="-g" />
+					<Add directory="../" />
+					<Add directory="../include" />
+					<Add directory="../include/EnergySpectra" />
+					<Add directory="../include/FusionReactionRate" />
+					<Add directory="../include/NeutronProduction" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/NeutronCalculation" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
+				<Option output="../bin/Release/NeutronCalculation" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -33,86 +40,83 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c99" />
+			<Add option="-pg" />
+			<Add option="-g" />
 			<Add option="-fexceptions" />
 			<Add option="-DEBUG_PARAMETER" />
 		</Compiler>
-		<Unit filename="Auxiliary.cpp" />
-		<Unit filename="Auxiliary.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Linker>
+			<Add option="-pg -lgmon" />
+		</Linker>
+		<Unit filename="../include/Auxiliary.h" />
+		<Unit filename="../include/CathodeCurrents.h" />
+		<Unit filename="../include/CrossSections.h" />
+		<Unit filename="../include/CrossSectionsCont.h" />
+		<Unit filename="../include/EnergySpectra/IonSpectrum.h" />
+		<Unit filename="../include/EnergySpectra/NeutralsClassIISpectrum.h" />
+		<Unit filename="../include/EnergySpectra/NeutralsClassISpectrum.h" />
+		<Unit filename="../include/FusionReactionRate/FusionReactionRateIons.h" />
+		<Unit filename="../include/FusionReactionRate/FusionReactionRateNeutralsClassI.h" />
+		<Unit filename="../include/FusionReactionRate/FusionReactionRateNeutralsClassII.h" />
+		<Unit filename="../include/MathFunctions.h" />
+		<Unit filename="../include/NeutronProductionRate.h" />
+		<Unit filename="../include/NeutronProduction/NeutronProductionIons.h" />
+		<Unit filename="../include/NeutronProduction/NeutronProductionNeutralsClassI.h" />
+		<Unit filename="../include/NeutronProduction/NeutronProductionNeutralsClassII.h" />
+		<Unit filename="../include/PotentialFunctions.h" />
+		<Unit filename="../include/SourceFunction.h" />
+		<Unit filename="../include/SurvivalFunctions.h" />
+		<Unit filename="../include/constants.h" />
+		<Unit filename="../includes.h" />
+		<Unit filename="../main.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="CathodeCurrents.cpp" />
-		<Unit filename="CathodeCurrents.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/Auxiliary.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="CrossSections.cpp" />
-		<Unit filename="CrossSections.h" />
-		<Unit filename="CrossSectionsCont.h" />
-		<Unit filename="EnergySpectra/IonSpectrum.cpp" />
-		<Unit filename="EnergySpectra/IonSpectrum.h" />
-		<Unit filename="EnergySpectra/NeutralsClassIISpectrum.cpp">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/CathodeCurrents.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="EnergySpectra/NeutralsClassIISpectrum.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/CrossSections.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="EnergySpectra/NeutralsClassISpectrum.cpp" />
-		<Unit filename="EnergySpectra/NeutralsClassISpectrum.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/EnergySpectra/IonSpectrum.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="EnergySpectrumIons.cpp" />
-		<Unit filename="EnergySpectrumIons.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/EnergySpectra/NeutralsClassIISpectrum.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="IonParticleFlux.cpp" />
-		<Unit filename="IonParticleFlux.h">
-			<Option link="1" />
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/EnergySpectra/NeutralsClassISpectrum.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="MathFunctions.cpp" />
-		<Unit filename="MathFunctions.h">
-			<Option link="1" />
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/FusionReactionRate/FusionReactionRateIons.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="NeutralParticleFlux.cpp" />
-		<Unit filename="NeutralParticleFlux.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/FusionReactionRate/FusionReactionRateNeutralsClassI.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="NeutronProductionRate.cpp" />
-		<Unit filename="NeutronProductionRate.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/FusionReactionRate/FusionReactionRateNeutralsClassII.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="NeutronProduction/NeutronProductionIons.cpp" />
-		<Unit filename="NeutronProduction/NeutronProductionIons.h" />
-		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassI.cpp" />
-		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassI.h" />
-		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassII.cpp" />
-		<Unit filename="NeutronProduction/NeutronProductionNeutralsClassII.h" />
-		<Unit filename="ParticleFlux/FluxIons.cpp" />
-		<Unit filename="ParticleFlux/FluxIons.h" />
-		<Unit filename="ParticleFlux/FluxNeutralsClassI.cpp" />
-		<Unit filename="ParticleFlux/FluxNeutralsClassI.h" />
-		<Unit filename="ParticleFlux/FluxNeutralsClassII.cpp" />
-		<Unit filename="ParticleFlux/FluxNeutralsClassII.h" />
-		<Unit filename="PotentialFunctions.cpp" />
-		<Unit filename="PotentialFunctions.h">
-			<Option link="1" />
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/MathFunctions.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="SourceFunction.cpp" />
-		<Unit filename="SourceFunction.h" />
-		<Unit filename="SurvivalFunctions.cpp" />
-		<Unit filename="SurvivalFunctions.h">
-			<Option link="1" />
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/NeutronProductionRate.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="constants.cpp" />
-		<Unit filename="constants.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/PotentialFunctions.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="includes.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="../scr/SourceFunction.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="main.cpp" />
+		<Unit filename="../scr/SurvivalFunctions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../scr/constants.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
