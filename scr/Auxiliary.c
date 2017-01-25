@@ -308,7 +308,6 @@ void plot_function_2D(double (*funcPtr)(double, double), double Start1, double E
     {
         printf("# Could not open file: %s\n", input_file_name);
 
-        fclose(output);
         return;
     }
 
@@ -430,7 +429,7 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
     FILE *  input;
     FILE * output;
     input  = fopen(input_file_name,"r");
-   
+
     if ( input == NULL )
     {
         printf("# Could not open file: %s\n", input_file_name);
@@ -511,17 +510,16 @@ void GNUplot_table_1D(double *table, const char name[])
 void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input_file_name[])
 {
     FILE *  input;
-    FILE * output;
     input  = fopen(input_file_name,"r");
-    
+
     if ( input == NULL )
     {
         printf("# Could not open file: %s\n", name);
 
-        fclose(output);
         return;
     }
 
+    FILE * output;
 	output = fopen(name, "w");
 
 	if ( output == NULL )

@@ -59,6 +59,7 @@ double adaptiveSimpsonsAux(double (*f)(double), double a, double b, double epsil
     if (S2 == NAN)
     {
         fprintf(stderr,"NAN detected while integrating, stopping integration");
+        fprintf(stderr,"Sleft = %E\n Sright = %E\n", Sleft, Sright);
         return NAN;
     }
 
@@ -95,6 +96,7 @@ double adaptiveSimpsonsAux2(double (*f)(double, double), double a, double b, dou
     if (S2 == NAN)
     {
         fprintf(stderr,"NAN detected while integrating, stopping integration");
+        fprintf(stderr,"Sleft = %E\n Sright = %E\n", Sleft, Sright);
         return NAN;
     }
 
@@ -132,6 +134,7 @@ double adaptiveSimpsonsAux3(double (*f)(double, double, double), double a, doubl
     if (S2 == NAN)
     {
         fprintf(stderr,"NAN detected while integrating, stopping integration");
+        fprintf(stderr,"Sleft = %E\n Sright = %E\n", Sleft, Sright);
         return NAN;
     }
 
@@ -158,6 +161,7 @@ double NIntegration_3( double (*funcPtr)(double, double, double), double var1, d
 
 // this function gives of the slope of the function at point.
 // TODO: make more robust
+// TODO: refactor and remove spelling mistake
 double differentiat( double (*funcPtr)(double), double point)
 {
     double value;
@@ -168,6 +172,8 @@ double differentiat( double (*funcPtr)(double), double point)
     return value;
 }
 
+// a simple implementation of a delta function
+// TODO: add second argument with precision required. s
 bool DELTA(double d)
 {
     if ( d < 0.0000001 )
