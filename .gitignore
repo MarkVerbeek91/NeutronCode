@@ -41,7 +41,10 @@
 
 # Folders
 Doxygen
+Analitics
 
 # Specific files
 input.ini
 *.GNUfile
+/Makefile
+/NeutronCode.make
