@@ -13,7 +13,8 @@ project "NeutronCode"
    filter { "configurations:Debug" }
       defines { "DEBUG" }
       symbols "On"
-	  buildoptions { "-DDEBUG_PARAMETER" }
+      buildoptions { "-DDEBUG_PARAMETER", "-g", "-pg"}
+      links { "-pg"}
 
    filter { "configurations:Release" }
       defines { "NDEBUG" }
