@@ -22,7 +22,7 @@ double f(double r)
     double (*f_intePtr)(double);
     f_intePtr = &f_inte;
 
-    double sum = NIntegration(*f_intePtr, r, giveAnodeRadius());
+    double sum = NIntegration(*f_intePtr, r, fusor->b);
 
     sum *= ngas;
     sum = exp(-1 * sum);
@@ -32,7 +32,7 @@ double f(double r)
 
 double A(double r)
 {
-    return ngas * CrosssecTot(ParticleEnergy1(r)) * pow(giveAnodeRadius()/r,2) * (f(r) + pow(giveTransparency() * f(0),2)/f(r));
+    return ngas * CrosssecTot(ParticleEnergy1(r)) * pow(fusor->b/r,2) * (f(r) + pow(giveTransparency() * f(0),2)/f(r));
 }
 
 double g_inte(double dr, double ddr)
@@ -75,22 +75,22 @@ double kernel(double r, double dr)
 
 void CalculateTables(void)
 {
-    double step = (giveAnodeRadius() - giveCathodeRadius())/(N_TABLE-1);
+    double step = (fusor->b - fusor->a)/(N_TABLE-1);
 
     printf("#");
     for ( int i = 0; i < N_TABLE; i++)
     {
         for ( int j = 0; j < N_TABLE; j++)
         {
-            Table->K[i][j] = kernel(i*step+giveCathodeRadius(),j*step+giveCathodeRadius());
+            Table->K[i][j] = kernel(i*step+fusor->a,j*step+fusor->a);
         }
 
         if ( i *(N_TABLE / 50) % 20 == 0)
             printf(".");
 
-        Table->A[i] = A(i*step+giveCathodeRadius());
+        Table->A[i] = A(i*step+fusor->a);
 
-        Table->R[i] = i*step+giveCathodeRadius();
+        Table->R[i] = i*step+fusor->a;
     }
 
     printf("\n");

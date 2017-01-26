@@ -41,10 +41,10 @@ double IonSpectrumInwards(double r, double E)
     term1 *= interpolation(Table->S, dr) / abs(differentiat(*PhiPtr, dr));
     term1 /= 1 - pow(giveTransparency() * g(0,dr),2);
 
-    if ( giveCathodeRadius() < r )
+    if ( fusor->a < r )
     {
         // inwards flux outside the cathode
-        if ( dr < r || giveAnodeRadius() < dr )
+        if ( dr < r || fusor->b < dr )
         {
             printf("IonSpectrumInwards error: dr < r or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
 
@@ -54,13 +54,13 @@ double IonSpectrumInwards(double r, double E)
         term1  *= g(r,dr);
 
         if ( DELTA(E - ParticleEnergy1(r)) )
-            term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux * f(r);
+            term2  = pow(fusor->b/r,2) * EdgeIonFlux * f(r);
 
         flux = term1 + term2;
     }
     else
     {
-        if ( dr < giveCathodeRadius() || giveAnodeRadius() < dr )
+        if ( dr < fusor->a || fusor->b < dr )
         {
             printf("IonSpectrumInwards error: dr < a or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
 
@@ -68,12 +68,12 @@ double IonSpectrumInwards(double r, double E)
         }
 
         // inwards flux inside the cathode
-        term1 *= g(giveCathodeRadius(),dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * (r - giveCathodeRadius()));
+        term1 *= g(fusor->a,dr) * exp(ngas * CrosssecCX(ParticleEnergy2(fusor->a,dr)) * (r - fusor->a));
 
         if ( DELTA(E - ParticleEnergy1(r)) )
         {
-            term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux ;
-            term2 *= f(giveCathodeRadius()) * exp(ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * (r - giveCathodeRadius()));
+            term2  = pow(fusor->b/r,2) * EdgeIonFlux ;
+            term2 *= f(fusor->a) * exp(ngas * CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
         }
 
         flux = giveTransparency() * (term1 + term2);
@@ -107,21 +107,21 @@ double IonSpectrumOutwards(double r, double E)
     term1 *= interpolation(Table->S, dr) / abs(differentiat(*PhiPtr, dr));
     term1 *= pow(g(0, dr),2) / ( 1 - pow(giveTransparency() * g(0,dr),2) );
 
-    if ( r < giveCathodeRadius())
+    if ( r < fusor->a)
     {
         // outwards flux inside the cathode
-        if ( dr < giveCathodeRadius() || giveAnodeRadius() < dr )
+        if ( dr < fusor->a || fusor->b < dr )
         {
             printf("IonSpectrumOutwards error: dr < a or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
         }
 
-        term1 /= g(giveCathodeRadius(), dr) * exp(ngas * CrosssecCX(ParticleEnergy2(giveCathodeRadius(),dr)) * ( r - giveCathodeRadius()));
+        term1 /= g(fusor->a, dr) * exp(ngas * CrosssecCX(ParticleEnergy2(fusor->a,dr)) * ( r - fusor->a));
 
         if ( DELTA(E - ParticleEnergy1(r)) )
         {
-            term2  = pow(giveAnodeRadius() * f(0)/r,2) * EdgeIonFlux;
-            term2 /= f(giveCathodeRadius()) * exp(ngas * CrosssecCX(ParticleEnergy1(giveCathodeRadius())) * (r - giveCathodeRadius()));
+            term2  = pow(fusor->b * f(0)/r,2) * EdgeIonFlux;
+            term2 /= f(fusor->a) * exp(ngas * CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
         }
 
         flux = giveTransparency() * (term1 + term2);
@@ -129,7 +129,7 @@ double IonSpectrumOutwards(double r, double E)
     else
     {
         // outwards flux outside the cathode
-        if ( dr < r || giveAnodeRadius() < dr )
+        if ( dr < r || fusor->b < dr )
         {
             printf("IonSpectrumInwards error: dr < a or b < dr:\n \tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
@@ -138,7 +138,7 @@ double IonSpectrumOutwards(double r, double E)
         term1 /= g(r, dr);
 
         if ( DELTA(E - ParticleEnergy1(r)) )
-            term2 =  pow(giveAnodeRadius() * f(0)/r,2) * EdgeIonFlux / f(r);
+            term2 =  pow(fusor->b * f(0)/r,2) * EdgeIonFlux / f(r);
 
         flux = pow(giveTransparency(),2) * (term1 + term2);
     }

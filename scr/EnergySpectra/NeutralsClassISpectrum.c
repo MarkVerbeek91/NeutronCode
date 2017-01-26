@@ -30,16 +30,16 @@ double NeutralsClassISpectrumInwards(double r, double E)
         dr = roundf(dr * 10000) / 10000 + 1e-5;
 
     term1  = 1 / giveq();
-    term1 *= pow(giveAnodeRadius()/r,2);
+    term1 *= pow(fusor->b/r,2);
     term1 *= ngas * CrosssecCX(E);
     term1 *= EdgeIonFlux;
     term1 /= abs(differentiat(*PhiPtr, dr));
     term1 *= f(dr);
 
-    if ( giveCathodeRadius() < r )
+    if ( fusor->a < r )
     {
             // make sure that only physical numbers are calculated
-        if ( dr < r || dr > giveAnodeRadius() )
+        if ( dr < r || dr > fusor->b )
         {
             printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
             return NAN;
@@ -50,7 +50,7 @@ double NeutralsClassISpectrumInwards(double r, double E)
     else
     {
             // make sure that only physical numbers are calculated (47)
-        if ( dr < giveCathodeRadius() )
+        if ( dr < fusor->a )
         {
             printf("NeutralsClassISpectrumInwards error: r < dr or dr < a\n");
             return NAN;
@@ -59,8 +59,8 @@ double NeutralsClassISpectrumInwards(double r, double E)
 
         if ( DELTA(E + giveVoltage()) )
         {
-            term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux;
-            term2 *= f(giveCathodeRadius())* ( 1 - exp(-2 * ngas * CrosssecCX(-giveVoltage()) * giveCathodeRadius()));
+            term2  = pow(fusor->b/r,2) * EdgeIonFlux;
+            term2 *= f(fusor->a)* ( 1 - exp(-2 * ngas * CrosssecCX(-giveVoltage()) * fusor->a));
         }
 
         flux = giveTransparency() * (term1 + term2);
@@ -83,13 +83,13 @@ double NeutralsClassISpectrumOutwards(double r, double E)
         dr = roundf(dr * 10000) / 10000 + 1e-5;
 
     term1  = 1 / giveq();
-    term1 *= pow(giveAnodeRadius()/r,2);
+    term1 *= pow(fusor->b/r,2);
     term1 *= ngas * CrosssecCX(E);
     term1 /= abs(differentiat(*PhiPtr, dr));
 
-    if ( r < giveCathodeRadius() )
+    if ( r < fusor->a )
     {
-        if ( dr < giveCathodeRadius() )
+        if ( dr < fusor->a )
         {
             fprintf(stderr,"NeutralsClassISpectrumOutwards error: dr < a:\n\tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
@@ -100,15 +100,15 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
         if ( DELTA(E + giveVoltage()) )
         {
-            term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux;
-            term2 *= f(giveCathodeRadius())* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * (r - giveCathodeRadius())));
+            term2  = pow(fusor->b/r,2) * EdgeIonFlux;
+            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * (r - fusor->a)));
         }
 
         flux = giveTransparency() * (term1 + term2);
     }
     else
     {
-        if ( dr < giveCathodeRadius() || dr < r )
+        if ( dr < fusor->a || dr < r )
         {
             fprintf(stderr,"NeutralsClassISpectrumOutwards error: dr < a || dr < r:\n\tr = %E\n \tdr = %E\n \tE = %E\n", r, dr, E);
             return NAN;
@@ -118,8 +118,8 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
         if ( DELTA(E + giveVoltage()) )
         {
-            term2  = pow(giveAnodeRadius()/r,2) * EdgeIonFlux;
-            term2 *= f(giveCathodeRadius())* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * giveCathodeRadius()));
+            term2  = pow(fusor->b/r,2) * EdgeIonFlux;
+            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * fusor->a));
         }
 
         flux = pow(giveTransparency(),2) * (term1 + term2);

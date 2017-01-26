@@ -41,7 +41,7 @@ int main( int argc, char **argv )
     int opt;
 	char *cvalue = NULL;
 
-/*	
+/*
 	if( argc >= 2 )
 	{
 		fprintf(stdout,"# Analising give arguments\n");
@@ -98,9 +98,9 @@ int main( int argc, char **argv )
 			printf ("No default input file found, aborting\n");
 			return 0;
 		}
-			
+
 //	}
-	
+
     fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
     fprintf(stdout,"# ---------------------------- Start of program ---------------------------- #\n");
     fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
@@ -148,6 +148,8 @@ int main( int argc, char **argv )
 	output_data();
 
     // program is done
-    printf("# ---------------------------- Program Finished ---------------------------- #");
+    printf("# ---------------------------- Program Finished ---------------------------- #\n");
+
+    exit(0);
     return 0;
 }

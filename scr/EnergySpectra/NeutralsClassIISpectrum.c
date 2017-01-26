@@ -52,7 +52,7 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
     // from Eq. 56
     dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq() );
 
-    if ( dr < giveCathodeRadius() || ddr < dr ) // last part is a bit hacky
+    if ( dr < fusor->a || ddr < dr ) // last part is a bit hacky
         return 0;
 
     integrant  = interpolation(Table->S, ddr);
@@ -77,12 +77,12 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     term1 /= pow(r,2);
     term1 *= ngas * CrosssecCX(E);
 
-    if ( giveCathodeRadius() < r)
+    if ( fusor->a < r)
     {
         double (*FunctPtr)(double, double, double);
         FunctPtr = &NeutralsClassIISpectrumInwards_Inte1;
 
-        term1 *= NIntegration_3(*FunctPtr, r, E, r, giveAnodeRadius());
+        term1 *= NIntegration_3(*FunctPtr, r, E, r, fusor->b);
 
         flux = term1;
     }
@@ -99,15 +99,15 @@ double NeutralsClassIISpectrumInwards (double r, double E)
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutralsClassIISpectrumInwards_Inte2;
 
-        term1 *= NIntegration_2(FunctPtr, E, giveCathodeRadius(), giveAnodeRadius());
+        term1 *= NIntegration_2(FunctPtr, E, fusor->a, fusor->b);
 
-        ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
+        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / giveq()));
         dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
         term2  = pow(ddr/r, 2);
-        term2 *= g(giveCathodeRadius(), ddr);
+        term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);
-        term2 *= 1 - exp(ngas * CrosssecCX(E) * ( r - giveCathodeRadius()) );
+        term2 *= 1 - exp(ngas * CrosssecCX(E) * ( r - fusor->a) );
         term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = giveTransparency() * ( term1 + term2 );
@@ -129,12 +129,12 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
 
     dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
-    if ( dr < giveCathodeRadius() || ddr < giveCathodeRadius() ) // last part is a bit hacky
+    if ( dr < fusor->a || ddr < fusor->a ) // last part is a bit hacky
         return 0;
 
     integrant  = interpolation(Table->S, ddr);
     integrant /= abs(differentiat(*PhiPtr, dr));
-    integrant *= g(giveCathodeRadius(), ddr);
+    integrant *= g(fusor->a, ddr);
     integrant /= 1 - pow(giveTransparency() * g(0,ddr),2);
     integrant *= pow(ddr,2);
 
@@ -150,7 +150,7 @@ double NeutralsClassIISpectrumOutwards_Inte2(double r, double E, double ddr)
 
     dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
-    if ( dr < giveCathodeRadius() )
+    if ( dr < fusor->a )
         integrant = g(dr, ddr);
 
     if ( r < dr )
@@ -179,21 +179,21 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
     term1 /= pow(r,2);
     term1 *= ngas * CrosssecCX(E);
 
-    if ( r < giveCathodeRadius() )
+    if ( r < fusor->a )
     {
         // inside the cathode region
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutralsClassIISpectrumOutwards_Inte1;
 
-        term1 *= NIntegration_2(*FunctPtr, E, giveCathodeRadius(), giveAnodeRadius());
+        term1 *= NIntegration_2(*FunctPtr, E, fusor->a, fusor->b);
 
-        ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
+        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / giveq()));
         dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
         term2  = pow(ddr/r, 2);
-        term2 *= g(giveCathodeRadius(), ddr);
+        term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);
-        term2 *= 1 - exp(- ngas * CrosssecCX(E) * ( r + giveCathodeRadius()) );
+        term2 *= 1 - exp(- ngas * CrosssecCX(E) * ( r + fusor->a) );
         term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = giveTransparency() * ( term1 + term2);
@@ -204,15 +204,15 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
         double (*FunctPtr)(double, double, double);
         FunctPtr = &NeutralsClassIISpectrumOutwards_Inte2;
 
-        term1 *= NIntegration_3(FunctPtr, r, E, giveCathodeRadius(), giveAnodeRadius());
+        term1 *= NIntegration_3(FunctPtr, r, E, fusor->a, fusor->b);
 
-        ddr = Potential_Phi_Inv(Potential_Phi(giveCathodeRadius() - E / giveq()));
+        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / giveq()));
         dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
 
         term2  = pow(ddr/r, 2);
-        term2 *= g(giveCathodeRadius(), ddr);
+        term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(giveTransparency() * g(0, ddr),2);
-        term2 *= 1 - exp(-2 * ngas * CrosssecCX(E) * giveCathodeRadius());
+        term2 *= 1 - exp(-2 * ngas * CrosssecCX(E) * fusor->a);
         term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = pow(giveTransparency(),2) * ( term1 + term2);

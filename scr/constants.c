@@ -7,10 +7,10 @@
  *
  */
 #include "stdbool.h"
-#include "stdio.h"	
-	
+#include "stdio.h"
+
 #include "constants.h"
- 
+
 void init(void)
 {
     fusor->a = 0.05;
@@ -37,7 +37,7 @@ void initBool(void)
     printbool->Spectrum      = false;
     printbool->NSR           = false;
     printbool->NPR           = false;
-	
+
 	printbool2->potential     = false;
     printbool2->SIIEE         = false;
     printbool2->Cross_section = false;
@@ -64,22 +64,14 @@ struct PrintBool *printbool2 = &Printbool2;
 
 // defining of some variables
 double q;
+double E0 = 0.0001;          // reducing errors
+
 double pressure;  // Pa
 double Tgas; // K
 double ngas; //t
 double Itot;
 double EdgeIonFlux;
-double E0 = 0.0001;          // reducing errors
 
-double giveCathodeRadius(void)
-{
-    return fusor->a;
-}
-
-double giveAnodeRadius(void)
-{
-    return fusor->b;
-}
 
 double giveVoltage(void)
 {

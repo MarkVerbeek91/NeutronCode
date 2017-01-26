@@ -24,7 +24,7 @@ void output_data(void)
 		GNUplot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "GNUplot\\GNU_potential.txt");
 
         funcPtr2 = &ParticleEnergy2;
-        GNUplot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "GNUplot\\GNU_potential.txt");
+        GNUplot_function_2D(*funcPtr2, 0.0, fusor->b+0.001, 0.0, fusor->b+0.001, 0.01, 0.01, "GNUplot\\GNU_potential.txt");
     }
 	if ( printbool2->potential )
 	{
@@ -34,7 +34,7 @@ void output_data(void)
 		plot_function_1D(*funcPtr, 0.0, 0.25, 0.001, "output_files\\Potential.csv", "GNUplot\\GNU_potential.txt");
 
         funcPtr2 = &ParticleEnergy2;
-        plot_function_2D(*funcPtr2, 0.0, giveAnodeRadius()+0.001, 0.0, giveAnodeRadius()+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential.txt");
+        plot_function_2D(*funcPtr2, 0.0, fusor->b+0.001, 0.0, fusor->b+0.001, 0.01, 0.01, "output_files\\Particle2.csv", "GNUplot\\GNU_potential.txt");
 	}
 
     // writing the SIIEE to a file for plotting
@@ -89,22 +89,22 @@ void output_data(void)
         printf("# Survival function calculation\n");
 
         funcPtr = &f;
-        GNUplot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "GNUplot\\GNU_Survival_functions.txt");
+        GNUplot_function_1D(*funcPtr, fusor->a, fusor->b+0.001, 0.001, "GNUplot\\GNU_Survival_functions.txt");
 
         double (*funcPtr2)(double,double);
         funcPtr2 = &g;
-        GNUplot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "GNUplot\\GNU_Survival_functions.txt");
+        GNUplot_function_2D(*funcPtr2, 0.0, 0.0, fusor->a, fusor->b, 0.001, 0.001, "GNUplot\\GNU_Survival_functions.txt");
     }
 	if ( printbool2->Survival )
     {
         printf("# Survival function calculation\n");
 
         funcPtr = &f;
-        plot_function_1D(*funcPtr, giveCathodeRadius(), giveAnodeRadius()+0.001, 0.001, "output_files\\f.txt", "GNUplot\\GNU_Survival_functions.txt");
+        plot_function_1D(*funcPtr, fusor->a, fusor->b+0.001, 0.001, "output_files\\f.txt", "GNUplot\\GNU_Survival_functions.txt");
 
         double (*funcPtr2)(double,double);
         funcPtr2 = &g;
-        plot_function_2D(*funcPtr2, 0.0, 0.0, giveCathodeRadius(), giveAnodeRadius(), 0.001, 0.001, "output_files\\g.txt", "GNUplot\\GNU_Survival_functions.txt");
+        plot_function_2D(*funcPtr2, 0.0, 0.0, fusor->a, fusor->b, 0.001, 0.001, "output_files\\g.txt", "GNUplot\\GNU_Survival_functions.txt");
     }
 
 	// writing K to file
@@ -190,17 +190,17 @@ void output_data(void)
         // Ions
         funcPtr = &FusionRateIons;
         printf("# Neutrons from inwards ions\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSRions.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, fusor->b, 1e-3, "GNUplot\\GNU_NSRions.txt");
 
         // Neutrals Class I
         funcPtr = &FusionRateNeutralsClassI;
         printf("# In cathode, inwards\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSRclassI.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, fusor->b, 1e-3, "GNUplot\\GNU_NSRclassI.txt");
 
         // Neutrals ClassII
         funcPtr = &FusionRateNeutralsClassII;
         printf("# In cathode, inwards\n");
-        GNUplot_function_1D(*funcPtr, 1e-3, giveAnodeRadius(), 1e-3, "GNUplot\\GNU_NSRclassII.txt");
+        GNUplot_function_1D(*funcPtr, 1e-3, fusor->b, 1e-3, "GNUplot\\GNU_NSRclassII.txt");
     }
 
 	return;

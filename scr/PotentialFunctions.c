@@ -16,10 +16,10 @@ double Potential_Phi(double r)
 {
     double phi;
 
-    if ( r <= giveCathodeRadius())
+    if ( r <= fusor->a)
         phi = giveVoltage();
     else
-        phi = (giveCathodeRadius() * (giveAnodeRadius() - r)  * giveVoltage()) / (r * ( giveAnodeRadius() - giveCathodeRadius() ));
+        phi = (fusor->a * (fusor->b - r)  * giveVoltage()) / (r * ( fusor->b - fusor->a ));
 
     return phi;
 }
@@ -30,10 +30,10 @@ double Potential_Phi_Inv(double E)
     double Etmp;
 
     if ( E > fusor->V0)
-        return giveAnodeRadius();
+        return fusor->b;
 
-    r_left  = giveCathodeRadius();
-    r_right = giveAnodeRadius();
+    r_left  = fusor->a;
+    r_right = fusor->b;
 
     r = r_left + ( r_right - r_left )/2.0;
 

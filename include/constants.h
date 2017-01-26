@@ -8,14 +8,12 @@
  */
 
 #include "stdbool.h"
- 
+
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
 void init(void);
 void initBool(void);
-double giveCathodeRadius(void);
-double giveAnodeRadius(void);
 double giveVoltage(void);
 double giveTransparency(void);
 double giveq(void);
@@ -28,8 +26,10 @@ struct Fusor{
     double a;				// Cathode radius
     double b;				// Anode radius
     double V0; 				// Voltage on Fusor
-//    double wire_diameter;	// 
+//    double wire_diameter;	//
     double Tc;				// Transparency of grid
+
+
 };
 
 // the precision of the functions.

@@ -1,6 +1,6 @@
-/** 
- * \brief The functions in this file calculate the differend currents that 
- * exist inside the cathode. 
+/**
+ * \brief The functions in this file calculate the differend currents that
+ * exist inside the cathode.
 
 */
 
@@ -30,9 +30,9 @@ double SIIEE(double E)
 double I_c1(void)
 {
     double current;
-	// C * m^2 
-    current  = 4 * 3.141529 * Q_ELECTRON * (1.0 - giveTransparency()) * pow(giveAnodeRadius(),2);
-    current *= f(giveCathodeRadius()) + (giveTransparency() * pow(f(0.0),2))/f(giveCathodeRadius());
+	// C * m^2
+    current  = 4 * 3.141529 * Q_ELECTRON * (1.0 - giveTransparency()) * pow(fusor->b,2);
+    current *= f(fusor->a) + (giveTransparency() * pow(f(0.0),2))/f(fusor->a);
     current *= 1 + SIIEE(-giveVoltage());
 
     return current;
@@ -41,7 +41,7 @@ double I_c1(void)
 double I_c2inte(double dr)
 {
     double  fac  = interpolation(Table->S, dr) / ( 1 - pow(giveTransparency()*g(0,dr),2));
-            fac *= (g(giveCathodeRadius(),dr) + giveTransparency() * pow(g(0,dr),2)/g(giveCathodeRadius(),dr));
+            fac *= (g(fusor->a,dr) + giveTransparency() * pow(g(0,dr),2)/g(fusor->a,dr));
             fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
 
     return fac;
@@ -53,7 +53,7 @@ double I_c2(void)
     double (*FuncPtr)(double);
     FuncPtr = &I_c2inte;
 
-    term = NIntegration(*FuncPtr, giveCathodeRadius(), giveAnodeRadius());
+    term = NIntegration(*FuncPtr, fusor->a, fusor->b);
 
     term *= 4 * 3.141529 * Q_ELECTRON * (1 - giveTransparency()) * term;
 
@@ -63,10 +63,10 @@ double I_c2(void)
 double I_c3(void)
 {
     double current;
-    double Emax = ParticleEnergy1(giveCathodeRadius());
+    double Emax = ParticleEnergy1(fusor->a);
 
     current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * (CrosssecTot(Emax)/CrosssecCX(Emax));
-    current *= pow(giveAnodeRadius(),2) * f(giveCathodeRadius()) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * giveCathodeRadius()));
+    current *= pow(fusor->b,2) * f(fusor->a) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * fusor->a));
 
     return current;
 }
@@ -74,13 +74,13 @@ double I_c3(void)
 double I_c4inte(double dr)
 {
     double fac;
-	double E = ParticleEnergy2(giveCathodeRadius(),dr);
-	
+	double E = ParticleEnergy2(fusor->a,dr);
+
     fac  = CrosssecTot(E)/CrosssecCX(E);
-    fac *= interpolation(Table->S, dr) * g(giveCathodeRadius(),dr) / ( 1.0 - pow(giveTransparency() * g(0,dr),2));
-    fac *= 1 - exp( -2 * ngas * CrosssecCX(E) * giveCathodeRadius());
+    fac *= interpolation(Table->S, dr) * g(fusor->a,dr) / ( 1.0 - pow(giveTransparency() * g(0,dr),2));
+    fac *= 1 - exp( -2 * ngas * CrosssecCX(E) * fusor->a);
 	fac *= pow(dr,2);
-	
+
     return fac;
 }
 
@@ -90,9 +90,9 @@ double I_c4(void)
     double (*FuncPtr)(double);
     FuncPtr = &I_c4inte;
 
-    term = NIntegration(*FuncPtr, giveCathodeRadius(), giveAnodeRadius());
+    term = NIntegration(*FuncPtr, fusor->a, fusor->b);
 
-    term *= 4 * 3.141529 * Q_ELECTRON * term; 
+    term *= 4 * 3.141529 * Q_ELECTRON * term;
 
     return term;
 }

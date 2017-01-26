@@ -14,7 +14,7 @@ void S(void)
     int i, j;
     double h, sum;
 
-    h = ( giveAnodeRadius() - giveCathodeRadius()) / N_TABLE;
+    h = ( fusor->b - fusor->a) / N_TABLE;
 
     // case i = N
     Table->S[N_TABLE-1] = Table->A[N_TABLE-1];
