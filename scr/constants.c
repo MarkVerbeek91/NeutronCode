@@ -72,17 +72,6 @@ double ngas; //t
 double Itot;
 double EdgeIonFlux;
 
-
-double giveVoltage(void)
-{
-    return fusor->V0;
-}
-
-double giveTransparency(void)
-{
-    return fusor->Tc;
-}
-
 double giveq(void)
 {
     return q;

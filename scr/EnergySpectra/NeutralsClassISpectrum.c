@@ -63,7 +63,7 @@ double NeutralsClassISpectrumInwards(double r, double E)
             term2 *= f(fusor->a)* ( 1 - exp(-2 * ngas * CrosssecCX(-fusor->V0) * fusor->a));
         }
 
-        flux = giveTransparency() * (term1 + term2);
+        flux = fusor->Tc * (term1 + term2);
     }
 
     return flux;
@@ -104,7 +104,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
             term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-fusor->V0) * (r - fusor->a)));
         }
 
-        flux = giveTransparency() * (term1 + term2);
+        flux = fusor->Tc * (term1 + term2);
     }
     else
     {
@@ -122,7 +122,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
             term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-fusor->V0) * fusor->a));
         }
 
-        flux = pow(giveTransparency(),2) * (term1 + term2);
+        flux = pow(fusor->Tc,2) * (term1 + term2);
     }
 
     return flux;

@@ -39,7 +39,7 @@ double IonSpectrumInwards(double r, double E)
     term1  = 1/giveq();
     term1 *= pow(dr/r,2);
     term1 *= interpolation(Table->S, dr) / abs(differentiat(*PhiPtr, dr));
-    term1 /= 1 - pow(giveTransparency() * g(0,dr),2);
+    term1 /= 1 - pow(fusor->Tc * g(0,dr),2);
 
     if ( fusor->a < r )
     {
@@ -76,7 +76,7 @@ double IonSpectrumInwards(double r, double E)
             term2 *= f(fusor->a) * exp(ngas * CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
         }
 
-        flux = giveTransparency() * (term1 + term2);
+        flux = fusor->Tc * (term1 + term2);
     }
 
     return flux;
@@ -105,7 +105,7 @@ double IonSpectrumOutwards(double r, double E)
     term1  = 1/giveq();
     term1 *= pow(dr/r,2);
     term1 *= interpolation(Table->S, dr) / abs(differentiat(*PhiPtr, dr));
-    term1 *= pow(g(0, dr),2) / ( 1 - pow(giveTransparency() * g(0,dr),2) );
+    term1 *= pow(g(0, dr),2) / ( 1 - pow(fusor->Tc * g(0,dr),2) );
 
     if ( r < fusor->a)
     {
@@ -124,7 +124,7 @@ double IonSpectrumOutwards(double r, double E)
             term2 /= f(fusor->a) * exp(ngas * CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
         }
 
-        flux = giveTransparency() * (term1 + term2);
+        flux = fusor->Tc * (term1 + term2);
     }
     else
     {
@@ -140,7 +140,7 @@ double IonSpectrumOutwards(double r, double E)
         if ( DELTA(E - ParticleEnergy1(r)) )
             term2 =  pow(fusor->b * f(0)/r,2) * EdgeIonFlux / f(r);
 
-        flux = pow(giveTransparency(),2) * (term1 + term2);
+        flux = pow(fusor->Tc,2) * (term1 + term2);
     }
 
     return flux;

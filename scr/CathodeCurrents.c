@@ -31,8 +31,8 @@ double I_c1(void)
 {
     double current;
 	// C * m^2
-    current  = 4 * 3.141529 * Q_ELECTRON * (1.0 - giveTransparency()) * pow(fusor->b,2);
-    current *= f(fusor->a) + (giveTransparency() * pow(f(0.0),2))/f(fusor->a);
+    current  = 4 * 3.141529 * Q_ELECTRON * (1.0 - fusor->Tc) * pow(fusor->b,2);
+    current *= f(fusor->a) + (fusor->Tc * pow(f(0.0),2))/f(fusor->a);
     current *= 1 + SIIEE(-fusor->V0);
 
     return current;
@@ -40,8 +40,8 @@ double I_c1(void)
 
 double I_c2inte(double dr)
 {
-    double  fac  = interpolation(Table->S, dr) / ( 1 - pow(giveTransparency()*g(0,dr),2));
-            fac *= (g(fusor->a,dr) + giveTransparency() * pow(g(0,dr),2)/g(fusor->a,dr));
+    double  fac  = interpolation(Table->S, dr) / ( 1 - pow(fusor->Tc*g(0,dr),2));
+            fac *= (g(fusor->a,dr) + fusor->Tc * pow(g(0,dr),2)/g(fusor->a,dr));
             fac *= (1 + SIIEE(ParticleEnergy2(0,dr))) * pow(dr,2);
 
     return fac;
@@ -55,7 +55,7 @@ double I_c2(void)
 
     term = NIntegration(*FuncPtr, fusor->a, fusor->b);
 
-    term *= 4 * 3.141529 * Q_ELECTRON * (1 - giveTransparency()) * term;
+    term *= 4 * 3.141529 * Q_ELECTRON * (1 - fusor->Tc) * term;
 
     return term;
 }
@@ -65,7 +65,7 @@ double I_c3(void)
     double current;
     double Emax = ParticleEnergy1(fusor->a);
 
-    current  = 4 * 3.141529 * Q_ELECTRON * giveTransparency() * (CrosssecTot(Emax)/CrosssecCX(Emax));
+    current  = 4 * 3.141529 * Q_ELECTRON * fusor->Tc * (CrosssecTot(Emax)/CrosssecCX(Emax));
     current *= pow(fusor->b,2) * f(fusor->a) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * fusor->a));
 
     return current;
@@ -77,7 +77,7 @@ double I_c4inte(double dr)
 	double E = ParticleEnergy2(fusor->a,dr);
 
     fac  = CrosssecTot(E)/CrosssecCX(E);
-    fac *= interpolation(Table->S, dr) * g(fusor->a,dr) / ( 1.0 - pow(giveTransparency() * g(0,dr),2));
+    fac *= interpolation(Table->S, dr) * g(fusor->a,dr) / ( 1.0 - pow(fusor->Tc * g(0,dr),2));
     fac *= 1 - exp( -2 * ngas * CrosssecCX(E) * fusor->a);
 	fac *= pow(dr,2);
 
