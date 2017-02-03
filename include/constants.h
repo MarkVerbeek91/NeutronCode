@@ -14,10 +14,6 @@
 
 void init(void);
 void initBool(void);
-double giveq(void);
-double giveTgas(void);
-double giveItot(void);
-double giveEdgeIonFlux(void);
 
 struct Fusor{
     double a;				// Cathode radius

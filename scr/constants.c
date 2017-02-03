@@ -71,22 +71,3 @@ double Tgas; // K
 double Itot;
 double EdgeIonFlux;
 
-double giveq(void)
-{
-    return q;
-}
-
-double giveTgas(void)
-{
-    return Tgas;
-}
-
-double giveItot(void)
-{
-    return Itot;
-}
-
-double giveEdgeIonFlux(void)
-{
-    return EdgeIonFlux;
-}

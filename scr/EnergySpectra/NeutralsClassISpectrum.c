@@ -24,12 +24,12 @@ double NeutralsClassISpectrumInwards(double r, double E)
 	  double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-    dr = Potential_Phi_Inv((E0 - E)/giveq());
+    dr = Potential_Phi_Inv((E0 - E)/q);
 
     if ( dr < r )
         dr = roundf(dr * 10000) / 10000 + 1e-5;
 
-    term1  = 1 / giveq();
+    term1  = 1 / q;
     term1 *= pow(fusor->b/r,2);
     term1 *= fusor->ngas* CrosssecCX(E);
     term1 *= EdgeIonFlux;
@@ -77,12 +77,12 @@ double NeutralsClassISpectrumOutwards(double r, double E)
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-    dr = Potential_Phi_Inv((E0 - E)/giveq());
+    dr = Potential_Phi_Inv((E0 - E)/q);
 
     if ( dr < r )
         dr = roundf(dr * 10000) / 10000 + 1e-5;
 
-    term1  = 1 / giveq();
+    term1  = 1 / q;
     term1 *= pow(fusor->b/r,2);
     term1 *= fusor->ngas* CrosssecCX(E);
     term1 /= abs(differentiat(*PhiPtr, dr));

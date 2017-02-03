@@ -28,7 +28,7 @@ double NeutralsClassIISpectrumInwards_Inte1(double r, double E, double ddr)
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/q);
 
     if ( dr < r || ddr < dr )  // last part is a bit hacky
         return 0;
@@ -50,7 +50,7 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
     PhiPtr = &Potential_Phi;
 
     // from Eq. 56
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq() );
+    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/q );
 
     if ( dr < fusor->a || ddr < dr ) // last part is a bit hacky
         return 0;
@@ -73,7 +73,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-    term1  = 1 / giveq();
+    term1  = 1 / q;
     term1 /= pow(r,2);
     term1 *= fusor->ngas* CrosssecCX(E);
 
@@ -101,14 +101,14 @@ double NeutralsClassIISpectrumInwards (double r, double E)
 
         term1 *= NIntegration_2(FunctPtr, E, fusor->a, fusor->b);
 
-        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / giveq()));
-        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / q));
+        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/q);
 
         term2  = pow(ddr/r, 2);
         term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(fusor->Tc * g(0, ddr),2);
         term2 *= 1 - exp(fusor->ngas* CrosssecCX(E) * ( r - fusor->a) );
-        term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table->S, ddr) / ( q * abs(differentiat(*PhiPtr, dr)));
 
         flux = fusor->Tc * ( term1 + term2 );
     }
@@ -127,7 +127,7 @@ double NeutralsClassIISpectrumOutwards_Inte1(double E, double ddr)
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/q);
 
     if ( dr < fusor->a || ddr < fusor->a ) // last part is a bit hacky
         return 0;
@@ -148,7 +148,7 @@ double NeutralsClassIISpectrumOutwards_Inte2(double r, double E, double ddr)
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+    dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/q);
 
     if ( dr < fusor->a )
         integrant = g(dr, ddr);
@@ -175,7 +175,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
-    term1  = 1 / giveq();
+    term1  = 1 / q;
     term1 /= pow(r,2);
     term1 *= fusor->ngas* CrosssecCX(E);
 
@@ -187,14 +187,14 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
 
         term1 *= NIntegration_2(*FunctPtr, E, fusor->a, fusor->b);
 
-        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / giveq()));
-        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / q));
+        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/q);
 
         term2  = pow(ddr/r, 2);
         term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(fusor->Tc * g(0, ddr),2);
         term2 *= 1 - exp(- fusor->ngas* CrosssecCX(E) * ( r + fusor->a) );
-        term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table->S, ddr) / ( q * abs(differentiat(*PhiPtr, dr)));
 
         flux = fusor->Tc * ( term1 + term2);
     }
@@ -206,14 +206,14 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
 
         term1 *= NIntegration_3(FunctPtr, r, E, fusor->a, fusor->b);
 
-        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / giveq()));
-        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/giveq());
+        ddr = Potential_Phi_Inv(Potential_Phi(fusor->a - E / q));
+        dr = Potential_Phi_Inv(Potential_Phi(ddr) - E/q);
 
         term2  = pow(ddr/r, 2);
         term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(fusor->Tc * g(0, ddr),2);
         term2 *= 1 - exp(-2 * fusor->ngas* CrosssecCX(E) * fusor->a);
-        term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
+        term2 *= interpolation(Table->S, ddr) / ( q * abs(differentiat(*PhiPtr, dr)));
 
         flux = pow(fusor->Tc,2) * ( term1 + term2);
     }
