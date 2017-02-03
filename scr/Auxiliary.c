@@ -266,7 +266,6 @@ void GNUplot_function_1D(double (*funcPtr)(double), double Start, double End, do
 	if ( output == NULL )
 	{
         printf("# Could not open file: %s\n", name);
-        fclose(output);
         return;
     }
 
@@ -440,6 +439,7 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
 	if ( output == NULL )
 	{
         printf("# Could not open file: %s\n", name);
+        fclose(input);
         return;
     }
 

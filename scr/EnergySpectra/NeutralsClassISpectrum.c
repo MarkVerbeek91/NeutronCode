@@ -20,7 +20,7 @@
 double NeutralsClassISpectrumInwards(double r, double E)
 {
     double flux, dr;
-    double term1 = 0, term2 = 0;
+    double term1 = 0;
 	  double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
 
@@ -49,6 +49,7 @@ double NeutralsClassISpectrumInwards(double r, double E)
     }
     else
     {
+        double term2 = 0;
             // make sure that only physical numbers are calculated (47)
         if ( dr < fusor->a )
         {

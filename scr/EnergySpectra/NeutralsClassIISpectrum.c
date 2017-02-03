@@ -68,7 +68,7 @@ double NeutralsClassIISpectrumInwards_Inte2(double E, double ddr)
 double NeutralsClassIISpectrumInwards (double r, double E)
 {
     double flux;
-    double term1 = 0, term2 = 0;
+    double term1 = 0;
 
     double (*PhiPtr)(double);
     PhiPtr = &Potential_Phi;
@@ -95,7 +95,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
             return NAN;
         }
 
-        double ddr, dr;
+        double ddr, dr, term2 = 0;
         double (*FunctPtr)(double, double);
         FunctPtr = &NeutralsClassIISpectrumInwards_Inte2;
 

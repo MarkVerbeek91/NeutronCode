@@ -73,7 +73,7 @@ double CrosssecIon(double E)
 
     // because the int E is in eV and the formula in keV, the factor 1/1000 is introduced.
     double energy = E/1000.;
-    crosssection = (exp(-CS_Ion.A2Ion/energy) * log(1 + CS_Ion.A3Ion * energy)) / energy;
+    crosssection = (exp(-CS_Ion.A2Ion/energy) * log1p(CS_Ion.A3Ion * energy)) / energy;
     crosssection = crosssection + CS_Ion.A4Ion * exp(-CS_Ion.A5Ion * energy) / (exp(CS_Ion.A6Ion) + CS_Ion.A7Ion*exp(CS_Ion.A8Ion));
     crosssection = crosssection * 1e-20 * CS_Ion.A1Ion;
 
@@ -108,7 +108,7 @@ double CrosssecFusion(double E)
 {
     double crosssection, energy = E/1000.;
     crosssection = 1e-28 * (CS_Fusion.A5Fusion + (CS_Fusion.A2Fusion / (pow(CS_Fusion.A4Fusion - CS_Fusion.A3Fusion * energy,2)+1)));
-    crosssection = crosssection /(energy * (exp(CS_Fusion.A1Fusion / sqrt(energy))-1));
+    crosssection = crosssection /(energy * (expm1(CS_Fusion.A1Fusion / sqrt(energy))));
 
     if ( crosssection != crosssection)
         fprintf(stderr,"Fusion cross section returning NAN\n");
