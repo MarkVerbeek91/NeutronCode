@@ -20,12 +20,14 @@ double Nps(void)
     double NPS, tempNPS;
     double (*FunctPtr)(double);
 
+    fprintf(stdout,"# Neutrons from ...\n");
+
     // Neutrons from Ions on Ions
     FunctPtr = &FusionRateIons;
 
     tempNPS = NIntegration(*FunctPtr, 0.00001, fusor->b - 0.000001);
     NPS  = tempNPS;
-    fprintf(stdout,"# Neutrons from ...\n");
+
     fprintf(stdout,"#        Ions          : \t %.2E \n", tempNPS);
 
     // Neutrons from Class I ions on Neutrals.
