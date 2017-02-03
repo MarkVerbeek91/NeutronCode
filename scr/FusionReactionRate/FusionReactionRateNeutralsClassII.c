@@ -32,6 +32,6 @@ double FusionRateNeutralsClassII(double r)
     Emax = ParticleEnergy1(r);
     FRR  = NIntegration_2(funcPtr, r, 1e-3, Emax);
 
-    FRR *= ngas;
+    FRR *= fusor->ngas;
     return FRR;
 }

@@ -66,7 +66,7 @@ double I_c3(void)
     double Emax = ParticleEnergy1(fusor->a);
 
     current  = 4 * 3.141529 * Q_ELECTRON * fusor->Tc * (CrosssecTot(Emax)/CrosssecCX(Emax));
-    current *= pow(fusor->b,2) * f(fusor->a) * ( 1.0 - exp( -2 * ngas * CrosssecCX(Emax) * fusor->a));
+    current *= pow(fusor->b,2) * f(fusor->a) * ( 1.0 - exp( -2 * fusor->ngas* CrosssecCX(Emax) * fusor->a));
 
     return current;
 }
@@ -78,7 +78,7 @@ double I_c4inte(double dr)
 
     fac  = CrosssecTot(E)/CrosssecCX(E);
     fac *= interpolation(Table->S, dr) * g(fusor->a,dr) / ( 1.0 - pow(fusor->Tc * g(0,dr),2));
-    fac *= 1 - exp( -2 * ngas * CrosssecCX(E) * fusor->a);
+    fac *= 1 - exp( -2 * fusor->ngas* CrosssecCX(E) * fusor->a);
 	fac *= pow(dr,2);
 
     return fac;

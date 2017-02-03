@@ -22,7 +22,7 @@ void init(void)
 	pressure = 0.5;
 	Itot = 0.1;
 	Tgas = 400;
-    ngas = 6.022e23 * pressure / (8.314 * Tgas); //
+    fusor->ngas = 6.022e23 * pressure / (8.314 * Tgas); //
 }
 
 void initBool(void)
@@ -68,7 +68,6 @@ double E0 = 0.0001;          // reducing errors
 
 double pressure;  // Pa
 double Tgas; // K
-double ngas; //t
 double Itot;
 double EdgeIonFlux;
 
@@ -80,11 +79,6 @@ double giveq(void)
 double giveTgas(void)
 {
     return Tgas;
-}
-
-double giveNgas(void)
-{
-    return ngas;
 }
 
 double giveItot(void)

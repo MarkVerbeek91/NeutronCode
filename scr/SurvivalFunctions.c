@@ -24,7 +24,7 @@ double f(double r)
 
     double sum = NIntegration(*f_intePtr, r, fusor->b);
 
-    sum *= ngas;
+    sum *= fusor->ngas;
     sum = exp(-1 * sum);
 
     return sum;
@@ -32,7 +32,7 @@ double f(double r)
 
 double A(double r)
 {
-    return ngas * CrosssecTot(ParticleEnergy1(r)) * pow(fusor->b/r,2) * (f(r) + pow(fusor->Tc * f(0),2)/f(r));
+    return fusor->ngas* CrosssecTot(ParticleEnergy1(r)) * pow(fusor->b/r,2) * (f(r) + pow(fusor->Tc * f(0),2)/f(r));
 }
 
 double g_inte(double dr, double ddr)
@@ -53,7 +53,7 @@ double g(double r, double dr)
 
     double sum = NIntegration_2(*g_intePtr, dr, r, dr);
 
-    sum *= ngas;
+    sum *= fusor->ngas;
     sum = exp(-sum);
 
     return sum;
@@ -64,7 +64,7 @@ double kernel(double r, double dr)
     double tmp;
     if ( r <= dr )
     {
-        tmp  = ngas * CrosssecTot(ParticleEnergy2(r,dr));
+        tmp  = fusor->ngas* CrosssecTot(ParticleEnergy2(r,dr));
         tmp *= pow(dr/r,2) * ((g(r,dr) + (pow(fusor->Tc*g(0,dr),2)/g(r,dr)))/(1.0-pow(fusor->Tc*g(0,dr),2)));
     }
     else

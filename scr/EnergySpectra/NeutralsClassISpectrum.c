@@ -31,7 +31,7 @@ double NeutralsClassISpectrumInwards(double r, double E)
 
     term1  = 1 / giveq();
     term1 *= pow(fusor->b/r,2);
-    term1 *= ngas * CrosssecCX(E);
+    term1 *= fusor->ngas* CrosssecCX(E);
     term1 *= EdgeIonFlux;
     term1 /= abs(differentiat(*PhiPtr, dr));
     term1 *= f(dr);
@@ -60,7 +60,7 @@ double NeutralsClassISpectrumInwards(double r, double E)
         if ( DELTA(E + fusor->V0) )
         {
             term2  = pow(fusor->b/r,2) * EdgeIonFlux;
-            term2 *= f(fusor->a)* ( 1 - exp(-2 * ngas * CrosssecCX(-fusor->V0) * fusor->a));
+            term2 *= f(fusor->a)* ( 1 - exp(-2 * fusor->ngas* CrosssecCX(-fusor->V0) * fusor->a));
         }
 
         flux = fusor->Tc * (term1 + term2);
@@ -84,7 +84,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
     term1  = 1 / giveq();
     term1 *= pow(fusor->b/r,2);
-    term1 *= ngas * CrosssecCX(E);
+    term1 *= fusor->ngas* CrosssecCX(E);
     term1 /= abs(differentiat(*PhiPtr, dr));
 
     if ( r < fusor->a )
@@ -101,7 +101,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
         if ( DELTA(E + fusor->V0) )
         {
             term2  = pow(fusor->b/r,2) * EdgeIonFlux;
-            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-fusor->V0) * (r - fusor->a)));
+            term2 *= f(fusor->a)* ( 1 - exp( fusor->ngas* CrosssecCX(-fusor->V0) * (r - fusor->a)));
         }
 
         flux = fusor->Tc * (term1 + term2);
@@ -119,7 +119,7 @@ double NeutralsClassISpectrumOutwards(double r, double E)
         if ( DELTA(E + fusor->V0) )
         {
             term2  = pow(fusor->b/r,2) * EdgeIonFlux;
-            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-fusor->V0) * fusor->a));
+            term2 *= f(fusor->a)* ( 1 - exp( fusor->ngas* CrosssecCX(-fusor->V0) * fusor->a));
         }
 
         flux = pow(fusor->Tc,2) * (term1 + term2);

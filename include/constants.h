@@ -16,7 +16,6 @@ void init(void);
 void initBool(void);
 double giveq(void);
 double giveTgas(void);
-double giveNgas(void);
 double giveItot(void);
 double giveEdgeIonFlux(void);
 
@@ -26,7 +25,7 @@ struct Fusor{
     double V0; 				// Voltage on Fusor
 //    double wire_diameter;	//
     double Tc;				// Transparency of grid
-
+    double ngas;            // gas density
 
 };
 

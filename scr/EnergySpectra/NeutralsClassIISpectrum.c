@@ -75,7 +75,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
 
     term1  = 1 / giveq();
     term1 /= pow(r,2);
-    term1 *= ngas * CrosssecCX(E);
+    term1 *= fusor->ngas* CrosssecCX(E);
 
     if ( fusor->a < r)
     {
@@ -107,7 +107,7 @@ double NeutralsClassIISpectrumInwards (double r, double E)
         term2  = pow(ddr/r, 2);
         term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(fusor->Tc * g(0, ddr),2);
-        term2 *= 1 - exp(ngas * CrosssecCX(E) * ( r - fusor->a) );
+        term2 *= 1 - exp(fusor->ngas* CrosssecCX(E) * ( r - fusor->a) );
         term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = fusor->Tc * ( term1 + term2 );
@@ -177,7 +177,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
 
     term1  = 1 / giveq();
     term1 /= pow(r,2);
-    term1 *= ngas * CrosssecCX(E);
+    term1 *= fusor->ngas* CrosssecCX(E);
 
     if ( r < fusor->a )
     {
@@ -193,7 +193,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
         term2  = pow(ddr/r, 2);
         term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(fusor->Tc * g(0, ddr),2);
-        term2 *= 1 - exp(- ngas * CrosssecCX(E) * ( r + fusor->a) );
+        term2 *= 1 - exp(- fusor->ngas* CrosssecCX(E) * ( r + fusor->a) );
         term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = fusor->Tc * ( term1 + term2);
@@ -212,7 +212,7 @@ double NeutralsClassIISpectrumOutwards (double r, double E)
         term2  = pow(ddr/r, 2);
         term2 *= g(fusor->a, ddr);
         term2 /= 1 - pow(fusor->Tc * g(0, ddr),2);
-        term2 *= 1 - exp(-2 * ngas * CrosssecCX(E) * fusor->a);
+        term2 *= 1 - exp(-2 * fusor->ngas* CrosssecCX(E) * fusor->a);
         term2 *= interpolation(Table->S, ddr) / ( giveq() * abs(differentiat(*PhiPtr, dr)));
 
         flux = pow(fusor->Tc,2) * ( term1 + term2);

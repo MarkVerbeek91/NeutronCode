@@ -68,12 +68,12 @@ double IonSpectrumInwards(double r, double E)
         }
 
         // inwards flux inside the cathode
-        term1 *= g(fusor->a,dr) * exp(ngas * CrosssecCX(ParticleEnergy2(fusor->a,dr)) * (r - fusor->a));
+        term1 *= g(fusor->a,dr) * exp(fusor->ngas* CrosssecCX(ParticleEnergy2(fusor->a,dr)) * (r - fusor->a));
 
         if ( DELTA(E - ParticleEnergy1(r)) )
         {
             term2  = pow(fusor->b/r,2) * EdgeIonFlux ;
-            term2 *= f(fusor->a) * exp(ngas * CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
+            term2 *= f(fusor->a) * exp(fusor->ngas* CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
         }
 
         flux = fusor->Tc * (term1 + term2);
@@ -116,12 +116,12 @@ double IonSpectrumOutwards(double r, double E)
             return NAN;
         }
 
-        term1 /= g(fusor->a, dr) * exp(ngas * CrosssecCX(ParticleEnergy2(fusor->a,dr)) * ( r - fusor->a));
+        term1 /= g(fusor->a, dr) * exp(fusor->ngas* CrosssecCX(ParticleEnergy2(fusor->a,dr)) * ( r - fusor->a));
 
         if ( DELTA(E - ParticleEnergy1(r)) )
         {
             term2  = pow(fusor->b * f(0)/r,2) * EdgeIonFlux;
-            term2 /= f(fusor->a) * exp(ngas * CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
+            term2 /= f(fusor->a) * exp(fusor->ngas* CrosssecCX(ParticleEnergy1(fusor->a)) * (r - fusor->a));
         }
 
         flux = fusor->Tc * (term1 + term2);
