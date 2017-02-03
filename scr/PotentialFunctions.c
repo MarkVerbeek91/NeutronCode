@@ -17,9 +17,9 @@ double Potential_Phi(double r)
     double phi;
 
     if ( r <= fusor->a)
-        phi = giveVoltage();
+        phi = fusor->V0;
     else
-        phi = (fusor->a * (fusor->b - r)  * giveVoltage()) / (r * ( fusor->b - fusor->a ));
+        phi = (fusor->a * (fusor->b - r)  * fusor->V0) / (r * ( fusor->b - fusor->a ));
 
     return phi;
 }

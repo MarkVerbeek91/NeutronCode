@@ -57,10 +57,10 @@ double NeutralsClassISpectrumInwards(double r, double E)
         }
 
 
-        if ( DELTA(E + giveVoltage()) )
+        if ( DELTA(E + fusor->V0) )
         {
             term2  = pow(fusor->b/r,2) * EdgeIonFlux;
-            term2 *= f(fusor->a)* ( 1 - exp(-2 * ngas * CrosssecCX(-giveVoltage()) * fusor->a));
+            term2 *= f(fusor->a)* ( 1 - exp(-2 * ngas * CrosssecCX(-fusor->V0) * fusor->a));
         }
 
         flux = giveTransparency() * (term1 + term2);
@@ -98,10 +98,10 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
         term1 *= f(dr);
 
-        if ( DELTA(E + giveVoltage()) )
+        if ( DELTA(E + fusor->V0) )
         {
             term2  = pow(fusor->b/r,2) * EdgeIonFlux;
-            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * (r - fusor->a)));
+            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-fusor->V0) * (r - fusor->a)));
         }
 
         flux = giveTransparency() * (term1 + term2);
@@ -116,10 +116,10 @@ double NeutralsClassISpectrumOutwards(double r, double E)
 
         term1 *= f(dr) + pow(f(0),2) / f(dr);
 
-        if ( DELTA(E + giveVoltage()) )
+        if ( DELTA(E + fusor->V0) )
         {
             term2  = pow(fusor->b/r,2) * EdgeIonFlux;
-            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-giveVoltage()) * fusor->a));
+            term2 *= f(fusor->a)* ( 1 - exp( ngas * CrosssecCX(-fusor->V0) * fusor->a));
         }
 
         flux = pow(giveTransparency(),2) * (term1 + term2);

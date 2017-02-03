@@ -14,7 +14,6 @@
 
 void init(void);
 void initBool(void);
-double giveVoltage(void);
 double giveTransparency(void);
 double giveq(void);
 double giveTgas(void);

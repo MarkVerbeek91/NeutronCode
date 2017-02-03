@@ -43,14 +43,14 @@ void output_data(void)
         printf("# SIIEE calculation\n");
 
         funcPtr = &SIIEE;
-        GNUplot_function_1D(*funcPtr, 1.0, -giveVoltage(), 1, "GNUplot\\GNU_SIIEE.txt");
+        GNUplot_function_1D(*funcPtr, 1.0, -fusor->V0, 1, "GNUplot\\GNU_SIIEE.txt");
     }
     if ( printbool2->SIIEE )
     {
         printf("# SIIEE calculation\n");
 
         funcPtr = &SIIEE;
-        plot_function_1D(*funcPtr, 1.0, -giveVoltage(), 1, "output_files\\SIIEE.csv", "GNUplot\\GNU_SIIEE.txt");
+        plot_function_1D(*funcPtr, 1.0, -fusor->V0, 1, "output_files\\SIIEE.csv", "GNUplot\\GNU_SIIEE.txt");
     }
 
     // writing the Cross sections for Charge Exchange, Iononisation and the sum
@@ -160,8 +160,8 @@ void output_data(void)
 
 //        double r = 0.06;
 
-//        print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,"IonSpectrumInwards.GNUfile");
-//        print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,"IonSpectrumOutwards.GNUfile");
+//        print_data_ddd(*IonSpectrumInwardsPtr , 10, -fusor->V0,10,r,"IonSpectrumInwards.GNUfile");
+//        print_data_ddd(*IonSpectrumOutwardsPtr, 10, -fusor->V0,10,r,"IonSpectrumOutwards.GNUfile");
 
 //        int j = 6;
 
@@ -174,8 +174,8 @@ void output_data(void)
             char filename2[100];
             sprintf( filename2, "IonSpectrumOutwards%d.GNUfile", j);
 
-            //print_data_ddd(*IonSpectrumInwardsPtr , 10, -giveVoltage(),10,r,filename1, 5);
-            //print_data_ddd(*IonSpectrumOutwardsPtr, 10, -giveVoltage(),10,r,filename2, 5);
+            //print_data_ddd(*IonSpectrumInwardsPtr , 10, -fusor->V0,10,r,filename1, 5);
+            //print_data_ddd(*IonSpectrumOutwardsPtr, 10, -fusor->V0,10,r,filename2, 5);
 
             j++;
         }

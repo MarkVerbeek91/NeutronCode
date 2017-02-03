@@ -33,7 +33,7 @@ double I_c1(void)
 	// C * m^2
     current  = 4 * 3.141529 * Q_ELECTRON * (1.0 - giveTransparency()) * pow(fusor->b,2);
     current *= f(fusor->a) + (giveTransparency() * pow(f(0.0),2))/f(fusor->a);
-    current *= 1 + SIIEE(-giveVoltage());
+    current *= 1 + SIIEE(-fusor->V0);
 
     return current;
 }
