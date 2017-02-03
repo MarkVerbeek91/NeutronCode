@@ -22,6 +22,7 @@
 //#include <io.h>
 #include <string.h>
 #include <ctype.h>
+#include <getopt.h>
 
 #include "includes.h"
 
@@ -38,10 +39,10 @@ int main( int argc, char **argv )
 
 	// open input file, default or supplied by user.
 	FILE * input;
-    int opt;
+    char opt;
 	char *cvalue = NULL;
 
-/*
+
 	if( argc >= 2 )
 	{
 		fprintf(stdout,"# Analising give arguments\n");
@@ -51,8 +52,9 @@ int main( int argc, char **argv )
 			switch (opt)
 			{
 				case 'f': 		// get file
-					cvalue = opt;
-					input = fopen(cvalue,"r");
+				//	cvalue = opt;
+
+					input = fopen(&opt,"r");
 					if ( input == NULL)
 					{
 						fprintf(stderr,"input file not found, stopping code");
@@ -67,7 +69,7 @@ int main( int argc, char **argv )
 					break;
 
 				case 'p':		// parameter
-					arg_parameter_check(opt);
+					arg_parameter_check(&opt);
 
 					break;
 				case '?':		// error case
@@ -85,7 +87,7 @@ int main( int argc, char **argv )
 		}
 	}
 	else
-	{ */
+	{
 		printf("# Using default input file: input.ini\n");
 		input = fopen("input.ini","r");
 		if (input != NULL)
@@ -98,8 +100,7 @@ int main( int argc, char **argv )
 			printf ("No default input file found, aborting\n");
 			return 0;
 		}
-
-//	}
+	}
 
     fprintf(stdout,"# -------------------------------------------------------------------------- #\n");
     fprintf(stdout,"# ---------------------------- Start of program ---------------------------- #\n");

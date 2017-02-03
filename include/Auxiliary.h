@@ -12,6 +12,7 @@ void plot_table_1D(double *table, const char name[], const char input_file_name[
 void GNUplot_table_1D(double *table, const char name[]);
 void plot_table_2D(double (*table)[N_TABLE], const char name[], const char input_file_name[]);
 void GNUplot_table_2D(double (*table)[N_TABLE], const char name[]);
+void arg_parameter_check(char *cvalue);
 void print_table(int choice, char name[]);
 void readfile(FILE * input, char* name);
 bool readline_ini_file_bools(FILE* input);
